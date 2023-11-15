@@ -3,6 +3,7 @@ import React, { useState, useContext } from "react";
 import { BiCategory } from "react-icons/bi";
 import DesktopSidebar from "./DesktopSidebar";
 import clsx from "clsx";
+import { SearchContext } from "@/context/GlobalProvider";
 
 const MobileSidebar = () => {
   const GlobalContext = useContext(SearchContext);
