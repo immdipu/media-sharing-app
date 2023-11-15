@@ -32,7 +32,7 @@ const index: React.FC<Props> = ({
     <Dialog modal>
       <DialogOverlay className="bg-neutral-700 bg-opacity-10 " />
       <DialogTrigger asChild>{button}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-neutral-700">
+      <DialogContent className="sm:max-w-[425px] bg-neutral-700 border-neutral-500">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>

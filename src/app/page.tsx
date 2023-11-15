@@ -15,7 +15,6 @@ export default function Home() {
       <section className="">
         <section className="px-20 mt-7 flex gap-2">
           <Dialog button={<CreateRoom />} data={<CreateRoomData />} />
-
           <Input
             className="bg-neutral-700 border-neutral-500 placeholder:text-neutral-400 text-neutral-100"
             placeholder="Search room, people or tags"
