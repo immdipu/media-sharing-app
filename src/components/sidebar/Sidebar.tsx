@@ -9,7 +9,7 @@ const Sidebar = () => {
 
   return path === "/chat" ? null : (
     <div className="">
-      <div className="max-md:hidden">
+      <div className="max-md:hidden ">
         <DesktopSidebar />
       </div>
       <MobileSidebar />

@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Sidebar />
-          <section className="pl-56 max-md:pl-0">{children}</section>
+          <section className="pl-56 max-md:pl-0 ">{children}</section>
         </Providers>
       </body>
     </html>
