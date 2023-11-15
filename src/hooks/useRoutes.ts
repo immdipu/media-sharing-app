@@ -1,24 +1,21 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 import React, { useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { MdExplore } from "react-icons/md";
-import { RiMovie2Line } from "react-icons/ri";
-import { BiHelpCircle, BiMessageSquareDots } from "react-icons/bi";
-import { SiAirplayvideo } from "react-icons/si";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { BiMessageSquareDots } from "react-icons/bi";
+
 import { BsPersonCircle } from "react-icons/bs";
 import { useAppSelector } from "./reduxHooks";
 
 const useRoutes = () => {
   const pathname = usePathname();
   const user = useAppSelector((state) => state.auth);
-
   const routes = useMemo(
     () => [
       {
-        lable: "Home",
-        path: "/",
-        Icon: MdExplore,
+        label: "Home",
+        href: "/",
+        icon: MdExplore,
         active: pathname === "/",
       },
       {
@@ -34,7 +31,8 @@ const useRoutes = () => {
         active: pathname === `/profile/${user?.username}`,
       },
     ],
-    [pathname, user.isUserAuthenticated, user.username]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [pathname, user.isUserAuthenticated]
   );
 
   return routes;
