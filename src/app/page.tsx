@@ -1,5 +1,7 @@
-import Image from "next/image";
-
 export default function Home() {
-  return <section>this is home page</section>;
+  return (
+    <section className=" w-full min-h-screen bg-neutral-600">
+      <section className="">hello</section>
+    </section>
+  );
 }
