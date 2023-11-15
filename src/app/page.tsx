@@ -22,7 +22,11 @@ export default function Home() {
           <h3 className="text-neutral-50 text-lg font-bold mt-10 px-20">
             Your rooms
           </h3>
-          <section className="px-20 mt-7 flex gap-2">
+          <section className="px-20 mt-7 flex-col gap-10 flex ">
+            <Room />
+            <Room />
+            <Room />
+            <Room />
             <Room />
           </section>
         </section>

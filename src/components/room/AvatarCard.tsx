@@ -10,7 +10,7 @@ import {
 
 const AvatarCard = () => {
   return (
-    <div className="border border-white  flex flex-col items-center w-32">
+    <div className="   flex flex-col items-center w-32">
       <Avatar className="w-24 h-24">
         <AvatarImage src="https://lh3.googleusercontent.com/a/AAcHTtemBCO2OhcBqzCqMAYD8lPrguhdxVd4Ff4_vE7mKn_BEEs=s1000-c" />
         <AvatarFallback>CN</AvatarFallback>
