@@ -5,8 +5,8 @@ import Chat from "@/components/chat";
 const index = () => {
   return (
     <div className="w-96 shrink-0 bg-neutral-700 ">
-      <Tabs defaultValue="chat" className="w-auto ">
-        <TabsList className="w-full bg-neutral-600 sticky top-0 z-10">
+      <Tabs defaultValue="chat" className="w-auto">
+        <TabsList className="w-full bg-neutral-600 sticky top-0 z-10 ">
           <TabsTrigger value="chat" className="w-full text-neutral-200">
             chat
           </TabsTrigger>
@@ -21,7 +21,7 @@ const index = () => {
             settings
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="chat" className="h-full ">
+        <TabsContent value="chat" className="h-[calc(100vh-56px)]   ">
           <Chat />
         </TabsContent>
         <TabsContent value="users">Change your password here.</TabsContent>
