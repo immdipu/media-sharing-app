@@ -34,7 +34,9 @@ const index: React.FC<Props> = ({
       <DialogTrigger asChild>{button}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-neutral-700 border-neutral-500">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle className="text-neutral-50 font-medium tracking-wide">
+            {title}
+          </DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">{data}</div>
