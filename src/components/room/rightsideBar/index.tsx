@@ -6,7 +6,7 @@ const index = () => {
   return (
     <div className="w-96 shrink-0 bg-neutral-700 ">
       <Tabs defaultValue="chat" className="w-auto ">
-        <TabsList className="w-full bg-neutral-600">
+        <TabsList className="w-full bg-neutral-600 sticky top-0 z-10">
           <TabsTrigger value="chat" className="w-full text-neutral-200">
             chat
           </TabsTrigger>

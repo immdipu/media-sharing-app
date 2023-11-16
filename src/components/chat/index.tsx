@@ -8,6 +8,9 @@ const index = () => {
       <SingleMessage />
       <SingleMessage />
       <SingleMessage />
+      <SingleMessage />
+
+      <SingleMessage />
     </div>
   );
 };
