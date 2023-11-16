@@ -1,6 +1,6 @@
 import React from "react";
-import SingleMessage from "@/components/chat/Message/SingleMessage";
-import MessageInput from "./Message/MessageInput";
+import SingleMessage from "@/components/Message/SingleMessage";
+import MessageInput from "../../../Message/MessageInput";
 
 const index = () => {
   return (

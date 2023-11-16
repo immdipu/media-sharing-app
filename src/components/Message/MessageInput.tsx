@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import MessageSend from "@/components/Icons/MessageSend";
 import data, { Emoji } from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
+import MessageSendButon from "../Buttons/MessageSendButon";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 
 const MessageInput = () => {
@@ -32,9 +32,7 @@ const MessageInput = () => {
           </div>
         )}
       </div>
-      <button className="rounded-md bg-neutral-800 active:scale-95">
-        <MessageSend height={"50px"} width={"50px"} color="#d7d7d7" />
-      </button>
+      <MessageSendButon />
     </div>
   );
 };
