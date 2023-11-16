@@ -4,11 +4,11 @@ import MessageInput from "./Message/MessageInput";
 
 const index = () => {
   return (
-    <div className="flex flex-col justify-end h-full">
-      <section className="overflow-y-auto h-full ">
+    <div className="flex h-full flex-col justify-end pb-1">
+      <section className="MessageContainer h-full overflow-y-auto ">
         <SingleMessage />
         <SingleMessage />
-        -
+
         <SingleMessage />
         <SingleMessage />
         <SingleMessage />
@@ -16,7 +16,7 @@ const index = () => {
         <SingleMessage />
         <SingleMessage />
       </section>
-      <section className="h-24 ">
+      <section className="h-14   ">
         <MessageInput />
       </section>
     </div>

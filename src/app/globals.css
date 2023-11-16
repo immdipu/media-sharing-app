@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.MessageContainer::-webkit-scrollbar {
+    width: 0.3rem;
+}
+
+.MessageContainer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+.MessageContainer::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+
+.messageInput::-webkit-scrollbar {
+    width: 0.1rem;
+}
