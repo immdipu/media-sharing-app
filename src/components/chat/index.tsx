@@ -1,12 +1,12 @@
 import React from "react";
-
-const SingleMessage = () => {
-  return <div>message</div>;
-};
+import SingleMessage from "@/components/chat/SingleMessage";
 
 const index = () => {
   return (
-    <div>
+    <div className="">
+      <SingleMessage />
+      <SingleMessage />
+      <SingleMessage />
       <SingleMessage />
     </div>
   );

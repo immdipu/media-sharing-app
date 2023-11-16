@@ -21,7 +21,7 @@ const index = () => {
             settings
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="chat">
+        <TabsContent value="chat" className="h-full ">
           <Chat />
         </TabsContent>
         <TabsContent value="users">Change your password here.</TabsContent>
