@@ -1,5 +1,21 @@
 @tailwind base;
 @tailwind components;
+
+.DarkTheme {
+    --Main-background-color: "#171616";
+    --Header-primary-text-color: "#ffffff";
+    --Header-secondary-text-color: "#e5e5e5";
+    --Paragraph-text-color: "#e0e0e0";
+    --button-text-color: "#262626";
+    --button-background-color: "#f1f5f9";
+
+
+}
+
+
+
+
+
 @tailwind utilities;
 
 
