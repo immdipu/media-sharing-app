@@ -10,7 +10,7 @@ const MessageInput = () => {
   const [showEmoji, setShowEmoji] = useState(false);
   return (
     <div className="flex gap-px px-2">
-      <div className="relative flex w-full items-center rounded-md border border-neutral-600 bg-neutral-800 pr-3 transition-colors duration-150 ease-linear focus-within:border-neutral-300">
+      <div className="border-secondary-color relative flex w-full items-center rounded-md border bg-neutral-800 pr-3 transition-colors duration-150 ease-linear focus-within:border-neutral-300">
         <Textarea
           className=" messageInput  resize-none   bg-transparent text-neutral-200 outline-none  placeholder:text-neutral-400  focus:outline-none "
           placeholder="Write your message"

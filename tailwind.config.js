@@ -21,9 +21,11 @@ module.exports = {
         "Input-background": "var(--Input-background-color)",
         "Overlay-background": "var(--overlay-background-color)",
         "button-background": "var(--button-background-color)",
+        "secondary-hover": "var(--secondary-hover-background-color)",
       },
       borderColor: {
         "primary-color": "var(--border-color)",
+        "secondary-color": "var(--border-color-2)",
       },
 
       keyframes: {

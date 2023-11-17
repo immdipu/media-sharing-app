@@ -4,6 +4,7 @@
 [data-theme="darkTheme"] {
     --Main-background-color: #171616;
     --Secondary-background-color: #404040;
+    --secondary-hover-background-color: #2e2e2e;
     --Input-background-color: #2f2f2f;
     --overlay-background-color: #40404012;
     --Header-primary-text-color: #ffffff;
@@ -12,6 +13,7 @@
     --button-text-color: #262626;
     --button-background-color: #f1f5f9;
     --border-color: #a3a3a3;
+    --border-color-2: #646464;
 
 
 }
