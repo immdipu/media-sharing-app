@@ -1,3 +1,4 @@
+"use client";
 import AvatarCard from "./AvatarCard";
 import React from "react";
 import TitleLogo from "./TitleLogo";
@@ -5,8 +6,8 @@ import { Button } from "../ui/button";
 
 const index = () => {
   return (
-    <div className="border w-full flex flex-col  border-neutral-500 rounded-xl px-5 py-2 bg-neutral-700">
-      <h4 className="font-medium flex items-center gap-2 text-neutral-50 mb-3">
+    <div className="flex w-full flex-col rounded-xl  border border-neutral-500 bg-neutral-700 px-5 py-2">
+      <h4 className="mb-3 flex items-center gap-2 font-medium text-neutral-50">
         <TitleLogo color="#ffffff" opacity={0.2} /> Music video room
       </h4>
       <section className="flex gap-1 overflow-hidden">
@@ -18,7 +19,7 @@ const index = () => {
         <AvatarCard />
       </section>
       <section className="my-3">
-        <Button variant={"secondary"} className="text-lg w-full mt-3">
+        <Button variant={"secondary"} className="mt-3 w-full text-lg">
           Join
         </Button>
       </section>

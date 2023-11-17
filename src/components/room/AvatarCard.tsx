@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -7,19 +8,26 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useTheme } from "next-themes";
 
 const AvatarCard = () => {
+  const { theme, setTheme } = useTheme();
   return (
-    <div className="   flex flex-col items-center w-32">
-      <Avatar className="w-24 h-24">
+    <div className="   flex w-32 flex-col items-center">
+      <Avatar className="h-24 w-24">
         <AvatarImage src="https://lh3.googleusercontent.com/a/AAcHTtemBCO2OhcBqzCqMAYD8lPrguhdxVd4Ff4_vE7mKn_BEEs=s1000-c" />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
 
       <Tooltip delayDuration={400}>
-        <TooltipTrigger className="text-sm text-neutral-200 px-3 font-light w-32 whitespace-nowrap overflow-hidden overflow-ellipsis">
+        <TooltipTrigger
+          onClick={() => {
+            setTheme("darkTheme");
+          }}
+          className="w-32 overflow-hidden overflow-ellipsis whitespace-nowrap px-3 text-sm font-light text-neutral-200"
+        >
           {" "}
-          Dipu chaurasiya dfa ldjf olhdf odjf{" "}
+          {theme}
         </TooltipTrigger>
         <TooltipContent>
           <p>Dipu chaurasiya</p>

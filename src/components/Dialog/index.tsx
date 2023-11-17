@@ -30,11 +30,11 @@ const index: React.FC<Props> = ({
 }) => {
   return (
     <Dialog modal>
-      <DialogOverlay className="bg-neutral-700 bg-opacity-10 " />
+      <DialogOverlay className="bg-Overlay-background " />
       <DialogTrigger asChild>{button}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-neutral-700 border-neutral-500">
+      <DialogContent className="bg-Secondary-background border-primary-color border sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-neutral-50 font-medium tracking-wide">
+          <DialogTitle className="text-Header-primary font-medium tracking-wide">
             {title}
           </DialogTitle>
           <DialogDescription>{description}</DialogDescription>

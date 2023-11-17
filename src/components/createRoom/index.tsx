@@ -5,31 +5,28 @@ import { Button } from "../ui/button";
 
 const index = () => {
   return (
-    <div>
+    <div className="">
       <form action="">
         <div>
-          <Label className="text-neutral-200 font-normal">Room name</Label>
+          <Label className="font-normal text-neutral-200">Room name</Label>
           <Input
             placeholder="Enter room name"
-            className="bg-neutral-700 mt-1 placeholder:text-neutral-400"
+            className="bg-Input-background border-primary-color mt-1 placeholder:text-neutral-400"
           />
         </div>
 
         <div className="mt-3">
-          <Label className="text-neutral-200 font-normal">
+          <Label className="font-normal text-neutral-200">
             Maximum members{" "}
           </Label>
           <Input
             placeholder="Enter maximum members"
             type="number"
             min={0}
-            className="bg-neutral-700 mt-1 placeholder:text-neutral-400"
+            className="bg-Input-background mt-1 placeholder:text-neutral-400"
           />
         </div>
-        <Button
-          variant={"outline"}
-          className="mt-8 w-full active:scale-95 duration-75 ease-linear transition-transform"
-        >
+        <Button className="bg-button-background text-button-primary mt-8 w-full transition-transform duration-75 ease-linear hover:opacity-80 active:scale-95">
           Create
         </Button>
       </form>

@@ -7,6 +7,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { usePathname } from "next/navigation";
 import { SocketProvider } from "./SocketProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import ThemeProvider from "./ThemeProvider";
 
 interface SearchContextProps {
   searchTerm: string;
@@ -16,7 +17,7 @@ interface SearchContextProps {
 }
 
 export const SearchContext = createContext<SearchContextProps | undefined>(
-  undefined
+  undefined,
 );
 
 const queryClient = new QueryClient();
@@ -40,7 +41,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
         <QueryClientProvider client={queryClient}>
           <SearchContext.Provider value={searchContextValue}>
             <GoogleOAuthProvider clientId="999403015017-rodh8011hs8r1l0tjlakeidj4vnu1u53.apps.googleusercontent.com">
-              <TooltipProvider>{children}</TooltipProvider>
+              <ThemeProvider>
+                <TooltipProvider>{children}</TooltipProvider>
+              </ThemeProvider>
             </GoogleOAuthProvider>
           </SearchContext.Provider>
         </QueryClientProvider>

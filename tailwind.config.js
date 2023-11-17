@@ -1,21 +1,31 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
+  darkMode: false,
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
+      textColor: {
+        "Header-primary": "var(--Header-primary-text-color)",
+        "Header-secondary": "var(--Header-secondary-text-color)",
+        "Paragraph-primary": "var(--Paragraph-text-color)",
+        "button-primary": "var(--button-text-color)",
+      },
+      backgroundColor: {
+        "Main-background": "var(--Main-background-color)",
+        "Secondary-background": "var(--Secondary-background-color)",
+        "Input-background": "var(--Input-background-color)",
+        "Overlay-background": "var(--overlay-background-color)",
+        "button-background": "var(--button-background-color)",
+      },
+      borderColor: {
+        "primary-color": "var(--border-color)",
+      },
+
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
@@ -33,4 +43,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
