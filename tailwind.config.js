@@ -14,6 +14,7 @@ module.exports = {
         "Header-secondary": "var(--Header-secondary-text-color)",
         "Paragraph-primary": "var(--Paragraph-text-color)",
         "button-primary": "var(--button-text-color)",
+        "paragraph-secondary": "var(--paragraph-secondary-text-color)",
       },
       backgroundColor: {
         "Main-background": "var(--Main-background-color)",
