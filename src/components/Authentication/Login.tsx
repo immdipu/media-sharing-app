@@ -9,10 +9,14 @@ import { useMutation } from "@tanstack/react-query";
 import { userApis } from "@/Apis/APIs";
 import { Oval } from "react-loader-spinner";
 import { useToast } from "../ui/use-toast";
+import { GoogleLogin } from "@react-oauth/google";
+import { useAppDispatch } from "@/hooks/reduxHooks";
+import { LoggedIn } from "@/redux/slice/authSlice";
 
 const Login = ({ setAuth }: { setAuth: any }) => {
   const [email, setEmail] = React.useState("");
   const { toast } = useToast();
+  const dispatch = useAppDispatch();
 
   const { mutate, isLoading } = useMutation(
     (email: string) => userApis.LogIn(email),
@@ -41,6 +45,23 @@ const Login = ({ setAuth }: { setAuth: any }) => {
     mutate(email);
   };
 
+  const googleLogin = useMutation(
+    (data: string) => userApis.GoogleLogin(data),
+    {
+      onSuccess: (data) => {
+        dispatch(LoggedIn(data));
+      },
+      onError: (data: any) => {
+        const msg: string = data?.response?.data;
+        if (msg) {
+          console.log(msg);
+        } else {
+          console.log("something went wrong");
+        }
+      },
+    },
+  );
+
   return (
     <Card className=" border-none bg-Secondary-background  px-12 py-7  ">
       <CardHeader className="px-1">
@@ -48,7 +69,13 @@ const Login = ({ setAuth }: { setAuth: any }) => {
       </CardHeader>
       <div className="grid grid-cols-2 gap-6">
         <Button variant="outline">Github</Button>
-        <Button variant="outline">Google</Button>
+        <GoogleLogin
+          onSuccess={(credentialResponse) => {
+            if (credentialResponse.credential) {
+              googleLogin.mutate(credentialResponse.credential);
+            }
+          }}
+        />
       </div>
       <br />
       <br />
