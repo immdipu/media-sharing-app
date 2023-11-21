@@ -67,8 +67,7 @@ const Login = ({ setAuth }: { setAuth: any }) => {
       <CardHeader className="px-1">
         <CardTitle className="mx-0 px-0 text-neutral-100">Sign In</CardTitle>
       </CardHeader>
-      <div className="grid grid-cols-2 gap-6">
-        <Button variant="outline">Github</Button>
+      <div className=" mt-5 flex items-center justify-center">
         <GoogleLogin
           onSuccess={(credentialResponse) => {
             if (credentialResponse.credential) {
