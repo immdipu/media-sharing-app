@@ -8,6 +8,8 @@ import { usePathname } from "next/navigation";
 import { SocketProvider } from "./SocketProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ThemeProvider from "./ThemeProvider";
+import AuthProvider from "./AuthProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 interface SearchContextProps {
   searchTerm: string;
@@ -42,7 +44,10 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
           <SearchContext.Provider value={searchContextValue}>
             <GoogleOAuthProvider clientId="999403015017-rodh8011hs8r1l0tjlakeidj4vnu1u53.apps.googleusercontent.com">
               <ThemeProvider>
-                <TooltipProvider>{children}</TooltipProvider>
+                <TooltipProvider>
+                  <AuthProvider>{children}</AuthProvider>
+                  <Toaster />
+                </TooltipProvider>
               </ThemeProvider>
             </GoogleOAuthProvider>
           </SearchContext.Provider>

@@ -14,6 +14,8 @@ export interface loginResponseTypes {
   profilePic: string;
   token?: string;
   role: Role;
+  email: string;
+  verified: boolean;
 }
 
 export interface AddMediaDataTypes {

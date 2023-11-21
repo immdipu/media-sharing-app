@@ -10,6 +10,7 @@ interface initialStateProps {
   id: string | null;
   profilePic: string | null;
   role: Role;
+  vefified: boolean;
 }
 
 const initialState: initialStateProps = {
@@ -20,6 +21,7 @@ const initialState: initialStateProps = {
   id: null,
   profilePic: null,
   role: Role.User,
+  vefified: false,
 };
 
 export const authSlice = createSlice({
@@ -32,11 +34,13 @@ export const authSlice = createSlice({
       state.profilePic = action.payload.profilePic;
       state.username = action.payload.username;
       state.id = action.payload._id;
+      state.vefified = action.payload.verified;
       if (action.payload.role) state.role = action.payload.role;
       if (action.payload.token) {
         localStorage.setItem("token", action.payload.token);
       }
     },
+
     LoggedOut: (state) => {
       state.fullName = null;
       state.id = null;
