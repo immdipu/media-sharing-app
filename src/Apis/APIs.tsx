@@ -23,7 +23,12 @@ export const userApis = {
     return res.data;
   },
   AutoLogin: async () => {
-    const res = await axiosInstance().get("/user/login");
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/user/autologin`,
+      {
+        token: localStorage.getItem("token"),
+      },
+    );
     return res.data;
   },
   LogIn: async (email: string) => {

@@ -3,14 +3,23 @@ import { Input } from "@/components/ui/input";
 import Room from "@/components/room";
 import Dialog from "@/components/Dialog";
 import CreateRoomData from "@/components/createRoom";
+import Avatar from "@/components/Avatar/Avatar";
 
 export default function Home() {
   return (
-    <section className="bg-Main-background min-h-screen w-full">
+    <section className="min-h-screen w-full bg-Main-background">
       <br />
-      <h3 className="text-Header-primary h-fit  text-center text-xl font-bold">
-        Welcome to MediaSharing
-      </h3>
+
+      <div className="flex justify-end ">
+        <div className="w-full  " />
+
+        <h3 className="h-fit w-full text-center  text-xl font-bold text-Header-primary">
+          Welcome to MediaSharing
+        </h3>
+        <div className="flex w-full justify-end  pr-24">
+          <Avatar />
+        </div>
+      </div>
 
       <section className="">
         <section className="mt-7 flex gap-2 px-20">
@@ -36,6 +45,7 @@ export default function Home() {
             <Room />
           </section>
         </section>
+        Avatar
       </section>
     </section>
   );

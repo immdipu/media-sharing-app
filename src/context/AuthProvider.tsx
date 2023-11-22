@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useRef, useContext, useEffect, useState } from "react";
 import { useAppSelector } from "@/hooks/reduxHooks";
@@ -15,19 +16,31 @@ import {
 } from "@/components/ui/dialog";
 import LoginCard from "@/components/Authentication/Login";
 import Verification from "@/components/Authentication/Verification";
+import { useMutation } from "@tanstack/react-query";
+import { userApis } from "@/Apis/APIs";
+import { useAppDispatch } from "@/hooks/reduxHooks";
+import { LoggedIn } from "@/redux/slice/authSlice";
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const user = useAppSelector((state) => state.auth);
   const [showModal, setShowModal] = React.useState(false);
+  const dispatch = useAppDispatch();
   const [Auth, setAuth] = useState<"login" | "verify code">("login");
+
+  const AutoLogin = useMutation(() => userApis.AutoLogin(), {
+    onSuccess: (data) => {
+      dispatch(LoggedIn(data));
+    },
+    onError: (error) => {
+      console.log("Auto login failed", error);
+      setShowModal(true);
+    },
+  });
 
   useEffect(() => {
     let token = localStorage.getItem("token");
-    if (token) {
-      const decode = jwtDecode(token);
-      setShowModal(false);
-    } else {
-      setShowModal(true);
+    if (token && !user.isUserAuthenticated && !showModal) {
+      AutoLogin.mutate();
     }
   }, [user.isUserAuthenticated]);
 
