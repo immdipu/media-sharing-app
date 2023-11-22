@@ -25,6 +25,8 @@ const Avatar = () => {
   const user = useAppSelector((state) => state.auth);
   const dispatch = useDispatch();
 
+  console.log(user);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -39,7 +41,9 @@ const Avatar = () => {
             {user.profilePic && (
               <AvatarImage src={user.profilePic} alt="@shadcn" />
             )}
-            <AvatarFallback>{user.fullName?.slice(0, 2)}</AvatarFallback>
+            <AvatarFallback className="uppercase text-Header-primary">
+              {user.fullName?.slice(0, 2)}
+            </AvatarFallback>
           </AvatarContainer>
         </div>
       </DropdownMenuTrigger>
