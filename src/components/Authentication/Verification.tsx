@@ -1,4 +1,9 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { Card, CardHeader, CardTitle, CardDescription } from "../ui/card";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -9,7 +14,13 @@ import { useToast } from "../ui/use-toast";
 import { LoggedIn } from "@/redux/slice/authSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 
-const Verification = ({ setAuth }: { setAuth: any }) => {
+const Verification = ({
+  setAuth,
+  setShowModal,
+}: {
+  setAuth: any;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+}) => {
   const [seconds, setSeconds] = React.useState(30);
   const [code, setCode] = React.useState("");
   const { toast } = useToast();
@@ -37,6 +48,7 @@ const Verification = ({ setAuth }: { setAuth: any }) => {
     {
       onSuccess: (data) => {
         dispatch(LoggedIn(data));
+        setShowModal(false);
       },
       onError: (error: any) => {
         toast({

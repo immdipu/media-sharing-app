@@ -42,6 +42,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (token && !user.isUserAuthenticated && !showModal) {
       AutoLogin.mutate();
     }
+    if (!token) {
+      setShowModal(true);
+    }
   }, [user.isUserAuthenticated]);
 
   return (
@@ -51,9 +54,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           <DialogOverlay className="bg-Overlay-background " />
           <DialogContent className="border border-primary-color bg-Secondary-background p-0 sm:max-w-[425px]">
             {Auth === "login" ? (
-              <LoginCard setAuth={setAuth} />
+              <LoginCard setAuth={setAuth} setShowModal={setShowModal} />
             ) : Auth === "verify code" ? (
-              <Verification setAuth={setAuth} />
+              <Verification setAuth={setAuth} setShowModal={setShowModal} />
             ) : null}
           </DialogContent>
         </Dialog>

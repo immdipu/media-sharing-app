@@ -1,5 +1,5 @@
 "use client";
-import React, { SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Card, CardHeader, CardTitle, CardDescription } from "../ui/card";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -13,7 +13,13 @@ import { GoogleLogin } from "@react-oauth/google";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import { LoggedIn } from "@/redux/slice/authSlice";
 
-const Login = ({ setAuth }: { setAuth: any }) => {
+const Login = ({
+  setAuth,
+  setShowModal,
+}: {
+  setAuth: any;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+}) => {
   const [email, setEmail] = React.useState("");
   const { toast } = useToast();
   const dispatch = useAppDispatch();
@@ -50,6 +56,7 @@ const Login = ({ setAuth }: { setAuth: any }) => {
     {
       onSuccess: (data) => {
         dispatch(LoggedIn(data));
+        setShowModal(false);
       },
       onError: (data: any) => {
         const msg: string = data?.response?.data;
@@ -105,6 +112,7 @@ const Login = ({ setAuth }: { setAuth: any }) => {
       </div>
       <Button
         type="submit"
+        disabled={isLoading}
         onClick={handleSubmit}
         variant="outline"
         className="mt-10 w-full text-base transition-transform duration-75 ease-linear active:scale-95 "
