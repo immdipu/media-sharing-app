@@ -8,29 +8,33 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useTheme } from "next-themes";
 
-const AvatarCard = () => {
-  const { theme, setTheme } = useTheme();
+import { membersTypes } from "@/types/room";
+
+const AvatarCard: React.FC<membersTypes> = ({
+  _id,
+  followers,
+  following,
+  fullName,
+  profilePic,
+  role,
+  username,
+  verified,
+}) => {
   return (
     <div className="   flex w-32 flex-col items-center">
       <Avatar className="h-24 w-24">
-        <AvatarImage src="https://lh3.googleusercontent.com/a/AAcHTtemBCO2OhcBqzCqMAYD8lPrguhdxVd4Ff4_vE7mKn_BEEs=s1000-c" />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarImage src={profilePic} />
+        <AvatarFallback>{fullName?.slice(0, 2)}</AvatarFallback>
       </Avatar>
 
       <Tooltip delayDuration={400}>
-        <TooltipTrigger
-          onClick={() => {
-            setTheme("darkTheme");
-          }}
-          className="w-32 overflow-hidden overflow-ellipsis whitespace-nowrap px-3 text-sm font-light text-neutral-200"
-        >
+        <TooltipTrigger className="w-32 overflow-hidden overflow-ellipsis whitespace-nowrap px-3 text-sm font-light text-neutral-200">
           {" "}
-          {theme}
+          {fullName}
         </TooltipTrigger>
         <TooltipContent>
-          <p>Dipu chaurasiya</p>
+          <p>{fullName}</p>
         </TooltipContent>
       </Tooltip>
     </div>

@@ -2,8 +2,9 @@
 import React, { createContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-
+import { AddNewRoom } from "@/redux/slice/roomSlice";
 import { usePathname } from "next/navigation";
+import { RoomTypes } from "@/types/room";
 
 interface SocketContextProps {
   socket: Socket | null;
@@ -25,8 +26,8 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const user = useAppSelector((state) => state.auth);
   const [socket, setSocket] = useState<Socket | null>(null);
   const pathanme = usePathname();
-  const [isOnline, setIsOnline] = useState(false);
   const dispatch = useAppDispatch();
+  const [isOnline, setIsOnline] = useState(false);
 
   useEffect(() => {
     if (!user.isUserAuthenticated) return;
@@ -47,6 +48,11 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
     newSocket.on("connect_error", (err) => {
       console.log(err.message); //
+    });
+
+    newSocket.on("room-created", (data: RoomTypes) => {
+      console.log("room-created", data);
+      dispatch(AddNewRoom(data));
     });
 
     // Set the socket instance in state

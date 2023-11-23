@@ -4,6 +4,7 @@ import Room from "@/components/room";
 import Dialog from "@/components/Dialog";
 import CreateRoomData from "@/components/createRoom";
 import Avatar from "@/components/Avatar/Avatar";
+import RoomCard from "@/components/room/RoomCard";
 
 export default function Home() {
   return (
@@ -37,15 +38,8 @@ export default function Home() {
           <h3 className="mt-10 px-20 text-lg font-bold text-neutral-50">
             Your rooms
           </h3>
-          <section className="mt-7 flex flex-col gap-10 px-20 ">
-            <Room />
-            <Room />
-            <Room />
-            <Room />
-            <Room />
-          </section>
+          <RoomCard />
         </section>
-        Avatar
       </section>
     </section>
   );
