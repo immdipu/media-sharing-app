@@ -4,8 +4,9 @@ import React from "react";
 import TitleLogo from "./TitleLogo";
 import { Button } from "../ui/button";
 import { RoomTypes } from "@/types/room";
+import { useRouter } from "next/navigation";
 
-const index: React.FC<RoomTypes> = ({
+const Room: React.FC<RoomTypes> = ({
   admin,
   bannedUsers,
   createdAt,
@@ -15,6 +16,12 @@ const index: React.FC<RoomTypes> = ({
   moderators,
   name,
 }) => {
+  const router = useRouter();
+
+  const handleJoinRoom = () => {
+    router.push(`/room/${id}`);
+  };
+
   return (
     <div className="flex w-full flex-col rounded-xl  border border-neutral-500 bg-neutral-700 px-5 py-2">
       <h4 className="mb-3 flex items-center gap-2 font-medium text-neutral-50">
@@ -28,7 +35,11 @@ const index: React.FC<RoomTypes> = ({
           ))}
       </section>
       <section className="my-3">
-        <Button variant={"secondary"} className="mt-3 w-full text-lg">
+        <Button
+          variant={"secondary"}
+          onClick={handleJoinRoom}
+          className="mt-3 w-full text-lg"
+        >
           Join
         </Button>
       </section>
@@ -36,4 +47,4 @@ const index: React.FC<RoomTypes> = ({
   );
 };
 
-export default index;
+export default Room;

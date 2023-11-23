@@ -2,6 +2,7 @@
 import React from "react";
 import Room from "@/components/room";
 import { useAppSelector } from "@/hooks/reduxHooks";
+import { useQuery } from "@tanstack/react-query";
 
 const RoomCard = () => {
   const rooms = useAppSelector((state) => state.room.Room);
