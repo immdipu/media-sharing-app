@@ -25,8 +25,6 @@ const Avatar = () => {
   const user = useAppSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  console.log(user);
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger

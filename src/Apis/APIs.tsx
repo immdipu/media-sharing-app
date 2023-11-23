@@ -11,6 +11,7 @@ import {
   userList,
   loginResponseTypes,
 } from "@/types/userTypes";
+import { RoomTypes } from "@/types/room";
 
 export const userApis = {
   GoogleLogin: async (token: string) => {
@@ -61,74 +62,10 @@ export const userApis = {
     );
     return res.data;
   },
-  AddMedia: async (data: AddMediaDataTypes) => {
-    const res = await axiosInstance().post(
-      `${process.env.NEXT_PUBLIC_USER_URL}/media/addmedia`,
-      data,
-    );
-    return res.data;
-  },
 
-  AddMediaToHistory: async (data: AddMediaDataTypes) => {
-    const res = await axiosInstance().post(
-      `${process.env.NEXT_PUBLIC_USER_URL}/media/history`,
-      data,
-    );
-    return res.data;
-  },
-  GetAllMedia: async () => {
-    const res = await axiosInstance().get(
-      `${process.env.NEXT_PUBLIC_USER_URL}/media`,
-    );
-    return res.data;
-  },
-  RemoveMedia: async (id: string) => {
-    const res = await axiosInstance().delete(
-      `${process.env.NEXT_PUBLIC_USER_URL}/media/${id}`,
-    );
-    return res.data;
-  },
-
-  SendFeeback: async (data: feedbackDataTypes) => {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_USER_URL}/media/feedback`,
-      data,
-    );
-    return res.data;
-  },
-  GetNotification: async (): Promise<string[]> => {
+  getAllRooms: async (): Promise<RoomTypes[]> => {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_USER_URL}/media/notification`,
-    );
-    return res.data;
-  },
-
-  AddNotification: async (data: any): Promise<string> => {
-    const res = await axiosInstance().post(
-      `${process.env.NEXT_PUBLIC_USER_URL}/media/notification`,
-      data,
-    );
-    return res.data;
-  },
-
-  GetUserProfile: async (username: string): Promise<getUserDataTypes> => {
-    const res = await axiosInstance().get(
-      `${process.env.NEXT_PUBLIC_USER_URL}/user/${username}`,
-    );
-    return res.data;
-  },
-  FollowUser: async (id: string): Promise<string> => {
-    const res = await axiosInstance().get(
-      `${process.env.NEXT_PUBLIC_USER_URL}/user/follow/${id}`,
-    );
-    return res.data;
-  },
-
-  getFollowersFollowingList: async (
-    id: string,
-  ): Promise<FollowFollowingList> => {
-    const res = await axiosInstance().get(
-      `${process.env.NEXT_PUBLIC_USER_URL}/user/followers/${id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/room/allrooms`,
     );
     return res.data;
   },
