@@ -5,22 +5,22 @@ import Users from "./users";
 
 const index = () => {
   return (
-    <div className="bg-Secondary-background w-96 shrink-0 ">
+    <div className="w-96 shrink-0 bg-Secondary-background ">
       <Tabs defaultValue="chat" className="w-auto">
-        <TabsList className="bg-Input-background sticky top-0 z-10 w-full   ">
-          <TabsTrigger value="chat" className="text-Paragraph-primary w-full ">
+        <TabsList className="sticky top-0 z-10 w-full bg-Input-background   ">
+          <TabsTrigger value="chat" className="w-full text-Paragraph-primary ">
             chat
           </TabsTrigger>
-          <TabsTrigger value="users" className="text-Paragraph-primary w-full">
+          <TabsTrigger value="users" className="w-full text-Paragraph-primary">
             users
           </TabsTrigger>
 
-          <TabsTrigger value="media" className="text-Paragraph-primary w-full">
+          <TabsTrigger value="media" className="w-full text-Paragraph-primary">
             Media
           </TabsTrigger>
           <TabsTrigger
             value="settings"
-            className="text-Paragraph-primary w-full"
+            className="w-full text-Paragraph-primary"
           >
             settings
           </TabsTrigger>

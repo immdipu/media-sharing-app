@@ -10,11 +10,6 @@ const index = () => {
         <SingleMessage />
 
         <SingleMessage />
-        <SingleMessage />
-        <SingleMessage />
-        <SingleMessage />
-        <SingleMessage />
-        <SingleMessage />
       </section>
       <section className="h-14   ">
         <MessageInput />

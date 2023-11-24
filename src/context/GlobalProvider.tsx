@@ -39,6 +39,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Provider store={store}>
+      <Toaster />
       <SocketProvider>
         <QueryClientProvider client={queryClient}>
           <SearchContext.Provider value={searchContextValue}>
@@ -46,7 +47,6 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
               <ThemeProvider>
                 <TooltipProvider>
                   <AuthProvider>{children}</AuthProvider>
-                  <Toaster />
                 </TooltipProvider>
               </ThemeProvider>
             </GoogleOAuthProvider>

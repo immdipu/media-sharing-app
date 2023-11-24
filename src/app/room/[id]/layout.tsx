@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import RightSideBar from "@/components/room/rightsideBar";
 
@@ -6,10 +7,5 @@ export default function RoomLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="flex min-h-screen">
-      {children}
-      <RightSideBar />
-    </div>
-  );
+  return <div className="min-h-screen">{children}</div>;
 }

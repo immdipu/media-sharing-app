@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { AddNewRoom } from "@/redux/slice/roomSlice";
 import { usePathname } from "next/navigation";
 import { RoomTypes } from "@/types/room";
+import { useToast } from "@/components/ui/use-toast";
 
 interface SocketContextProps {
   socket: Socket | null;
@@ -30,6 +31,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const pathanme = usePathname();
   const dispatch = useAppDispatch();
   const [isOnline, setIsOnline] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     if (!user.isUserAuthenticated) return;
@@ -47,7 +49,13 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     newSocket.emit("login", user);
     newSocket.on("connect", onConnect);
     newSocket.on("disconnect", onDisconnect);
-
+    newSocket.on("error", (err) => {
+      console.log("Socket Error", err); //
+      toast({
+        title: "Socket Error",
+        description: err,
+      });
+    });
     newSocket.on("connect_error", (err) => {
       console.log(err.message); //
     });

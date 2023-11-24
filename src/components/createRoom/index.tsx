@@ -25,6 +25,14 @@ const CreateRoom = () => {
       return;
     }
 
+    if (roomDetails.membersLimit < 0) {
+      toast({
+        description: "Members limit cannot be less than 0",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (isOnline && user.isUserAuthenticated) {
       EmitCustomEvent("create-room", {
         ...roomDetails,
@@ -53,7 +61,6 @@ const CreateRoom = () => {
           placeholder="Enter maximum members"
           type="number"
           value={roomDetails.membersLimit}
-          minLength={0}
           onChange={(e) =>
             setRoomDetails({
               ...roomDetails,

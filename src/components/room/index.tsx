@@ -5,12 +5,13 @@ import TitleLogo from "./TitleLogo";
 import { Button } from "../ui/button";
 import { RoomTypes } from "@/types/room";
 import { useRouter } from "next/navigation";
+import EmptyRoomAvatarCard from "../card/EmptyRoomAvatarCard";
 
 const Room: React.FC<RoomTypes> = ({
   admin,
   bannedUsers,
   createdAt,
-  id,
+  _id,
   members,
   membersLimit,
   moderators,
@@ -19,7 +20,7 @@ const Room: React.FC<RoomTypes> = ({
   const router = useRouter();
 
   const handleJoinRoom = () => {
-    router.push(`/room/${id}`);
+    router.push(`/room/${_id}`);
   };
 
   return (
@@ -32,6 +33,16 @@ const Room: React.FC<RoomTypes> = ({
           members.length > 0 &&
           members?.map((member, index) => (
             <AvatarCard {...member} key={index} />
+          ))}
+        {!members ||
+          (members.length === 0 && (
+            <>
+              <EmptyRoomAvatarCard />
+              <EmptyRoomAvatarCard />
+              <EmptyRoomAvatarCard />
+              <EmptyRoomAvatarCard />
+              <EmptyRoomAvatarCard />
+            </>
           ))}
       </section>
       <section className="my-3">

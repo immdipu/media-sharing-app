@@ -12,10 +12,10 @@ export interface membersTypes {
 }
 
 export interface RoomTypes {
-  id: number;
+  _id: number;
   name: string;
   membersLimit: number;
-  admin: string;
+  admin: membersTypes;
   members: membersTypes[];
   moderators: string[];
   bannedUsers: string[];

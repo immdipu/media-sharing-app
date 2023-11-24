@@ -5,10 +5,12 @@ import { RoomTypes } from "@/types/room";
 
 interface initialStateProps {
   Room: RoomTypes[] | null;
+  JoinedRoom: RoomTypes | null;
 }
 
 const initialState: initialStateProps = {
   Room: null,
+  JoinedRoom: null,
 };
 
 export const roomSlice = createSlice({
@@ -22,8 +24,12 @@ export const roomSlice = createSlice({
         state.Room = [action.payload];
       }
     },
+
+    JoinRoom: (state, action: PayloadAction<RoomTypes>) => {
+      state.JoinedRoom = action.payload;
+    },
   },
 });
 
-export const { AddNewRoom } = roomSlice.actions;
+export const { AddNewRoom, JoinRoom } = roomSlice.actions;
 export default roomSlice.reducer;
