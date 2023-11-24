@@ -4,6 +4,7 @@ import { useRef, useContext, useEffect, useState } from "react";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { jwtDecode } from "jwt-decode";
 import React from "react";
+import { useTheme } from "next-themes";
 import {
   Dialog,
   DialogContent,
@@ -25,6 +26,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const user = useAppSelector((state) => state.auth);
   const [showModal, setShowModal] = React.useState(false);
   const dispatch = useAppDispatch();
+  const { resolvedTheme, setTheme } = useTheme();
   const [Auth, setAuth] = useState<"login" | "verify code">("login");
 
   const AutoLogin = useMutation(() => userApis.AutoLogin(), {
@@ -38,6 +40,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   useEffect(() => {
+    setTheme("darkTheme");
     let token = localStorage.getItem("token");
     if (token && !user.isUserAuthenticated && !showModal) {
       AutoLogin.mutate();
