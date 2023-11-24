@@ -12,8 +12,14 @@ const UsersTab = () => {
         Members
       </h3>
       <section className="flex flex-col">
+        {JoinedRoom?.moderators.map((user, index) => {
+          return <UserCardList key={index} {...user} roomRole="moderator" />;
+        })}
         {JoinedRoom?.members?.map((user, index) => {
-          return <UserCardList key={index} {...user} />;
+          if (user._id === JoinedRoom.admin._id) {
+            return <UserCardList key={index} {...user} roomRole="admin" />;
+          }
+          return <UserCardList key={index} {...user} roomRole="member" />;
         })}
       </section>
     </div>

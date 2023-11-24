@@ -29,7 +29,7 @@ const AvatarCard: React.FC<membersTypes> = ({
       </Avatar>
 
       <Tooltip delayDuration={400}>
-        <TooltipTrigger className="w-32 overflow-hidden overflow-ellipsis whitespace-nowrap px-3 text-sm font-light text-neutral-200">
+        <TooltipTrigger className="w-32 overflow-hidden overflow-ellipsis whitespace-nowrap px-3 text-sm font-light capitalize text-neutral-200">
           {" "}
           {fullName}
         </TooltipTrigger>

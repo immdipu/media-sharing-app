@@ -27,6 +27,7 @@ const SocketContext = createContext<SocketContextProps>({
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const user = useAppSelector((state) => state.auth);
+  const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const [socket, setSocket] = useState<Socket | null>(null);
   const pathanme = usePathname();
   const dispatch = useAppDispatch();
@@ -74,6 +75,18 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isUserAuthenticated]);
+
+  useEffect(() => {
+    if (!socket) return;
+    if (JoinedRoom?._id) {
+      if (!pathanme.includes("room")) {
+        socket.emit("leave-room", {
+          roomId: JoinedRoom._id,
+          userId: user.id,
+        });
+      }
+    }
+  }, [pathanme]);
 
   const EmitCustomEvent = (event: string, data: any) => {
     if (socket) {

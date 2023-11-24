@@ -17,7 +17,7 @@ export interface RoomTypes {
   membersLimit: number;
   admin: membersTypes;
   members: membersTypes[];
-  moderators: string[];
+  moderators: membersTypes[];
   bannedUsers: string[];
   createdAt: Date;
 }

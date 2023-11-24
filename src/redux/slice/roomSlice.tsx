@@ -25,11 +25,15 @@ export const roomSlice = createSlice({
       }
     },
 
+    AddAllRoom: (state, action: PayloadAction<RoomTypes[]>) => {
+      state.Room = action.payload;
+    },
+
     JoinRoom: (state, action: PayloadAction<RoomTypes>) => {
       state.JoinedRoom = action.payload;
     },
   },
 });
 
-export const { AddNewRoom, JoinRoom } = roomSlice.actions;
+export const { AddNewRoom, JoinRoom, AddAllRoom } = roomSlice.actions;
 export default roomSlice.reducer;
