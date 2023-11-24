@@ -23,6 +23,7 @@ module.exports = {
         "Overlay-background": "var(--overlay-background-color)",
         "button-background": "var(--button-background-color)",
         "secondary-hover": "var(--secondary-hover-background-color)",
+        "third-background": "var(--third-background-color)",
       },
       borderColor: {
         "primary-color": "var(--border-color)",

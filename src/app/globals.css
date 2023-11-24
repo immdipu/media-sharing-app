@@ -4,6 +4,7 @@
 [data-theme="darkTheme"] {
     --Main-background-color: #171616;
     --Secondary-background-color: #404040;
+    --third-background-color: #2c2c2c;
     --secondary-hover-background-color: #2e2e2e;
     --Input-background-color: #2f2f2f;
     --overlay-background-color: #40404012;

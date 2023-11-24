@@ -21,3 +21,31 @@ export interface RoomTypes {
   bannedUsers: string[];
   createdAt: Date;
 }
+
+export type RoomChatTypes = RoomJoinLeaveTypes | RoomMessageTypes;
+
+export interface RoomJoinLeaveTypes {
+  Type: "JoinLeaveNotification";
+  status: "joined" | "left";
+  user: membersTypes;
+  createdAt: Date;
+}
+
+interface RoomMessageTypes {
+  Type:
+    | "message"
+    | "image"
+    | "video"
+    | "audio"
+    | "file"
+    | "location"
+    | "contact"
+    | "sticker"
+    | "gif"
+    | "poll"
+    | "reply"
+    | "forwarded"
+    | "system";
+  content: string;
+  user: membersTypes;
+}
