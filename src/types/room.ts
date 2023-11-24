@@ -31,7 +31,7 @@ export interface RoomJoinLeaveTypes {
   createdAt: Date;
 }
 
-interface RoomMessageTypes {
+export interface RoomMessageTypes {
   Type:
     | "message"
     | "image"
@@ -47,5 +47,6 @@ interface RoomMessageTypes {
     | "forwarded"
     | "system";
   content: string;
-  user: membersTypes;
+  sender: membersTypes;
+  createdAt: Date;
 }

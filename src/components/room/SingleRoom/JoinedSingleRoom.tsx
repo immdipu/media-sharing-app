@@ -16,7 +16,6 @@ const JoinedSingleRoom = () => {
 
     if (socket) {
       ListenCustomEvent("message", (data) => {
-        console.log(data);
         dispatch(AddMessage(data));
       });
     }
