@@ -24,7 +24,7 @@ const SingleRoom = () => {
       toast({
         title: "Socket Error",
         description: "Socket is not connected",
-        status: "error",
+        variant: "destructive",
       });
       return;
     }
@@ -33,7 +33,7 @@ const SingleRoom = () => {
       toast({
         title: "User Error",
         description: "User is not logged in",
-        status: "error",
+        variant: "destructive",
       });
       return;
     }

@@ -4,7 +4,12 @@ import { MdOutlineScreenShare } from "react-icons/md";
 import RidesideBar from "@/components/room/rightsideBar";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { useSocket } from "@/context/SocketProvider";
-import { AddMessage } from "@/redux/slice/roomSlice";
+import {
+  AddMessage,
+  AddNewMemeberToTheRoom,
+  RemoveMemberFromRoom,
+} from "@/redux/slice/roomSlice";
+import { RoomChatTypes } from "@/types/room";
 
 const JoinedSingleRoom = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
@@ -15,7 +20,15 @@ const JoinedSingleRoom = () => {
     if (!socket) return;
 
     if (socket) {
-      ListenCustomEvent("message", (data) => {
+      ListenCustomEvent("message", (data: RoomChatTypes) => {
+        if (data.Type === "JoinLeaveNotification") {
+          if (data.status === "joined") {
+            dispatch(AddNewMemeberToTheRoom(data.user));
+          }
+          if (data.status === "left") {
+            dispatch(RemoveMemberFromRoom(data.user));
+          }
+        }
         dispatch(AddMessage(data));
       });
     }
