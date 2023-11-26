@@ -8,8 +8,10 @@ import {
   AddMessage,
   AddNewMemeberToTheRoom,
   RemoveMemberFromRoom,
+  JoinRoom,
 } from "@/redux/slice/roomSlice";
 import { RoomChatTypes } from "@/types/room";
+import { RoomUpdateResponseTypes } from "@/types/socketTypes";
 
 const JoinedSingleRoom = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
@@ -29,11 +31,18 @@ const JoinedSingleRoom = () => {
             dispatch(RemoveMemberFromRoom(data.user));
           }
         }
+
         dispatch(AddMessage(data));
+      });
+      ListenCustomEvent("room-update", (data: RoomUpdateResponseTypes) => {
+        if (data.type === "EditRoom") {
+          dispatch(JoinRoom(data.room));
+        }
       });
     }
     return () => {
       socket.off("message");
+      socket.off("room-update");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

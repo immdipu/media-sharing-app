@@ -12,7 +12,7 @@ export interface membersTypes {
 }
 
 export interface RoomTypes {
-  _id: number;
+  _id: string;
   name: string;
   membersLimit: number;
   admin: membersTypes;
@@ -22,8 +22,17 @@ export interface RoomTypes {
   createdAt: Date;
 }
 
-export type RoomChatTypes = RoomJoinLeaveTypes | RoomMessageTypes;
+export type RoomChatTypes =
+  | RoomJoinLeaveTypes
+  | RoomMessageTypes
+  | RoomUpdateMessageTypes;
 
+export interface RoomUpdateMessageTypes {
+  Type: "RoomUpdate";
+  message: string;
+  updatedBy: string;
+  createdAt: Date;
+}
 export interface RoomJoinLeaveTypes {
   Type: "JoinLeaveNotification";
   status: "joined" | "left";

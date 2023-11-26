@@ -4,6 +4,7 @@ import SingleMessage from "@/components/Message/SingleMessage";
 import MessageInput from "../../../Message/MessageInput";
 import RoomLeaveNotificationCard from "@/components/card/RoomLeaveNotificationCard";
 import RoomJoinNotificationCard from "@/components/card/RoomJoinNotificationCard";
+import RoomUpdateCard from "@/components/card/RoomUpdateCard";
 import { useAppSelector } from "@/hooks/reduxHooks";
 
 const Chat = () => {
@@ -30,6 +31,15 @@ const Chat = () => {
             }
             if (message.Type === "message") {
               return <SingleMessage key={index} {...message} />;
+            }
+            if (message.Type === "RoomUpdate") {
+              return (
+                <RoomUpdateCard
+                  key={index}
+                  message={message.message}
+                  updatedBy={message.updatedBy}
+                />
+              );
             }
           })}
       </section>

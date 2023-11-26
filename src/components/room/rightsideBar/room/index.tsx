@@ -5,6 +5,7 @@ import RoomIcon from "@/components/Icons/TitleLogo";
 import moment from "moment";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import EditRoom from "../../EditRoom";
 
 const RoomTab = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
@@ -12,7 +13,7 @@ const RoomTab = () => {
     <div className="flex h-full flex-col">
       <section className=" mt-2 flex flex-col items-center justify-center">
         <RoomIcon color="#ffffff" opacity={0.2} height={90} width={90} />
-        <h3 className="text-2xl font-semibold capitalize text-Header-secondary">
+        <h3 className="text-xl font-medium capitalize text-Header-primary">
           {JoinedRoom?.name}
         </h3>
       </section>
@@ -80,12 +81,7 @@ const RoomTab = () => {
       </section>
       {/* fourth box */}
       <section className="mx-2 mb-5 flex h-full flex-col justify-end gap-2">
-        <Button
-          variant={"ghost"}
-          className="w-full rounded-md border border-primary-color bg-none text-Header-primary transition-transform duration-150 ease-linear active:scale-95"
-        >
-          Edit
-        </Button>
+        <EditRoom />
         <Button
           variant={"destructive"}
           className="rounded-md hover:bg-red-400 "

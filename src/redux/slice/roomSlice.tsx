@@ -63,6 +63,12 @@ export const roomSlice = createSlice({
         state.JoinedRoom.members = RemoveUser;
       }
     },
+
+    UpdateRoom: (state, action: PayloadAction<RoomTypes>) => {
+      if (state.JoinedRoom) {
+        state.JoinedRoom = action.payload;
+      }
+    },
   },
 });
 
