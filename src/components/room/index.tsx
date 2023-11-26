@@ -1,7 +1,7 @@
 "use client";
 import AvatarCard from "./AvatarCard";
 import React from "react";
-import TitleLogo from "./TitleLogo";
+import TitleLogo from "../Icons/TitleLogo";
 import { Button } from "../ui/button";
 import { RoomTypes } from "@/types/room";
 import { useRouter } from "next/navigation";

@@ -2,6 +2,7 @@ import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Chat from "@/components/room/rightsideBar/chat";
 import Users from "./users";
+import RoomTab from "@/components/room/rightsideBar/room";
 
 const index = () => {
   return (
@@ -18,11 +19,8 @@ const index = () => {
           <TabsTrigger value="media" className="w-full text-Paragraph-primary">
             Media
           </TabsTrigger>
-          <TabsTrigger
-            value="settings"
-            className="w-full text-Paragraph-primary"
-          >
-            settings
+          <TabsTrigger value="room" className="w-full text-Paragraph-primary">
+            Room
           </TabsTrigger>
         </TabsList>
         <TabsContent value="chat" className="h-[calc(100vh-56px)]   ">
@@ -30,6 +28,9 @@ const index = () => {
         </TabsContent>
         <TabsContent value="users">
           <Users />
+        </TabsContent>
+        <TabsContent value="room" className="h-[calc(100vh-56px)]   ">
+          <RoomTab />
         </TabsContent>
       </Tabs>
     </div>
