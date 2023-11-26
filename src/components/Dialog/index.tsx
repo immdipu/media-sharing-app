@@ -8,6 +8,7 @@ import {
   DialogTitle,
   DialogOverlay,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -32,9 +33,9 @@ const index: React.FC<Props> = ({
     <Dialog modal>
       <DialogOverlay className="bg-Overlay-background " />
       <DialogTrigger asChild>{button}</DialogTrigger>
-      <DialogContent className="bg-Secondary-background border-primary-color border sm:max-w-[425px]">
+      <DialogContent className="border border-primary-color bg-Secondary-background sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-Header-primary font-medium tracking-wide">
+          <DialogTitle className="font-medium tracking-wide text-Header-primary">
             {title}
           </DialogTitle>
           <DialogDescription>{description}</DialogDescription>

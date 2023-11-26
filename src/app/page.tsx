@@ -1,8 +1,7 @@
-import CreateRoom from "@/components/Buttons/CreateRoom";
 import { Input } from "@/components/ui/input";
 import Room from "@/components/room";
 import Dialog from "@/components/Dialog";
-import CreateRoomData from "@/components/createRoom";
+import CreateRoom from "@/components/createRoom";
 import Avatar from "@/components/Avatar/Avatar";
 import RoomCard from "@/components/room/RoomCard";
 
@@ -24,11 +23,7 @@ export default function Home() {
 
       <section className="">
         <section className="mt-7 flex gap-2 px-20">
-          <Dialog
-            button={<CreateRoom />}
-            data={<CreateRoomData />}
-            title="Create a new room"
-          />
+          <CreateRoom />
           <Input
             className="border-neutral-500 bg-neutral-700 text-neutral-100 placeholder:text-neutral-400"
             placeholder="Search room, people or tags"

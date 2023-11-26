@@ -23,27 +23,30 @@ const Room: React.FC<RoomTypes> = ({
     router.push(`/room/${_id}`);
   };
 
+  const renderEmptyCards = (count: number) => {
+    const EmtpyCards = [];
+    for (let i = 0; i < count; i++) {
+      EmtpyCards.push(<EmptyRoomAvatarCard key={i} />);
+    }
+    return EmtpyCards;
+  };
+
   return (
-    <div className="flex w-full flex-col rounded-xl  border border-neutral-500 bg-neutral-700 px-5 py-2">
+    <div className="flex w-full flex-col rounded-xl   border border-neutral-500 bg-neutral-700 px-5 py-2">
       <h4 className="mb-3 flex items-center gap-2 font-medium text-neutral-50">
         <TitleLogo color="#ffffff" opacity={0.2} /> {name}
       </h4>
-      <section className="flex gap-1 overflow-hidden">
+      <section className="flex gap-1 overflow-clip">
         {members &&
           members.length > 0 &&
           members?.map((member, index) => (
             <AvatarCard {...member} key={index} />
           ))}
-        {!members ||
-          (members.length === 0 && (
-            <>
-              <EmptyRoomAvatarCard />
-              <EmptyRoomAvatarCard />
-              <EmptyRoomAvatarCard />
-              <EmptyRoomAvatarCard />
-              <EmptyRoomAvatarCard />
-            </>
-          ))}
+        {members &&
+          members.length > 0 &&
+          renderEmptyCards(membersLimit - members.length)}
+
+        {members && members.length === 0 && renderEmptyCards(10)}
       </section>
       <section className="my-3">
         <Button
