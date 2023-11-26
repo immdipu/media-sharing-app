@@ -29,6 +29,7 @@ const EditRoom = () => {
   const { toast } = useToast();
   const { isOnline, EmitCustomEvent } = useSocket();
   const user = useAppSelector((state) => state.auth);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const handleSubmit = () => {
     if (roomDetails.name === "") {
@@ -55,11 +56,12 @@ const EditRoom = () => {
         roomId: JoinedRoom?._id!,
       };
       EmitCustomEvent("room-update", data);
+      setIsOpen(false);
     }
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogOverlay className="bg-Overlay-background " />
       <DialogTrigger asChild>
         <Button
