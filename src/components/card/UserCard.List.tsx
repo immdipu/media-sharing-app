@@ -8,6 +8,8 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { membersTypes } from "@/types/room";
 
+import UserListOptionCard from "./UserListOptionCard";
+
 interface UserCardListProps extends membersTypes {
   roomRole: "admin" | "moderator" | "member";
 }
@@ -55,8 +57,10 @@ const UserCardList: React.FC<UserCardListProps> = ({
             <BsThreeDotsVertical className="text-neutral-300" />
           </div>
         </PopoverTrigger>
-        <PopoverContent className="mr-1 h-32 w-60">
-          Place content for the popover here.
+        <PopoverContent className="mr-6 h-fit w-fit overflow-hidden border-secondary-color bg-third-background p-0">
+          <ul className="list-none">
+            <UserListOptionCard />
+          </ul>
         </PopoverContent>
       </Popover>
     </div>
