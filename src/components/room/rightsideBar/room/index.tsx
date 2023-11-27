@@ -9,6 +9,7 @@ import EditRoom from "../../EditRoom";
 
 const RoomTab = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
+  const currentUser = useAppSelector((state) => state.auth);
   return (
     <div className="flex h-full flex-col">
       <section className=" mt-2 flex flex-col items-center justify-center">
@@ -38,13 +39,9 @@ const RoomTab = () => {
           </p>
         </div>
         <div className="flex w-fit flex-col items-center gap-1 ">
-          <h5 className=" text-sm capitalize text-Header-secondary">
-            Created At
-          </h5>
-          <p className="text-xs font-normal capitalize text-paragraph-secondary">
-            {moment(JoinedRoom?.createdAt)
-              .startOf("hour")
-              .fromNow()}
+          <h5 className=" text-sm capitalize text-Header-secondary">Created</h5>
+          <p className="text-xs font-normal  text-paragraph-secondary">
+            {moment(JoinedRoom?.createdAt).fromNow()}
           </p>
         </div>
       </section>
@@ -81,7 +78,7 @@ const RoomTab = () => {
       </section>
       {/* fourth box */}
       <section className="mx-2 mb-5 flex h-full flex-col justify-end gap-2">
-        <EditRoom />
+        {JoinedRoom?.admin?._id === currentUser.id && <EditRoom />}
         <Button
           variant={"destructive"}
           className="rounded-md hover:bg-red-400 "

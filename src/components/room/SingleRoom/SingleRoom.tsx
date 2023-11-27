@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useSocket } from "@/context/SocketProvider";
 import { useAppSelector } from "@/hooks/reduxHooks";
@@ -10,6 +10,7 @@ import { useAppDispatch } from "@/hooks/reduxHooks";
 import { IjoinedRoomResponse } from "@/types/socketTypes";
 import JoinedSingleRoom from "./JoinedSingleRoom";
 import { RotatingLines } from "react-loader-spinner";
+import KickedOut from "@/components/ui/KickedOut";
 import {
   StartRoomJoiningLoader,
   StopRoomJoiningLoader,
@@ -20,6 +21,7 @@ const SingleRoom = () => {
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const user = useAppSelector((state) => state.auth);
   const isLoading = useAppSelector((state) => state.room.RoomJoiningLoader);
+  const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const pathname = usePathname();
   const { toast } = useToast();
   const dispatch = useAppDispatch();
@@ -76,6 +78,10 @@ const SingleRoom = () => {
         </section>
       </div>
     );
+
+  if (JoinedRoom && user?.id && JoinedRoom.bannedUsers.includes(user.id)) {
+    return <KickedOut />;
+  }
 
   return <JoinedSingleRoom />;
 };

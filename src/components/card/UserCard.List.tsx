@@ -59,7 +59,7 @@ const UserCardList: React.FC<UserCardListProps> = ({
         </PopoverTrigger>
         <PopoverContent className="mr-6 h-fit w-fit overflow-hidden border-secondary-color bg-third-background p-0">
           <ul className="list-none">
-            <UserListOptionCard />
+            <UserListOptionCard id={_id} />
           </ul>
         </PopoverContent>
       </Popover>

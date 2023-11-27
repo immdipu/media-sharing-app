@@ -16,12 +16,16 @@ export interface EditRoomTypes {
 
 interface RoleTransferTypes {
   type: "RoleTransfer";
-  user: string;
+  AdminId: string;
+  roomId: string;
+  ToTransferId: string;
 }
 
 interface KickUserTypes {
   type: "KickUser";
-  user: string;
+  AdminId: string;
+  roomId: string;
+  ToKickId: string;
 }
 
 export type RoomUpdateTypes = EditRoomTypes | RoleTransferTypes | KickUserTypes;
@@ -37,6 +41,7 @@ interface RoomEditResponseTypes {
 
 interface RoomRoleTransferResponseTypes {
   type: "RoleTransfer";
-  user: string;
-  role: string;
+  AdminId: string;
+  roomId: string;
+  ToTransferId: string;
 }
