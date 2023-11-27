@@ -46,7 +46,7 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
           <div className=" absolute bottom-1 right-5 flex  w-full justify-end ">
             <span className="text-[0.65rem] font-extralight text-neutral-200 ">
               {" "}
-              {momemnt(createdAt).fromNow()}
+              {momemnt(createdAt).format("hh:mm A")}
             </span>
           </div>
         </div>

@@ -10,7 +10,7 @@ const RoomLeaveNotificationCard: React.FC<RoomJoinLeaveTypes> = ({
   user,
 }) => {
   return (
-    <div className="  bg-third-background flex items-center px-3 py-2 hover:bg-secondary-hover">
+    <div className="  flex items-center bg-third-background px-3 py-2 hover:bg-secondary-hover">
       <Avatar className="h-10 w-10 rounded-md">
         <AvatarImage src={user?.profilePic} />
         <AvatarFallback className="uppercase">
@@ -21,7 +21,7 @@ const RoomLeaveNotificationCard: React.FC<RoomJoinLeaveTypes> = ({
         <h4 className="light:text-green-500 w-1/2 overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-medium text-Header-secondary ">
           {user?.fullName}
         </h4>
-        <h3 className="text-sm text-red-600 ">Left the room</h3>
+        <h3 className="text-xs text-red-600 ">Left the room</h3>
       </div>
       <div>
         <TbLogout className="text-2xl text-red-600" />

@@ -6,6 +6,7 @@ import moment from "moment";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import EditRoom from "../../EditRoom";
+import Link from "next/link";
 
 const RoomTab = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
@@ -79,12 +80,15 @@ const RoomTab = () => {
       {/* fourth box */}
       <section className="mx-2 mb-5 flex h-full flex-col justify-end gap-2">
         {JoinedRoom?.admin?._id === currentUser.id && <EditRoom />}
-        <Button
-          variant={"destructive"}
-          className="rounded-md hover:bg-red-400 "
-        >
-          Leave
-        </Button>
+
+        <Link className="block w-full" href={"/"}>
+          <Button
+            variant={"destructive"}
+            className="w-full rounded-md hover:bg-red-400 "
+          >
+            Leave
+          </Button>
+        </Link>
       </section>
     </div>
   );
