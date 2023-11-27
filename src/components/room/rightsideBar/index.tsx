@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Chat from "@/components/room/rightsideBar/chat";
 import Users from "./users";
 import RoomTab from "@/components/room/rightsideBar/room";
+import Media from "./media";
 
 const index = () => {
   return (
@@ -28,6 +29,9 @@ const index = () => {
         </TabsContent>
         <TabsContent value="users">
           <Users />
+        </TabsContent>
+        <TabsContent value="media">
+          <Media />
         </TabsContent>
         <TabsContent value="room" className="h-[calc(100vh-56px)]   ">
           <RoomTab />

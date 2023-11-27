@@ -4,6 +4,7 @@ import { MdOutlineScreenShare } from "react-icons/md";
 import RidesideBar from "@/components/room/rightsideBar";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { useSocket } from "@/context/SocketProvider";
+import YoutubePlayer from "@/components/YoutubePlayer";
 import {
   AddMessage,
   AddNewMemeberToTheRoom,
@@ -53,7 +54,7 @@ const JoinedSingleRoom = () => {
         <div className=" w-full ">
           <section className="h-4/5 ">
             <section className="h-5/6 overflow-hidden  px-2 pt-4">
-              <iframe
+              {/* <iframe
                 width="100%"
                 height="100%"
                 className="rounded-xl drop-shadow-lg"
@@ -61,7 +62,8 @@ const JoinedSingleRoom = () => {
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
-              ></iframe>
+              ></iframe> */}
+              <YoutubePlayer />
             </section>
           </section>
           <section className="h-1/5 ">

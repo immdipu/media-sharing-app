@@ -24,6 +24,7 @@ module.exports = {
         "button-background": "var(--button-background-color)",
         "secondary-hover": "var(--secondary-hover-background-color)",
         "third-background": "var(--third-background-color)",
+        "fourth-background": "var(--fourth-background-color)",
       },
       borderColor: {
         "primary-color": "var(--border-color)",

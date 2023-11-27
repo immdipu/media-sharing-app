@@ -12,6 +12,7 @@ import {
   loginResponseTypes,
 } from "@/types/userTypes";
 import { RoomTypes } from "@/types/room";
+import { YouTubeVideo } from "@/types/Youtube";
 
 export const userApis = {
   GoogleLogin: async (token: string) => {
@@ -172,6 +173,26 @@ export const userApis = {
   loginasUser: async (id: string) => {
     const res = await axiosInstance().get(
       `${process.env.NEXT_PUBLIC_USER_URL}/user/loginas/${id}`,
+    );
+    return res.data;
+  },
+
+  getYoutubeSuggeston: async (searchTerm: string) => {
+    const res = await axiosInstance().post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/media/youtube/suggestions`,
+      {
+        searchTerm,
+      },
+    );
+    return res.data;
+  },
+
+  getYouTubeVideos: async (searchTerm: string): Promise<YouTubeVideo[]> => {
+    const res = await axiosInstance().post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/media/youtube/videos`,
+      {
+        searchTerm,
+      },
     );
     return res.data;
   },
