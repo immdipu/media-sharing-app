@@ -9,17 +9,23 @@ import { JoinRoom } from "@/redux/slice/roomSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import { IjoinedRoomResponse } from "@/types/socketTypes";
 import JoinedSingleRoom from "./JoinedSingleRoom";
+import { RotatingLines } from "react-loader-spinner";
+import {
+  StartRoomJoiningLoader,
+  StopRoomJoiningLoader,
+} from "@/redux/slice/roomSlice";
 
 const SingleRoom = () => {
   const [verifying, setVerifying] = React.useState(true);
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
-  const [isLoading, setIsLoading] = React.useState(false);
   const user = useAppSelector((state) => state.auth);
+  const isLoading = useAppSelector((state) => state.room.RoomJoiningLoader);
   const pathname = usePathname();
   const { toast } = useToast();
   const dispatch = useAppDispatch();
 
   const handleJoinRoom = () => {
+    dispatch(StartRoomJoiningLoader());
     if (!socket) {
       toast({
         title: "Socket Error",
@@ -37,7 +43,7 @@ const SingleRoom = () => {
       });
       return;
     }
-    setIsLoading(true);
+
     EmitCustomEvent("join-room", {
       roomId: pathname.replace("/room/", ""),
       userId: user?.id,
@@ -47,10 +53,10 @@ const SingleRoom = () => {
       if (data.success) {
         dispatch(JoinRoom(data.room));
         setVerifying(false);
+        dispatch(StopRoomJoiningLoader());
         socket.off("joined-room-response");
       }
     });
-    setIsLoading(false);
   };
 
   if (verifying)

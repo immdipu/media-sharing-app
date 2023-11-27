@@ -4,7 +4,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-import { AddNewRoom } from "@/redux/slice/roomSlice";
+import { AddNewRoom, StopRoomJoiningLoader } from "@/redux/slice/roomSlice";
 import { usePathname } from "next/navigation";
 import { RoomTypes } from "@/types/room";
 import { useToast } from "@/components/ui/use-toast";
@@ -52,9 +52,11 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     newSocket.on("disconnect", onDisconnect);
     newSocket.on("error", (err) => {
       console.log("Socket Error", err); //
+      dispatch(StopRoomJoiningLoader());
       toast({
         title: "Socket Error",
         description: err,
+        variant: "destructive",
       });
     });
     newSocket.on("connect_error", (err) => {

@@ -23,10 +23,11 @@ import {
 const CreateRoom = () => {
   const [roomDetails, setRoomDetails] = React.useState({
     name: "",
-    membersLimit: 0,
+    membersLimit: 1,
   });
   const { toast } = useToast();
   const { isOnline, EmitCustomEvent } = useSocket();
+  const [isOpen, setIsOpen] = React.useState(false);
   const user = useAppSelector((state) => state.auth);
 
   const handleSubmit = () => {
@@ -51,11 +52,16 @@ const CreateRoom = () => {
         ...roomDetails,
         admin: user.id,
       });
+      setIsOpen(false);
+      setRoomDetails({
+        name: "",
+        membersLimit: 1,
+      });
     }
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogOverlay className="bg-Overlay-background " />
       <DialogTrigger asChild>
         <Button className="flex items-center bg-button-background font-medium   text-button-primary">
@@ -90,6 +96,7 @@ const CreateRoom = () => {
               <Input
                 placeholder="Enter maximum members"
                 type="number"
+                defaultValue={1}
                 value={roomDetails.membersLimit}
                 onChange={(e) =>
                   setRoomDetails({

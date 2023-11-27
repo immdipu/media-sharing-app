@@ -7,12 +7,14 @@ interface initialStateProps {
   Room: RoomTypes[] | null;
   JoinedRoom: RoomTypes | null;
   RoomChat: RoomChatTypes[] | null;
+  RoomJoiningLoader: boolean;
 }
 
 const initialState: initialStateProps = {
   Room: null,
   JoinedRoom: null,
   RoomChat: null,
+  RoomJoiningLoader: false,
 };
 
 export const roomSlice = createSlice({
@@ -69,6 +71,13 @@ export const roomSlice = createSlice({
         state.JoinedRoom = action.payload;
       }
     },
+
+    StopRoomJoiningLoader: (state) => {
+      state.RoomJoiningLoader = false;
+    },
+    StartRoomJoiningLoader: (state) => {
+      state.RoomJoiningLoader = true;
+    },
   },
 });
 
@@ -79,5 +88,7 @@ export const {
   AddMessage,
   AddNewMemeberToTheRoom,
   RemoveMemberFromRoom,
+  StopRoomJoiningLoader,
+  StartRoomJoiningLoader,
 } = roomSlice.actions;
 export default roomSlice.reducer;

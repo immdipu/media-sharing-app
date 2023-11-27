@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { RoomTypes } from "@/types/room";
 import { useRouter } from "next/navigation";
 import EmptyRoomAvatarCard from "../card/EmptyRoomAvatarCard";
+import Link from "next/link";
 
 const Room: React.FC<RoomTypes> = ({
   admin,
@@ -18,10 +19,6 @@ const Room: React.FC<RoomTypes> = ({
   name,
 }) => {
   const router = useRouter();
-
-  const handleJoinRoom = () => {
-    router.push(`/room/${_id}`);
-  };
 
   const renderEmptyCards = (count: number) => {
     const EmtpyCards = [];
@@ -49,13 +46,11 @@ const Room: React.FC<RoomTypes> = ({
         {members && members.length === 0 && renderEmptyCards(10)}
       </section>
       <section className="my-3">
-        <Button
-          variant={"secondary"}
-          onClick={handleJoinRoom}
-          className="mt-3 w-full text-lg"
-        >
-          Join
-        </Button>
+        <Link href={`/room/${_id}`} className="block w-full">
+          <Button variant={"secondary"} className="mt-3 w-full text-lg">
+            Join
+          </Button>
+        </Link>
       </section>
     </div>
   );

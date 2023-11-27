@@ -13,7 +13,15 @@ const RoomCard = () => {
   const { data, isLoading } = useQuery(
     ["rooms"],
     () => userApis.getAllRooms(),
-    {},
+    {
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
+      retry: 2,
+      enabled: true,
+      refetchIntervalInBackground: true,
+      refetchInterval: 5000,
+      refetchOnMount: true,
+    },
   );
 
   useEffect(() => {
