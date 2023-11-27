@@ -35,6 +35,7 @@ export const roomSlice = createSlice({
 
     JoinRoom: (state, action: PayloadAction<RoomTypes>) => {
       state.JoinedRoom = action.payload;
+      state.RoomChat = null;
     },
 
     AddMessage: (state, action: PayloadAction<RoomChatTypes>) => {
@@ -90,5 +91,6 @@ export const {
   RemoveMemberFromRoom,
   StopRoomJoiningLoader,
   StartRoomJoiningLoader,
+  UpdateRoom,
 } = roomSlice.actions;
 export default roomSlice.reducer;

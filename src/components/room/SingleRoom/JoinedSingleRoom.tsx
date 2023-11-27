@@ -8,7 +8,7 @@ import {
   AddMessage,
   AddNewMemeberToTheRoom,
   RemoveMemberFromRoom,
-  JoinRoom,
+  UpdateRoom,
 } from "@/redux/slice/roomSlice";
 import { RoomChatTypes } from "@/types/room";
 import { RoomUpdateResponseTypes } from "@/types/socketTypes";
@@ -36,7 +36,7 @@ const JoinedSingleRoom = () => {
       });
       ListenCustomEvent("room-update", (data: RoomUpdateResponseTypes) => {
         if (data.type === "EditRoom") {
-          dispatch(JoinRoom(data.room));
+          dispatch(UpdateRoom(data.room));
         }
       });
     }

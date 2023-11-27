@@ -61,7 +61,10 @@ const SingleRoom = () => {
     });
   };
 
-  if (verifying)
+  if (
+    verifying ||
+    !JoinedRoom?.members.find((member) => member._id === user.id)
+  )
     return (
       <div className="fixed z-20 grid h-full  w-full place-content-center items-center justify-center bg-Secondary-background">
         <section className=" flex flex-col justify-center gap-4">
