@@ -7,15 +7,15 @@ import Link from "next/link";
 
 const DesktopSidebar = () => {
   return (
-    <div className="w-56 border-r-[0.2px] border-r-_light_white bg-black border-opacity-10 bg-_black_bg fixed inset-y-0">
+    <div className="bg-_black_bg border-r-third-color fixed inset-y-0 w-56 border-r-[0.2px]  bg-Main-background">
       <Component />
-      <div className=" absolute left-0 right-0 bottom-8 text-center">
-        <Link
+      <div className="absolute bottom-8 left-0 right-0 text-center">
+        {/* <Link
           href={"/supporter"}
-          className="text-sm   text-blue-600 font-medium opacity-80 hover:underline"
+          className="text-sm   font-medium text-blue-600 opacity-80 hover:underline"
         >
           Become a supporter
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

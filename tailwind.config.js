@@ -28,6 +28,7 @@ module.exports = {
       borderColor: {
         "primary-color": "var(--border-color)",
         "secondary-color": "var(--border-color-2)",
+        "third-color": "var(--border-color-3)",
       },
 
       keyframes: {

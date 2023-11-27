@@ -20,16 +20,16 @@ const SingleComponent: React.FC<DesktopSingleComponentProps> = ({
       <Link
         href={href}
         className={clsx(
-          " font-Helvetica gap-3 font-normal tracking-wider flex border-l-4 rounded-md hover:bg-blue-300 hover:bg-opacity-10  px-6  py-2 items-center",
+          " font-Helvetica flex items-center gap-3 rounded-md border-l-4 px-6 py-2 text-sm  font-normal  tracking-wider  hover:bg-blue-300 hover:bg-opacity-10",
           active
-            ? "text-white border-blue-500 "
-            : "text-_light_white border-transparent"
+            ? "border-blue-500 bg-blue-500 bg-opacity-10 text-white"
+            : "text- border-transparent text-paragraph-secondary opacity-70",
         )}
       >
         <Icon
           className={clsx(
             "text-2xl",
-            active ? "text-blue-500 " : "text-_light_white "
+            active ? "text-blue-500 " : "text-paragraph-secondary ",
           )}
         />
         <p>{label}</p>

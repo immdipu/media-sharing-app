@@ -2,14 +2,11 @@
 import React from "react";
 import DesktopSidebar from "./DesktopSidebar";
 import MobileSidebar from "./MobileSidebar";
-import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
-  const path = usePathname();
-
-  return path === "/chat" ? null : (
+  return (
     <div className="">
-      <div className="max-md:hidden ">
+      <div className="max-md:hidden">
         <DesktopSidebar />
       </div>
       <MobileSidebar />
