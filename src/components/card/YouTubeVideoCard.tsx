@@ -1,6 +1,8 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { YouTubeVideo } from "@/types/Youtube";
+import { useContext } from "react";
+import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 
 const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   title,
@@ -9,6 +11,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   uploadedAt,
   channel,
   views,
+  id,
 }) => {
   const ViewsFormat = (views: number) => {
     if (views > 1000000000) {
@@ -21,10 +24,16 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
       return `${views} views`;
     }
   };
+  const { setYouTubeVideoId } = useContext(RoomContext);
 
   return (
-    <div className="mb-4 flex  h-24 w-full px-2 transition-colors duration-300 ease-linear hover:bg-third-background">
-      <Avatar className="h-full w-40 rounded-md bg-neutral-700 shadow-md ">
+    <div
+      onClick={() => {
+        setYouTubeVideoId(id);
+      }}
+      className="mb-4 flex  h-24 w-full px-2 transition-colors duration-300 ease-linear hover:bg-third-background"
+    >
+      <Avatar className="h-full w-40 cursor-pointer rounded-md bg-neutral-700 shadow-md ">
         <AvatarImage
           src={thumbnail?.url}
           className="object-contain"

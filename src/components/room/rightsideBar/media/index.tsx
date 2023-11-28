@@ -1,20 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaYoutube } from "react-icons/fa";
 import YouTubeSearch from "@/components/YoutubePlayer/YouTubeSearch";
+import { RoomContext } from "../../SingleRoom/JoinedSingleRoom";
 
 const Media = () => {
-  const [media, setMedia] = React.useState("");
+  const { media, setMedia } = useContext(RoomContext);
 
-  if (media === "youtube") {
+  if (media === "YouTube") {
     return <YouTubeSearch />;
   }
 
   return (
     <div>
-      <section className="border-third-color bg-fourth-background mx-2 mt-5 rounded-md border px-5 py-3">
+      <section className="mx-2 mt-5 rounded-md border border-third-color bg-fourth-background px-5 py-3">
         <button
           onClick={() => {
-            setMedia("youtube");
+            setMedia("YouTube");
           }}
           className="flex flex-col items-center"
         >

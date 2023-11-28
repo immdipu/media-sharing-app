@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import { IoSearch } from "react-icons/io5";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { userApis } from "@/Apis/APIs";
@@ -10,14 +10,15 @@ import { YouTubeVideo } from "@/types/Youtube";
 import useDebounce from "@/hooks/useDebounce";
 import { MagnifyingGlass } from "react-loader-spinner";
 import YouTubeVideoCard from "../card/YouTubeVideoCard";
+import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 
 const YouTubeSearch = () => {
   const [search, setSearch] = React.useState<string>("");
-  const [searchResult, setSearchResult] = React.useState<YouTubeVideo[]>([]);
   const [searchSuggestion, setSearchSuggestion] = React.useState([]);
   const [showSuggestion, setShowSuggestion] = React.useState(false);
   const [debouncedSearchTerm, clearTimer] = useDebounce(search, 5000);
   const [ImmediateSearch, setImmediateSearch] = React.useState(false);
+  const { searchResult, setSearchResult } = useContext(RoomContext);
 
   const Search = useMutation(
     (searchTerm: string) => userApis.getYoutubeSuggeston(searchTerm),

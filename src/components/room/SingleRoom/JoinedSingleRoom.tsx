@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { MdCallEnd } from "react-icons/md";
-import { MdOutlineScreenShare } from "react-icons/md";
+import React, { useEffect, useState } from "react";
+
 import RidesideBar from "@/components/room/rightsideBar";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { useSocket } from "@/context/SocketProvider";
@@ -13,10 +12,37 @@ import {
 } from "@/redux/slice/roomSlice";
 import { RoomChatTypes } from "@/types/room";
 import { RoomUpdateResponseTypes } from "@/types/socketTypes";
+import { YouTubeVideo } from "@/types/Youtube";
+
+interface RoomContextTypes {
+  YouTubeVideoId: string | null;
+  setYouTubeVideoId: React.Dispatch<React.SetStateAction<string | null>>;
+  setMedia: React.Dispatch<React.SetStateAction<"YouTube" | null>>;
+  setSearchResult: React.Dispatch<React.SetStateAction<YouTubeVideo[]>>;
+  searchResult: YouTubeVideo[];
+  media: "YouTube" | null;
+}
+
+let intialState: RoomContextTypes = {
+  YouTubeVideoId: null,
+  setYouTubeVideoId: () => {},
+  media: null,
+  setMedia: () => {},
+  setSearchResult: () => {},
+  searchResult: [],
+};
+
+export const RoomContext = React.createContext<RoomContextTypes>(intialState);
 
 const JoinedSingleRoom = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
+  const [searchResult, setSearchResult] = React.useState<YouTubeVideo[]>([]);
+  const [media, setMedia] = useState<"YouTube" | null>(null);
+  const [YouTubeVideoId, setYouTubeVideoId] = React.useState<string | null>(
+    null,
+  );
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -49,37 +75,22 @@ const JoinedSingleRoom = () => {
   }, []);
 
   return (
-    <>
+    <RoomContext.Provider
+      value={{
+        YouTubeVideoId,
+        setYouTubeVideoId,
+        media,
+        setMedia,
+        searchResult,
+        setSearchResult,
+      }}
+    >
       <div className="flex min-h-screen justify-start">
-        <div className=" w-full ">
-          <section className="h-4/5 ">
-            <section className="h-5/6 overflow-hidden  px-2 pt-4">
-              {/* <iframe
-                width="100%"
-                height="100%"
-                className="rounded-xl drop-shadow-lg"
-                src="https://www.youtube.com/embed/UUga4-z7b6s?si=2IfNsPUIbPxMfyyT"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              ></iframe> */}
-              <YoutubePlayer />
-            </section>
-          </section>
-          <section className="h-1/5 ">
-            <div className="flex h-full items-center justify-center gap-3 ">
-              <button className="rounded-full bg-Secondary-background p-2 transition-transform duration-100 ease-linear hover:bg-secondary-hover active:scale-95">
-                <MdCallEnd className="text-3xl text-red-600" />
-              </button>
-              <button className="rounded-full bg-Secondary-background p-2 transition-transform duration-100 ease-linear hover:bg-secondary-hover active:scale-95">
-                <MdOutlineScreenShare className="text-3xl text-neutral-300" />
-              </button>
-            </div>
-          </section>
-        </div>
+        <YoutubePlayer />
+
         <RidesideBar />
       </div>
-    </>
+    </RoomContext.Provider>
   );
 };
 
