@@ -6,6 +6,8 @@ import clsx from "clsx";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { useSocket } from "@/context/SocketProvider";
 import { ActivityTypes } from "@/types/room";
+import { useContext } from "react";
+import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 
 const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
   ActivityType,
@@ -20,11 +22,20 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
 
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room);
+  const { setOthersSelectedUserVideo } = useContext(RoomContext);
 
   const isWatching = users?.find((u) => u._id == user?.id);
 
+  const isMySharedVideo = JoinedRoom?.JoinedRoom?.roomActivity.find(
+    (activity) => activity.admin._id === user?.id,
+  );
+
   const handleJoinAndLeave = () => {
     if (isWatching) {
+      if (isMySharedVideo === undefined) {
+        setOthersSelectedUserVideo(false);
+      }
+
       let data: ActivityTypes = {
         type: "REMOVE_MEMBER_FROM_ACTIVITY",
         roomID: JoinedRoom.JoinedRoom?._id!,
@@ -33,6 +44,9 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       };
       EmitCustomEvent("room-update", data);
     } else {
+      if (isMySharedVideo === undefined) {
+        setOthersSelectedUserVideo(true);
+      }
       let data: ActivityTypes = {
         type: "ADD_MEMBER_FROM_ACTIVITY",
         roomID: JoinedRoom.JoinedRoom?._id!,

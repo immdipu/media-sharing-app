@@ -35,7 +35,8 @@ export type RoomUpdateResponseTypes =
   | RoomEditResponseTypes
   | RoomRoleTransferResponseTypes
   | ActivityUpdateResponseTypes
-  | ActivityDeleteResponseTypes;
+  | ActivityDeleteResponseTypes
+  | UpdateAllActivityResponseTypes;
 
 interface RoomEditResponseTypes {
   type: "EditRoom";
@@ -57,4 +58,9 @@ interface ActivityUpdateResponseTypes {
 export interface ActivityDeleteResponseTypes {
   type: "ActivityDeleted";
   activityID: string;
+}
+
+export interface UpdateAllActivityResponseTypes {
+  type: "REMOVE_USER_FROM_ALL_ACTIVITY";
+  activities: roomActivityTypes[];
 }

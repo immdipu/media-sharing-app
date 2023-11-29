@@ -3,6 +3,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { YouTubeVideo } from "@/types/Youtube";
 import { useContext } from "react";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
+import { useSocket } from "@/context/SocketProvider";
+import { useAppSelector } from "@/hooks/reduxHooks";
 
 const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   title,
@@ -24,15 +26,39 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
       return `${views} views`;
     }
   };
-  const { setYouTubeVideoId } = useContext(RoomContext);
+  const {
+    setYouTubeVideoId,
+    setIsPlayingMyVideo,
+    isSharing,
+    OthersSelectedUserVideo,
+    setOthersSelectedUserVideo,
+  } = useContext(RoomContext);
+  const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
+  const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
+  const user = useAppSelector((state) => state.auth);
+
+  const isWatching = JoinedRoom?.roomActivity.find(
+    (activity) => activity.users?.find((u) => u._id == user?.id),
+  );
+
+  const handlePlayVideo = () => {
+    setYouTubeVideoId(id);
+    localStorage.setItem("YouTubeVideoId", id);
+    localStorage.setItem("YouTubeThumbnail", thumbnail?.url);
+    setOthersSelectedUserVideo(false);
+    setIsPlayingMyVideo(true);
+    if (!isSharing && isWatching !== undefined) {
+      EmitCustomEvent("room-update", {
+        type: "REMOVE_USER_FROM_ALL_ACTIVITY",
+        roomID: JoinedRoom?._id,
+        userID: user.id,
+      });
+    }
+  };
 
   return (
     <div
-      onClick={() => {
-        setYouTubeVideoId(id);
-        localStorage.setItem("YouTubeVideoId", id);
-        localStorage.setItem("YouTubeThumbnail", thumbnail?.url);
-      }}
+      onClick={() => handlePlayVideo()}
       className="mb-4 flex  h-24 w-full px-2 transition-colors duration-300 ease-linear hover:bg-third-background"
     >
       <Avatar className="h-full w-40 cursor-pointer rounded-md bg-neutral-700 shadow-md ">

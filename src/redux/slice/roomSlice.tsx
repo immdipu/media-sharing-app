@@ -91,6 +91,12 @@ export const roomSlice = createSlice({
       }
     },
 
+    UpdateAllActivity: (state, action: PayloadAction<roomActivityTypes[]>) => {
+      if (state.JoinedRoom) {
+        state.JoinedRoom.roomActivity = action.payload;
+      }
+    },
+
     DeleteAnActivity: (
       state,
       action: PayloadAction<ActivityDeleteResponseTypes>,
@@ -124,5 +130,6 @@ export const {
   UpdateRoom,
   UpdateAnActivity,
   DeleteAnActivity,
+  UpdateAllActivity,
 } = roomSlice.actions;
 export default roomSlice.reducer;

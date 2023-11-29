@@ -9,6 +9,7 @@ import {
   AddNewMemeberToTheRoom,
   DeleteAnActivity,
   RemoveMemberFromRoom,
+  UpdateAllActivity,
   UpdateAnActivity,
   UpdateRoom,
 } from "@/redux/slice/roomSlice";
@@ -25,6 +26,10 @@ interface RoomContextTypes {
   media: "YouTube" | null;
   isSharing: boolean;
   setIsSharing: React.Dispatch<React.SetStateAction<boolean>>;
+  isPlayingMyVideo: boolean;
+  setIsPlayingMyVideo: React.Dispatch<React.SetStateAction<boolean>>;
+  OthersSelectedUserVideo: boolean;
+  setOthersSelectedUserVideo: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 let intialState: RoomContextTypes = {
@@ -36,6 +41,10 @@ let intialState: RoomContextTypes = {
   searchResult: [],
   isSharing: false,
   setIsSharing: () => {},
+  isPlayingMyVideo: true,
+  setIsPlayingMyVideo: () => {},
+  OthersSelectedUserVideo: false,
+  setOthersSelectedUserVideo: () => {},
 };
 
 export const RoomContext = React.createContext<RoomContextTypes>(intialState);
@@ -46,9 +55,12 @@ const JoinedSingleRoom = () => {
   const [searchResult, setSearchResult] = React.useState<YouTubeVideo[]>([]);
   const [media, setMedia] = useState<"YouTube" | null>(null);
   const [isSharing, setIsSharing] = React.useState(false);
+  const [OthersSelectedUserVideo, setOthersSelectedUserVideo] =
+    useState<boolean>(false);
   const [YouTubeVideoId, setYouTubeVideoId] = React.useState<string | null>(
     null,
   );
+  const [isPlayingMyVideo, setIsPlayingMyVideo] = React.useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -80,6 +92,10 @@ const JoinedSingleRoom = () => {
         if (data.type === "ActivityDeleted") {
           dispatch(DeleteAnActivity(data));
         }
+        if (data.type === "REMOVE_USER_FROM_ALL_ACTIVITY") {
+          console.log("REMOVE_USER_FROM_ALL_ACTIVITY", data);
+          dispatch(UpdateAllActivity(data.activities));
+        }
       });
     }
     return () => {
@@ -100,6 +116,10 @@ const JoinedSingleRoom = () => {
         setSearchResult,
         isSharing,
         setIsSharing,
+        isPlayingMyVideo,
+        setIsPlayingMyVideo,
+        OthersSelectedUserVideo,
+        setOthersSelectedUserVideo,
       }}
     >
       <div className="flex min-h-screen justify-start">

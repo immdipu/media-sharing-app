@@ -30,7 +30,7 @@ const ShareButton = () => {
         room: JoinedRoom?._id,
         admin: user?.id,
         data: {
-          vidoeId: YouTubeVideoId,
+          videoId: YouTubeVideoId,
           thumbnail: localStorage.getItem("YouTubeThumbnail"),
         },
       });
