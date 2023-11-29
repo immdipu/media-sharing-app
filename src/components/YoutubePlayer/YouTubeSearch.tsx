@@ -11,6 +11,7 @@ import useDebounce from "@/hooks/useDebounce";
 import { MagnifyingGlass } from "react-loader-spinner";
 import YouTubeVideoCard from "../card/YouTubeVideoCard";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
+import ShareButton from "../Buttons/ShareButton";
 
 const YouTubeSearch = () => {
   const [search, setSearch] = React.useState<string>("");
@@ -18,7 +19,9 @@ const YouTubeSearch = () => {
   const [showSuggestion, setShowSuggestion] = React.useState(false);
   const [debouncedSearchTerm, clearTimer] = useDebounce(search, 5000);
   const [ImmediateSearch, setImmediateSearch] = React.useState(false);
-  const { searchResult, setSearchResult } = useContext(RoomContext);
+
+  const { searchResult, setSearchResult, YouTubeVideoId } =
+    useContext(RoomContext);
 
   const Search = useMutation(
     (searchTerm: string) => userApis.getYoutubeSuggeston(searchTerm),
@@ -91,6 +94,7 @@ const YouTubeSearch = () => {
             <IoSearch className="text-xl" />
           </button>
         </div>
+        <ShareButton />
         {searchSuggestion.length > 0 && showSuggestion && (
           <section className="absolute left-0 right-0 top-12 z-20 h-40 rounded-md bg-third-background shadow-lg">
             <ScrollArea className="h-full w-full py-2 ">

@@ -6,18 +6,16 @@ import { MdCallEnd } from "react-icons/md";
 import { MdOutlineScreenShare } from "react-icons/md";
 import { useSocket } from "@/context/SocketProvider";
 import { useAppSelector } from "@/hooks/reduxHooks";
+import RoomShareButtonCard from "../card/RoomShareButtonCard";
 
 const YoutubePlayer = () => {
   const { YouTubeVideoId, setYouTubeVideoId } = useContext(RoomContext);
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
-  const [Loading, SetisLoading] = useState(true);
   const [player, setPlayer] = useState<any>(null);
   const [playerState, setPlayerState] = useState<any>(null);
-  const [isSharing, setIsSharing] = React.useState(false);
-  const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
 
-  const checkElapsedTime = (e) => {
+  const checkElapsedTime = (e: any) => {
     console.log(e.target.playerInfo.playerState);
     const duration = e.target.getDuration();
     const currentTime = e.target.getCurrentTime();
@@ -44,23 +42,6 @@ const YoutubePlayer = () => {
     }
   }, [YouTubeVideoId, player]);
 
-  const handleSharing = () => {
-    if (isSharing) {
-      setIsSharing(false);
-      console.log("you are no longer sharing your music");
-    } else {
-      setIsSharing(true);
-      EmitCustomEvent("add-activity", {
-        type: "YouTube",
-        room: JoinedRoom?._id,
-        admin: user?.id,
-        data: {
-          YouTubeVideoId: YouTubeVideoId,
-        },
-      });
-    }
-  };
-
   return (
     <div className=" w-full ">
       <section className="h-4/5 ">
@@ -80,15 +61,13 @@ const YoutubePlayer = () => {
       </section>
       <section className="h-1/5 ">
         <div className="flex h-full items-center justify-center gap-3 ">
-          <button className="rounded-full bg-Secondary-background p-2 transition-transform duration-100 ease-linear hover:bg-secondary-hover active:scale-95">
+          {/* <button className="rounded-full bg-Secondary-background p-2 transition-transform duration-100 ease-linear hover:bg-secondary-hover active:scale-95">
             <MdCallEnd className="text-3xl text-red-600" />
           </button>
-          <button
-            onClick={handleSharing}
-            className="rounded-md bg-button-background  p-2 transition-transform duration-100 ease-linear hover:bg-secondary-hover active:scale-95"
-          >
-            {isSharing ? "Stop Sharing" : "Share"}
-          </button>
+         */}
+          <section>
+            <RoomShareButtonCard />
+          </section>
         </div>
       </section>
     </div>

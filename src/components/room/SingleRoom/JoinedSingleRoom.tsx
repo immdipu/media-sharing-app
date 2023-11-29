@@ -21,6 +21,8 @@ interface RoomContextTypes {
   setSearchResult: React.Dispatch<React.SetStateAction<YouTubeVideo[]>>;
   searchResult: YouTubeVideo[];
   media: "YouTube" | null;
+  isSharing: boolean;
+  setIsSharing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 let intialState: RoomContextTypes = {
@@ -30,6 +32,8 @@ let intialState: RoomContextTypes = {
   setMedia: () => {},
   setSearchResult: () => {},
   searchResult: [],
+  isSharing: false,
+  setIsSharing: () => {},
 };
 
 export const RoomContext = React.createContext<RoomContextTypes>(intialState);
@@ -39,6 +43,7 @@ const JoinedSingleRoom = () => {
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const [searchResult, setSearchResult] = React.useState<YouTubeVideo[]>([]);
   const [media, setMedia] = useState<"YouTube" | null>(null);
+  const [isSharing, setIsSharing] = React.useState(false);
   const [YouTubeVideoId, setYouTubeVideoId] = React.useState<string | null>(
     null,
   );
@@ -83,6 +88,8 @@ const JoinedSingleRoom = () => {
         setMedia,
         searchResult,
         setSearchResult,
+        isSharing,
+        setIsSharing,
       }}
     >
       <div className="flex min-h-screen justify-start">
