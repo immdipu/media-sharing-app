@@ -1,4 +1,5 @@
 import { RoomTypes } from "./room";
+import { roomActivityTypes } from "./roomActivity";
 
 export interface IjoinedRoomResponse {
   success: boolean;
@@ -32,7 +33,8 @@ export type RoomUpdateTypes = EditRoomTypes | RoleTransferTypes | KickUserTypes;
 
 export type RoomUpdateResponseTypes =
   | RoomEditResponseTypes
-  | RoomRoleTransferResponseTypes;
+  | RoomRoleTransferResponseTypes
+  | ActivityUpdateResponseTypes;
 
 interface RoomEditResponseTypes {
   type: "EditRoom";
@@ -44,4 +46,9 @@ interface RoomRoleTransferResponseTypes {
   AdminId: string;
   roomId: string;
   ToTransferId: string;
+}
+
+interface ActivityUpdateResponseTypes {
+  type: "AnActivityUpdate";
+  activity: roomActivityTypes;
 }

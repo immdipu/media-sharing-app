@@ -30,6 +30,8 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
     <div
       onClick={() => {
         setYouTubeVideoId(id);
+        localStorage.setItem("YouTubeVideoId", id);
+        localStorage.setItem("YouTubeThumbnail", thumbnail?.url);
       }}
       className="mb-4 flex  h-24 w-full px-2 transition-colors duration-300 ease-linear hover:bg-third-background"
     >

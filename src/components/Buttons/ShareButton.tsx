@@ -23,6 +23,7 @@ const ShareButton = () => {
         admin: user?.id,
         data: {
           vidoeId: YouTubeVideoId,
+          thumbnail: localStorage.getItem("YouTubeThumbnail"),
         },
       });
     }

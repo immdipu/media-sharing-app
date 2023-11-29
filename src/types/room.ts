@@ -1,4 +1,5 @@
 import { Role } from "./role";
+import { roomActivityTypes } from "./roomActivity";
 
 export interface membersTypes {
   _id: string;
@@ -20,6 +21,7 @@ export interface RoomTypes {
   moderators: membersTypes[];
   bannedUsers: string[];
   createdAt: Date;
+  roomActivity: roomActivityTypes[];
 }
 
 export type RoomChatTypes =
@@ -58,4 +60,11 @@ export interface RoomMessageTypes {
   content: string;
   sender: membersTypes;
   createdAt: Date;
+}
+
+export interface ActivityTypes {
+  type: "ADD_MEMBER_FROM_ACTIVITY" | "REMOVE_MEMBER_FROM_ACTIVITY";
+  activityID: string;
+  roomID: string;
+  userID: string;
 }

@@ -1,7 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { loginResponseTypes } from "@/types/userTypes";
 import { Role } from "@/types/role";
-import { RoomTypes, RoomChatTypes, membersTypes } from "@/types/room";
+import {
+  RoomTypes,
+  RoomChatTypes,
+  membersTypes,
+  ActivityTypes,
+} from "@/types/room";
+import { roomActivityTypes } from "@/types/roomActivity";
 
 interface initialStateProps {
   Room: RoomTypes[] | null;
@@ -73,6 +79,17 @@ export const roomSlice = createSlice({
       }
     },
 
+    UpdateAnActivity: (state, action: PayloadAction<roomActivityTypes>) => {
+      if (state.JoinedRoom) {
+        const activityIndex = state.JoinedRoom.roomActivity.findIndex(
+          (activity) => activity._id === action.payload._id,
+        );
+        if (activityIndex !== -1) {
+          state.JoinedRoom.roomActivity[activityIndex] = action.payload;
+        }
+      }
+    },
+
     StopRoomJoiningLoader: (state) => {
       state.RoomJoiningLoader = false;
     },
@@ -92,5 +109,6 @@ export const {
   StopRoomJoiningLoader,
   StartRoomJoiningLoader,
   UpdateRoom,
+  UpdateAnActivity,
 } = roomSlice.actions;
 export default roomSlice.reducer;

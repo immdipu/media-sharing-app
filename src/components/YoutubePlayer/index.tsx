@@ -65,8 +65,10 @@ const YoutubePlayer = () => {
             <MdCallEnd className="text-3xl text-red-600" />
           </button>
          */}
-          <section>
-            <RoomShareButtonCard />
+          <section className="flex items-end gap-2">
+            {JoinedRoom?.roomActivity.map((activity, index) => (
+              <RoomShareButtonCard {...activity} key={index} />
+            ))}
           </section>
         </div>
       </section>
