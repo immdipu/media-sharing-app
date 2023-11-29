@@ -14,7 +14,15 @@ const ShareButton = () => {
   const handleSharing = () => {
     if (isSharing) {
       setIsSharing(false);
-      console.log("you are no longer sharing your music");
+      let activityId = JoinedRoom?.roomActivity.find(
+        (item) => item.admin._id === user?.id,
+      );
+      EmitCustomEvent("room-update", {
+        type: "REMOVE_ACTIVITY",
+        roomID: JoinedRoom?._id,
+        userID: user?.id,
+        activityID: activityId?._id,
+      });
     } else {
       setIsSharing(true);
       EmitCustomEvent("add-activity", {

@@ -64,7 +64,7 @@ const SingleRoom = () => {
 
   if (
     verifying ||
-    !JoinedRoom?.members.find((member) => member._id === user.id)
+    !JoinedRoom?.members?.find((member) => member?._id === user?.id)
   )
     return (
       <div className="fixed z-20 grid h-full  w-full place-content-center items-center justify-center bg-Secondary-background">
@@ -83,7 +83,7 @@ const SingleRoom = () => {
       </div>
     );
 
-  if (JoinedRoom && user?.id && JoinedRoom.bannedUsers.includes(user.id)) {
+  if (JoinedRoom && user?.id && JoinedRoom?.bannedUsers?.includes(user.id)) {
     return <KickedOut />;
   }
 

@@ -7,6 +7,7 @@ import { MdOutlineScreenShare } from "react-icons/md";
 import { useSocket } from "@/context/SocketProvider";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import RoomShareButtonCard from "../card/RoomShareButtonCard";
+import clsx from "clsx";
 
 const YoutubePlayer = () => {
   const { YouTubeVideoId, setYouTubeVideoId } = useContext(RoomContext);
@@ -35,6 +36,10 @@ const YoutubePlayer = () => {
     setPlayer(event.target);
   };
 
+  const userJoinedActivity = JoinedRoom?.roomActivity.find(
+    (activity) => activity.users?.find((u) => u._id == user?.id),
+  );
+
   useEffect(() => {
     if (player) {
       const time = player.getCurrentTime();
@@ -46,16 +51,28 @@ const YoutubePlayer = () => {
     <div className=" w-full ">
       <section className="h-4/5 ">
         <section className="h-5/6 overflow-hidden  px-2 pt-4">
-          <div className="h-full w-full">
-            <YouTube
-              videoId={YouTubeVideoId ?? "48H3BqFRPEs"}
-              onStateChange={(e) => checkElapsedTime(e)}
-              className="h-full w-full"
-              iframeClassName="h-full w-full "
-              opts={opts}
-              loading="eager"
-              onReady={onReady}
-            />
+          <div className={clsx(" h-full w-full")}>
+            {userJoinedActivity && userJoinedActivity !== undefined ? (
+              <YouTube
+                videoId={userJoinedActivity?.data?.videoId}
+                onStateChange={(e) => checkElapsedTime(e)}
+                className="h-full w-full"
+                iframeClassName="h-full w-full "
+                opts={opts}
+                loading="eager"
+                onReady={onReady}
+              />
+            ) : YouTubeVideoId !== "" && YouTubeVideoId ? (
+              <YouTube
+                videoId={YouTubeVideoId}
+                onStateChange={(e) => checkElapsedTime(e)}
+                className="h-full w-full"
+                iframeClassName="h-full w-full "
+                opts={opts}
+                loading="eager"
+                onReady={onReady}
+              />
+            ) : null}
           </div>
         </section>
       </section>

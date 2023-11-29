@@ -8,6 +8,7 @@ import {
   ActivityTypes,
 } from "@/types/room";
 import { roomActivityTypes } from "@/types/roomActivity";
+import { ActivityDeleteResponseTypes } from "@/types/socketTypes";
 
 interface initialStateProps {
   Room: RoomTypes[] | null;
@@ -90,6 +91,18 @@ export const roomSlice = createSlice({
       }
     },
 
+    DeleteAnActivity: (
+      state,
+      action: PayloadAction<ActivityDeleteResponseTypes>,
+    ) => {
+      if (state.JoinedRoom) {
+        let newActivities = state.JoinedRoom.roomActivity.filter(
+          (activity) => activity._id !== action.payload.activityID,
+        );
+        state.JoinedRoom.roomActivity = newActivities;
+      }
+    },
+
     StopRoomJoiningLoader: (state) => {
       state.RoomJoiningLoader = false;
     },
@@ -110,5 +123,6 @@ export const {
   StartRoomJoiningLoader,
   UpdateRoom,
   UpdateAnActivity,
+  DeleteAnActivity,
 } = roomSlice.actions;
 export default roomSlice.reducer;

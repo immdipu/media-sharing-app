@@ -34,7 +34,8 @@ export type RoomUpdateTypes = EditRoomTypes | RoleTransferTypes | KickUserTypes;
 export type RoomUpdateResponseTypes =
   | RoomEditResponseTypes
   | RoomRoleTransferResponseTypes
-  | ActivityUpdateResponseTypes;
+  | ActivityUpdateResponseTypes
+  | ActivityDeleteResponseTypes;
 
 interface RoomEditResponseTypes {
   type: "EditRoom";
@@ -51,4 +52,9 @@ interface RoomRoleTransferResponseTypes {
 interface ActivityUpdateResponseTypes {
   type: "AnActivityUpdate";
   activity: roomActivityTypes;
+}
+
+export interface ActivityDeleteResponseTypes {
+  type: "ActivityDeleted";
+  activityID: string;
 }

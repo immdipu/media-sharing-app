@@ -7,6 +7,7 @@ import YoutubePlayer from "@/components/YoutubePlayer";
 import {
   AddMessage,
   AddNewMemeberToTheRoom,
+  DeleteAnActivity,
   RemoveMemberFromRoom,
   UpdateAnActivity,
   UpdateRoom,
@@ -75,6 +76,9 @@ const JoinedSingleRoom = () => {
         if (data.type === "AnActivityUpdate") {
           console.log("AnActivityUpdate", data.activity);
           dispatch(UpdateAnActivity(data.activity));
+        }
+        if (data.type === "ActivityDeleted") {
+          dispatch(DeleteAnActivity(data));
         }
       });
     }
