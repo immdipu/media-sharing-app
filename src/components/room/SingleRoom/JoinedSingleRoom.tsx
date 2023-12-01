@@ -30,6 +30,14 @@ interface RoomContextTypes {
   setIsPlayingMyVideo: React.Dispatch<React.SetStateAction<boolean>>;
   OthersSelectedUserVideo: boolean;
   setOthersSelectedUserVideo: React.Dispatch<React.SetStateAction<boolean>>;
+  thirdPartyVideoId: string;
+  setThirdPartyVideoId: React.Dispatch<React.SetStateAction<string>>;
+  thirdPartyVideoState: string;
+  setThirdPartyVideoState: React.Dispatch<React.SetStateAction<string>>;
+  thirdPartyVideoTime: number;
+  setThirdPartyVideoTime: React.Dispatch<React.SetStateAction<number>>;
+  thirdPartyPlayer?: any;
+  setThirdPartyPlayer?: React.Dispatch<React.SetStateAction<any>>;
 }
 
 let intialState: RoomContextTypes = {
@@ -45,6 +53,14 @@ let intialState: RoomContextTypes = {
   setIsPlayingMyVideo: () => {},
   OthersSelectedUserVideo: false,
   setOthersSelectedUserVideo: () => {},
+  thirdPartyVideoId: "",
+  setThirdPartyVideoId: () => {},
+  thirdPartyVideoState: "playing",
+  setThirdPartyVideoState: () => {},
+  thirdPartyVideoTime: 0,
+  setThirdPartyVideoTime: () => {},
+  thirdPartyPlayer: null,
+  setThirdPartyPlayer: () => {},
 };
 
 export const RoomContext = React.createContext<RoomContextTypes>(intialState);
@@ -61,6 +77,12 @@ const JoinedSingleRoom = () => {
     null,
   );
   const [isPlayingMyVideo, setIsPlayingMyVideo] = React.useState(false);
+  const [thirdPartyVideoId, setThirdPartyVideoId] = React.useState<string>("");
+  const [thirdPartyVideoState, setThirdPartyVideoState] =
+    React.useState<string>("playing");
+  const [thirdPartyVideoTime, setThirdPartyVideoTime] =
+    React.useState<number>(0);
+  const [thirdPartyPlayer, setThirdPartyPlayer] = React.useState<any>(null);
 
   const dispatch = useAppDispatch();
 
@@ -120,6 +142,14 @@ const JoinedSingleRoom = () => {
         setIsPlayingMyVideo,
         OthersSelectedUserVideo,
         setOthersSelectedUserVideo,
+        thirdPartyVideoId,
+        setThirdPartyVideoId,
+        thirdPartyVideoState,
+        setThirdPartyVideoState,
+        thirdPartyVideoTime,
+        setThirdPartyVideoTime,
+        thirdPartyPlayer,
+        setThirdPartyPlayer,
       }}
     >
       <div className="flex min-h-screen justify-start">

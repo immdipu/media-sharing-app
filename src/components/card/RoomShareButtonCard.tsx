@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { roomActivityTypes } from "@/types/roomActivity";
 import clsx from "clsx";
@@ -22,20 +22,85 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
 
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room);
-  const { setOthersSelectedUserVideo } = useContext(RoomContext);
+  const {
+    setOthersSelectedUserVideo,
+    setThirdPartyVideoId,
+    setThirdPartyVideoTime,
+    thirdPartyVideoTime,
+    setThirdPartyVideoState,
+    thirdPartyVideoId,
+    thirdPartyVideoState,
+    thirdPartyPlayer,
+    setThirdPartyPlayer,
+  } = useContext(RoomContext);
 
   const isWatching = users?.find((u) => u._id == user?.id);
 
-  const isMySharedVideo = JoinedRoom?.JoinedRoom?.roomActivity.find(
-    (activity) => activity.admin._id === user?.id,
-  );
+  const isMySharedVideo = admin._id === user?.id;
+
+  useEffect(() => {
+    if (isWatching && isMySharedVideo === undefined) {
+      if (socket) {
+        socket.on("player-state", (data) => {
+          if (data?.data?.time) {
+            const timeDifference = Math.abs(
+              data?.data?.time - thirdPartyVideoTime,
+            );
+            if (timeDifference > 3) {
+              thirdPartyPlayer?.seekTo(data?.data?.time);
+            }
+            if (timeDifference < 3) {
+              thirdPartyPlayer?.seekTo(data?.data?.time);
+            }
+            if (data?.data?.VideoId !== thirdPartyVideoId) {
+              setThirdPartyVideoId(data?.data?.VideoId);
+            }
+          }
+          if (data?.data?.state) {
+            const playerState = thirdPartyPlayer?.getPlayerState();
+            if (playerState !== data?.data?.state) {
+              if (data?.data?.state === "playing") {
+                thirdPartyPlayer?.playVideo();
+              }
+              if (data?.data?.state === "paused") {
+                thirdPartyPlayer?.pauseVideo();
+              }
+            }
+          }
+          if (data?.data?.VideoId !== thirdPartyVideoId) {
+            setThirdPartyVideoId(data?.data?.VideoId);
+          }
+        });
+
+        socket.on("GET_MEDIA_DETAILS_RESPONSE", (data) => {
+          if (data?.data?.time) {
+            setThirdPartyVideoTime(data?.data?.time);
+          }
+          if (data?.data?.VideoId) {
+            setThirdPartyVideoId(data?.data?.VideoId);
+          }
+          if (data?.data?.state) {
+            if (thirdPartyPlayer && thirdPartyPlayer !== undefined) {
+              const playerState = thirdPartyPlayer?.getPlayerState();
+              if (playerState !== data?.data?.state) {
+                setThirdPartyVideoState(data?.data?.state);
+              }
+            }
+          }
+        });
+      }
+      return () => {
+        socket?.off("player-state");
+        socket?.off("GET_MEDIA_DETAILS_RESPONSE");
+      };
+    }
+  }, [isWatching, socket, thirdPartyPlayer]);
 
   const handleJoinAndLeave = () => {
     if (isWatching) {
-      if (isMySharedVideo === undefined) {
+      if (isMySharedVideo) {
         setOthersSelectedUserVideo(false);
       }
-
       let data: ActivityTypes = {
         type: "REMOVE_MEMBER_FROM_ACTIVITY",
         roomID: JoinedRoom.JoinedRoom?._id!,
@@ -44,7 +109,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       };
       EmitCustomEvent("room-update", data);
     } else {
-      if (isMySharedVideo === undefined) {
+      if (!isMySharedVideo) {
         setOthersSelectedUserVideo(true);
       }
       let data: ActivityTypes = {

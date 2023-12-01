@@ -11,7 +11,7 @@ const Sidebarcomponent = () => {
   return (
     <div className="relative ">
       <h1 className="font-Helvetica mt-8 pl-7 text-xl font-bold tracking-wider text-Header-primary">
-        Media-Sharing
+        MediaSharing
       </h1>
       <section className="mt-14 flex flex-col gap-6 ">
         {routes.map((item: DesktopSingleComponentProps) => {

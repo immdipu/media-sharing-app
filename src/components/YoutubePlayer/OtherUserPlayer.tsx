@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import clsx from "clsx";
@@ -7,57 +7,74 @@ import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 const OtherUserPlayer = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
-  const { OthersSelectedUserVideo, YouTubeVideoId } = useContext(RoomContext);
-  const [player, setPlayer] = React.useState<any>(null);
-  const [VideoId, setVideoId] = React.useState<string | null>(null);
-
-  const checkElapsedTime = (e: any) => {
-    console.log(e.target.playerInfo.playerState);
-    const duration = e.target.getDuration();
-    const currentTime = e.target.getCurrentTime();
-    console.log("currentTime", currentTime);
-  };
+  const {
+    OthersSelectedUserVideo,
+    YouTubeVideoId,
+    thirdPartyVideoId,
+    thirdPartyVideoTime,
+    thirdPartyVideoState,
+    thirdPartyPlayer,
+    setThirdPartyPlayer,
+  } = useContext(RoomContext);
 
   const opts: YouTubeProps["opts"] = {
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
-      autoplay: 1,
-      start: 0,
+      // autoplay: 1,
+      start: thirdPartyVideoTime,
     },
   };
 
-  const onReady = (event: any) => {
+  const onReady: YouTubeProps["onReady"] = (event) => {
     // access to player in all event handlers via event.target
-    setPlayer(event.target);
+    if (setThirdPartyPlayer === undefined) return;
+    setThirdPartyPlayer(event.target);
+    if (thirdPartyVideoState === "playing") {
+      event.target.playVideo();
+    }
   };
 
-  const userJoinedActivity = JoinedRoom?.roomActivity.find(
-    (activity) => activity.users?.find((u) => u._id == user?.id),
-  );
-
-  console.log("userJoinedActivity", userJoinedActivity);
-
-  React.useEffect(() => {
-    console.log("userJoinedActivity", userJoinedActivity);
-    if (userJoinedActivity?.data?.videoId) {
-      setVideoId(userJoinedActivity?.data?.videoId);
+  useEffect(() => {
+    if (!thirdPartyPlayer || thirdPartyVideoId || thirdPartyPlayer === null)
+      return;
+    if (thirdPartyVideoState === "playing") {
+      thirdPartyPlayer?.playVideo();
     }
-  }, [userJoinedActivity?.data?.videoId]);
+    if (thirdPartyVideoState === "paused") {
+      thirdPartyPlayer?.pauseVideo();
+    }
+  }, [thirdPartyVideoState, thirdPartyPlayer, thirdPartyVideoId]);
 
-  if (!VideoId) return null;
+  if (!thirdPartyVideoId)
+    return (
+      <div>
+        <h1 className="text-2xl text-white">
+          Waiting for the host to share a video
+        </h1>
+      </div>
+    );
 
   return (
     <section className="h-full overflow-hidden  px-2 pt-4 ">
-      <div className={clsx(" h-full w-full")}>
+      <div className={clsx(" h-[90%] w-full")}>
         <YouTube
-          videoId={VideoId}
-          onStateChange={(e) => checkElapsedTime(e)}
+          videoId={thirdPartyVideoId}
           className="h-full w-full"
           iframeClassName={clsx("h-full w-full")}
           opts={opts}
-          loading="eager"
           onReady={onReady}
         />
+      </div>
+      <div className="h-36  w-full">
+        <button
+          onClick={() => {
+            thirdPartyPlayer?.playVideo();
+            console.log(thirdPartyPlayer);
+          }}
+          className="rounded-lg bg-white px-4 py-2 text-black"
+        >
+          Play/Pause
+        </button>
       </div>
     </section>
   );

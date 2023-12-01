@@ -19,14 +19,9 @@ const YoutubePlayer = () => {
   } = useContext(RoomContext);
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
+  const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const [player, setPlayer] = useState<any>(null);
-
-  const checkElapsedTime = (e: any) => {
-    console.log(e.target.playerInfo.playerState);
-    const duration = e.target.getDuration();
-    const currentTime = e.target.getCurrentTime();
-    console.log("currentTime", currentTime);
-  };
+  const [lastEmittedTime, setLastEmittedTime] = useState<number>(0);
 
   const opts: YouTubeProps["opts"] = {
     playerVars: {
@@ -53,11 +48,45 @@ const YoutubePlayer = () => {
   );
 
   useEffect(() => {
-    if (player) {
-      const time = player.getCurrentTime();
-      console.log("time", time);
+    if (isMySharedVideo && socket && player) {
+      const Interval = setInterval(() => {
+        const time = player?.getCurrentTime();
+        const VideoId = player?.getVideoData().video_id;
+        const state = player?.getPlayerState();
+        if (time !== lastEmittedTime) {
+          EmitCustomEvent("player-state", {
+            roomID: isMySharedVideo._id,
+            data: {
+              time: time,
+              VideoId,
+              state: state === 1 ? "playing" : "paused",
+            },
+          });
+          setLastEmittedTime(time);
+        }
+      }, 20000);
+
+      socket.on("GET_MEDIA_DETAILS", () => {
+        const time = player?.getCurrentTime();
+        const VideoId = player?.getVideoData().video_id;
+        const state = player?.getPlayerState();
+        console.log("GET_MEDIA_DETAILS", state);
+        EmitCustomEvent("Get_Activity_Details", {
+          roomID: isMySharedVideo._id,
+          data: {
+            time: time,
+            VideoId,
+            state: state === 1 ? "playing" : "paused",
+          },
+        });
+      });
+
+      return () => {
+        clearInterval(Interval);
+        socket.off("Get_Activity_Details");
+      };
     }
-  }, [YouTubeVideoId, player]);
+  }, [isMySharedVideo, socket, player, lastEmittedTime]);
 
   useEffect(() => {
     if (isMySharedVideo && !AmIwatchingMyVideo) {
@@ -67,6 +96,35 @@ const YoutubePlayer = () => {
       player?.pauseVideo();
     }
   }, [isMySharedVideo, OthersSelectedUserVideo]);
+
+  const hanldeOnStateChange: YouTubeProps["onStateChange"] = (e) => {
+    if (isMySharedVideo && socket) {
+      if (e.data === 1) {
+        const time = player?.getCurrentTime();
+        const VideoId = player?.getVideoData().video_id;
+        EmitCustomEvent("player-state", {
+          roomID: isMySharedVideo._id,
+          data: {
+            time: time,
+            VideoId,
+            state: "playing",
+          },
+        });
+      }
+      if (e.data === 2) {
+        const time = player?.getCurrentTime();
+        const VideoId = player?.getVideoData().video_id;
+        EmitCustomEvent("player-state", {
+          roomID: isMySharedVideo._id,
+          data: {
+            time: time,
+            VideoId,
+            state: "paused",
+          },
+        });
+      }
+    }
+  };
 
   return (
     <div className=" w-full ">
@@ -83,18 +141,22 @@ const YoutubePlayer = () => {
           >
             <YouTube
               videoId={YouTubeVideoId!}
-              onStateChange={(e) => checkElapsedTime(e)}
+              onStateChange={hanldeOnStateChange}
               className="h-full w-full"
               iframeClassName={clsx("h-full w-full")}
               opts={opts}
               onReady={onReady}
             />
           </div>
-          {OthersSelectedUserVideo && (
-            <div className="absolute bottom-0 left-0 right-0 top-0 z-10  h-full w-full">
-              <OtherUserPlayer />
-            </div>
-          )}
+
+          <div
+            className={clsx(
+              "absolute bottom-0 left-0 right-0 top-0   h-full w-full",
+              OthersSelectedUserVideo ? "z-10" : "-z-10 opacity-0",
+            )}
+          >
+            <OtherUserPlayer />
+          </div>
         </section>
       </section>
 
