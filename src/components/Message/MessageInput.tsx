@@ -21,7 +21,7 @@ const MessageInput = () => {
 
     setMessage("");
     let messageData = {
-      roomId: JoinedRoom?._id,
+      roomId: JoinedRoom?.id,
       data: {
         Type: "message",
         content: message,
