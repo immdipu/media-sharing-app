@@ -34,17 +34,6 @@ const OtherUserPlayer = () => {
     }
   };
 
-  useEffect(() => {
-    if (!thirdPartyPlayer || thirdPartyVideoId || thirdPartyPlayer === null)
-      return;
-    if (thirdPartyVideoState === "playing") {
-      thirdPartyPlayer?.playVideo();
-    }
-    if (thirdPartyVideoState === "paused") {
-      thirdPartyPlayer?.pauseVideo();
-    }
-  }, [thirdPartyVideoState, thirdPartyPlayer, thirdPartyVideoId]);
-
   if (!thirdPartyVideoId)
     return (
       <div>

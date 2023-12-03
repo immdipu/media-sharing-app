@@ -73,18 +73,18 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
         });
 
         socket.on("GET_MEDIA_DETAILS_RESPONSE", (data) => {
+          console.log("GET_MEDIA_DETAILS_RESPONSE", data);
           if (data?.data?.time) {
             setThirdPartyVideoTime(data?.data?.time);
           }
           if (data?.data?.VideoId) {
+            console.log("media response data", data);
             setThirdPartyVideoId(data?.data?.VideoId);
           }
           if (data?.data?.state) {
-            if (thirdPartyPlayer && thirdPartyPlayer !== undefined) {
-              const playerState = thirdPartyPlayer?.getPlayerState();
-              if (playerState !== data?.data?.state) {
-                setThirdPartyVideoState(data?.data?.state);
-              }
+            const playerState = thirdPartyPlayer?.getPlayerState();
+            if (playerState !== data?.data?.state) {
+              setThirdPartyVideoState(data?.data?.state);
             }
           }
         });
@@ -98,9 +98,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
 
   const handleJoinAndLeave = () => {
     if (isWatching) {
-      if (isMySharedVideo) {
-        setOthersSelectedUserVideo(false);
-      }
+      setOthersSelectedUserVideo(false);
       let data: ActivityTypes = {
         type: "REMOVE_MEMBER_FROM_ACTIVITY",
         roomID: JoinedRoom.JoinedRoom?._id!,

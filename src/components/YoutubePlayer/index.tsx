@@ -152,7 +152,7 @@ const YoutubePlayer = () => {
           <div
             className={clsx(
               "absolute bottom-0 left-0 right-0 top-0   h-full w-full",
-              OthersSelectedUserVideo ? "z-10" : "-z-10 opacity-0",
+              OthersSelectedUserVideo ? "z-10" : "-z-10 hidden opacity-0",
             )}
           >
             <OtherUserPlayer />

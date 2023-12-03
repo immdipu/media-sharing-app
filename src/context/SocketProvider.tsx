@@ -80,10 +80,10 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (!socket) return;
-    if (JoinedRoom?._id) {
+    if (JoinedRoom?.id) {
       if (!pathanme.includes("room")) {
         socket.emit("leave-room", {
-          roomId: JoinedRoom._id,
+          roomId: JoinedRoom.id,
           userId: user.id,
         });
       }

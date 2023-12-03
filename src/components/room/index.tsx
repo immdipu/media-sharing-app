@@ -13,7 +13,7 @@ const Room: React.FC<RoomTypes> = ({
   admin,
   bannedUsers,
   createdAt,
-  _id,
+  id,
   members,
   membersLimit,
   moderators,
@@ -44,14 +44,12 @@ const Room: React.FC<RoomTypes> = ({
           members?.map((member, index) => (
             <AvatarCard {...member} key={index} />
           ))}
-        {members &&
-          members.length > 0 &&
-          renderEmptyCards(membersLimit - members.length)}
+        {members.length > 0 && renderEmptyCards(membersLimit - members.length)}
 
         {members && members.length === 0 && renderEmptyCards(10)}
       </section>
       <section className="my-3">
-        {members.length === membersLimit ? (
+        {members && members.length === membersLimit ? (
           <Button
             variant={"destructive"}
             className="mt-3 w-full text-lg opacity-90"
@@ -59,7 +57,7 @@ const Room: React.FC<RoomTypes> = ({
             Room is full
           </Button>
         ) : (
-          <Link href={`/room/${_id}`} className="block w-full">
+          <Link href={`/room/${id}`} className="block w-full">
             <Button variant={"secondary"} className="mt-3 w-full text-lg">
               Join
             </Button>

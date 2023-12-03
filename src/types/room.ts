@@ -7,13 +7,10 @@ export interface membersTypes {
   username: string;
   profilePic: string;
   verified: boolean;
-  role: Role;
-  followers: number;
-  following: number;
 }
 
 export interface RoomTypes {
-  _id: string;
+  id: string;
   name: string;
   membersLimit: number;
   admin: membersTypes;
