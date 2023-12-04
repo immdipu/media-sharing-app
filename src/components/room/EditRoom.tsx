@@ -53,7 +53,7 @@ const EditRoom = () => {
         ...roomDetails,
         type: "EditRoom",
         user: user.id!,
-        roomId: JoinedRoom?._id!,
+        roomId: JoinedRoom?.id!,
       };
       EmitCustomEvent("room-update", data);
       setIsOpen(false);

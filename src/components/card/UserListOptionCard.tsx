@@ -40,7 +40,7 @@ const UserListOptionCard = ({ id }: { id: string }) => {
             const data: RoomUpdateTypes = {
               type: "KickUser",
               AdminId: currentUser?.id!,
-              roomId: JoinedRoom?._id!,
+              roomId: JoinedRoom?.id!,
               ToKickId: id,
             };
             EmitCustomEvent("room-update", data);

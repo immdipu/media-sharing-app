@@ -24,7 +24,7 @@ export function TransferRoomAlert({ id }: { id: string }) {
     const data: RoomUpdateTypes = {
       type: "RoleTransfer",
       AdminId: currentUser?.id!,
-      roomId: JoinedRoom?._id!,
+      roomId: JoinedRoom?.id!,
       ToTransferId: id,
     };
     EmitCustomEvent("room-update", data);

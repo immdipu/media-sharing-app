@@ -16,11 +16,8 @@ interface UserCardListProps extends membersTypes {
 
 const UserCardList: React.FC<UserCardListProps> = ({
   _id,
-  followers,
-  following,
   fullName,
   profilePic,
-  role,
   username,
   verified,
   roomRole,
