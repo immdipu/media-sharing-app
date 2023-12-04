@@ -83,7 +83,7 @@ export const roomSlice = createSlice({
     UpdateAnActivity: (state, action: PayloadAction<roomActivityTypes>) => {
       if (state.JoinedRoom) {
         const activityIndex = state.JoinedRoom.roomActivity.findIndex(
-          (activity) => activity._id === action.payload._id,
+          (activity) => activity.id === action.payload.id,
         );
         if (activityIndex !== -1) {
           state.JoinedRoom.roomActivity[activityIndex] = action.payload;
@@ -103,7 +103,7 @@ export const roomSlice = createSlice({
     ) => {
       if (state.JoinedRoom) {
         let newActivities = state.JoinedRoom.roomActivity.filter(
-          (activity) => activity._id !== action.payload.activityID,
+          (activity) => activity.id !== action.payload.activityId,
         );
         state.JoinedRoom.roomActivity = newActivities;
       }

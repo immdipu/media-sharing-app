@@ -14,24 +14,27 @@ const ShareButton = () => {
   const handleSharing = () => {
     if (isSharing) {
       setIsSharing(false);
-      let activityId = JoinedRoom?.roomActivity.find(
+      let activity = JoinedRoom?.roomActivity.find(
         (item) => item.admin._id === user?.id,
       );
+
       EmitCustomEvent("room-update", {
         type: "REMOVE_ACTIVITY",
-        roomID: JoinedRoom?._id,
-        userID: user?.id,
-        activityID: activityId?._id,
+        roomId: JoinedRoom?.id,
+        userId: user?.id,
+        activityId: activity?.id,
+        adminId: activity?.admin._id,
       });
     } else {
       setIsSharing(true);
       EmitCustomEvent("add-activity", {
         type: "YouTube",
-        room: JoinedRoom?._id,
+        room: JoinedRoom?.id,
         admin: user?.id,
         data: {
           videoId: YouTubeVideoId,
           thumbnail: localStorage.getItem("YouTubeThumbnail"),
+          status: "playing",
         },
       });
     }

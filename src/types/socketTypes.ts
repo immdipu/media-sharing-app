@@ -57,7 +57,7 @@ interface ActivityUpdateResponseTypes {
 
 export interface ActivityDeleteResponseTypes {
   type: "ActivityDeleted";
-  activityID: string;
+  activityId: string;
 }
 
 export interface UpdateAllActivityResponseTypes {

@@ -1,7 +1,7 @@
 import { membersTypes } from "./room";
 
 export interface roomActivityTypes {
-  _id: string;
+  id: string;
   status: string;
   data: {
     videoId?: string;

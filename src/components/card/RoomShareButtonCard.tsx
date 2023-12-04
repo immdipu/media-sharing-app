@@ -11,7 +11,7 @@ import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 
 const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
   ActivityType,
-  _id,
+  id,
   admin,
   createdAt,
   data,
@@ -101,9 +101,9 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       setOthersSelectedUserVideo(false);
       let data: ActivityTypes = {
         type: "REMOVE_MEMBER_FROM_ACTIVITY",
-        roomID: JoinedRoom.JoinedRoom?._id!,
+        roomID: JoinedRoom.JoinedRoom?.id!,
         userID: user?.id!,
-        activityID: _id!,
+        activityID: id!,
       };
       EmitCustomEvent("room-update", data);
     } else {
@@ -112,9 +112,9 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       }
       let data: ActivityTypes = {
         type: "ADD_MEMBER_FROM_ACTIVITY",
-        roomID: JoinedRoom.JoinedRoom?._id!,
+        roomID: JoinedRoom.JoinedRoom?.id!,
         userID: user?.id!,
-        activityID: _id!,
+        activityID: id!,
       };
       EmitCustomEvent("room-update", data);
     }

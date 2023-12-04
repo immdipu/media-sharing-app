@@ -55,7 +55,7 @@ const YoutubePlayer = () => {
         const state = player?.getPlayerState();
         if (time !== lastEmittedTime) {
           EmitCustomEvent("player-state", {
-            roomID: isMySharedVideo._id,
+            roomID: isMySharedVideo.id,
             data: {
               time: time,
               VideoId,
@@ -72,7 +72,7 @@ const YoutubePlayer = () => {
         const state = player?.getPlayerState();
         console.log("GET_MEDIA_DETAILS", state);
         EmitCustomEvent("Get_Activity_Details", {
-          roomID: isMySharedVideo._id,
+          roomID: isMySharedVideo.id,
           data: {
             time: time,
             VideoId,
@@ -103,7 +103,7 @@ const YoutubePlayer = () => {
         const time = player?.getCurrentTime();
         const VideoId = player?.getVideoData().video_id;
         EmitCustomEvent("player-state", {
-          roomID: isMySharedVideo._id,
+          roomID: isMySharedVideo.id,
           data: {
             time: time,
             VideoId,
@@ -115,7 +115,7 @@ const YoutubePlayer = () => {
         const time = player?.getCurrentTime();
         const VideoId = player?.getVideoData().video_id;
         EmitCustomEvent("player-state", {
-          roomID: isMySharedVideo._id,
+          roomID: isMySharedVideo.id,
           data: {
             time: time,
             VideoId,
