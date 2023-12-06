@@ -4,7 +4,6 @@ import Room from "@/components/room";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { useQuery } from "@tanstack/react-query";
 import { userApis } from "@/Apis/APIs";
-import { RoomTypes } from "@/types/room";
 import { AddAllRoom } from "@/redux/slice/roomSlice";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
