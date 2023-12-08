@@ -70,9 +70,8 @@ const YoutubePlayer = () => {
         const time = player?.getCurrentTime();
         const VideoId = player?.getVideoData().video_id;
         const state = player?.getPlayerState();
-        console.log("GET_MEDIA_DETAILS", state);
         EmitCustomEvent("Get_Activity_Details", {
-          roomID: isMySharedVideo.id,
+          roomId: isMySharedVideo.id,
           data: {
             time: time,
             VideoId,

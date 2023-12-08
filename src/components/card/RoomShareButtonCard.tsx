@@ -38,8 +38,12 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
 
   const isMySharedVideo = admin._id === user?.id;
 
+  console.log("isMySharedVideo", isMySharedVideo);
+  console.log("isWatching", isWatching);
+
   useEffect(() => {
-    if (isWatching && isMySharedVideo === undefined) {
+    if (isWatching && (!isMySharedVideo || isMySharedVideo === undefined)) {
+      console.log("i am watching and its not my shared video");
       if (socket) {
         socket.on("player-state", (data) => {
           if (data?.data?.time) {
@@ -101,9 +105,10 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       setOthersSelectedUserVideo(false);
       let data: ActivityTypes = {
         type: "REMOVE_MEMBER_FROM_ACTIVITY",
-        roomID: JoinedRoom.JoinedRoom?.id!,
-        userID: user?.id!,
-        activityID: id!,
+        roomId: JoinedRoom.JoinedRoom?.id!,
+        userId: user?.id!,
+        activityId: id!,
+        adminId: admin._id,
       };
       EmitCustomEvent("room-update", data);
     } else {
@@ -112,9 +117,10 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       }
       let data: ActivityTypes = {
         type: "ADD_MEMBER_FROM_ACTIVITY",
-        roomID: JoinedRoom.JoinedRoom?.id!,
-        userID: user?.id!,
-        activityID: id!,
+        roomId: JoinedRoom.JoinedRoom?.id!,
+        userId: user?.id!,
+        activityId: id!,
+        adminId: admin._id,
       };
       EmitCustomEvent("room-update", data);
     }
