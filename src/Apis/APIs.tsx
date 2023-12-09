@@ -71,6 +71,13 @@ export const userApis = {
     return res.data;
   },
 
+  sendFeedback: async (data: feedbackDataTypes) => {
+    const res = await axiosInstance().post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/user/feedback`,
+      data,
+    );
+    return res.data;
+  },
   EditProfile: async (
     data: EditProfileDataTypes,
   ): Promise<EditProfileDataTypes> => {
