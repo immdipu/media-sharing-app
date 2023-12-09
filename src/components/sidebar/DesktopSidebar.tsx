@@ -2,12 +2,16 @@
 "use client";
 import React from "react";
 import Component from "./sidebar_component/Sidebarcomponent";
+import Dialog from "@/components/Dialog/index";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Feeback from "@/components/feeback";
 
 import Link from "next/link";
 
 const DesktopSidebar = () => {
   return (
-    <div className="bg-_black_bg border-r-third-color fixed inset-y-0 w-56 border-r-[0.2px]  bg-Main-background">
+    <div className="bg-_black_bg fixed inset-y-0 w-56 border-r-[0.2px] border-r-third-color  bg-Main-background">
       <Component />
       <div className="absolute bottom-8 left-0 right-0 text-center">
         {/* <Link
@@ -16,6 +20,17 @@ const DesktopSidebar = () => {
         >
           Become a supporter
         </Link> */}
+
+        <Dialog
+          button={
+            <p className="text-sm   font-medium text-blue-600 opacity-80 hover:underline">
+              Report an issue
+            </p>
+          }
+          title="Report an issue"
+          description="Please describe the issue you are facing"
+          data={<Feeback />}
+        />
       </div>
     </div>
   );

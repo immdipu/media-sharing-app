@@ -38,7 +38,9 @@ const index: React.FC<Props> = ({
           <DialogTitle className="font-medium tracking-wide text-Header-primary">
             {title}
           </DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          <DialogDescription className="text-paragraph-secondary">
+            {description}
+          </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">{data}</div>
         <DialogFooter>
