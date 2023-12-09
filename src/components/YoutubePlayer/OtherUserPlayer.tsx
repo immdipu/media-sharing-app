@@ -33,7 +33,8 @@ const OtherUserPlayer = () => {
     if (!OthersSelectedUserVideo) {
       thirdPartyPlayer?.pauseVideo();
     }
-  }, [OthersSelectedUserVideo, thirdPartyPlayer]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [OthersSelectedUserVideo]);
 
   return (
     <section className="h-full overflow-hidden  px-2 pt-4 ">

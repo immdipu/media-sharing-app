@@ -11,8 +11,8 @@ const MobileSidebar = () => {
     <>
       <div
         className={clsx(
-          "z-[52] fixed w-56 first-letter duration-100 ease-in-out transition-all",
-          GlobalContext?.showSider ? "left-0" : "-left-60"
+          "first-letter fixed z-[52] w-56 transition-all duration-100 ease-in-out",
+          GlobalContext?.showSider ? "left-0" : "-left-60",
         )}
       >
         <DesktopSidebar />
@@ -22,7 +22,7 @@ const MobileSidebar = () => {
           onClick={() =>
             GlobalContext?.setShowSidebar(!GlobalContext.showSider)
           }
-          className="inset-0 w-full h-full z-[51] fixed items-center px-3  hidden max-md:flex justify-between bg-_black_bg bg-opacity-50"
+          className="fixed inset-0 z-[51] hidden h-full w-full items-center  justify-between bg-neutral-950 bg-opacity-50 px-3 max-md:flex"
         />
       )}
     </>

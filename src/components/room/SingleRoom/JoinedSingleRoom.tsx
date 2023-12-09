@@ -4,6 +4,7 @@ import RidesideBar from "@/components/room/rightsideBar";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { useSocket } from "@/context/SocketProvider";
 import YoutubePlayer from "@/components/YoutubePlayer";
+import RightSideBarToggleButton from "@/components/Buttons/RightSideBarToggleButton";
 import {
   AddMessage,
   AddNewMemeberToTheRoom,
@@ -38,6 +39,8 @@ interface RoomContextTypes {
   setThirdPartyVideoTime: React.Dispatch<React.SetStateAction<number>>;
   thirdPartyPlayer?: any;
   setThirdPartyPlayer?: React.Dispatch<React.SetStateAction<any>>;
+  showRightSideBar?: boolean;
+  setShowRightSideBar?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 let intialState: RoomContextTypes = {
@@ -61,6 +64,8 @@ let intialState: RoomContextTypes = {
   setThirdPartyVideoTime: () => {},
   thirdPartyPlayer: null,
   setThirdPartyPlayer: () => {},
+  showRightSideBar: true,
+  setShowRightSideBar: () => {},
 };
 
 export const RoomContext = React.createContext<RoomContextTypes>(intialState);
@@ -71,6 +76,7 @@ const JoinedSingleRoom = () => {
   const [searchResult, setSearchResult] = React.useState<YouTubeVideo[]>([]);
   const [media, setMedia] = useState<"YouTube" | null>(null);
   const [isSharing, setIsSharing] = React.useState(false);
+  const [showRightSideBar, setShowRightSideBar] = React.useState<boolean>(true);
   const [OthersSelectedUserVideo, setOthersSelectedUserVideo] =
     useState<boolean>(false);
   const [YouTubeVideoId, setYouTubeVideoId] = React.useState<string | null>(
@@ -147,9 +153,11 @@ const JoinedSingleRoom = () => {
         setThirdPartyVideoTime,
         thirdPartyPlayer,
         setThirdPartyPlayer,
+        showRightSideBar,
+        setShowRightSideBar,
       }}
     >
-      <div className="flex min-h-screen justify-start">
+      <div className="flex min-h-screen justify-start   max-md:relative max-md:overflow-hidden">
         <YoutubePlayer />
 
         <RidesideBar />
