@@ -31,7 +31,7 @@ export default function Home() {
         </section>
         <section>
           <h3 className="mt-10 px-20 text-lg font-bold text-neutral-50">
-            Your rooms
+            Rooms
           </h3>
           <RoomCard />
         </section>

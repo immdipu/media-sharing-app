@@ -37,6 +37,15 @@ const RoomCard = () => {
       {rooms &&
         rooms.length > 0 &&
         rooms?.map((room, index) => <Room {...room} key={index} />)}
+
+      {(rooms && rooms.length === 0) ||
+        (!rooms && (
+          <div className="mt-16 flex h-full w-full justify-center ">
+            <h3 className="text-lg font-bold text-Header-secondary">
+              No rooms available. Create one!
+            </h3>
+          </div>
+        ))}
     </section>
   );
 };
