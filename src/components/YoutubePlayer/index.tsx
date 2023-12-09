@@ -79,7 +79,7 @@ const YoutubePlayer = () => {
         const VideoId = player?.getVideoData().video_id;
         const state = player?.getPlayerState();
         if (time !== lastEmittedTime) {
-          EmitCustomEvent("player-state", {
+          EmitCustomEvent("player-state-server", {
             activityId: isMySharedVideo.id,
             data: {
               time: time,
@@ -107,17 +107,22 @@ const YoutubePlayer = () => {
   }, [!!isMySharedVideo, OthersSelectedUserVideo]);
 
   const hanldeOnStateChange: YouTubeProps["onStateChange"] = (e) => {
-    if (isMySharedVideo && socket) {
+    if (!!isMySharedVideo && socket) {
+      console.log("state changed", e.data);
       const time = player?.getCurrentTime();
       const VideoId = player?.getVideoData().video_id;
-      EmitCustomEvent("player-state", {
-        roomID: isMySharedVideo.id,
-        data: {
-          time: time,
-          VideoId,
-          state: e.data,
-        },
-      });
+
+      if (e.data === 1 || e.data === 2) {
+        console.log("emitting player-state", time, VideoId, e.data);
+        EmitCustomEvent("player-state-server", {
+          activityId: isMySharedVideo.id,
+          data: {
+            time: time,
+            VideoId,
+            state: e.data,
+          },
+        });
+      }
     }
   };
 

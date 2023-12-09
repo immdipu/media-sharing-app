@@ -59,7 +59,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
       });
     }
     if (isSharing) {
-      EmitCustomEvent("player-state", {
+      EmitCustomEvent("player-state-server", {
         activityId: isMySharedVideo?.id,
         data: {
           time: 0,
