@@ -48,14 +48,39 @@ const YoutubePlayer = () => {
   );
 
   useEffect(() => {
-    if (isMySharedVideo && socket && player) {
+    if (!socket) return;
+    if (!!!isMySharedVideo) return;
+    if (!player) return;
+
+    const listner = () => {
+      const time = player?.getCurrentTime();
+      const VideoId = player?.getVideoData().video_id;
+      const state = player?.getPlayerState();
+      EmitCustomEvent("Get_Activity_Details", {
+        activityId: isMySharedVideo?.id,
+        data: {
+          time: time,
+          VideoId,
+          state: state,
+        },
+      });
+    };
+
+    socket.on("GET_MEDIA_DETAILS", listner);
+    return () => {
+      socket?.off("GET_MEDIA_DETAILS", listner);
+    };
+  }, [player, !!isMySharedVideo]);
+
+  useEffect(() => {
+    if (!!isMySharedVideo && socket && player) {
       const Interval = setInterval(() => {
         const time = player?.getCurrentTime();
         const VideoId = player?.getVideoData().video_id;
         const state = player?.getPlayerState();
         if (time !== lastEmittedTime) {
           EmitCustomEvent("player-state", {
-            roomID: isMySharedVideo.id,
+            activityId: isMySharedVideo.id,
             data: {
               time: time,
               VideoId,
@@ -64,64 +89,35 @@ const YoutubePlayer = () => {
           });
           setLastEmittedTime(time);
         }
-      }, 5000);
-
-      socket.on("GET_MEDIA_DETAILS", () => {
-        const time = player?.getCurrentTime();
-        const VideoId = player?.getVideoData().video_id;
-        const state = player?.getPlayerState();
-        EmitCustomEvent("Get_Activity_Details", {
-          roomId: isMySharedVideo.id,
-          data: {
-            time: time,
-            VideoId,
-            state: state,
-          },
-        });
-      });
+      }, 10000);
 
       return () => {
         clearInterval(Interval);
-        socket.off("Get_Activity_Details");
       };
     }
-  }, [isMySharedVideo, socket, player, lastEmittedTime]);
+  }, [!!isMySharedVideo, socket, player, lastEmittedTime]);
 
   useEffect(() => {
-    if (isMySharedVideo && !AmIwatchingMyVideo) {
+    if (!!isMySharedVideo && !AmIwatchingMyVideo) {
       player?.pauseVideo();
     }
     if (OthersSelectedUserVideo) {
       player?.pauseVideo();
     }
-  }, [isMySharedVideo, OthersSelectedUserVideo]);
+  }, [!!isMySharedVideo, OthersSelectedUserVideo]);
 
   const hanldeOnStateChange: YouTubeProps["onStateChange"] = (e) => {
     if (isMySharedVideo && socket) {
-      if (e.data === 1) {
-        const time = player?.getCurrentTime();
-        const VideoId = player?.getVideoData().video_id;
-        EmitCustomEvent("player-state", {
-          roomID: isMySharedVideo.id,
-          data: {
-            time: time,
-            VideoId,
-            state: "playing",
-          },
-        });
-      }
-      if (e.data === 2) {
-        const time = player?.getCurrentTime();
-        const VideoId = player?.getVideoData().video_id;
-        EmitCustomEvent("player-state", {
-          roomID: isMySharedVideo.id,
-          data: {
-            time: time,
-            VideoId,
-            state: "paused",
-          },
-        });
-      }
+      const time = player?.getCurrentTime();
+      const VideoId = player?.getVideoData().video_id;
+      EmitCustomEvent("player-state", {
+        roomID: isMySharedVideo.id,
+        data: {
+          time: time,
+          VideoId,
+          state: e.data,
+        },
+      });
     }
   };
 
@@ -132,9 +128,9 @@ const YoutubePlayer = () => {
           <div
             className={clsx(
               " h-full w-full",
-              !isMySharedVideo && "block",
-              isMySharedVideo && AmIwatchingMyVideo && "opacity-100",
-              isMySharedVideo && !AmIwatchingMyVideo && "opacity-0",
+              !!!isMySharedVideo && "block",
+              !!isMySharedVideo && AmIwatchingMyVideo && "opacity-100",
+              !!isMySharedVideo && !AmIwatchingMyVideo && "opacity-0",
               !YouTubeVideoId && "pointer-events-none opacity-0",
             )}
           >
@@ -151,7 +147,7 @@ const YoutubePlayer = () => {
           <div
             className={clsx(
               "absolute bottom-0 left-0 right-0 top-0   h-full w-full",
-              OthersSelectedUserVideo ? "z-10" : "-z-10 hidden opacity-0",
+              OthersSelectedUserVideo ? "z-10" : "-z-10 opacity-0",
             )}
           >
             <OtherUserPlayer />

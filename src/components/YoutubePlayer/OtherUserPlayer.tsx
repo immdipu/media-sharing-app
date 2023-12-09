@@ -20,18 +20,13 @@ const OtherUserPlayer = () => {
   const opts: YouTubeProps["opts"] = {
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
-      // autoplay: 1,
-      start: thirdPartyVideoTime,
+      autoplay: 1,
     },
   };
 
   const onReady: YouTubeProps["onReady"] = (event) => {
-    // access to player in all event handlers via event.target
     if (setThirdPartyPlayer === undefined) return;
     setThirdPartyPlayer(event.target);
-    if (thirdPartyVideoState === "playing") {
-      event.target.playVideo();
-    }
   };
 
   useEffect(() => {
@@ -40,20 +35,10 @@ const OtherUserPlayer = () => {
     }
   }, [OthersSelectedUserVideo]);
 
-  if (!thirdPartyVideoId)
-    return (
-      <div>
-        <h1 className="text-2xl text-white">
-          Waiting for the host to share a video
-        </h1>
-      </div>
-    );
-
   return (
     <section className="h-full overflow-hidden  px-2 pt-4 ">
       <div className={clsx(" h-[90%] w-full")}>
         <YouTube
-          videoId={thirdPartyVideoId}
           className="h-full w-full"
           iframeClassName={clsx("h-full w-full")}
           opts={opts}

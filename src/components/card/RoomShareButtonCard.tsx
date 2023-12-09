@@ -38,9 +38,6 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
 
   const isMySharedVideo = admin._id === user?.id;
 
-  console.log("isMySharedVideo", isMySharedVideo);
-  console.log("isWatching", isWatching);
-
   useEffect(() => {
     if (isWatching && (!isMySharedVideo || isMySharedVideo === undefined)) {
       console.log("i am watching and its not my shared video");
@@ -54,7 +51,9 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
             if (timeDifference > 4) {
               thirdPartyPlayer?.seekTo(data?.data?.time);
             }
-            if (data?.data?.VideoId !== thirdPartyVideoId) {
+            if (
+              data?.data?.VideoId !== thirdPartyPlayer?.getVideoData()?.video_id
+            ) {
               setThirdPartyVideoId(data?.data?.VideoId);
             }
           }
@@ -70,25 +69,26 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
               }
             }
           }
-          if (data?.data?.VideoId !== thirdPartyVideoId) {
-            setThirdPartyVideoId(data?.data?.VideoId);
+          if (
+            data?.data?.VideoId !== thirdPartyPlayer?.getVideoData()?.video_id
+          ) {
+            thirdPartyPlayer?.loadVideoById(data?.data?.VideoId);
           }
         });
 
+        console.log("GET_MEDIA_DETAILS RESPONSE rendering ");
         socket.on("GET_MEDIA_DETAILS_RESPONSE", (data) => {
           console.log("GET_MEDIA_DETAILS_RESPONSE", data);
-          if (data?.data?.time) {
-            thirdPartyPlayer?.seekTo(data?.data?.time);
-          }
           if (data?.data?.VideoId) {
-            console.log("media response data", data);
-            setThirdPartyVideoId(data?.data?.VideoId);
+            thirdPartyPlayer?.loadVideoById({
+              videoId: data?.data?.VideoId,
+              startSeconds: data?.data?.time || 0,
+            });
           }
           if (data?.data?.state) {
             if (data?.data?.state === 1) {
               thirdPartyPlayer?.playVideo();
-            }
-            if (data?.data?.state === 2) {
+            } else {
               thirdPartyPlayer?.pauseVideo();
             }
           }
@@ -99,7 +99,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
         socket?.off("GET_MEDIA_DETAILS_RESPONSE");
       };
     }
-  }, [isWatching, socket, thirdPartyPlayer]);
+  }, [isWatching]);
 
   const handleJoinAndLeave = () => {
     if (isWatching) {

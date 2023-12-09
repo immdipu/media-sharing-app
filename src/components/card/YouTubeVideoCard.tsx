@@ -41,6 +41,10 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
     (activity) => activity.users?.find((u) => u._id == user?.id),
   );
 
+  const isMySharedVideo = JoinedRoom?.roomActivity.find(
+    (activity) => activity.admin._id === user.id,
+  );
+
   const handlePlayVideo = () => {
     setYouTubeVideoId(id);
     localStorage.setItem("YouTubeVideoId", id);
@@ -50,8 +54,18 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
     if (!isSharing && isWatching !== undefined) {
       EmitCustomEvent("room-update", {
         type: "REMOVE_USER_FROM_ALL_ACTIVITY",
-        roomID: JoinedRoom?._id,
+        roomID: JoinedRoom?.id,
         userID: user.id,
+      });
+    }
+    if (isSharing) {
+      EmitCustomEvent("player-state", {
+        activityId: isMySharedVideo?.id,
+        data: {
+          time: 0,
+          VideoId: id,
+          state: 1,
+        },
       });
     }
   };
