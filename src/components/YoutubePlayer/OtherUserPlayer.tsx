@@ -34,6 +34,12 @@ const OtherUserPlayer = () => {
     }
   };
 
+  useEffect(() => {
+    if (!OthersSelectedUserVideo) {
+      thirdPartyPlayer?.pauseVideo();
+    }
+  }, [OthersSelectedUserVideo]);
+
   if (!thirdPartyVideoId)
     return (
       <div>

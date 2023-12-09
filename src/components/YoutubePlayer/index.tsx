@@ -59,12 +59,12 @@ const YoutubePlayer = () => {
             data: {
               time: time,
               VideoId,
-              state: state === 1 ? "playing" : "paused",
+              state: state,
             },
           });
           setLastEmittedTime(time);
         }
-      }, 20000);
+      }, 5000);
 
       socket.on("GET_MEDIA_DETAILS", () => {
         const time = player?.getCurrentTime();
@@ -75,7 +75,7 @@ const YoutubePlayer = () => {
           data: {
             time: time,
             VideoId,
-            state: state === 1 ? "playing" : "paused",
+            state: state,
           },
         });
       });

@@ -48,12 +48,10 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
         socket.on("player-state", (data) => {
           if (data?.data?.time) {
             const timeDifference = Math.abs(
-              data?.data?.time - thirdPartyVideoTime,
+              data?.data?.time - thirdPartyPlayer.getCurrentTime(),
             );
-            if (timeDifference > 3) {
-              thirdPartyPlayer?.seekTo(data?.data?.time);
-            }
-            if (timeDifference < 3) {
+            console.log("timeDifference", timeDifference);
+            if (timeDifference > 4) {
               thirdPartyPlayer?.seekTo(data?.data?.time);
             }
             if (data?.data?.VideoId !== thirdPartyVideoId) {
@@ -62,11 +60,12 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
           }
           if (data?.data?.state) {
             const playerState = thirdPartyPlayer?.getPlayerState();
+            console.log("playerState", playerState);
             if (playerState !== data?.data?.state) {
-              if (data?.data?.state === "playing") {
+              if (data?.data?.state === 1) {
                 thirdPartyPlayer?.playVideo();
               }
-              if (data?.data?.state === "paused") {
+              if (data?.data?.state === 2) {
                 thirdPartyPlayer?.pauseVideo();
               }
             }
@@ -79,16 +78,18 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
         socket.on("GET_MEDIA_DETAILS_RESPONSE", (data) => {
           console.log("GET_MEDIA_DETAILS_RESPONSE", data);
           if (data?.data?.time) {
-            setThirdPartyVideoTime(data?.data?.time);
+            thirdPartyPlayer?.seekTo(data?.data?.time);
           }
           if (data?.data?.VideoId) {
             console.log("media response data", data);
             setThirdPartyVideoId(data?.data?.VideoId);
           }
           if (data?.data?.state) {
-            const playerState = thirdPartyPlayer?.getPlayerState();
-            if (playerState !== data?.data?.state) {
-              setThirdPartyVideoState(data?.data?.state);
+            if (data?.data?.state === 1) {
+              thirdPartyPlayer?.playVideo();
+            }
+            if (data?.data?.state === 2) {
+              thirdPartyPlayer?.pauseVideo();
             }
           }
         });
