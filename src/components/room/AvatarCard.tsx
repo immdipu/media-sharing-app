@@ -13,11 +13,8 @@ import { membersTypes } from "@/types/room";
 
 const AvatarCard: React.FC<membersTypes> = ({
   _id,
-  followers,
-  following,
   fullName,
   profilePic,
-  role,
   username,
   verified,
 }) => {
