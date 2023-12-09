@@ -9,7 +9,6 @@ import { JoinRoom } from "@/redux/slice/roomSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import { IjoinedRoomResponse } from "@/types/socketTypes";
 import JoinedSingleRoom from "./JoinedSingleRoom";
-import { RotatingLines } from "react-loader-spinner";
 import KickedOut from "@/components/ui/KickedOut";
 import {
   StartRoomJoiningLoader,

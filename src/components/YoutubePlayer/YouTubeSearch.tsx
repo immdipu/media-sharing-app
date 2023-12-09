@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { IoSearch } from "react-icons/io5";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { userApis } from "@/Apis/APIs";
@@ -7,7 +7,6 @@ import { useMutation } from "@tanstack/react-query";
 import useDebounce from "@/hooks/useDebounce";
 import { MagnifyingGlass } from "react-loader-spinner";
 import YouTubeVideoCard from "../card/YouTubeVideoCard";
-import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import ShareButton from "../Buttons/ShareButton";
 import { YouTubeVideo } from "@/types/Youtube";
 
