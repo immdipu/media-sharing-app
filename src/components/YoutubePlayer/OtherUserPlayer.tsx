@@ -37,24 +37,13 @@ const OtherUserPlayer = () => {
 
   return (
     <section className="h-full overflow-hidden  px-2 pt-4 ">
-      <div className={clsx(" h-[90%] w-full")}>
+      <div className={clsx(" h-full w-full")}>
         <YouTube
           className="h-full w-full"
           iframeClassName={clsx("h-full w-full")}
           opts={opts}
           onReady={onReady}
         />
-      </div>
-      <div className="h-36  w-full">
-        <button
-          onClick={() => {
-            thirdPartyPlayer?.playVideo();
-            console.log(thirdPartyPlayer);
-          }}
-          className="rounded-lg bg-white px-4 py-2 text-black"
-        >
-          Play/Pause
-        </button>
       </div>
     </section>
   );

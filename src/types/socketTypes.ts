@@ -62,5 +62,5 @@ export interface ActivityDeleteResponseTypes {
 
 export interface UpdateAllActivityResponseTypes {
   type: "REMOVE_USER_FROM_ALL_ACTIVITY";
-  activities: roomActivityTypes[];
+  activities: roomActivityTypes;
 }

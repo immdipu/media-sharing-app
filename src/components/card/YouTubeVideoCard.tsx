@@ -51,11 +51,13 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
     localStorage.setItem("YouTubeThumbnail", thumbnail?.url);
     setOthersSelectedUserVideo(false);
     setIsPlayingMyVideo(true);
-    if (!isSharing && isWatching !== undefined) {
+    if (!isSharing && !!isWatching) {
       EmitCustomEvent("room-update", {
         type: "REMOVE_USER_FROM_ALL_ACTIVITY",
-        roomID: JoinedRoom?.id,
-        userID: user.id,
+        roomId: JoinedRoom?.id,
+        userId: user.id,
+        activityId: isWatching?.id,
+        activityKey: isWatching?.admin._id,
       });
     }
     if (isSharing) {

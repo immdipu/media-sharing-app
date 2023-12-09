@@ -116,7 +116,7 @@ const JoinedSingleRoom = () => {
         }
         if (data.type === "REMOVE_USER_FROM_ALL_ACTIVITY") {
           console.log("REMOVE_USER_FROM_ALL_ACTIVITY", data);
-          dispatch(UpdateAllActivity(data.activities));
+          dispatch(UpdateAnActivity(data.activities));
         }
       });
     }

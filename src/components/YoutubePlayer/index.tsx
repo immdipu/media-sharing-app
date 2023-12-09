@@ -47,6 +47,10 @@ const YoutubePlayer = () => {
     (u) => u._id === user?.id,
   );
 
+  const AmWatchingAnyVideo = !!JoinedRoom?.roomActivity.find((activity) => {
+    return activity.users?.find((u) => u._id === user?.id);
+  });
+
   useEffect(() => {
     if (!socket) return;
     if (!!!isMySharedVideo) return;
@@ -152,7 +156,9 @@ const YoutubePlayer = () => {
           <div
             className={clsx(
               "absolute bottom-0 left-0 right-0 top-0   h-full w-full",
-              OthersSelectedUserVideo ? "z-10" : "-z-10 opacity-0",
+              OthersSelectedUserVideo && AmWatchingAnyVideo
+                ? "z-10"
+                : "-z-10 opacity-0",
             )}
           >
             <OtherUserPlayer />
