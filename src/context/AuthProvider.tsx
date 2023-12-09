@@ -34,7 +34,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       dispatch(LoggedIn(data));
     },
     onError: (error) => {
-      console.log("Auto login failed", error);
       setShowModal(true);
     },
   });

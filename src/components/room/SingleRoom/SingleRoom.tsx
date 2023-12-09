@@ -52,11 +52,8 @@ const SingleRoom = () => {
     });
 
     ListenCustomEvent("joined-room-response", (data: IjoinedRoomResponse) => {
-      console.log("joined-room-response", data);
-
       if (data.success) {
         dispatch(JoinRoom(data.room));
-        console.log("Joined Room", data.room);
         setVerifying(false);
         dispatch(StopRoomJoiningLoader());
         socket.off("joined-room-response");

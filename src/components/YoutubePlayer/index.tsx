@@ -47,9 +47,21 @@ const YoutubePlayer = () => {
     (u) => u._id === user?.id,
   );
 
-  const AmWatchingAnyVideo = !!JoinedRoom?.roomActivity.find((activity) => {
-    return activity.users?.find((u) => u._id === user?.id);
-  });
+  const AmWatchingthirdPartyVideo = !!JoinedRoom?.roomActivity.find(
+    (activity) => {
+      return activity.users?.find(
+        (u) => u._id === user?.id && activity.admin._id !== user?.id,
+      );
+    },
+  );
+
+  useEffect(() => {
+    if (AmWatchingthirdPartyVideo) {
+      player?.mute();
+    } else {
+      player?.unMute();
+    }
+  }, [AmWatchingthirdPartyVideo]);
 
   useEffect(() => {
     if (!socket) return;
@@ -101,23 +113,12 @@ const YoutubePlayer = () => {
     }
   }, [!!isMySharedVideo, socket, player, lastEmittedTime]);
 
-  useEffect(() => {
-    if (!!isMySharedVideo && !AmIwatchingMyVideo) {
-      player?.pauseVideo();
-    }
-    if (OthersSelectedUserVideo) {
-      player?.pauseVideo();
-    }
-  }, [!!isMySharedVideo, OthersSelectedUserVideo]);
-
   const hanldeOnStateChange: YouTubeProps["onStateChange"] = (e) => {
     if (!!isMySharedVideo && socket) {
-      console.log("state changed", e.data);
       const time = player?.getCurrentTime();
       const VideoId = player?.getVideoData().video_id;
 
       if (e.data === 1 || e.data === 2) {
-        console.log("emitting player-state", time, VideoId, e.data);
         EmitCustomEvent("player-state-server", {
           activityId: isMySharedVideo.id,
           data: {
@@ -156,7 +157,7 @@ const YoutubePlayer = () => {
           <div
             className={clsx(
               "absolute bottom-0 left-0 right-0 top-0   h-full w-full",
-              OthersSelectedUserVideo && AmWatchingAnyVideo
+              OthersSelectedUserVideo && AmWatchingthirdPartyVideo
                 ? "z-10"
                 : "-z-10 opacity-0",
             )}

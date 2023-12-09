@@ -32,8 +32,6 @@ const RoomCard = () => {
     }
   });
 
-  console.log("rooms", rooms);
-
   return (
     <section className="mt-7 flex flex-col gap-10 px-20 ">
       {rooms &&

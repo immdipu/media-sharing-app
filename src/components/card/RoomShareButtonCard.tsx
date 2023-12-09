@@ -40,14 +40,13 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
 
   useEffect(() => {
     if (isWatching && (!isMySharedVideo || isMySharedVideo === undefined)) {
-      console.log("i am watching and its not my shared video");
       if (socket) {
         socket.on("player-state", (data) => {
           if (data?.data?.time) {
             const timeDifference = Math.abs(
               data?.data?.time - thirdPartyPlayer.getCurrentTime(),
             );
-            console.log("timeDifference", timeDifference);
+
             if (timeDifference > 4) {
               thirdPartyPlayer?.seekTo(data?.data?.time);
             }
@@ -59,7 +58,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
           }
           if (data?.data?.state) {
             const playerState = thirdPartyPlayer?.getPlayerState();
-            console.log("playerState", playerState);
+
             if (playerState !== data?.data?.state) {
               if (data?.data?.state === 1) {
                 thirdPartyPlayer?.playVideo();
@@ -76,9 +75,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
           }
         });
 
-        console.log("GET_MEDIA_DETAILS RESPONSE rendering ");
         socket.on("GET_MEDIA_DETAILS_RESPONSE", (data) => {
-          console.log("GET_MEDIA_DETAILS_RESPONSE", data);
           if (data?.data?.VideoId) {
             thirdPartyPlayer?.loadVideoById({
               videoId: data?.data?.VideoId,
@@ -115,6 +112,8 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
     } else {
       if (!isMySharedVideo) {
         setOthersSelectedUserVideo(true);
+      } else {
+        setOthersSelectedUserVideo(false);
       }
       let data: ActivityTypes = {
         type: "ADD_MEMBER_FROM_ACTIVITY",

@@ -103,19 +103,16 @@ const JoinedSingleRoom = () => {
         dispatch(AddMessage(data));
       });
       ListenCustomEvent("room-update", (data: RoomUpdateResponseTypes) => {
-        console.log("room-update", data);
         if (data.type === "EditRoom") {
           dispatch(UpdateRoom(data.room));
         }
         if (data.type === "AnActivityUpdate") {
-          console.log("AnActivityUpdate", data.activity);
           dispatch(UpdateAnActivity(data.activity));
         }
         if (data.type === "ActivityDeleted") {
           dispatch(DeleteAnActivity(data));
         }
         if (data.type === "REMOVE_USER_FROM_ALL_ACTIVITY") {
-          console.log("REMOVE_USER_FROM_ALL_ACTIVITY", data);
           dispatch(UpdateAnActivity(data.activities));
         }
       });

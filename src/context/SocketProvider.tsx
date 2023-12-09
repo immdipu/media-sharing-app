@@ -64,7 +64,6 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
     newSocket.on("room-created", (data: RoomTypes) => {
-      console.log("room-created", data);
       dispatch(AddNewRoom(data));
     });
 

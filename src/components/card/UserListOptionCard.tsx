@@ -37,7 +37,6 @@ const UserListOptionCard = ({ id }: { id: string }) => {
       {isCurrentUserAdmin && (
         <li
           onClick={() => {
-            console.log("kick user id", id);
             const data: RoomUpdateTypes = {
               type: "KickUser",
               AdminId: currentUser?.id!,

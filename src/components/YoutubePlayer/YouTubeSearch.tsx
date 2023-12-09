@@ -54,7 +54,6 @@ const YouTubeSearch = () => {
   const ImmediateSearchFunction = (searchTerms: string) => {
     setImmediateSearch(true);
     setSearch(searchTerms);
-    console.log("searchTerms", searchTerms);
     searchTerms.length > 0 && searchVideos.mutate(searchTerms);
     setShowSuggestion(false);
     clearTimer();
@@ -62,7 +61,6 @@ const YouTubeSearch = () => {
 
   React.useEffect(() => {
     if (!ImmediateSearch && debouncedSearchTerm) {
-      console.log("debouncedSearchTerm", debouncedSearchTerm);
       // searchVideos.mutate(debouncedSearchTerm);
       setShowSuggestion(false);
     } else {
