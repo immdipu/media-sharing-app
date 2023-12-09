@@ -2,13 +2,11 @@
 import React from "react";
 import Login from "@/components/Authentication/Login";
 import { Card } from "@/components/ui/card";
-import Verification from "./Verification";
 
 const Authentication = () => {
   return (
-    <Card className="max-w-xl mx-auto grid mt-36 bg-transparent border-neutral-600 ">
+    <Card className="mx-auto mt-36 grid max-w-xl border-neutral-600 bg-transparent ">
       {/* <Login /> */}
-      <Verification />
     </Card>
   );
 };

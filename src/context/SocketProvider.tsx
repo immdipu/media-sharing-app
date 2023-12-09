@@ -87,6 +87,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
         });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathanme]);
 
   const EmitCustomEvent = (event: string, data: any) => {

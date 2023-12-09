@@ -33,7 +33,7 @@ const OtherUserPlayer = () => {
     if (!OthersSelectedUserVideo) {
       thirdPartyPlayer?.pauseVideo();
     }
-  }, [OthersSelectedUserVideo]);
+  }, [OthersSelectedUserVideo, thirdPartyPlayer]);
 
   return (
     <section className="h-full overflow-hidden  px-2 pt-4 ">

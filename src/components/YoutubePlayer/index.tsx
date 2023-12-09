@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useEffect, use } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
 import { useContext } from "react";

@@ -96,6 +96,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
         socket?.off("GET_MEDIA_DETAILS_RESPONSE");
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isWatching]);
 
   const handleJoinAndLeave = () => {
