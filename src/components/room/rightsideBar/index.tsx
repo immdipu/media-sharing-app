@@ -26,10 +26,10 @@ const Index = () => {
           setShowRightSideBar(!showRightSideBar);
         }}
         className={clsx(
-          " absolute -left-12 top-4 z-10 hidden h-8 w-12 items-center justify-center rounded-l-md  bg-neutral-700 pr-2 max-md:flex",
+          " absolute -left-12  z-10 hidden h-8 w-12 items-center justify-center rounded-l-md   pr-2 max-md:flex",
           showRightSideBar
-            ? "left-[0px] top-16 rounded-l-none rounded-r-md bg-neutral-600"
-            : "-left-12",
+            ? "left-[0px] top-16 rounded-l-none rounded-r-md bg-neutral-600 bg-opacity-70"
+            : "-left-12 top-4 bg-neutral-700",
         )}
       >
         <BsTextRight className="text-2xl font-normal text-neutral-200" />
