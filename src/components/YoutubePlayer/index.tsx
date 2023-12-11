@@ -57,10 +57,12 @@ const YoutubePlayer = () => {
   );
 
   useEffect(() => {
-    if (AmWatchingthirdPartyVideo) {
+    if (AmWatchingthirdPartyVideo && player) {
       player?.mute();
     } else {
-      player?.unMute();
+      if (AmIwatchingMyVideo && player) {
+        player?.unMute();
+      }
     }
   }, [AmWatchingthirdPartyVideo]);
 

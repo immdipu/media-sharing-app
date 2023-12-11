@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { IoSearch } from "react-icons/io5";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { userApis } from "@/Apis/APIs";
@@ -19,6 +19,22 @@ const YouTubeSearch = () => {
   const [showSuggestion, setShowSuggestion] = React.useState(false);
   const [debouncedSearchTerm, clearTimer] = useDebounce(search, 5000);
   const [ImmediateSearch, setImmediateSearch] = React.useState(false);
+  const SuggestionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (
+        SuggestionRef.current &&
+        !SuggestionRef.current?.contains(event.target)
+      ) {
+        setShowSuggestion(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showSuggestion]);
 
   const { searchResult, setSearchResult, YouTubeVideoId } =
     useContext(RoomContext);
@@ -94,7 +110,10 @@ const YouTubeSearch = () => {
         </div>
         <ShareButton />
         {searchSuggestion.length > 0 && showSuggestion && (
-          <section className="absolute left-0 right-0 top-12 z-20 h-40 rounded-md bg-third-background shadow-lg">
+          <section
+            ref={SuggestionRef}
+            className="absolute left-0 right-0 top-12 z-20 h-40 rounded-md bg-third-background shadow-lg"
+          >
             <ScrollArea className="h-full w-full py-2 ">
               {searchSuggestion.map((item, index) => (
                 <p
