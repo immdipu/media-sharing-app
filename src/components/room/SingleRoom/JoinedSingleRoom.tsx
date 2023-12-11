@@ -17,6 +17,7 @@ import {
 import { RoomChatTypes } from "@/types/room";
 import { RoomUpdateResponseTypes } from "@/types/socketTypes";
 import { YouTubeVideo } from "@/types/Youtube";
+import { Metadata } from "next";
 
 interface RoomContextTypes {
   YouTubeVideoId: string | null;
