@@ -6,9 +6,11 @@ import { useQuery } from "@tanstack/react-query";
 import { userApis } from "@/Apis/APIs";
 import { RoomTypes } from "@/types/room";
 import { AddAllRoom } from "@/redux/slice/roomSlice";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const RoomCard = () => {
   const rooms = useAppSelector((state) => state.room.Room);
+  const [parent, enableAnimations] = useAutoAnimate();
   const dispatch = useAppDispatch();
   const { data, isLoading } = useQuery(
     ["rooms"],
@@ -33,7 +35,10 @@ const RoomCard = () => {
   });
 
   return (
-    <section className="mt-7 flex flex-col gap-10 px-20 max-md:px-2 ">
+    <section
+      ref={parent}
+      className="mt-7 flex flex-col gap-10 px-20 max-md:px-2 "
+    >
       {rooms &&
         rooms.length > 0 &&
         rooms?.map((room, index) => <Room {...room} key={index} />)}

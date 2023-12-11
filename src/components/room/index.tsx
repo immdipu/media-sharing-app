@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import EmptyRoomAvatarCard from "../card/EmptyRoomAvatarCard";
 import Link from "next/link";
 import moment from "moment";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import clsx from "clsx";
 
 const Room: React.FC<RoomTypes> = ({
   admin,
@@ -20,7 +22,7 @@ const Room: React.FC<RoomTypes> = ({
   name,
 }) => {
   const router = useRouter();
-
+  const user = useAppSelector((state) => state.auth);
   const renderEmptyCards = (count: number) => {
     const EmtpyCards = [];
     for (let i = 0; i < count; i++) {
@@ -49,7 +51,7 @@ const Room: React.FC<RoomTypes> = ({
         {members && members.length === 0 && renderEmptyCards(10)}
       </section>
       <section className="my-3">
-        {members && members.length === membersLimit ? (
+        {members && members.length === membersLimit && admin._id !== user.id ? (
           <Button
             variant={"destructive"}
             className="mt-3 w-full text-lg opacity-90"
@@ -57,7 +59,13 @@ const Room: React.FC<RoomTypes> = ({
             Room is full
           </Button>
         ) : (
-          <Link href={`/room/${id}`} className="block w-full">
+          <Link
+            href={`/room/${id}`}
+            className={clsx(
+              "block w-full",
+              !user.isUserAuthenticated && "pointer-events-none opacity-60",
+            )}
+          >
             <Button variant={"secondary"} className="mt-3 w-full text-lg">
               Join
             </Button>

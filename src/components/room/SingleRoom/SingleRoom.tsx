@@ -69,7 +69,7 @@ const SingleRoom = () => {
       <div className="fixed z-20 grid h-full  w-full place-content-center items-center justify-center bg-Secondary-background">
         <section className=" flex flex-col justify-center gap-4">
           <Button
-            disabled={isLoading}
+            disabled={isLoading || !socket || !user.isUserAuthenticated}
             onClick={handleJoinRoom}
             className=" bg-button-background px-4 text-button-primary"
           >
