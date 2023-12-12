@@ -18,6 +18,7 @@ import { RoomChatTypes } from "@/types/room";
 import { RoomUpdateResponseTypes } from "@/types/socketTypes";
 import { YouTubeVideo } from "@/types/Youtube";
 import { Metadata } from "next";
+import { useSearchParams } from "next/navigation";
 
 interface RoomContextTypes {
   YouTubeVideoId: string | null;
@@ -42,6 +43,8 @@ interface RoomContextTypes {
   setThirdPartyPlayer?: React.Dispatch<React.SetStateAction<any>>;
   showRightSideBar?: boolean;
   setShowRightSideBar?: React.Dispatch<React.SetStateAction<boolean>>;
+  MessageCount?: number;
+  setMessageCount?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 let intialState: RoomContextTypes = {
@@ -67,12 +70,17 @@ let intialState: RoomContextTypes = {
   setThirdPartyPlayer: () => {},
   showRightSideBar: true,
   setShowRightSideBar: () => {},
+  MessageCount: 0,
+  setMessageCount: () => {},
 };
 
 export const RoomContext = React.createContext<RoomContextTypes>(intialState);
 
 const JoinedSingleRoom = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
+  const [MessageCount, setMessageCount] = React.useState<number>(0);
+  const [userIsFocused, setUserIsFocused] = React.useState<boolean>(true);
+  const params = useSearchParams();
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const [searchResult, setSearchResult] = React.useState<YouTubeVideo[]>([]);
   const [media, setMedia] = useState<"YouTube" | null>(null);
@@ -107,6 +115,12 @@ const JoinedSingleRoom = () => {
           }
         }
 
+        if (data.Type === "message") {
+          if (params.get("tab") !== "chat") {
+            setMessageCount((prev) => prev + 1);
+          }
+        }
+
         dispatch(AddMessage(data));
       });
       ListenCustomEvent("room-update", (data: RoomUpdateResponseTypes) => {
@@ -129,7 +143,14 @@ const JoinedSingleRoom = () => {
       socket.off("room-update");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [params]);
+
+  useEffect(() => {
+    const activeTab = params.get("tab");
+    if (activeTab === "chat") {
+      setMessageCount(0);
+    }
+  }, [params]);
 
   return (
     <RoomContext.Provider
@@ -156,11 +177,12 @@ const JoinedSingleRoom = () => {
         setThirdPartyPlayer,
         showRightSideBar,
         setShowRightSideBar,
+        MessageCount,
+        setMessageCount,
       }}
     >
       <div className="flex min-h-screen justify-start   max-md:relative max-md:overflow-hidden">
         <YoutubePlayer />
-
         <RidesideBar />
       </div>
     </RoomContext.Provider>

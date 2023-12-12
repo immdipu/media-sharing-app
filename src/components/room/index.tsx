@@ -60,7 +60,7 @@ const Room: React.FC<RoomTypes> = ({
           </Button>
         ) : (
           <Link
-            href={`/room/${id}`}
+            href={`/room/${id}?tab=chat`}
             className={clsx(
               "block w-full",
               !user.isUserAuthenticated && "pointer-events-none opacity-60",

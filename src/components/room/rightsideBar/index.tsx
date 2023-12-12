@@ -7,11 +7,13 @@ import Media from "./media";
 import clsx from "clsx";
 import { RoomContext } from "../SingleRoom/JoinedSingleRoom";
 import { BsTextRight } from "react-icons/bs";
+import { usePathname, useRouter } from "next/navigation";
 
 const Index = () => {
-  const { showRightSideBar, setShowRightSideBar } = useContext(RoomContext);
-
-  console.log(showRightSideBar);
+  const { showRightSideBar, setShowRightSideBar, MessageCount } =
+    useContext(RoomContext);
+  const router = useRouter();
+  const path = usePathname();
 
   return (
     <div
@@ -36,17 +38,50 @@ const Index = () => {
       </button>
       <Tabs defaultValue="chat" className="w-auto">
         <TabsList className="sticky top-0 z-10 w-full bg-Input-background   ">
-          <TabsTrigger value="chat" className="w-full text-Paragraph-primary ">
+          <TabsTrigger
+            onClick={() => {
+              router.push(`${path}?tab=chat`);
+            }}
+            value="chat"
+            className="relative w-full text-Paragraph-primary "
+          >
+            {MessageCount !== 0 && (
+              <span
+                className={clsx(
+                  "absolute left-3 top-2 rounded-full bg-red-500 px-[7px] py-[3px]  text-xs text-white",
+                )}
+              >
+                {MessageCount}
+              </span>
+            )}
             chat
           </TabsTrigger>
-          <TabsTrigger value="users" className="w-full text-Paragraph-primary">
+          <TabsTrigger
+            onClick={() => {
+              router.push(`${path}?tab=users`);
+            }}
+            value="users"
+            className="w-full text-Paragraph-primary"
+          >
             users
           </TabsTrigger>
 
-          <TabsTrigger value="media" className="w-full text-Paragraph-primary">
+          <TabsTrigger
+            onClick={() => {
+              router.push(`${path}?tab=media`);
+            }}
+            value="media"
+            className="w-full text-Paragraph-primary"
+          >
             Media
           </TabsTrigger>
-          <TabsTrigger value="room" className="w-full text-Paragraph-primary">
+          <TabsTrigger
+            onClick={() => {
+              router.push(`${path}?tab=room`);
+            }}
+            value="room"
+            className="w-full text-Paragraph-primary"
+          >
             Room
           </TabsTrigger>
         </TabsList>
