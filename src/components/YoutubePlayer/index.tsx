@@ -144,8 +144,12 @@ const YoutubePlayer = () => {
             className={clsx(
               " h-full w-full",
               !!!isMySharedVideo && "block",
-              !!isMySharedVideo && AmIwatchingMyVideo && "opacity-100",
-              !!isMySharedVideo && !AmIwatchingMyVideo && "opacity-0",
+              !!isMySharedVideo &&
+                AmIwatchingMyVideo &&
+                "pointer-events-auto opacity-100",
+              !!isMySharedVideo &&
+                !AmIwatchingMyVideo &&
+                "pointer-events-none opacity-0",
               !YouTubeVideoId && "pointer-events-none opacity-0",
             )}
           >

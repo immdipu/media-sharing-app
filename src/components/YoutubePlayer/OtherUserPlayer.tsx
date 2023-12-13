@@ -30,6 +30,18 @@ const OtherUserPlayer = () => {
   };
 
   useEffect(() => {
+    if (!thirdPartyPlayer) return;
+    const JoinedActivity = !!JoinedRoom?.roomActivity.find(
+      (activity) => activity?.users?.find((u) => u._id == user?.id),
+    );
+
+    if (!JoinedActivity) {
+      thirdPartyPlayer?.pauseVideo();
+      return;
+    }
+  }, [JoinedRoom?.roomActivity]);
+
+  useEffect(() => {
     if (!OthersSelectedUserVideo) {
       thirdPartyPlayer?.pauseVideo();
     }
