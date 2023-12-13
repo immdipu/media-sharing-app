@@ -59,12 +59,14 @@ const YoutubePlayer = () => {
   useEffect(() => {
     if (AmWatchingthirdPartyVideo && player) {
       player?.mute();
+    } else if (AmIwatchingMyVideo && player) {
+      player?.unMute();
+    } else if (player && !!isMySharedVideo && !AmIwatchingMyVideo) {
+      player?.mute();
     } else {
-      if (AmIwatchingMyVideo && player) {
-        player?.unMute();
-      }
+      return;
     }
-  }, [AmWatchingthirdPartyVideo]);
+  }, [AmWatchingthirdPartyVideo, AmIwatchingMyVideo, player, isMySharedVideo]);
 
   useEffect(() => {
     if (!socket) return;

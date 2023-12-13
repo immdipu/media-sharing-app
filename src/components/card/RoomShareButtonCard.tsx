@@ -76,6 +76,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
         });
 
         socket.on("GET_MEDIA_DETAILS_RESPONSE", (data) => {
+          console.log("GET_MEDIA_DETAILS_RESPONSE", data);
           if (data?.data?.VideoId) {
             thirdPartyPlayer?.loadVideoById({
               videoId: data?.data?.VideoId,
