@@ -12,6 +12,14 @@ import { MagnifyingGlass } from "react-loader-spinner";
 import YouTubeVideoCard from "../card/YouTubeVideoCard";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import ShareButton from "../Buttons/ShareButton";
+import { Button } from "../ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+import { BiArrowBack } from "react-icons/bi";
 
 const YouTubeSearch = () => {
   const [search, setSearch] = React.useState<string>("");
@@ -19,6 +27,7 @@ const YouTubeSearch = () => {
   const [showSuggestion, setShowSuggestion] = React.useState(false);
   const [debouncedSearchTerm, clearTimer] = useDebounce(search, 5000);
   const [ImmediateSearch, setImmediateSearch] = React.useState(false);
+  const { setMedia } = useContext(RoomContext);
   const SuggestionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -88,6 +97,22 @@ const YouTubeSearch = () => {
   return (
     <div>
       <div className="relative mx-3 mt-4 flex items-center justify-between ">
+        <Tooltip delayDuration={100}>
+          <TooltipTrigger>
+            {" "}
+            <Button
+              onClick={() => {
+                setMedia(null);
+              }}
+              className=" group mr-1 -translate-x-1 bg-transparent p-0"
+            >
+              <BiArrowBack className="text-xl opacity-70 group-hover:opacity-100" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Go Back</p>
+          </TooltipContent>
+        </Tooltip>
         <div className="relative flex h-10 w-full items-center justify-between overflow-hidden rounded-md bg-Input-background">
           <input
             type="search"
@@ -130,13 +155,10 @@ const YouTubeSearch = () => {
           </section>
         )}
       </div>
+      <div className=" w-full px-4 py-2"></div>
+
       <section className="relative">
-        <div className="mt-4 flex items-center justify-between">
-          <p className="px-2 text-sm text-paragraph-secondary">
-            Search Results :
-          </p>
-        </div>
-        <ScrollArea className="h-[calc(100vh-140px)] w-full  py-2 ">
+        <ScrollArea className="h-[calc(100vh-135px)] w-full  py-2 ">
           {searchResult.map((item, index) => (
             <YouTubeVideoCard {...item} key={item.id} />
           ))}
