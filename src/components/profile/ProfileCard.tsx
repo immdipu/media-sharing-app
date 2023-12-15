@@ -90,7 +90,7 @@ const ProfileCard: React.FC<getUserDataTypes> = ({
 
   return (
     <>
-      <div className="border-b-_welcometext_lightblue mx-11 flex rounded-t-lg border-b border-opacity-20 bg-neutral-800 py-7 pl-5 max-md:mx-4  max-md:flex-col">
+      <div className="mx-11 flex rounded-t-lg border-b border-b-secondary-color border-opacity-20 bg-Secondary-background py-7 pl-5 max-md:mx-4  max-md:flex-col">
         <div className="h-48 w-48  rounded-md" onClick={HanldeshowFullImage}>
           {showFullImage && (
             <div className="fixed inset-0 z-50 bg-neutral-500 bg-opacity-40 px-3 py-2 backdrop-blur-sm">
