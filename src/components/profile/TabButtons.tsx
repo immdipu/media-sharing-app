@@ -25,7 +25,7 @@ const TabButtons: React.FC<TabButtonsProps> = ({
 
   return (
     <>
-      <div className=" relative mx-11 flex h-12 flex-wrap items-center gap-8 bg-Secondary-background pl-8 max-md:gap-3">
+      <div className=" relative mx-11 flex h-16 flex-wrap items-center gap-8 bg-Secondary-background pl-8 max-md:gap-3">
         {Buttons.filter((item) => {
           if (item === "Edit Profile") return ownprofile;
           return true;
