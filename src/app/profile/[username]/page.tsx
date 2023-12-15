@@ -3,7 +3,7 @@ import Profile from "@/components/profile/Profile";
 
 const page = () => {
   return (
-    <div>
+    <div className="mt-9">
       <Profile />
     </div>
   );

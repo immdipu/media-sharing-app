@@ -25,7 +25,7 @@ const TabButtons: React.FC<TabButtonsProps> = ({
 
   return (
     <>
-      <div className=" relative mx-11 flex flex-wrap gap-8 bg-Secondary-background pl-8 max-md:gap-3">
+      <div className=" relative mx-11 flex h-12 flex-wrap items-center gap-8 bg-Secondary-background pl-8 max-md:gap-3">
         {Buttons.filter((item) => {
           if (item === "Edit Profile") return ownprofile;
           return true;
@@ -42,9 +42,9 @@ const TabButtons: React.FC<TabButtonsProps> = ({
                 );
               }}
               className={clsx(
-                "hover:text-_sidenav_bg hover:bg-_blue cursor-pointer  rounded-lg px-2  text-sm transition-all duration-200 ease-linear hover:shadow-lg max-md:text-xs",
+                "h-fit cursor-pointer rounded-md px-2 py-1  text-sm transition-all  duration-200 ease-linear hover:text-button-primary hover:opacity-90 hover:shadow-lg max-md:text-xs",
                 activeTab === item.split(" ").join("").toLowerCase()
-                  ? "bg-_blue text-_sidenav_bg"
+                  ? "bg-button-background text-button-primary"
                   : "",
               )}
             >

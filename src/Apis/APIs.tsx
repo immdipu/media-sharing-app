@@ -90,11 +90,12 @@ export const userApis = {
     data: EditProfileDataTypes,
   ): Promise<EditProfileDataTypes> => {
     const res = await axiosInstance().post(
-      `${process.env.NEXT_PUBLIC_USER_URL}/user/editprofile`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/user/editprofile`,
       data,
     );
     return res.data;
   },
+
   getUserList: async (
     currentPage: number,
     sort?: string,

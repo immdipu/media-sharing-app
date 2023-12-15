@@ -6,6 +6,7 @@ import { useSearchParams, useParams } from "next/navigation";
 import { userApis } from "@/Apis/APIs";
 import { useQuery } from "@tanstack/react-query";
 import TabButtons from "./TabButtons";
+import ProfileEdit from "./ProfileEdit";
 
 const Profile = () => {
   const searchParams = useSearchParams();
@@ -33,6 +34,7 @@ const Profile = () => {
     <div>
       <ProfileCard {...data} />
       <TabButtons ownprofile={data.ownProfile} username={data.username} />
+      <ProfileEdit {...data} />
     </div>
   );
 };

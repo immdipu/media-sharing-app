@@ -55,6 +55,7 @@ export interface getUserDataTypes {
   ownProfile: boolean;
   isFollowing: boolean;
   email?: string;
+  bio: string;
 }
 
 export interface EditProfileDataTypes {
@@ -67,6 +68,7 @@ export interface EditProfileDataTypes {
   following: number;
   ownProfile: boolean;
   isFollowing: boolean;
+  bio: string;
 }
 
 export interface userList {
