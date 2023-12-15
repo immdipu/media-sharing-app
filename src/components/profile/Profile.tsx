@@ -18,7 +18,13 @@ const Profile = () => {
     () => userApis.GetUserProfile(params.username as string),
   );
 
-  return <div>{/* <ProfileCard /> */}</div>;
+  if (isLoading) return <div>Loading...</div>;
+
+  if (!data) return <div>Not Found</div>;
+
+  console.log(data);
+
+  return <div>{<ProfileCard {...data} />}</div>;
 };
 
 export default Profile;

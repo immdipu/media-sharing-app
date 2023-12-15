@@ -45,35 +45,28 @@ export interface feedbackDataTypes {
 }
 
 export interface getUserDataTypes {
-  genre: string[];
-  createdAt: Date;
-  following: string[];
   _id: string;
+  createdAt: string;
   fullName: string;
-  username: string;
   profilePic: string;
-  email_verified: boolean;
-  followers: string[];
+  username: string;
+  followers: number;
+  following: number;
   ownProfile: boolean;
   isFollowing: boolean;
   email?: string;
-  facebook?: string;
-  bio?: "";
-  twitter?: string;
-  instagram?: string;
-  github?: string;
 }
 
 export interface EditProfileDataTypes {
-  fullName?: string;
-  username?: string;
-  bio?: string;
-  facebook?: string;
-  twitter?: string;
-  instagram?: string;
-  github?: string;
-  profilePic?: string;
-  genre?: string[];
+  _id: string;
+  createdAt: string;
+  fullName: string;
+  profilePic: string;
+  username: string;
+  followers: number;
+  following: number;
+  ownProfile: boolean;
+  isFollowing: boolean;
 }
 
 export interface userList {
