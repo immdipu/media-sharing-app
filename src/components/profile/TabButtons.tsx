@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import clsx from "clsx";
-import { Role } from "@/types/role";
 
 interface TabButtonsProps {
   username: string;

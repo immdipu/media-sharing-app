@@ -1,17 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { BsCalendar2Week } from "react-icons/bs";
 import { HiMail } from "react-icons/hi";
-import { BiMoviePlay } from "react-icons/bi";
 import { getUserDataTypes } from "@/types/userTypes";
-import { Role } from "@/types/role";
 import moment from "moment";
-import { userApis } from "@/Apis/APIs";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
-import clsx from "clsx";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { AiOutlineMessage } from "react-icons/ai";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAppSelector } from "@/hooks/reduxHooks";
 

@@ -3,7 +3,6 @@ import ProfileInput from "./InputComponent/ProfileInput";
 import { getUserDataTypes, EditProfileDataTypes } from "@/types/userTypes";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { Role } from "@/types/role";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { userApis } from "@/Apis/APIs";
 import { useToast } from "@/components/ui/use-toast";
