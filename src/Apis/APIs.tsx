@@ -78,6 +78,14 @@ export const userApis = {
     );
     return res.data;
   },
+
+  GetUserProfile: async (username: string): Promise<getUserDataTypes> => {
+    const res = await axiosInstance().get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/user/${username}`,
+    );
+    return res.data;
+  },
+
   EditProfile: async (
     data: EditProfileDataTypes,
   ): Promise<EditProfileDataTypes> => {
