@@ -15,12 +15,12 @@ const TabButtons: React.FC<TabButtonsProps> = ({
   const router = useRouter();
   const searchParams = useSearchParams();
   const TabName = searchParams.get("tab");
-  const [activeTab, setActiveTab] = useState(TabName ?? "edit");
+  const [activeTab, setActiveTab] = useState(TabName ?? "editprofile");
   // const Buttons = ["About", "Edit Profile", "Friends", "Account Settings"];
   const Buttons = ["Edit Profile"];
 
   useEffect(() => {
-    setActiveTab(TabName ?? "edit");
+    setActiveTab(TabName ?? "editprofile");
   }, [TabName]);
 
   return (
