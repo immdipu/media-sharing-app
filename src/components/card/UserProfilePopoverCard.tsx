@@ -4,11 +4,6 @@ import { userApis } from "@/Apis/APIs";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AiOutlineUserAdd, AiOutlineTeam } from "react-icons/ai";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { useToast } from "@/components/ui/use-toast";
 
 import moment from "moment";
@@ -59,26 +54,20 @@ const UserProfilePopoverCard = ({ username }: { username: string }) => {
               {data.fullName}
             </h1>
             {!data.ownProfile && (
-              <Tooltip delayDuration={100}>
-                <TooltipTrigger className="z-20">
-                  <button
-                    onClick={() => {
-                      if (!data?._id) return;
-                      AddRemoveFollow.mutate(data._id);
-                      setisFollowing(!isFollowing);
-                    }}
-                  >
-                    {isFollowing ? (
-                      <AiOutlineTeam className="text-2xl text-green-500" />
-                    ) : (
-                      <AiOutlineUserAdd className="text-2xl text-Header-primary" />
-                    )}
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  {isFollowing ? "Following" : "Follow"}
-                </TooltipContent>
-              </Tooltip>
+              <button
+                title={isFollowing ? "Unfollow" : "Follow"}
+                onClick={() => {
+                  if (!data?._id) return;
+                  AddRemoveFollow.mutate(data._id);
+                  setisFollowing(!isFollowing);
+                }}
+              >
+                {isFollowing ? (
+                  <AiOutlineTeam className="text-2xl text-green-500" />
+                ) : (
+                  <AiOutlineUserAdd className="text-2xl text-Header-primary" />
+                )}
+              </button>
             )}
           </div>
 
