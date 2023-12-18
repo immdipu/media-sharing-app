@@ -51,10 +51,6 @@ const UserListOptionCard = ({ id }: { id: string }) => {
           <span className="text-sm text-Paragraph-primary">Kick out</span>
         </li>
       )}
-      <li className="flex items-center gap-3 px-4 py-3 hover:bg-Main-background">
-        <SlUserFollow className="text-base text-Paragraph-primary" />{" "}
-        <span className="text-sm text-Paragraph-primary">Follow</span>
-      </li>
     </>
   );
 };

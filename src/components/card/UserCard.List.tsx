@@ -7,8 +7,17 @@ import {
 } from "@/components/ui/popover";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { membersTypes } from "@/types/room";
-
-import UserListOptionCard from "./UserListOptionCard";
+import dynamic from "next/dynamic";
+const UserListOptionCard = dynamic(() => import("./UserListOptionCard"), {
+  loading: () => (
+    <div className="flex w-48 flex-col gap-2 px-3 py-3">
+      <div className="h-9 w-full  rounded bg-Main-background" />
+      <div className="h-9 w-full rounded bg-Main-background" />
+      <div className="h-9 w-full rounded bg-Main-background" />
+      <div className="h-9 w-full rounded bg-Main-background" />
+    </div>
+  ),
+});
 
 interface UserCardListProps extends membersTypes {
   roomRole: "admin" | "moderator" | "member";
