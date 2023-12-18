@@ -95,6 +95,15 @@ export const userApis = {
     );
     return res.data;
   },
+  AddRemoveFollowers: async (userId: string): Promise<any> => {
+    const res = await axiosInstance().post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/user/follow`,
+      {
+        userId,
+      },
+    );
+    return res.data;
+  },
 
   getUserList: async (
     currentPage: number,

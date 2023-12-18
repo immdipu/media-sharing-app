@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { userApis } from "@/Apis/APIs";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AiOutlineUserAdd, AiOutlineTeam } from "react-icons/ai";
 import {
@@ -9,21 +9,42 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useToast } from "@/components/ui/use-toast";
 
 import moment from "moment";
 const UserProfilePopoverCard = ({ username }: { username: string }) => {
-  const { GetUserProfile } = userApis;
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+  const { GetUserProfile, AddRemoveFollowers } = userApis;
   const { data, isLoading } = useQuery(["userdetails", username], () =>
     GetUserProfile(username),
   );
+  const [isFollowing, setisFollowing] = useState<boolean>(false);
 
-  if (!data) return null;
+  const AddRemoveFollow = useMutation(
+    (userId: string) => AddRemoveFollowers(userId),
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["userdetails"]);
+      },
+      onError: (data: any) => {
+        toast({
+          title: data?.message ?? "Something went wrong",
+          variant: "destructive",
+        });
+      },
+    },
+  );
+
+  useLayoutEffect(() => {
+    if (data) {
+      setisFollowing(data.isFollowing);
+    }
+  }, [data]);
 
   if (isLoading) return <div>Loading...</div>;
 
-  if (data) {
-    console.log(data);
-  }
+  if (!data) return <div className="text-Header-primary">Loading...</div>;
 
   return (
     <section className="flex flex-col ">
@@ -39,15 +60,23 @@ const UserProfilePopoverCard = ({ username }: { username: string }) => {
             </h1>
             {!data.ownProfile && (
               <Tooltip delayDuration={100}>
-                <TooltipTrigger className="z-20 border">
-                  {data.isFollowing ? (
-                    <AiOutlineTeam className="text-2xl text-green-500" />
-                  ) : (
-                    <AiOutlineUserAdd className="text-2xl text-Header-primary" />
-                  )}
+                <TooltipTrigger className="z-20">
+                  <button
+                    onClick={() => {
+                      if (!data?._id) return;
+                      AddRemoveFollow.mutate(data._id);
+                      setisFollowing(!isFollowing);
+                    }}
+                  >
+                    {isFollowing ? (
+                      <AiOutlineTeam className="text-2xl text-green-500" />
+                    ) : (
+                      <AiOutlineUserAdd className="text-2xl text-Header-primary" />
+                    )}
+                  </button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  {data.isFollowing ? "Following" : "Follow"}
+                  {isFollowing ? "Following" : "Follow"}
                 </TooltipContent>
               </Tooltip>
             )}
