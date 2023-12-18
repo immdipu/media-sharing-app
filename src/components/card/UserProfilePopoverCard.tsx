@@ -1,45 +1,31 @@
 "use client";
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { userApis } from "@/Apis/APIs";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AiOutlineUserAdd, AiOutlineTeam } from "react-icons/ai";
-import { useToast } from "@/components/ui/use-toast";
-
+import useFollow from "@/hooks/useFollow";
+import UserProfilePopoverCardSkeleton from "../Skeleton/UserProfilePopoverCardSkeleton";
 import moment from "moment";
 const UserProfilePopoverCard = ({ username }: { username: string }) => {
-  const queryClient = useQueryClient();
-  const { toast } = useToast();
-  const { GetUserProfile, AddRemoveFollowers } = userApis;
-  const { data, isLoading } = useQuery(["userdetails", username], () =>
+  const { GetUserProfile } = userApis;
+  const { data, isLoading } = useQuery(["user", username], () =>
     GetUserProfile(username),
   );
-  const [isFollowing, setisFollowing] = useState<boolean>(false);
-
-  const AddRemoveFollow = useMutation(
-    (userId: string) => AddRemoveFollowers(userId),
-    {
-      onSuccess: (data) => {
-        queryClient.invalidateQueries(["userdetails"]);
-      },
-      onError: (data: any) => {
-        toast({
-          title: data?.message ?? "Something went wrong",
-          variant: "destructive",
-        });
-      },
-    },
-  );
+  const { isFollowing, setIsFollowing, handleFollow } = useFollow();
 
   useLayoutEffect(() => {
-    if (data) {
-      setisFollowing(data.isFollowing);
+    if (data?.isFollowing) {
+      setIsFollowing(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return <UserProfilePopoverCardSkeleton />;
+  }
 
-  if (!data) return <div className="text-Header-primary">Loading...</div>;
+  if (!data) return <UserProfilePopoverCardSkeleton />;
 
   return (
     <section className="flex flex-col ">
@@ -58,8 +44,7 @@ const UserProfilePopoverCard = ({ username }: { username: string }) => {
                 title={isFollowing ? "Unfollow" : "Follow"}
                 onClick={() => {
                   if (!data?._id) return;
-                  AddRemoveFollow.mutate(data._id);
-                  setisFollowing(!isFollowing);
+                  handleFollow(data._id, "userdetails");
                 }}
               >
                 {isFollowing ? (
@@ -71,7 +56,7 @@ const UserProfilePopoverCard = ({ username }: { username: string }) => {
             )}
           </div>
 
-          <p className="text-sm font-light tracking-wide text-paragraph-secondary">
+          <p className="text-xs font-light tracking-wide text-paragraph-secondary">
             @{data.username}
           </p>
         </div>

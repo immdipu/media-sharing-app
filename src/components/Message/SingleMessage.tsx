@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { RoomMessageTypes } from "@/types/room";
 import momemnt from "moment";
+import UserProfilePopoverCardSkeleton from "../Skeleton/UserProfilePopoverCardSkeleton";
 import {
   Popover,
   PopoverContent,
@@ -13,9 +13,10 @@ import {
 const UserProfilePopoverCard = dynamic(
   () => import("@/components/card/UserProfilePopoverCard"),
   {
-    loading: () => <div className="text-Header-primary">Loading...</div>,
+    loading: () => <UserProfilePopoverCardSkeleton />,
   },
 );
+
 const SingleMessage: React.FC<RoomMessageTypes> = ({
   Type,
   content,
