@@ -2,16 +2,15 @@
 import React from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import clsx from "clsx";
 import { RoomMessageTypes } from "@/types/room";
 import momemnt from "moment";
-
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import UserProfilePopoverCard from "../card/UserProfilePopoverCard";
 const SingleMessage: React.FC<RoomMessageTypes> = ({
   Type,
   content,
@@ -20,12 +19,20 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
 }) => {
   return (
     <div className="  flex px-3 py-2 hover:bg-secondary-hover">
-      <Avatar className="h-10 w-10">
-        <AvatarImage src={sender?.profilePic} />
-        <AvatarFallback className="uppercase">
-          {sender?.fullName?.slice(0, 2)}
-        </AvatarFallback>
-      </Avatar>
+      <Popover>
+        <PopoverTrigger>
+          <Avatar className="h-10 w-10">
+            <AvatarImage src={sender?.profilePic} />
+            <AvatarFallback className="uppercase">
+              {sender?.fullName?.slice(0, 2)}
+            </AvatarFallback>
+          </Avatar>
+        </PopoverTrigger>
+        <PopoverContent className="border-secondary-color bg-Secondary-background px-3">
+          <UserProfilePopoverCard username={sender.username} />
+        </PopoverContent>
+      </Popover>
+
       <div className="ml-2 w-full">
         <div className="flex items-center gap-3">
           <h4 className="light:text-green-500 w-1/2 overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-medium capitalize text-Header-secondary ">
