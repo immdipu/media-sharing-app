@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LoggedOut } from "@/redux/slice/authSlice";
 import clsx from "clsx";
+import Link from "next/link";
 
 const Avatar = () => {
   const user = useAppSelector((state) => state.auth);
@@ -51,7 +52,7 @@ const Avatar = () => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="h-px bg-Main-background opacity-70" />
         <DropdownMenuItem className="text-Paragraph-primary">
-          Profile
+          <Link href={`profile/${user.username}`}>Profile</Link>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator className="h-px bg-Main-background opacity-40" />
