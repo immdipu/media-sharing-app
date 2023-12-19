@@ -8,6 +8,7 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { membersTypes } from "@/types/room";
 import dynamic from "next/dynamic";
+import { useAppSelector } from "@/hooks/reduxHooks";
 const UserListOptionCard = dynamic(() => import("./UserListOptionCard"), {
   loading: () => (
     <div className="flex w-48 flex-col gap-2 px-3 py-3">
@@ -31,6 +32,7 @@ const UserCardList: React.FC<UserCardListProps> = ({
   verified,
   roomRole,
 }) => {
+  const user = useAppSelector((state) => state.auth);
   return (
     <div className="flex px-4 py-3 hover:bg-secondary-hover">
       <Avatar className="h-10 w-10">
@@ -57,18 +59,20 @@ const UserCardList: React.FC<UserCardListProps> = ({
           @{username}
         </h4>
       </div>
-      <Popover>
-        <PopoverTrigger asChild>
-          <div className=" my-auto  flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border  border-neutral-700 transition-colors duration-300 ease-linear hover:bg-neutral-700">
-            <BsThreeDotsVertical className="text-neutral-300" />
-          </div>
-        </PopoverTrigger>
-        <PopoverContent className="mr-6 h-fit w-fit overflow-hidden border-secondary-color bg-third-background p-0">
-          <ul className="list-none">
-            <UserListOptionCard id={_id} />
-          </ul>
-        </PopoverContent>
-      </Popover>
+      {user.id !== _id && (
+        <Popover>
+          <PopoverTrigger asChild>
+            <div className=" my-auto  flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border  border-neutral-700 transition-colors duration-300 ease-linear hover:bg-neutral-700">
+              <BsThreeDotsVertical className="text-neutral-300" />
+            </div>
+          </PopoverTrigger>
+          <PopoverContent className="mr-6 h-fit w-fit overflow-hidden border-secondary-color bg-third-background p-0">
+            <ul className="list-none">
+              <UserListOptionCard id={_id} />
+            </ul>
+          </PopoverContent>
+        </Popover>
+      )}
     </div>
   );
 };
