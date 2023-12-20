@@ -19,8 +19,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { BiArrowBack } from "react-icons/bi";
-
 const YouTubeSearch = () => {
   const [search, setSearch] = React.useState<string>("");
   const [searchSuggestion, setSearchSuggestion] = React.useState([]);
@@ -97,22 +95,7 @@ const YouTubeSearch = () => {
   return (
     <div>
       <div className="relative mx-3 mt-4 flex items-center justify-between ">
-        <Tooltip delayDuration={100}>
-          <TooltipTrigger>
-            {" "}
-            <Button
-              onClick={() => {
-                setMedia(null);
-              }}
-              className=" group mr-1 -translate-x-1 bg-transparent p-0"
-            >
-              <BiArrowBack className="text-xl opacity-70 group-hover:opacity-100" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Go Back</p>
-          </TooltipContent>
-        </Tooltip>
+        <ShareButton backButton={true} />
         <div className="relative flex h-10 w-full items-center justify-between overflow-hidden rounded-md bg-Input-background">
           <input
             type="search"

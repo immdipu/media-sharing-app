@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import RoomShareButtonCard from "@/components/card/RoomShareButtonCard";
 import RidesideBar from "@/components/room/rightsideBar";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { useSocket } from "@/context/SocketProvider";
@@ -19,14 +19,15 @@ import { RoomUpdateResponseTypes } from "@/types/socketTypes";
 import { YouTubeVideo } from "@/types/Youtube";
 import { Metadata } from "next";
 import { useSearchParams } from "next/navigation";
+import Excalidraw from "@/components/Excalidraw";
 
 interface RoomContextTypes {
   YouTubeVideoId: string | null;
   setYouTubeVideoId: React.Dispatch<React.SetStateAction<string | null>>;
-  setMedia: React.Dispatch<React.SetStateAction<"YouTube" | null>>;
+  setMedia: React.Dispatch<React.SetStateAction<"YouTube" | "Drawing" | null>>;
   setSearchResult: React.Dispatch<React.SetStateAction<YouTubeVideo[]>>;
   searchResult: YouTubeVideo[];
-  media: "YouTube" | null;
+  media: "YouTube" | "Drawing" | null;
   isSharing: boolean;
   setIsSharing: React.Dispatch<React.SetStateAction<boolean>>;
   isPlayingMyVideo: boolean;
@@ -83,7 +84,7 @@ const JoinedSingleRoom = () => {
   const params = useSearchParams();
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const [searchResult, setSearchResult] = React.useState<YouTubeVideo[]>([]);
-  const [media, setMedia] = useState<"YouTube" | null>(null);
+  const [media, setMedia] = useState<"YouTube" | "Drawing" | null>(null);
   const [isSharing, setIsSharing] = React.useState(false);
   const [showRightSideBar, setShowRightSideBar] = React.useState<boolean>(true);
   const [OthersSelectedUserVideo, setOthersSelectedUserVideo] =
@@ -182,7 +183,17 @@ const JoinedSingleRoom = () => {
       }}
     >
       <div className="flex min-h-screen justify-start   max-md:relative max-md:overflow-hidden">
-        <YoutubePlayer />
+        <div className="h-full w-full">
+          <section className="h-[80vh]">
+            {media === "YouTube" && <YoutubePlayer />}
+            {media === "Drawing" && <Excalidraw />}
+          </section>
+          <section className="flex h-[18vh] items-end justify-center gap-2 ">
+            {JoinedRoom?.roomActivity.map((activity, index) => (
+              <RoomShareButtonCard {...activity} key={index} />
+            ))}
+          </section>
+        </div>
         <RidesideBar />
       </div>
     </RoomContext.Provider>

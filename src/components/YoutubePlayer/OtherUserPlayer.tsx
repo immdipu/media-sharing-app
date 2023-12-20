@@ -35,14 +35,18 @@ const OtherUserPlayer = () => {
       (activity) => activity?.users?.find((u) => u._id == user?.id),
     );
 
-    if (!JoinedActivity) {
+    if (!JoinedActivity && thirdPartyPlayer?.getPlayerState() === 1) {
       thirdPartyPlayer?.pauseVideo();
       return;
     }
   }, [JoinedRoom?.roomActivity]);
 
   useEffect(() => {
-    if (!OthersSelectedUserVideo) {
+    if (
+      !OthersSelectedUserVideo &&
+      thirdPartyPlayer &&
+      thirdPartyPlayer?.getPlayerState() === 1
+    ) {
       thirdPartyPlayer?.pauseVideo();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

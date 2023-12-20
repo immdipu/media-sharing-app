@@ -3,12 +3,19 @@ import { useSocket } from "@/context/SocketProvider";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import clsx from "clsx";
+import { Button } from "../ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { BiArrowBack } from "react-icons/bi";
 
-const ShareButton = () => {
+const ShareButton = ({ backButton = false }: { backButton?: boolean }) => {
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
-  const { YouTubeVideoId, isSharing, setIsSharing } =
+  const { YouTubeVideoId, isSharing, setIsSharing, setMedia } =
     React.useContext(RoomContext);
 
   const handleSharing = () => {
@@ -26,6 +33,7 @@ const ShareButton = () => {
         adminId: activity?.admin._id,
       });
     } else {
+      if (backButton) return;
       setIsSharing(true);
       EmitCustomEvent("add-activity", {
         type: "YouTube",
@@ -39,6 +47,28 @@ const ShareButton = () => {
       });
     }
   };
+
+  if (backButton) {
+    return (
+      <Tooltip delayDuration={100}>
+        <TooltipTrigger>
+          {" "}
+          <Button
+            onClick={() => {
+              setMedia(null);
+              handleSharing();
+            }}
+            className=" group mr-1 -translate-x-1 bg-transparent p-0"
+          >
+            <BiArrowBack className="text-xl opacity-70 group-hover:opacity-100" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Go Back</p>
+        </TooltipContent>
+      </Tooltip>
+    );
+  }
 
   return (
     <button

@@ -138,59 +138,41 @@ const YoutubePlayer = () => {
   };
 
   return (
-    <div className=" w-full ">
-      <section className="h-4/5 ">
-        <section className="relative h-5/6 overflow-hidden px-2 pt-4 ">
-          <div
-            className={clsx(
-              " h-full w-full",
-              !!!isMySharedVideo && "block",
-              !!isMySharedVideo &&
-                AmIwatchingMyVideo &&
-                "pointer-events-auto opacity-100",
-              !!isMySharedVideo &&
-                !AmIwatchingMyVideo &&
-                "pointer-events-none opacity-0",
-              !YouTubeVideoId && "pointer-events-none opacity-0",
-            )}
-          >
-            <YouTube
-              videoId={YouTubeVideoId!}
-              onStateChange={hanldeOnStateChange}
-              className="h-full w-full"
-              iframeClassName={clsx("h-full w-full")}
-              opts={opts}
-              onReady={onReady}
-            />
-          </div>
+    <section className="relative h-full overflow-hidden px-2 pt-4 ">
+      <div
+        className={clsx(
+          " h-full w-full",
+          !!!isMySharedVideo && "block",
+          !!isMySharedVideo &&
+            AmIwatchingMyVideo &&
+            "pointer-events-auto opacity-100",
+          !!isMySharedVideo &&
+            !AmIwatchingMyVideo &&
+            "pointer-events-none opacity-0",
+          !YouTubeVideoId && "pointer-events-none opacity-0",
+        )}
+      >
+        <YouTube
+          videoId={YouTubeVideoId!}
+          onStateChange={hanldeOnStateChange}
+          className="h-full w-full"
+          iframeClassName={clsx("h-full w-full")}
+          opts={opts}
+          onReady={onReady}
+        />
+      </div>
 
-          <div
-            className={clsx(
-              "absolute bottom-0 left-0 right-0 top-0   h-full w-full",
-              OthersSelectedUserVideo && AmWatchingthirdPartyVideo
-                ? "z-10"
-                : "-z-10 opacity-0",
-            )}
-          >
-            <OtherUserPlayer />
-          </div>
-        </section>
-      </section>
-
-      <section className="h-1/5 ">
-        <div className="flex h-full items-center justify-center gap-3 ">
-          {/* <button className="rounded-full bg-Secondary-background p-2 transition-transform duration-100 ease-linear hover:bg-secondary-hover active:scale-95">
-            <MdCallEnd className="text-3xl text-red-600" />
-          </button>
-         */}
-          <section className="flex items-end gap-2">
-            {JoinedRoom?.roomActivity.map((activity, index) => (
-              <RoomShareButtonCard {...activity} key={index} />
-            ))}
-          </section>
-        </div>
-      </section>
-    </div>
+      <div
+        className={clsx(
+          "absolute bottom-0 left-0 right-0 top-0   h-full w-full",
+          OthersSelectedUserVideo && AmWatchingthirdPartyVideo
+            ? "z-10"
+            : "-z-10 opacity-0",
+        )}
+      >
+        <OtherUserPlayer />
+      </div>
+    </section>
   );
 };
 
