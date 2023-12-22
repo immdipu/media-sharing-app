@@ -99,6 +99,7 @@ const Excalidraws = () => {
                 JSON.stringify(excalidrawElements)
               ) {
                 previousElementsRef.current = excalidrawElements;
+                console.log("Elements :", excalidrawElements);
               }
             }}
             renderTopRightUI={() => (

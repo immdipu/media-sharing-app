@@ -64,3 +64,18 @@ export interface UpdateAllActivityResponseTypes {
   type: "REMOVE_USER_FROM_ALL_ACTIVITY";
   activities: roomActivityTypes;
 }
+
+export interface IAddActivity {
+  type: "YouTube" | "Drawing";
+  room: string;
+  admin: string;
+  data: object;
+}
+
+export interface IRemoveActivity {
+  type: "REMOVE_ACTIVITY";
+  activityId: string;
+  roomId: string;
+  userId: string;
+  adminId: string;
+}

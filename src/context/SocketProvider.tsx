@@ -8,6 +8,7 @@ import { AddNewRoom, StopRoomJoiningLoader } from "@/redux/slice/roomSlice";
 import { usePathname } from "next/navigation";
 import { RoomTypes } from "@/types/room";
 import { useToast } from "@/components/ui/use-toast";
+import { IAddActivity, IRemoveActivity } from "@/types/socketTypes";
 
 interface SocketContextProps {
   socket: Socket | null;
@@ -15,6 +16,8 @@ interface SocketContextProps {
   EmitCustomEvent: (event: string, data: any) => void;
   ListenCustomEvent: (event: string, callback: (data: any) => void) => void;
   CloseCustomEvent: (event: string, callback: (data: any) => void) => void;
+  AddActivity: (data: IAddActivity) => void;
+  RemoveActivity: (data: IRemoveActivity) => void;
 }
 
 const SocketContext = createContext<SocketContextProps>({
@@ -23,6 +26,8 @@ const SocketContext = createContext<SocketContextProps>({
   EmitCustomEvent: () => {},
   ListenCustomEvent: () => {},
   CloseCustomEvent: () => {},
+  AddActivity: () => {},
+  RemoveActivity: () => {},
 });
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
@@ -108,6 +113,18 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const AddActivity = (data: IAddActivity) => {
+    if (socket) {
+      socket.emit("add-activity", data);
+    }
+  };
+
+  const RemoveActivity = (data: IRemoveActivity) => {
+    if (socket) {
+      socket.emit("REMOVE_ACTIVITY", data);
+    }
+  };
+
   return (
     <SocketContext.Provider
       value={{
@@ -116,6 +133,8 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
         EmitCustomEvent,
         ListenCustomEvent,
         CloseCustomEvent,
+        AddActivity,
+        RemoveActivity,
       }}
     >
       {children}
