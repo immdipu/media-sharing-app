@@ -9,12 +9,15 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useToast } from "../ui/use-toast";
 import { BiArrowBack } from "react-icons/bi";
+import { IAddActivity, IRemoveActivity } from "@/types/socketTypes";
 
 const ShareButton = ({ backButton = false }: { backButton?: boolean }) => {
-  const { socket, EmitCustomEvent, AddActivity, RemoveActivity } = useSocket();
+  const { socket, EmitCustomEvent, AddActivity, RoomUpdate } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
+  const { toast } = useToast();
   const { YouTubeVideoId, isSharing, setIsSharing, setMedia } =
     React.useContext(RoomContext);
 
@@ -25,28 +28,44 @@ const ShareButton = ({ backButton = false }: { backButton?: boolean }) => {
         (item) => item.admin._id === user?.id,
       );
 
-      let Remove;
+      if (!activity || !JoinedRoom || !user) {
+        toast({
+          title: "Something went wrong",
+          variant: "destructive",
+        });
+        return;
+      }
 
-      EmitCustomEvent("room-update", {
+      let Remove: IRemoveActivity = {
         type: "REMOVE_ACTIVITY",
-        roomId: JoinedRoom?.id,
-        userId: user?.id,
-        activityId: activity?.id,
-        adminId: activity?.admin._id,
-      });
+        activityId: activity.id,
+        roomId: JoinedRoom.id,
+        userId: user.id!,
+        adminId: activity.admin._id,
+      };
+      RoomUpdate(Remove);
     } else {
       if (backButton) return;
       setIsSharing(true);
-      EmitCustomEvent("add-activity", {
+      if (!JoinedRoom || !user || !YouTubeVideoId) {
+        toast({
+          title: "Something went wrong",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      let NewActivity: IAddActivity = {
         type: "YouTube",
         room: JoinedRoom?.id,
-        admin: user?.id,
+        admin: user?.id!,
         data: {
           videoId: YouTubeVideoId,
           thumbnail: localStorage.getItem("YouTubeThumbnail"),
           status: "playing",
         },
-      });
+      };
+      AddActivity(NewActivity);
     }
   };
 

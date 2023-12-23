@@ -17,7 +17,7 @@ interface SocketContextProps {
   ListenCustomEvent: (event: string, callback: (data: any) => void) => void;
   CloseCustomEvent: (event: string, callback: (data: any) => void) => void;
   AddActivity: (data: IAddActivity) => void;
-  RemoveActivity: (data: IRemoveActivity) => void;
+  RoomUpdate: (data: IRemoveActivity) => void;
 }
 
 const SocketContext = createContext<SocketContextProps>({
@@ -27,7 +27,7 @@ const SocketContext = createContext<SocketContextProps>({
   ListenCustomEvent: () => {},
   CloseCustomEvent: () => {},
   AddActivity: () => {},
-  RemoveActivity: () => {},
+  RoomUpdate: () => {},
 });
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
@@ -119,9 +119,9 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const RemoveActivity = (data: IRemoveActivity) => {
+  const RoomUpdate = (data: IRemoveActivity) => {
     if (socket) {
-      socket.emit("REMOVE_ACTIVITY", data);
+      socket.emit("room-update", data);
     }
   };
 
@@ -134,7 +134,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
         ListenCustomEvent,
         CloseCustomEvent,
         AddActivity,
-        RemoveActivity,
+        RoomUpdate,
       }}
     >
       {children}
