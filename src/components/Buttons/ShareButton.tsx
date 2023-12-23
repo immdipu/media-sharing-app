@@ -12,7 +12,7 @@ import {
 import { BiArrowBack } from "react-icons/bi";
 
 const ShareButton = ({ backButton = false }: { backButton?: boolean }) => {
-  const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
+  const { socket, EmitCustomEvent, AddActivity, RemoveActivity } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
   const { YouTubeVideoId, isSharing, setIsSharing, setMedia } =
@@ -24,6 +24,8 @@ const ShareButton = ({ backButton = false }: { backButton?: boolean }) => {
       let activity = JoinedRoom?.roomActivity.find(
         (item) => item.admin._id === user?.id,
       );
+
+      let Remove;
 
       EmitCustomEvent("room-update", {
         type: "REMOVE_ACTIVITY",
