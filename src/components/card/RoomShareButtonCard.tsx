@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { roomActivityTypes } from "@/types/roomActivity";
 import clsx from "clsx";
@@ -22,6 +22,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
 
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room);
+  const GET_MEDIA_DETAILS_RESPONSERef = useRef<any>(null);
   const {
     setOthersSelectedUserVideo,
     setThirdPartyVideoId,
@@ -39,7 +40,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
         socket.on("player-state", (data) => {
           if (data?.data?.time) {
             const timeDifference = Math.abs(
-              data?.data?.time - ExternalShared.getCurrentTime(),
+              data?.data?.time - ExternalShared?.getCurrentTime(),
             );
 
             if (timeDifference > 4) {
@@ -53,7 +54,6 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
           }
           if (data?.data?.state) {
             const playerState = ExternalShared?.getPlayerState();
-
             if (playerState !== data?.data?.state) {
               if (data?.data?.state === 1) {
                 ExternalShared?.playVideo();
@@ -70,8 +70,11 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
           }
         });
 
-        socket.on("GET_MEDIA_DETAILS_RESPONSE", (data) => {
-          console.log(data);
+        socket.on("GET_MEDIA_DETAILS_RESPONSE", async (data) => {
+          if (!ExternalShared) {
+            GET_MEDIA_DETAILS_RESPONSERef.current = data;
+            return;
+          }
           if (data?.data?.VideoId) {
             ExternalShared?.loadVideoById({
               videoId: data?.data?.VideoId,
@@ -93,7 +96,29 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isWatching]);
+  }, [isWatching, ExternalShared]);
+
+  useEffect(() => {
+    if (ExternalShared && GET_MEDIA_DETAILS_RESPONSERef.current) {
+      const data = GET_MEDIA_DETAILS_RESPONSERef.current;
+      console.log("current data", data);
+      if (data?.data?.VideoId) {
+        console.log("video Id", data?.data?.VideoId);
+        ExternalShared?.loadVideoById({
+          videoId: data?.data?.VideoId,
+          startSeconds: data?.data?.time || 0,
+        });
+      }
+      if (data?.data?.state) {
+        if (data?.data?.state === 1) {
+          ExternalShared?.playVideo();
+        } else {
+          ExternalShared?.pauseVideo();
+        }
+      }
+      GET_MEDIA_DETAILS_RESPONSERef.current = null;
+    }
+  }, [ExternalShared]);
 
   const handleJoinAndLeave = () => {
     if (isWatching) {
@@ -107,6 +132,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       };
       EmitCustomEvent("room-update", data);
     } else {
+      setMedia(ActivityType);
       if (!isMySharedVideo) {
         setOthersSelectedUserVideo(true);
       } else {

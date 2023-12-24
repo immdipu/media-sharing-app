@@ -186,8 +186,8 @@ const JoinedSingleRoom = () => {
       <div className="flex min-h-screen justify-start   max-md:relative max-md:overflow-hidden">
         <div className="h-full w-full">
           <section className="h-[80vh]">
-            {media === "YouTube" && <YoutubePlayer />}
-            {media === "Drawing" && <Excalidraw />}
+            {media === ActivityType.YouTube && <YoutubePlayer />}
+            {media === ActivityType.Drawing && <Excalidraw />}
           </section>
           <section className="flex h-[18vh] items-end justify-center gap-2 ">
             {JoinedRoom?.roomActivity.map((activity, index) => (
