@@ -10,6 +10,7 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 import RoomShareButtonCard from "../card/RoomShareButtonCard";
 import clsx from "clsx";
 import OtherUserPlayer from "./OtherUserPlayer";
+import { ActivityType, IGetActivityTypes } from "@/types/roomActivity";
 
 const YoutubePlayer = () => {
   const {
@@ -17,6 +18,7 @@ const YoutubePlayer = () => {
     setYouTubeVideoId,
     isPlayingMyVideo,
     OthersSelectedUserVideo,
+    media,
   } = useContext(RoomContext);
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
@@ -73,19 +75,24 @@ const YoutubePlayer = () => {
     if (!socket) return;
     if (!!!isMySharedVideo) return;
     if (!player) return;
+    if (media === "Drawing") return;
 
     const listner = () => {
       const time = player?.getCurrentTime();
       const VideoId = player?.getVideoData().video_id;
       const state = player?.getPlayerState();
-      EmitCustomEvent("Get_Activity_Details", {
+
+      const ActivityDetails: IGetActivityTypes = {
         activityId: isMySharedVideo?.id,
+        ActivityType: ActivityType.YouTube,
         data: {
           time: time,
           VideoId,
           state: state,
         },
-      });
+      };
+
+      EmitCustomEvent("Get_Activity_Details", ActivityDetails);
     };
 
     socket.on("GET_MEDIA_DETAILS", listner);

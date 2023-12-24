@@ -7,15 +7,8 @@ import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 const OtherUserPlayer = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
-  const {
-    OthersSelectedUserVideo,
-    YouTubeVideoId,
-    thirdPartyVideoId,
-    thirdPartyVideoTime,
-    thirdPartyVideoState,
-    thirdPartyPlayer,
-    setThirdPartyPlayer,
-  } = useContext(RoomContext);
+  const { OthersSelectedUserVideo, ExternalShared, setExternalShared } =
+    useContext(RoomContext);
 
   const opts: YouTubeProps["opts"] = {
     playerVars: {
@@ -25,18 +18,18 @@ const OtherUserPlayer = () => {
   };
 
   const onReady: YouTubeProps["onReady"] = (event) => {
-    if (setThirdPartyPlayer === undefined) return;
-    setThirdPartyPlayer(event.target);
+    if (setExternalShared === undefined) return;
+    setExternalShared(event.target);
   };
 
   useEffect(() => {
-    if (!thirdPartyPlayer) return;
+    if (!ExternalShared) return;
     const JoinedActivity = !!JoinedRoom?.roomActivity.find(
       (activity) => activity?.users?.find((u) => u._id == user?.id),
     );
 
-    if (!JoinedActivity && thirdPartyPlayer?.getPlayerState() === 1) {
-      thirdPartyPlayer?.pauseVideo();
+    if (!JoinedActivity && ExternalShared?.getPlayerState() === 1) {
+      ExternalShared?.pauseVideo();
       return;
     }
   }, [JoinedRoom?.roomActivity]);
@@ -44,10 +37,10 @@ const OtherUserPlayer = () => {
   useEffect(() => {
     if (
       !OthersSelectedUserVideo &&
-      thirdPartyPlayer &&
-      thirdPartyPlayer?.getPlayerState() === 1
+      ExternalShared &&
+      ExternalShared?.getPlayerState() === 1
     ) {
-      thirdPartyPlayer?.pauseVideo();
+      ExternalShared?.pauseVideo();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [OthersSelectedUserVideo]);

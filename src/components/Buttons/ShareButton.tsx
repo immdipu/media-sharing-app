@@ -12,6 +12,7 @@ import {
 import { useToast } from "../ui/use-toast";
 import { BiArrowBack } from "react-icons/bi";
 import { IAddActivity, IRemoveActivity } from "@/types/socketTypes";
+import { ActivityType } from "@/types/roomActivity";
 
 const ShareButton = ({ backButton = false }: { backButton?: boolean }) => {
   const { socket, EmitCustomEvent, AddActivity, RoomUpdate } = useSocket();
@@ -56,7 +57,7 @@ const ShareButton = ({ backButton = false }: { backButton?: boolean }) => {
       }
 
       let NewActivity: IAddActivity = {
-        type: "YouTube",
+        type: ActivityType.YouTube,
         room: JoinedRoom?.id,
         admin: user?.id!,
         data: {

@@ -1,21 +1,81 @@
 "use client";
-import React, { useState, useEffect, ComponentType, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  ComponentType,
+  useRef,
+  useContext,
+} from "react";
+import { useSocket } from "@/context/SocketProvider";
 import {
   AppState,
   ExcalidrawImperativeAPI,
   ExcalidrawProps,
 } from "@excalidraw/excalidraw/types/types";
 import { LiveCollaborationTrigger, MainMenu } from "@excalidraw/excalidraw";
+import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
+import { IAddActivity } from "@/types/socketTypes";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { ActivityType, IGetActivityTypes } from "@/types/roomActivity";
+
 const Excalidraws = () => {
   const [Excalidraw, setExcalidraw] =
     useState<ComponentType<ExcalidrawProps> | null>(null);
+  const { isSharing, media } = useContext(RoomContext);
   const previousElementsRef = useRef<any>();
+  const { socket, AddActivity, EmitCustomEvent } = useSocket();
+  const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
+  const user = useAppSelector((state) => state.auth);
+  const isMySharedDrawing = JoinedRoom?.roomActivity.find(
+    (activity) => activity.admin._id === user?.id,
+  );
 
   useEffect(() => {
     import("@excalidraw/excalidraw").then((comp) =>
       setExcalidraw(comp.Excalidraw),
     );
   }, []);
+
+  useEffect(() => {
+    if (!socket) return;
+    if (!!!isMySharedDrawing) return;
+    if (!Excalidraw) return;
+    if (media === "YouTube") return;
+
+    const listner = () => {
+      let ActiivtyDetails: IGetActivityTypes = {
+        activityId: isMySharedDrawing?.id,
+        ActivityType: ActivityType.Drawing,
+        data: {
+          elements: previousElementsRef.current,
+        },
+      };
+
+      EmitCustomEvent("Get_Activity_Details", ActiivtyDetails);
+    };
+
+    socket.on("GET_MEDIA_DETAILS", listner);
+    return () => {
+      socket?.off("GET_MEDIA_DETAILS", listner);
+    };
+  }, [Excalidraw, !!isMySharedDrawing, media]);
+
+  const handleShare = () => {
+    if (!Excalidraw || !JoinedRoom || !user.id) return;
+    if (isSharing) {
+      // stop sharing
+    } else {
+      const NewActivityData: IAddActivity = {
+        type: ActivityType.Drawing,
+        room: JoinedRoom?.id,
+        admin: user.id,
+        data: {
+          elements: previousElementsRef.current,
+        },
+      };
+      AddActivity(NewActivityData);
+    }
+  };
 
   return (
     <div className="w-full">
@@ -104,7 +164,7 @@ const Excalidraws = () => {
             }}
             renderTopRightUI={() => (
               <button className="flex w-full items-center justify-center rounded-md border bg-neutral-200 px-2">
-                <span>share</span>
+                {isSharing ? <>Sharing</> : <>share</>}
               </button>
             )}
           >

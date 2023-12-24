@@ -20,14 +20,15 @@ import { YouTubeVideo } from "@/types/Youtube";
 import { Metadata } from "next";
 import { useSearchParams } from "next/navigation";
 import Excalidraw from "@/components/Excalidraw";
+import { ActivityType } from "@/types/roomActivity";
 
 interface RoomContextTypes {
   YouTubeVideoId: string | null;
   setYouTubeVideoId: React.Dispatch<React.SetStateAction<string | null>>;
-  setMedia: React.Dispatch<React.SetStateAction<"YouTube" | "Drawing" | null>>;
+  setMedia: React.Dispatch<React.SetStateAction<ActivityType | null>>;
   setSearchResult: React.Dispatch<React.SetStateAction<YouTubeVideo[]>>;
   searchResult: YouTubeVideo[];
-  media: "YouTube" | "Drawing" | null;
+  media: ActivityType | null;
   isSharing: boolean;
   setIsSharing: React.Dispatch<React.SetStateAction<boolean>>;
   isPlayingMyVideo: boolean;
@@ -40,8 +41,8 @@ interface RoomContextTypes {
   setThirdPartyVideoState: React.Dispatch<React.SetStateAction<string>>;
   thirdPartyVideoTime: number;
   setThirdPartyVideoTime: React.Dispatch<React.SetStateAction<number>>;
-  thirdPartyPlayer?: any;
-  setThirdPartyPlayer?: React.Dispatch<React.SetStateAction<any>>;
+  ExternalShared?: any;
+  setExternalShared?: React.Dispatch<React.SetStateAction<any>>;
   showRightSideBar?: boolean;
   setShowRightSideBar?: React.Dispatch<React.SetStateAction<boolean>>;
   MessageCount?: number;
@@ -67,8 +68,8 @@ let intialState: RoomContextTypes = {
   setThirdPartyVideoState: () => {},
   thirdPartyVideoTime: 0,
   setThirdPartyVideoTime: () => {},
-  thirdPartyPlayer: null,
-  setThirdPartyPlayer: () => {},
+  ExternalShared: null,
+  setExternalShared: () => {},
   showRightSideBar: true,
   setShowRightSideBar: () => {},
   MessageCount: 0,
@@ -84,7 +85,7 @@ const JoinedSingleRoom = () => {
   const params = useSearchParams();
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const [searchResult, setSearchResult] = React.useState<YouTubeVideo[]>([]);
-  const [media, setMedia] = useState<"YouTube" | "Drawing" | null>(null);
+  const [media, setMedia] = useState<ActivityType | null>(null);
   const [isSharing, setIsSharing] = React.useState(false);
   const [showRightSideBar, setShowRightSideBar] = React.useState<boolean>(true);
   const [OthersSelectedUserVideo, setOthersSelectedUserVideo] =
@@ -98,7 +99,7 @@ const JoinedSingleRoom = () => {
     React.useState<string>("playing");
   const [thirdPartyVideoTime, setThirdPartyVideoTime] =
     React.useState<number>(0);
-  const [thirdPartyPlayer, setThirdPartyPlayer] = React.useState<any>(null);
+  const [ExternalShared, setExternalShared] = React.useState<any>(null);
 
   const dispatch = useAppDispatch();
 
@@ -174,8 +175,8 @@ const JoinedSingleRoom = () => {
         setThirdPartyVideoState,
         thirdPartyVideoTime,
         setThirdPartyVideoTime,
-        thirdPartyPlayer,
-        setThirdPartyPlayer,
+        ExternalShared,
+        setExternalShared,
         showRightSideBar,
         setShowRightSideBar,
         MessageCount,

@@ -1,5 +1,5 @@
 import { RoomTypes } from "./room";
-import { roomActivityTypes } from "./roomActivity";
+import { ActivityType, roomActivityTypes } from "./roomActivity";
 
 export interface IjoinedRoomResponse {
   success: boolean;
@@ -66,7 +66,7 @@ export interface UpdateAllActivityResponseTypes {
 }
 
 export interface IAddActivity {
-  type: "YouTube" | "Drawing";
+  type: ActivityType;
   room: string;
   admin: string;
   data: object;
