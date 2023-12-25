@@ -8,6 +8,7 @@ import { useSocket } from "@/context/SocketProvider";
 import { ActivityTypes } from "@/types/room";
 import { useContext } from "react";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
+import { resolve } from "path";
 
 const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
   ActivityType,
@@ -101,22 +102,23 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
   useEffect(() => {
     if (ExternalShared && GET_MEDIA_DETAILS_RESPONSERef.current) {
       const data = GET_MEDIA_DETAILS_RESPONSERef.current;
-      console.log("current data", data);
-      if (data?.data?.VideoId) {
-        console.log("video Id", data?.data?.VideoId);
-        ExternalShared?.loadVideoById({
-          videoId: data?.data?.VideoId,
-          startSeconds: data?.data?.time || 0,
-        });
-      }
-      if (data?.data?.state) {
-        if (data?.data?.state === 1) {
-          ExternalShared?.playVideo();
-        } else {
-          ExternalShared?.pauseVideo();
+      new Promise((resolve) => setTimeout(resolve, 3000)).then(() => {
+        if (data?.data?.VideoId) {
+          console.log("video Id", data?.data?.VideoId);
+          ExternalShared?.loadVideoById({
+            videoId: data?.data?.VideoId,
+            startSeconds: data?.data?.time || 0,
+          });
         }
-      }
-      GET_MEDIA_DETAILS_RESPONSERef.current = null;
+        if (data?.data?.state) {
+          if (data?.data?.state === 1) {
+            ExternalShared?.playVideo();
+          } else {
+            ExternalShared?.pauseVideo();
+          }
+        }
+        GET_MEDIA_DETAILS_RESPONSERef.current = null;
+      });
     }
   }, [ExternalShared]);
 
