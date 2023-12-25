@@ -21,11 +21,10 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   const {
     setIsMyActivityShowing,
     isSharing,
-    OthersSelected,
     setOthersSelected,
     YoutubePlayer,
   } = useContext(RoomContext);
-  const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
+  const { EmitCustomEvent } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
   const { AmIWatchingActivity, isMySharedActivity } = useUserRoomActivity();

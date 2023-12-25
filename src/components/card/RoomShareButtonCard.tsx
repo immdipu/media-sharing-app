@@ -9,7 +9,6 @@ import { ActivityTypes } from "@/types/room";
 import { useContext } from "react";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { ActivityType as IActivityTypes } from "@/types/roomActivity";
-import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 
 const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
   ActivityType,
