@@ -8,7 +8,6 @@ import { useSocket } from "@/context/SocketProvider";
 import { ActivityTypes } from "@/types/room";
 import { useContext } from "react";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
-import { resolve } from "path";
 import { ActivityType as IActivityTypes } from "@/types/roomActivity";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 
@@ -23,17 +22,11 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
 }) => {
   const user = useAppSelector((state) => state.auth);
 
-  const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
-  const { AmIWatchingActivity } = useUserRoomActivity();
+  const { socket, EmitCustomEvent } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room);
   const GET_MEDIA_DETAILS_RESPONSERef = useRef<any>(null);
-  const {
-    setOthersSelected,
-    ExternalShared,
-    setMedia,
-    setOtherSelectedChanged,
-    setOtherMedia,
-  } = useContext(RoomContext);
+  const { ExternalShared, setMedia, setOtherSelectedChanged, setOtherMedia } =
+    useContext(RoomContext);
 
   const isWatching = users?.find((u) => u._id == user?.id);
   const isMySharedActivity = admin._id === user?.id;
