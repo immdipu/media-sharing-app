@@ -12,20 +12,22 @@ import {
   ExcalidrawImperativeAPI,
   ExcalidrawProps,
 } from "@excalidraw/excalidraw/types/types";
+import { useToast } from "../ui/use-toast";
 import { LiveCollaborationTrigger, MainMenu } from "@excalidraw/excalidraw";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
-import { IAddActivity } from "@/types/socketTypes";
+import { IAddActivity, IRemoveActivity } from "@/types/socketTypes";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { ActivityType, IGetActivityTypes } from "@/types/roomActivity";
 
 const Excalidraws = () => {
   const [Excalidraw, setExcalidraw] =
     useState<ComponentType<ExcalidrawProps> | null>(null);
-  const { isSharing, media } = useContext(RoomContext);
+  const { isSharing, media, setIsSharing } = useContext(RoomContext);
   const previousElementsRef = useRef<any>();
-  const { socket, AddActivity, EmitCustomEvent } = useSocket();
+  const { socket, AddActivity, EmitCustomEvent, RoomUpdate } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
+  const { toast } = useToast();
   const isMySharedDrawing = JoinedRoom?.roomActivity.find(
     (activity) => activity.admin._id === user?.id,
   );
@@ -61,10 +63,32 @@ const Excalidraws = () => {
   }, [Excalidraw, !!isMySharedDrawing, media]);
 
   const handleShare = () => {
+    console.log("isSharing :", isSharing);
     if (!Excalidraw || !JoinedRoom || !user.id) return;
     if (isSharing) {
+      let activity = JoinedRoom?.roomActivity.find(
+        (item) => item.admin._id === user?.id,
+      );
+      if (!activity || !JoinedRoom || !user) {
+        toast({
+          title: "Something went wrong",
+          variant: "destructive",
+        });
+        return;
+      }
       // stop sharing
+      setIsSharing(false);
+      let RemoveActivity: IRemoveActivity = {
+        type: "REMOVE_ACTIVITY",
+        activityId: activity.id,
+        roomId: JoinedRoom.id,
+        userId: user.id!,
+        adminId: activity.admin._id,
+      };
+      console.log("RemoveActivity :", RemoveActivity);
+      RoomUpdate(RemoveActivity);
     } else {
+      setIsSharing(true);
       const NewActivityData: IAddActivity = {
         type: ActivityType.Drawing,
         room: JoinedRoom?.id,
@@ -163,7 +187,10 @@ const Excalidraws = () => {
               }
             }}
             renderTopRightUI={() => (
-              <button className="flex w-full items-center justify-center rounded-md border bg-neutral-200 px-2">
+              <button
+                onClick={handleShare}
+                className="flex w-full items-center justify-center rounded-md border bg-neutral-200 px-2"
+              >
                 {isSharing ? <>Sharing</> : <>share</>}
               </button>
             )}
