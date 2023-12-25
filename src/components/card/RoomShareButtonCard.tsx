@@ -159,7 +159,6 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       EmitCustomEvent("room-update", data);
     } else {
       setMedia(ActivityType);
-      console.log("ActivityType", ActivityType);
       if (ActivityType === "YouTube") {
         if (!isMySharedActivity) {
           setOthersSelectedUserVideo(true);
