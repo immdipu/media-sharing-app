@@ -30,8 +30,8 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
     setYouTubeVideoId,
     setIsPlayingMyVideo,
     isSharing,
-    OthersSelectedUserVideo,
-    setOthersSelectedUserVideo,
+    OthersSelected,
+    setOthersSelected,
   } = useContext(RoomContext);
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
@@ -49,7 +49,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
     setYouTubeVideoId(id);
     localStorage.setItem("YouTubeVideoId", id);
     localStorage.setItem("YouTubeThumbnail", thumbnail?.url);
-    setOthersSelectedUserVideo(false);
+    setOthersSelected(false);
     setIsPlayingMyVideo(true);
     if (!isSharing && !!isWatching) {
       EmitCustomEvent("room-update", {
@@ -61,7 +61,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
       });
     }
     if (isSharing) {
-      EmitCustomEvent("player-state-server", {
+      EmitCustomEvent("Activity-state-server", {
         activityId: isMySharedVideo?.id,
         data: {
           time: 0,

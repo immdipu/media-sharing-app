@@ -7,7 +7,7 @@ import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 const OtherUserPlayer = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
-  const { OthersSelectedUserVideo, ExternalShared, setExternalShared } =
+  const { OthersSelected, ExternalShared, setExternalShared } =
     useContext(RoomContext);
 
   const opts: YouTubeProps["opts"] = {
@@ -36,14 +36,14 @@ const OtherUserPlayer = () => {
 
   useEffect(() => {
     if (
-      !OthersSelectedUserVideo &&
+      !OthersSelected &&
       ExternalShared &&
       ExternalShared?.getPlayerState() === 1
     ) {
       ExternalShared?.pauseVideo();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [OthersSelectedUserVideo]);
+  }, [OthersSelected]);
 
   return (
     <section className="h-full overflow-hidden  px-2 pt-4 ">

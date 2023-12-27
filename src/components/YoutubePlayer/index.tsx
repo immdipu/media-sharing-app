@@ -17,7 +17,7 @@ const YoutubePlayer = () => {
     YouTubeVideoId,
     setYouTubeVideoId,
     isPlayingMyVideo,
-    OthersSelectedUserVideo,
+    OthersSelected,
     media,
   } = useContext(RoomContext);
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
@@ -108,7 +108,7 @@ const YoutubePlayer = () => {
         const VideoId = player?.getVideoData().video_id;
         const state = player?.getPlayerState();
         if (time !== lastEmittedTime) {
-          EmitCustomEvent("player-state-server", {
+          EmitCustomEvent("Activity-state-server", {
             activityId: isMySharedVideo.id,
             data: {
               time: time,
@@ -132,7 +132,7 @@ const YoutubePlayer = () => {
       const VideoId = player?.getVideoData().video_id;
 
       if (e.data === 1 || e.data === 2) {
-        EmitCustomEvent("player-state-server", {
+        EmitCustomEvent("Activity-state-server", {
           activityId: isMySharedVideo.id,
           data: {
             time: time,
@@ -172,7 +172,7 @@ const YoutubePlayer = () => {
       <div
         className={clsx(
           "absolute bottom-0 left-0 right-0 top-0   h-full w-full",
-          OthersSelectedUserVideo && AmWatchingthirdPartyVideo
+          OthersSelected && AmWatchingthirdPartyVideo
             ? "z-10"
             : "-z-10 opacity-0",
         )}

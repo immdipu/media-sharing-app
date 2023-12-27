@@ -17,7 +17,6 @@ import {
 import { RoomChatTypes } from "@/types/room";
 import { RoomUpdateResponseTypes } from "@/types/socketTypes";
 import { YouTubeVideo } from "@/types/Youtube";
-import { Metadata } from "next";
 import { useSearchParams } from "next/navigation";
 import Excalidraw from "@/components/Excalidraw";
 import { ActivityType } from "@/types/roomActivity";
@@ -33,8 +32,8 @@ interface RoomContextTypes {
   setIsSharing: React.Dispatch<React.SetStateAction<boolean>>;
   isPlayingMyVideo: boolean;
   setIsPlayingMyVideo: React.Dispatch<React.SetStateAction<boolean>>;
-  OthersSelectedUserVideo: boolean;
-  setOthersSelectedUserVideo: React.Dispatch<React.SetStateAction<boolean>>;
+  OthersSelected: boolean;
+  setOthersSelected: React.Dispatch<React.SetStateAction<boolean>>;
   thirdPartyVideoId: string;
   setThirdPartyVideoId: React.Dispatch<React.SetStateAction<string>>;
   thirdPartyVideoState: string;
@@ -47,6 +46,8 @@ interface RoomContextTypes {
   setShowRightSideBar?: React.Dispatch<React.SetStateAction<boolean>>;
   MessageCount?: number;
   setMessageCount?: React.Dispatch<React.SetStateAction<number>>;
+  OtherSelectedChanged: boolean;
+  setOtherSelectedChanged: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 let intialState: RoomContextTypes = {
@@ -60,8 +61,8 @@ let intialState: RoomContextTypes = {
   setIsSharing: () => {},
   isPlayingMyVideo: true,
   setIsPlayingMyVideo: () => {},
-  OthersSelectedUserVideo: false,
-  setOthersSelectedUserVideo: () => {},
+  OthersSelected: false,
+  setOthersSelected: () => {},
   thirdPartyVideoId: "",
   setThirdPartyVideoId: () => {},
   thirdPartyVideoState: "playing",
@@ -74,6 +75,8 @@ let intialState: RoomContextTypes = {
   setShowRightSideBar: () => {},
   MessageCount: 0,
   setMessageCount: () => {},
+  OtherSelectedChanged: false,
+  setOtherSelectedChanged: () => {},
 };
 
 export const RoomContext = React.createContext<RoomContextTypes>(intialState);
@@ -88,8 +91,7 @@ const JoinedSingleRoom = () => {
   const [media, setMedia] = useState<ActivityType | null>(null);
   const [isSharing, setIsSharing] = React.useState(false);
   const [showRightSideBar, setShowRightSideBar] = React.useState<boolean>(true);
-  const [OthersSelectedUserVideo, setOthersSelectedUserVideo] =
-    useState<boolean>(false);
+  const [OthersSelected, setOthersSelected] = useState<boolean>(false);
   const [YouTubeVideoId, setYouTubeVideoId] = React.useState<string | null>(
     null,
   );
@@ -100,6 +102,8 @@ const JoinedSingleRoom = () => {
   const [thirdPartyVideoTime, setThirdPartyVideoTime] =
     React.useState<number>(0);
   const [ExternalShared, setExternalShared] = React.useState<any>(null);
+  const [OtherSelectedChanged, setOtherSelectedChanged] =
+    React.useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
@@ -167,8 +171,8 @@ const JoinedSingleRoom = () => {
         setIsSharing,
         isPlayingMyVideo,
         setIsPlayingMyVideo,
-        OthersSelectedUserVideo,
-        setOthersSelectedUserVideo,
+        OthersSelected,
+        setOthersSelected,
         thirdPartyVideoId,
         setThirdPartyVideoId,
         thirdPartyVideoState,
@@ -181,6 +185,8 @@ const JoinedSingleRoom = () => {
         setShowRightSideBar,
         MessageCount,
         setMessageCount,
+        OtherSelectedChanged,
+        setOtherSelectedChanged,
       }}
     >
       <div className="flex min-h-screen justify-start   max-md:relative max-md:overflow-hidden">

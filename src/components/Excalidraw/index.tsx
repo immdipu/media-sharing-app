@@ -23,7 +23,14 @@ import { ActivityType, IGetActivityTypes } from "@/types/roomActivity";
 const Excalidraws = () => {
   const [Excalidraw, setExcalidraw] =
     useState<ComponentType<ExcalidrawProps> | null>(null);
-  const { isSharing, media, setIsSharing } = useContext(RoomContext);
+  const {
+    isSharing,
+    media,
+    setIsSharing,
+    OthersSelected,
+    setOthersSelected,
+    OtherSelectedChanged,
+  } = useContext(RoomContext);
   const previousElementsRef = useRef<any>();
   const { socket, AddActivity, EmitCustomEvent, RoomUpdate } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
@@ -31,6 +38,18 @@ const Excalidraws = () => {
   const { toast } = useToast();
   const isMySharedDrawing = JoinedRoom?.roomActivity.find(
     (activity) => activity.admin._id === user?.id,
+  );
+
+  const AmWatchingthirdPartyDrawing = !!JoinedRoom?.roomActivity.find(
+    (activity) => {
+      return activity.users?.find(
+        (u) => u._id === user?.id && activity.admin._id !== user?.id,
+      );
+    },
+  );
+
+  const AmIwatchingMyDrawing = isMySharedDrawing?.users?.find(
+    (u) => u._id === user?.id,
   );
 
   useEffect(() => {
@@ -64,7 +83,6 @@ const Excalidraws = () => {
   }, [Excalidraw, !!isMySharedDrawing, media]);
 
   const handleShare = () => {
-    console.log("isSharing :", isSharing);
     if (!Excalidraw || !JoinedRoom || !user.id) return;
     if (isSharing) {
       let activity = JoinedRoom?.roomActivity.find(
@@ -105,87 +123,29 @@ const Excalidraws = () => {
   return (
     <div className="w-full">
       <section className="h-[80vh]">
-        {Excalidraw && (
+        {Excalidraw && !OthersSelected && (
           <Excalidraw
-            initialData={{
-              elements: [
-                {
-                  id: "-QJ8CKH_0INbXTIjTW9Vi",
-                  type: "arrow",
-                  x: 144.80001831054688,
-                  y: 171.40000915527344,
-                  width: 261.6000061035156,
-                  height: 201.59999084472656,
-                  angle: 0,
-                  strokeColor: "#1e1e1e",
-                  backgroundColor: "transparent",
-                  fillStyle: "solid",
-                  strokeWidth: 2,
-                  strokeStyle: "solid",
-                  roughness: 1,
-                  opacity: 100,
-                  groupIds: [],
-                  frameId: null,
-                  roundness: {
-                    type: 2,
-                  },
-                  seed: 381145519,
-                  version: 25,
-                  versionNonce: 1216108001,
-                  isDeleted: false,
-                  boundElements: null,
-                  updated: 1703069051871,
-                  link: null,
-                  locked: false,
-                  points: [
-                    [0, 0],
-                    [261.6000061035156, 201.59999084472656],
-                  ],
-                  lastCommittedPoint: null,
-                  startBinding: null,
-                  endBinding: null,
-                  startArrowhead: null,
-                  endArrowhead: "arrow",
-                },
-                {
-                  id: "3af0JhSAXiRK9i8PtuUC1",
-                  type: "diamond",
-                  x: 211.20001220703125,
-                  y: 167.40000915527344,
-                  width: 321.5999755859375,
-                  height: 378.3999786376953,
-                  angle: 0,
-                  strokeColor: "#1e1e1e",
-                  backgroundColor: "transparent",
-                  fillStyle: "solid",
-                  strokeWidth: 2,
-                  strokeStyle: "solid",
-                  roughness: 1,
-                  opacity: 100,
-                  groupIds: [],
-                  frameId: null,
-                  roundness: {
-                    type: 2,
-                  },
-                  seed: 1625974593,
-                  version: 108,
-                  versionNonce: 36259297,
-                  isDeleted: false,
-                  boundElements: null,
-                  updated: 1703069064671,
-                  link: null,
-                  locked: false,
-                },
-              ],
-            }}
             onChange={(excalidrawElements, appState, files) => {
-              if (
-                JSON.stringify(previousElementsRef.current) !==
-                JSON.stringify(excalidrawElements)
-              ) {
-                previousElementsRef.current = excalidrawElements;
-                console.log("Elements :", excalidrawElements);
-              }
+              // if (
+              //   JSON.stringify(previousElementsRef.current) !==
+              //   JSON.stringify(excalidrawElements)
+              // ) {
+              //   previousElementsRef.current = excalidrawElements;
+              //   EmitCustomEvent("Activity-state-server", {
+              //     activityId: isMySharedDrawing?.id,
+              //     data: {
+              //       elements: excalidrawElements,
+              //     },
+              //   });
+              // }
+              previousElementsRef.current = excalidrawElements;
+              if (!isSharing) return;
+              EmitCustomEvent("Activity-state-server", {
+                activityId: isMySharedDrawing?.id,
+                data: {
+                  elements: excalidrawElements,
+                },
+              });
             }}
             renderTopRightUI={() => (
               <button
@@ -206,6 +166,9 @@ const Excalidraws = () => {
               <MainMenu.DefaultItems.ChangeCanvasBackground />
             </MainMenu>
           </Excalidraw>
+        )}
+        {OthersSelected && AmWatchingthirdPartyDrawing && (
+          <OtherUserExcalidraw />
         )}
       </section>
       <section className="h-full w-full"></section>

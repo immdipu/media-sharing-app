@@ -26,10 +26,11 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
   const JoinedRoom = useAppSelector((state) => state.room);
   const GET_MEDIA_DETAILS_RESPONSERef = useRef<any>(null);
   const {
-    setOthersSelectedUserVideo,
+    setOthersSelected,
     setThirdPartyVideoId,
     ExternalShared,
     setMedia,
+    setOtherSelectedChanged,
   } = useContext(RoomContext);
 
   const isWatching = users?.find((u) => u._id == user?.id);
@@ -42,7 +43,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       (!isMySharedActivity || isMySharedActivity === undefined)
     ) {
       if (socket) {
-        socket.on("player-state", (data) => {
+        socket.on("Activity-state-sync", (data: any) => {
           if (ActivityType === IActivityTypes.YouTube) {
             if (data?.data?.time) {
               const timeDifference = Math.abs(
@@ -76,8 +77,12 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
             }
           }
           if (ActivityType === IActivityTypes.Drawing) {
+            console.log("Activity-state-sync", data);
             if (data?.data?.elements) {
-              console.log("player state", data?.data?.elements);
+              localStorage.setItem("excalidraw", JSON.stringify(data?.data));
+              if (ExternalShared) {
+                setOtherSelectedChanged((prev) => !prev);
+              }
             }
           }
         });
@@ -103,12 +108,15 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
             }
           }
           if (ActivityType === IActivityTypes.Drawing) {
-            console.log("Get media details response", data);
+            localStorage.setItem("excalidraw", JSON.stringify(data?.data));
+            if (ExternalShared) {
+              setOtherSelectedChanged((prev) => !prev);
+            }
           }
         });
       }
       return () => {
-        socket?.off("player-state");
+        socket?.off("Activity-state-sync");
         socket?.off("GET_MEDIA_DETAILS_RESPONSE");
       };
     }
@@ -137,9 +145,10 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
         }
 
         if (ActivityType === IActivityTypes.Drawing) {
-          ExternalShared?.updateScene({
-            elements: data?.data?.elements,
-          });
+          localStorage.setItem("excalidraw", JSON.stringify(data?.data));
+          if (ExternalShared) {
+            setOtherSelectedChanged((prev) => !prev);
+          }
         }
 
         GET_MEDIA_DETAILS_RESPONSERef.current = null;
@@ -149,7 +158,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
 
   const handleJoinAndLeave = () => {
     if (isWatching) {
-      setOthersSelectedUserVideo(false);
+      setOthersSelected(false);
       setMedia(null);
       let data: ActivityTypes = {
         type: "REMOVE_MEMBER_FROM_ACTIVITY",
@@ -161,13 +170,12 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       EmitCustomEvent("room-update", data);
     } else {
       setMedia(ActivityType);
-      if (ActivityType === "YouTube") {
-        if (!isMySharedActivity) {
-          setOthersSelectedUserVideo(true);
-        } else {
-          setOthersSelectedUserVideo(false);
-        }
+      if (!isMySharedActivity) {
+        setOthersSelected(true);
+      } else {
+        setOthersSelected(false);
       }
+
       let data: ActivityTypes = {
         type: "ADD_MEMBER_FROM_ACTIVITY",
         roomId: JoinedRoom.JoinedRoom?.id!,
