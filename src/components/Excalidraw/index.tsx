@@ -19,6 +19,7 @@ import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { IAddActivity, IRemoveActivity } from "@/types/socketTypes";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { ActivityType, IGetActivityTypes } from "@/types/roomActivity";
+import clsx from "clsx";
 
 const Excalidraws = () => {
   const [Excalidraw, setExcalidraw] =
@@ -123,50 +124,60 @@ const Excalidraws = () => {
   return (
     <div className="w-full">
       <section className="h-[80vh]">
-        {Excalidraw && !OthersSelected && (
-          <Excalidraw
-            onChange={(excalidrawElements, appState, files) => {
-              // if (
-              //   JSON.stringify(previousElementsRef.current) !==
-              //   JSON.stringify(excalidrawElements)
-              // ) {
-              //   previousElementsRef.current = excalidrawElements;
-              //   EmitCustomEvent("Activity-state-server", {
-              //     activityId: isMySharedDrawing?.id,
-              //     data: {
-              //       elements: excalidrawElements,
-              //     },
-              //   });
-              // }
-              previousElementsRef.current = excalidrawElements;
-              if (!isSharing) return;
-              EmitCustomEvent("Activity-state-server", {
-                activityId: isMySharedDrawing?.id,
-                data: {
-                  elements: excalidrawElements,
-                },
-              });
-            }}
-            renderTopRightUI={() => (
-              <button
-                onClick={handleShare}
-                className="flex w-full items-center justify-center rounded-md border bg-neutral-200 px-2"
-              >
-                {isSharing ? <>Sharing</> : <>share</>}
-              </button>
-            )}
-          >
-            <MainMenu>
-              <MainMenu.DefaultItems.Export />
-              <MainMenu.DefaultItems.ClearCanvas />
-              <MainMenu.DefaultItems.SaveAsImage />
-              <MainMenu.DefaultItems.ToggleTheme />
-              <MainMenu.DefaultItems.Help />
-              <MainMenu.DefaultItems.LoadScene />
-              <MainMenu.DefaultItems.ChangeCanvasBackground />
-            </MainMenu>
-          </Excalidraw>
-        )}
+        <div
+          className={clsx(
+            "h-full",
+            !!!isMySharedDrawing && "block",
+            !!isMySharedDrawing && AmIwatchingMyDrawing && "opacity-100",
+            !!isMySharedDrawing && !AmIwatchingMyDrawing && "opacity-0",
+            OthersSelected && "hidden opacity-0",
+          )}
+        >
+          {Excalidraw && !OthersSelected && (
+            <Excalidraw
+              onChange={(excalidrawElements, appState, files) => {
+                // if (
+                //   JSON.stringify(previousElementsRef.current) !==
+                //   JSON.stringify(excalidrawElements)
+                // ) {
+                //   previousElementsRef.current = excalidrawElements;
+                //   EmitCustomEvent("Activity-state-server", {
+                //     activityId: isMySharedDrawing?.id,
+                //     data: {
+                //       elements: excalidrawElements,
+                //     },
+                //   });
+                // }
+                previousElementsRef.current = excalidrawElements;
+                if (!isSharing) return;
+                EmitCustomEvent("Activity-state-server", {
+                  activityId: isMySharedDrawing?.id,
+                  data: {
+                    elements: excalidrawElements,
+                  },
+                });
+              }}
+              renderTopRightUI={() => (
+                <button
+                  onClick={handleShare}
+                  className="flex w-full items-center justify-center rounded-md border bg-neutral-200 px-2"
+                >
+                  {isSharing ? <>Sharing</> : <>share</>}
+                </button>
+              )}
+            >
+              <MainMenu>
+                <MainMenu.DefaultItems.Export />
+                <MainMenu.DefaultItems.ClearCanvas />
+                <MainMenu.DefaultItems.SaveAsImage />
+                <MainMenu.DefaultItems.ToggleTheme />
+                <MainMenu.DefaultItems.Help />
+                <MainMenu.DefaultItems.LoadScene />
+                <MainMenu.DefaultItems.ChangeCanvasBackground />
+              </MainMenu>
+            </Excalidraw>
+          )}
+        </div>
         {OthersSelected && AmWatchingthirdPartyDrawing && (
           <OtherUserExcalidraw />
         )}

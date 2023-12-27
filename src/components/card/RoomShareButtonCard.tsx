@@ -159,7 +159,6 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
   const handleJoinAndLeave = () => {
     if (isWatching) {
       setOthersSelected(false);
-      setMedia(null);
       let data: ActivityTypes = {
         type: "REMOVE_MEMBER_FROM_ACTIVITY",
         roomId: JoinedRoom.JoinedRoom?.id!,
