@@ -6,6 +6,7 @@ import React, {
   useRef,
   useContext,
 } from "react";
+import OtherUserExcalidraw from "./OtherUserExcalidraw";
 import { useSocket } from "@/context/SocketProvider";
 import {
   AppState,

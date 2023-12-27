@@ -137,7 +137,9 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
         }
 
         if (ActivityType === IActivityTypes.Drawing) {
-          console.log("Get media details response", data);
+          ExternalShared?.updateScene({
+            elements: data?.data?.elements,
+          });
         }
 
         GET_MEDIA_DETAILS_RESPONSERef.current = null;
