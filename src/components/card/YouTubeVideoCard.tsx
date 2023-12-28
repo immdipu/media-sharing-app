@@ -6,6 +6,7 @@ import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { useSocket } from "@/context/SocketProvider";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
+import { ViewsFormat } from "@/lib/utils";
 
 const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   title,
@@ -16,17 +17,6 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   views,
   id,
 }) => {
-  const ViewsFormat = (views: number) => {
-    if (views > 1000000000) {
-      return `${(views / 1000000000).toFixed(1)}B views`;
-    } else if (views > 1000000) {
-      return `${(views / 1000000).toFixed(0)}M views`;
-    } else if (views > 1000) {
-      return `${(views / 1000).toFixed(0)}K views`;
-    } else {
-      return `${views} views`;
-    }
-  };
   const {
     setYouTubeVideoId,
     setIsPlayingMyVideo,

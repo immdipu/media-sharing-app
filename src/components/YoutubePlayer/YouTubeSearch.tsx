@@ -4,20 +4,11 @@ import { IoSearch } from "react-icons/io5";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { userApis } from "@/Apis/APIs";
 import { useMutation } from "@tanstack/react-query";
-import Image from "next/image";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { YouTubeVideo } from "@/types/Youtube";
 import useDebounce from "@/hooks/useDebounce";
 import { MagnifyingGlass } from "react-loader-spinner";
 import YouTubeVideoCard from "../card/YouTubeVideoCard";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import ShareButton from "../Buttons/ShareButton";
-import { Button } from "../ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 const YouTubeSearch = () => {
   const [search, setSearch] = React.useState<string>("");
@@ -25,8 +16,8 @@ const YouTubeSearch = () => {
   const [showSuggestion, setShowSuggestion] = React.useState(false);
   const [debouncedSearchTerm, clearTimer] = useDebounce(search, 5000);
   const [ImmediateSearch, setImmediateSearch] = React.useState(false);
-  const { setMedia, YoutubePlayer } = useContext(RoomContext);
   const SuggestionRef = useRef<HTMLElement | null>(null);
+  const { searchResult, setSearchResult } = useContext(RoomContext);
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -42,9 +33,6 @@ const YouTubeSearch = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showSuggestion]);
-
-  const { searchResult, setSearchResult, YouTubeVideoId } =
-    useContext(RoomContext);
 
   const Search = useMutation(
     (searchTerm: string) => userApis.getYoutubeSuggeston(searchTerm),
@@ -139,7 +127,6 @@ const YouTubeSearch = () => {
         )}
       </div>
       <div className=" w-full px-4 py-2"></div>
-
       <section className="relative">
         <ScrollArea className="h-[calc(100vh-135px)] w-full  py-2 ">
           {searchResult.map((item, index) => (
