@@ -9,14 +9,8 @@ import OtherUserPlayer from "./OtherUserPlayer";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 
 const YoutubePlayer = () => {
-  const {
-    YouTubeVideoId,
-    setYouTubeVideoId,
-    isPlayingMyVideo,
-    OthersSelected,
-    media,
-    YoutubePlayer,
-  } = useContext(RoomContext);
+  const { isPlayingMyVideo, OthersSelected, media, YoutubePlayer } =
+    useContext(RoomContext);
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const [lastEmittedTime, setLastEmittedTime] = useState<number>(0);
   const {
@@ -136,7 +130,6 @@ const YoutubePlayer = () => {
         )}
       >
         <YouTube
-          videoId={YouTubeVideoId!}
           onStateChange={hanldeOnStateChange}
           className="h-full w-full"
           iframeClassName={clsx("h-full w-full")}

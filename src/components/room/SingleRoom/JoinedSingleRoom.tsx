@@ -4,13 +4,11 @@ import RidesideBar from "@/components/room/rightsideBar";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { useSocket } from "@/context/SocketProvider";
 import YouTubePlayer from "@/components/YoutubePlayer";
-import RightSideBarToggleButton from "@/components/Buttons/RightSideBarToggleButton";
 import {
   AddMessage,
   AddNewMemeberToTheRoom,
   DeleteAnActivity,
   RemoveMemberFromRoom,
-  UpdateAllActivity,
   UpdateAnActivity,
   UpdateRoom,
 } from "@/redux/slice/roomSlice";
@@ -22,8 +20,6 @@ import Excalidraw from "@/components/Excalidraw";
 import { ActivityType } from "@/types/roomActivity";
 
 interface RoomContextTypes {
-  YouTubeVideoId: string | null;
-  setYouTubeVideoId: React.Dispatch<React.SetStateAction<string | null>>;
   setMedia: React.Dispatch<React.SetStateAction<ActivityType | null>>;
   setSearchResult: React.Dispatch<React.SetStateAction<YouTubeVideo[]>>;
   searchResult: YouTubeVideo[];
@@ -34,8 +30,6 @@ interface RoomContextTypes {
   setIsPlayingMyVideo: React.Dispatch<React.SetStateAction<boolean>>;
   OthersSelected: boolean;
   setOthersSelected: React.Dispatch<React.SetStateAction<boolean>>;
-  thirdPartyVideoId: string;
-  setThirdPartyVideoId: React.Dispatch<React.SetStateAction<string>>;
   thirdPartyVideoState: string;
   setThirdPartyVideoState: React.Dispatch<React.SetStateAction<string>>;
   thirdPartyVideoTime: number;
@@ -52,8 +46,6 @@ interface RoomContextTypes {
 }
 
 let intialState: RoomContextTypes = {
-  YouTubeVideoId: null,
-  setYouTubeVideoId: () => {},
   media: null,
   setMedia: () => {},
   setSearchResult: () => {},
@@ -64,8 +56,6 @@ let intialState: RoomContextTypes = {
   setIsPlayingMyVideo: () => {},
   OthersSelected: false,
   setOthersSelected: () => {},
-  thirdPartyVideoId: "",
-  setThirdPartyVideoId: () => {},
   thirdPartyVideoState: "playing",
   setThirdPartyVideoState: () => {},
   thirdPartyVideoTime: 0,
@@ -95,11 +85,8 @@ const JoinedSingleRoom = () => {
   const [isSharing, setIsSharing] = React.useState(false);
   const [showRightSideBar, setShowRightSideBar] = React.useState<boolean>(true);
   const [OthersSelected, setOthersSelected] = useState<boolean>(false);
-  const [YouTubeVideoId, setYouTubeVideoId] = React.useState<string | null>(
-    null,
-  );
+
   const [isPlayingMyVideo, setIsPlayingMyVideo] = React.useState(false);
-  const [thirdPartyVideoId, setThirdPartyVideoId] = React.useState<string>("");
   const [thirdPartyVideoState, setThirdPartyVideoState] =
     React.useState<string>("playing");
   const [thirdPartyVideoTime, setThirdPartyVideoTime] =
@@ -164,8 +151,6 @@ const JoinedSingleRoom = () => {
   return (
     <RoomContext.Provider
       value={{
-        YouTubeVideoId,
-        setYouTubeVideoId,
         media,
         setMedia,
         searchResult,
@@ -176,8 +161,6 @@ const JoinedSingleRoom = () => {
         setIsPlayingMyVideo,
         OthersSelected,
         setOthersSelected,
-        thirdPartyVideoId,
-        setThirdPartyVideoId,
         thirdPartyVideoState,
         setThirdPartyVideoState,
         thirdPartyVideoTime,

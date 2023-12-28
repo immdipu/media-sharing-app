@@ -18,7 +18,6 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   id,
 }) => {
   const {
-    setYouTubeVideoId,
     setIsPlayingMyVideo,
     isSharing,
     OthersSelected,
@@ -32,7 +31,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
 
   const handlePlayVideo = () => {
     if (!YoutubePlayer.current) {
-      setYouTubeVideoId(id);
+      return;
     } else {
       YoutubePlayer.current?.loadVideoById(id);
     }

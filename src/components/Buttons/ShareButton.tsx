@@ -15,14 +15,21 @@ import { IAddActivity, IRemoveActivity } from "@/types/socketTypes";
 import { ActivityType } from "@/types/roomActivity";
 
 const ShareButton = ({ backButton = false }: { backButton?: boolean }) => {
-  const { socket, EmitCustomEvent, AddActivity, RoomUpdate } = useSocket();
+  const { AddActivity, RoomUpdate } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
   const { toast } = useToast();
-  const { YouTubeVideoId, isSharing, setIsSharing, setMedia } =
+  const { isSharing, setIsSharing, setMedia, YoutubePlayer } =
     React.useContext(RoomContext);
 
   const handleSharing = () => {
+    const YouTubeVideoId = YoutubePlayer.current?.getVideoData().video_id;
+    if (!YouTubeVideoId)
+      return toast({
+        title: "Please select a video first",
+        variant: "destructive",
+      });
+
     if (isSharing) {
       setIsSharing(false);
       let activity = JoinedRoom?.roomActivity.find(
@@ -95,7 +102,7 @@ const ShareButton = ({ backButton = false }: { backButton?: boolean }) => {
   return (
     <button
       onClick={handleSharing}
-      disabled={!YouTubeVideoId}
+      disabled={!YoutubePlayer.current}
       className={clsx(
         "mx-2 rounded-md  bg-button-background p-2 transition-transform  duration-100 ease-linear hover:opacity-80 active:scale-95 disabled:bg-neutral-500 disabled:opacity-30",
         isSharing && "bg-green-500 text-neutral-50",
