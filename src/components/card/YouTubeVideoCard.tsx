@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { useSocket } from "@/context/SocketProvider";
 import { useAppSelector } from "@/hooks/reduxHooks";
+import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 
 const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   title,
@@ -37,14 +38,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
-
-  const isWatching = JoinedRoom?.roomActivity.find(
-    (activity) => activity.users?.find((u) => u._id == user?.id),
-  );
-
-  const isMySharedVideo = JoinedRoom?.roomActivity.find(
-    (activity) => activity.admin._id === user.id,
-  );
+  const { AmIWatchingActivity, isMySharedActivity } = useUserRoomActivity();
 
   const handlePlayVideo = () => {
     if (!YoutubePlayer.current) {
@@ -56,18 +50,18 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
     localStorage.setItem("YouTubeThumbnail", thumbnail?.url);
     setOthersSelected(false);
     setIsPlayingMyVideo(true);
-    if (!isSharing && !!isWatching) {
+    if (!isSharing && !!AmIWatchingActivity) {
       EmitCustomEvent("room-update", {
         type: "REMOVE_USER_FROM_ALL_ACTIVITY",
         roomId: JoinedRoom?.id,
         userId: user.id,
-        activityId: isWatching?.id,
-        activityKey: isWatching?.admin._id,
+        activityId: AmIWatchingActivity?.id,
+        activityKey: AmIWatchingActivity?.admin._id,
       });
     }
     if (isSharing) {
       EmitCustomEvent("Activity-state-server", {
-        activityId: isMySharedVideo?.id,
+        activityId: isMySharedActivity?.id,
         data: {
           time: 0,
           VideoId: id,

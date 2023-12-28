@@ -42,11 +42,21 @@ const useUserRoomActivity = () => {
     return null;
   }, [user, room, JoinedRoom]);
 
+  const AmIWatchingActivity = React.useMemo(() => {
+    if (user && room && JoinedRoom) {
+      return JoinedRoom?.roomActivity.find((activity) =>
+        activity.users.find((u) => u._id === user.id),
+      );
+    }
+    return null;
+  }, [user, room, JoinedRoom]);
+
   return {
     userJoinedActivity,
     isMySharedActivity,
     AmIWatchingMyActivity,
     AmIWatchingOtherActivity,
+    AmIWatchingActivity,
   };
 };
 

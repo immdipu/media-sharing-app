@@ -42,7 +42,6 @@ const YoutubePlayer = () => {
   };
 
   const onReady: YouTubeProps["onReady"] = (event) => {
-    // access to player in all event handlers via event.target
     YoutubePlayer.current = event.target;
   };
 
@@ -114,23 +113,22 @@ const YoutubePlayer = () => {
     }
   }, [!!isMySharedActivity, socket, player, lastEmittedTime]);
 
-  // const hanldeOnStateChange: YouTubeProps["onStateChange"] = (e) => {
-  //   if (!!isMySharedVideo && socket) {
-  //     const time = player?.getCurrentTime();
-  //     const VideoId = player?.getVideoData().video_id;
-
-  //     if (e.data === 1 || e.data === 2) {
-  //       EmitCustomEvent("Activity-state-server", {
-  //         activityId: isMySharedVideo.id,
-  //         data: {
-  //           time: time,
-  //           VideoId,
-  //           state: e.data,
-  //         },
-  //       });
-  //     }
-  //   }
-  // };
+  const hanldeOnStateChange: YouTubeProps["onStateChange"] = (e) => {
+    if (!!isMySharedActivity && socket) {
+      const time = player.current?.getCurrentTime();
+      const VideoId = player.current?.getVideoData().video_id;
+      if (e.data === 1 || e.data === 2) {
+        EmitCustomEvent("Activity-state-server", {
+          activityId: isMySharedActivity.id,
+          data: {
+            time: time,
+            VideoId,
+            state: e.data,
+          },
+        });
+      }
+    }
+  };
 
   return (
     <section className="relative h-full overflow-hidden px-2 pt-4 ">
@@ -157,7 +155,7 @@ const YoutubePlayer = () => {
       >
         <YouTube
           videoId={YouTubeVideoId!}
-          // onStateChange={hanldeOnStateChange}
+          onStateChange={hanldeOnStateChange}
           className="h-full w-full"
           iframeClassName={clsx("h-full w-full")}
           opts={opts}
