@@ -1,16 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useRef, useEffect, use } from "react";
-import YouTube, { YouTubeEvent, YouTubeProps } from "react-youtube";
+import React, { useState, useEffect } from "react";
+import YouTube, { YouTubeProps } from "react-youtube";
 import { useContext } from "react";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
-import { MdCallEnd } from "react-icons/md";
-import { MdOutlineScreenShare } from "react-icons/md";
 import { useSocket } from "@/context/SocketProvider";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import RoomShareButtonCard from "../card/RoomShareButtonCard";
 import clsx from "clsx";
 import OtherUserPlayer from "./OtherUserPlayer";
-import { ActivityType, IGetActivityTypes } from "@/types/roomActivity";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 
 const YoutubePlayer = () => {
@@ -22,16 +17,12 @@ const YoutubePlayer = () => {
     media,
     YoutubePlayer,
   } = useContext(RoomContext);
-  const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
-  const user = useAppSelector((state) => state.auth);
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const [lastEmittedTime, setLastEmittedTime] = useState<number>(0);
-  const player = useRef<any | null>(null);
   const {
     AmIWatchingMyActivity,
     isMySharedActivity,
     AmIWatchingOtherActivity,
-    userJoinedActivity,
   } = useUserRoomActivity();
 
   const opts: YouTubeProps["opts"] = {
@@ -89,11 +80,11 @@ const YoutubePlayer = () => {
   // }, [player, !!isMySharedVideo]);
 
   useEffect(() => {
-    if (!!isMySharedActivity && socket && player) {
+    if (!!isMySharedActivity && socket && YoutubePlayer.current) {
       const Interval = setInterval(() => {
-        const time = player.current?.getCurrentTime();
-        const VideoId = player.current?.getVideoData().video_id;
-        const state = player.current?.getPlayerState();
+        const time = YoutubePlayer.current?.getCurrentTime();
+        const VideoId = YoutubePlayer.current?.getVideoData().video_id;
+        const state = YoutubePlayer.current?.getPlayerState();
         if (time !== lastEmittedTime) {
           EmitCustomEvent("Activity-state-server", {
             activityId: isMySharedActivity.id,
@@ -106,17 +97,16 @@ const YoutubePlayer = () => {
           setLastEmittedTime(time);
         }
       }, 10000);
-
       return () => {
         clearInterval(Interval);
       };
     }
-  }, [!!isMySharedActivity, socket, player, lastEmittedTime]);
+  }, [!!isMySharedActivity, socket, YoutubePlayer, lastEmittedTime]);
 
   const hanldeOnStateChange: YouTubeProps["onStateChange"] = (e) => {
     if (!!isMySharedActivity && socket) {
-      const time = player.current?.getCurrentTime();
-      const VideoId = player.current?.getVideoData().video_id;
+      const time = YoutubePlayer.current?.getCurrentTime();
+      const VideoId = YoutubePlayer.current?.getVideoData().video_id;
       if (e.data === 1 || e.data === 2) {
         EmitCustomEvent("Activity-state-server", {
           activityId: isMySharedActivity.id,
@@ -132,14 +122,6 @@ const YoutubePlayer = () => {
 
   return (
     <section className="relative h-full overflow-hidden px-2 pt-4 ">
-      <button
-        onClick={() => {
-          if (!player.current) return;
-          player.current?.playVideo();
-        }}
-      >
-        next music
-      </button>
       <div
         className={clsx(
           " h-full w-full",
