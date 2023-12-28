@@ -32,6 +32,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
     isSharing,
     OthersSelected,
     setOthersSelected,
+    YoutubePlayer,
   } = useContext(RoomContext);
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
@@ -46,7 +47,11 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   );
 
   const handlePlayVideo = () => {
-    setYouTubeVideoId(id);
+    if (!YoutubePlayer.current) {
+      setYouTubeVideoId(id);
+    } else {
+      YoutubePlayer.current?.loadVideoById(id);
+    }
     localStorage.setItem("YouTubeVideoId", id);
     localStorage.setItem("YouTubeThumbnail", thumbnail?.url);
     setOthersSelected(false);

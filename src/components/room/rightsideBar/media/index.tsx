@@ -4,6 +4,7 @@ import { BsPencilSquare } from "react-icons/bs";
 
 import YouTubeSearch from "@/components/YoutubePlayer/YouTubeSearch";
 import { RoomContext } from "../../SingleRoom/JoinedSingleRoom";
+import { ActivityType } from "@/types/roomActivity";
 
 const Media = () => {
   const { media, setMedia } = useContext(RoomContext);
@@ -17,7 +18,7 @@ const Media = () => {
       <section className="mx-2 mt-5 flex items-center gap-5 rounded-md border border-third-color bg-fourth-background px-5 py-3">
         <button
           onClick={() => {
-            setMedia("YouTube");
+            setMedia(ActivityType.YouTube);
           }}
           className="flex flex-col items-center"
         >
@@ -26,7 +27,7 @@ const Media = () => {
         </button>
         <button
           onClick={() => {
-            setMedia("Drawing");
+            setMedia(ActivityType.Drawing);
           }}
           className="mt-1 flex flex-col items-center"
         >

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import RoomShareButtonCard from "@/components/card/RoomShareButtonCard";
 import RidesideBar from "@/components/room/rightsideBar";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { useSocket } from "@/context/SocketProvider";
-import YoutubePlayer from "@/components/YoutubePlayer";
+import YouTubePlayer from "@/components/YoutubePlayer";
 import RightSideBarToggleButton from "@/components/Buttons/RightSideBarToggleButton";
 import {
   AddMessage,
@@ -48,6 +48,7 @@ interface RoomContextTypes {
   setMessageCount?: React.Dispatch<React.SetStateAction<number>>;
   OtherSelectedChanged: boolean;
   setOtherSelectedChanged: React.Dispatch<React.SetStateAction<boolean>>;
+  YoutubePlayer?: any;
 }
 
 let intialState: RoomContextTypes = {
@@ -77,6 +78,7 @@ let intialState: RoomContextTypes = {
   setMessageCount: () => {},
   OtherSelectedChanged: false,
   setOtherSelectedChanged: () => {},
+  YoutubePlayer: null,
 };
 
 export const RoomContext = React.createContext<RoomContextTypes>(intialState);
@@ -84,6 +86,7 @@ export const RoomContext = React.createContext<RoomContextTypes>(intialState);
 const JoinedSingleRoom = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const [MessageCount, setMessageCount] = React.useState<number>(0);
+  const YoutubePlayer = useRef<any | null>(null);
   const [userIsFocused, setUserIsFocused] = React.useState<boolean>(true);
   const params = useSearchParams();
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
@@ -187,12 +190,13 @@ const JoinedSingleRoom = () => {
         setMessageCount,
         OtherSelectedChanged,
         setOtherSelectedChanged,
+        YoutubePlayer,
       }}
     >
       <div className="flex min-h-screen justify-start   max-md:relative max-md:overflow-hidden">
         <div className="h-full w-full">
           <section className="h-[80vh]">
-            {media === ActivityType.YouTube && <YoutubePlayer />}
+            {media === ActivityType.YouTube && <YouTubePlayer />}
             {media === ActivityType.Drawing && <Excalidraw />}
           </section>
           <section className="flex h-[18vh] items-end justify-center gap-2 ">

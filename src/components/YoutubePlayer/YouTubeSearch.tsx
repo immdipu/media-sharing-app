@@ -25,7 +25,7 @@ const YouTubeSearch = () => {
   const [showSuggestion, setShowSuggestion] = React.useState(false);
   const [debouncedSearchTerm, clearTimer] = useDebounce(search, 5000);
   const [ImmediateSearch, setImmediateSearch] = React.useState(false);
-  const { setMedia } = useContext(RoomContext);
+  const { setMedia, YoutubePlayer } = useContext(RoomContext);
   const SuggestionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
