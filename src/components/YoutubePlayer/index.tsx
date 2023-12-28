@@ -7,9 +7,10 @@ import { useSocket } from "@/context/SocketProvider";
 import clsx from "clsx";
 import OtherUserPlayer from "./OtherUserPlayer";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
+import { ActivityType } from "@/types/roomActivity";
 
 const YoutubePlayer = () => {
-  const { isPlayingMyVideo, OthersSelected, media, YoutubePlayer } =
+  const { OthersSelected, media, YoutubePlayer, isMyActivityShowing } =
     useContext(RoomContext);
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const [lastEmittedTime, setLastEmittedTime] = useState<number>(0);
@@ -122,6 +123,7 @@ const YoutubePlayer = () => {
           !!!isMySharedActivity && "block",
           !!isMySharedActivity &&
             AmIWatchingMyActivity &&
+            isMyActivityShowing === ActivityType.YouTube &&
             "pointer-events-auto opacity-100",
           !!isMySharedActivity &&
             !AmIWatchingMyActivity &&

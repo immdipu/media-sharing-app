@@ -7,6 +7,7 @@ import { useSocket } from "@/context/SocketProvider";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 import { ViewsFormat } from "@/lib/utils";
+import { ActivityType } from "@/types/roomActivity";
 
 const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   title,
@@ -18,7 +19,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   id,
 }) => {
   const {
-    setIsPlayingMyVideo,
+    setIsMyActivityShowing,
     isSharing,
     OthersSelected,
     setOthersSelected,
@@ -38,7 +39,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
     localStorage.setItem("YouTubeVideoId", id);
     localStorage.setItem("YouTubeThumbnail", thumbnail?.url);
     setOthersSelected(false);
-    setIsPlayingMyVideo(true);
+    setIsMyActivityShowing(ActivityType.YouTube);
     if (!isSharing && !!AmIWatchingActivity) {
       EmitCustomEvent("room-update", {
         type: "REMOVE_USER_FROM_ALL_ACTIVITY",

@@ -9,6 +9,7 @@ import { MagnifyingGlass } from "react-loader-spinner";
 import YouTubeVideoCard from "../card/YouTubeVideoCard";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import ShareButton from "../Buttons/ShareButton";
+import { YouTubeVideo } from "@/types/Youtube";
 
 const YouTubeSearch = () => {
   const [search, setSearch] = React.useState<string>("");
@@ -17,7 +18,7 @@ const YouTubeSearch = () => {
   const [debouncedSearchTerm, clearTimer] = useDebounce(search, 5000);
   const [ImmediateSearch, setImmediateSearch] = React.useState(false);
   const SuggestionRef = useRef<HTMLElement | null>(null);
-  const { searchResult, setSearchResult } = useContext(RoomContext);
+  const [searchResult, setSearchResult] = React.useState<YouTubeVideo[]>([]);
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -33,6 +34,13 @@ const YouTubeSearch = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showSuggestion]);
+
+  useEffect(() => {
+    const data = localStorage.getItem("YouTubeSearchResult");
+    if (data) {
+      setSearchResult(JSON.parse(data));
+    }
+  }, []);
 
   const Search = useMutation(
     (searchTerm: string) => userApis.getYoutubeSuggeston(searchTerm),
@@ -51,6 +59,7 @@ const YouTubeSearch = () => {
     (searchTerm: string) => userApis.getYouTubeVideos(searchTerm),
     {
       onSuccess: (data) => {
+        localStorage.setItem("YouTubeSearchResult", JSON.stringify(data));
         setSearchResult(data);
         if (ImmediateSearch) {
           setImmediateSearch(false);

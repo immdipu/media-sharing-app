@@ -27,7 +27,6 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
   const GET_MEDIA_DETAILS_RESPONSERef = useRef<any>(null);
   const {
     setOthersSelected,
-    setThirdPartyVideoId,
     ExternalShared,
     setMedia,
     setOtherSelectedChanged,
@@ -56,7 +55,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
               if (
                 data?.data?.VideoId !== ExternalShared?.getVideoData()?.video_id
               ) {
-                setThirdPartyVideoId(data?.data?.VideoId);
+                ExternalShared?.loadVideoById(data?.data?.VideoId);
               }
             }
             if (data?.data?.state) {

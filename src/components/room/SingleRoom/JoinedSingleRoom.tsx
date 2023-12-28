@@ -21,19 +21,15 @@ import { ActivityType } from "@/types/roomActivity";
 
 interface RoomContextTypes {
   setMedia: React.Dispatch<React.SetStateAction<ActivityType | null>>;
-  setSearchResult: React.Dispatch<React.SetStateAction<YouTubeVideo[]>>;
-  searchResult: YouTubeVideo[];
   media: ActivityType | null;
   isSharing: boolean;
   setIsSharing: React.Dispatch<React.SetStateAction<boolean>>;
-  isPlayingMyVideo: boolean;
-  setIsPlayingMyVideo: React.Dispatch<React.SetStateAction<boolean>>;
+  isMyActivityShowing: ActivityType | null;
+  setIsMyActivityShowing: React.Dispatch<
+    React.SetStateAction<ActivityType | null>
+  >;
   OthersSelected: boolean;
   setOthersSelected: React.Dispatch<React.SetStateAction<boolean>>;
-  thirdPartyVideoState: string;
-  setThirdPartyVideoState: React.Dispatch<React.SetStateAction<string>>;
-  thirdPartyVideoTime: number;
-  setThirdPartyVideoTime: React.Dispatch<React.SetStateAction<number>>;
   ExternalShared?: any;
   setExternalShared?: React.Dispatch<React.SetStateAction<any>>;
   showRightSideBar?: boolean;
@@ -48,18 +44,12 @@ interface RoomContextTypes {
 let intialState: RoomContextTypes = {
   media: null,
   setMedia: () => {},
-  setSearchResult: () => {},
-  searchResult: [],
   isSharing: false,
   setIsSharing: () => {},
-  isPlayingMyVideo: true,
-  setIsPlayingMyVideo: () => {},
+  isMyActivityShowing: null,
+  setIsMyActivityShowing: () => {},
   OthersSelected: false,
   setOthersSelected: () => {},
-  thirdPartyVideoState: "playing",
-  setThirdPartyVideoState: () => {},
-  thirdPartyVideoTime: 0,
-  setThirdPartyVideoTime: () => {},
   ExternalShared: null,
   setExternalShared: () => {},
   showRightSideBar: true,
@@ -77,20 +67,14 @@ const JoinedSingleRoom = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const [MessageCount, setMessageCount] = React.useState<number>(0);
   const YoutubePlayer = useRef<any | null>(null);
-  const [userIsFocused, setUserIsFocused] = React.useState<boolean>(true);
   const params = useSearchParams();
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
-  const [searchResult, setSearchResult] = React.useState<YouTubeVideo[]>([]);
   const [media, setMedia] = useState<ActivityType | null>(null);
+  const [isMyActivityShowing, setIsMyActivityShowing] =
+    React.useState<ActivityType | null>(null);
   const [isSharing, setIsSharing] = React.useState(false);
   const [showRightSideBar, setShowRightSideBar] = React.useState<boolean>(true);
   const [OthersSelected, setOthersSelected] = useState<boolean>(false);
-
-  const [isPlayingMyVideo, setIsPlayingMyVideo] = React.useState(false);
-  const [thirdPartyVideoState, setThirdPartyVideoState] =
-    React.useState<string>("playing");
-  const [thirdPartyVideoTime, setThirdPartyVideoTime] =
-    React.useState<number>(0);
   const [ExternalShared, setExternalShared] = React.useState<any>(null);
   const [OtherSelectedChanged, setOtherSelectedChanged] =
     React.useState<boolean>(false);
@@ -153,18 +137,12 @@ const JoinedSingleRoom = () => {
       value={{
         media,
         setMedia,
-        searchResult,
-        setSearchResult,
         isSharing,
         setIsSharing,
-        isPlayingMyVideo,
-        setIsPlayingMyVideo,
+        isMyActivityShowing,
+        setIsMyActivityShowing,
         OthersSelected,
         setOthersSelected,
-        thirdPartyVideoState,
-        setThirdPartyVideoState,
-        thirdPartyVideoTime,
-        setThirdPartyVideoTime,
         ExternalShared,
         setExternalShared,
         showRightSideBar,
