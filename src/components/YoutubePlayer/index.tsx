@@ -9,9 +9,8 @@ import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 import { ActivityType, IGetActivityTypes } from "@/types/roomActivity";
 
 const YoutubePlayer = () => {
-  const { OthersSelected, media, YoutubePlayer, isMyActivityShowing } =
-    useContext(RoomContext);
-  const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
+  const { media, YoutubePlayer } = useContext(RoomContext);
+  const { socket, EmitCustomEvent } = useSocket();
   const [lastEmittedTime, setLastEmittedTime] = useState<number>(0);
   const {
     AmIWatchingMyActivity,

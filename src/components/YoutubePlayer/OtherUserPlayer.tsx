@@ -7,10 +7,8 @@ import { ActivityType } from "@/types/roomActivity";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 
 const OtherUserPlayer = () => {
-  const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
-  const user = useAppSelector((state) => state.auth);
   const { AmIWatchingOtherActivity } = useUserRoomActivity();
-  const { OthersSelected, ExternalShared, setExternalShared, othermedia } =
+  const { ExternalShared, setExternalShared, othermedia } =
     useContext(RoomContext);
 
   const opts: YouTubeProps["opts"] = {
