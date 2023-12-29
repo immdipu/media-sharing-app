@@ -15,14 +15,14 @@ import {
 } from "@/redux/slice/roomSlice";
 import { RoomChatTypes } from "@/types/room";
 import { RoomUpdateResponseTypes } from "@/types/socketTypes";
-import { YouTubeVideo } from "@/types/Youtube";
 import { useSearchParams } from "next/navigation";
-import Excalidraw from "@/components/Excalidraw";
 import { ActivityType } from "@/types/roomActivity";
 
 interface RoomContextTypes {
   setMedia: React.Dispatch<React.SetStateAction<ActivityType | null>>;
+  setOtherMedia: React.Dispatch<React.SetStateAction<ActivityType | null>>;
   media: ActivityType | null;
+  othermedia: ActivityType | null;
   isSharing: boolean;
   setIsSharing: React.Dispatch<React.SetStateAction<boolean>>;
   isMyActivityShowing: ActivityType | null;
@@ -45,6 +45,8 @@ interface RoomContextTypes {
 let intialState: RoomContextTypes = {
   media: null,
   setMedia: () => {},
+  othermedia: null,
+  setOtherMedia: () => {},
   isSharing: false,
   setIsSharing: () => {},
   isMyActivityShowing: null,
@@ -71,6 +73,8 @@ const JoinedSingleRoom = () => {
   const params = useSearchParams();
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const [media, setMedia] = useState<ActivityType | null>(null);
+  const [othermedia, setOtherMedia] = useState<ActivityType | null>(null);
+
   const [isMyActivityShowing, setIsMyActivityShowing] =
     React.useState<ActivityType | null>(null);
   const [isSharing, setIsSharing] = React.useState(false);
@@ -153,6 +157,8 @@ const JoinedSingleRoom = () => {
         OtherSelectedChanged,
         setOtherSelectedChanged,
         YoutubePlayer,
+        othermedia,
+        setOtherMedia,
       }}
     >
       <div className="flex min-h-screen justify-start   max-md:relative max-md:overflow-hidden">
