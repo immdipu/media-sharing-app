@@ -48,7 +48,7 @@ const YoutubePlayer = () => {
   }, [
     AmIWatchingOtherActivity,
     AmIWatchingMyActivity,
-    YoutubePlayer.current,
+    YoutubePlayer,
     isMySharedActivity,
   ]);
 

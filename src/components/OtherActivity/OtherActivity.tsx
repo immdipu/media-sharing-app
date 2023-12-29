@@ -12,8 +12,8 @@ const OtherActivity = () => {
   const { AmIWatchingOtherActivity } = useUserRoomActivity();
   return (
     <div className={clsx(AmIWatchingOtherActivity ? "h-[80vh]" : "h-0 ")}>
-      {othermedia === ActivityType.YouTube && <OtherUserPlayer />}
-      {othermedia === ActivityType.Drawing && <OtherUserExcalidraw />}
+      <OtherUserPlayer />
+      {/* <OtherUserExcalidraw /> */}
     </div>
   );
 };

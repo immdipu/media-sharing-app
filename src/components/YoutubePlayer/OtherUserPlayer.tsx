@@ -3,11 +3,12 @@ import YouTube, { YouTubeProps } from "react-youtube";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import clsx from "clsx";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
+import { ActivityType } from "@/types/roomActivity";
 
 const OtherUserPlayer = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
-  const { OthersSelected, ExternalShared, setExternalShared } =
+  const { OthersSelected, ExternalShared, setExternalShared, othermedia } =
     useContext(RoomContext);
 
   const opts: YouTubeProps["opts"] = {
@@ -23,30 +24,22 @@ const OtherUserPlayer = () => {
   };
 
   useEffect(() => {
-    if (!ExternalShared) return;
-    const JoinedActivity = !!JoinedRoom?.roomActivity.find(
-      (activity) => activity?.users?.find((u) => u._id == user?.id),
-    );
-
-    if (!JoinedActivity && ExternalShared?.getPlayerState() === 1) {
-      ExternalShared?.pauseVideo();
-      return;
+    if (ExternalShared === null) return;
+    if (othermedia !== ActivityType.YouTube) {
+      if (ExternalShared?.playerInfo?.videoData?.video_id) {
+        ExternalShared?.pauseVideo();
+        ExternalShared?.mute();
+      }
     }
-  }, [JoinedRoom?.roomActivity]);
-
-  useEffect(() => {
-    if (
-      !OthersSelected &&
-      ExternalShared &&
-      ExternalShared?.getPlayerState() === 1
-    ) {
-      ExternalShared?.pauseVideo();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [OthersSelected]);
+  }, [othermedia, ExternalShared]);
 
   return (
-    <section className="h-full overflow-hidden  px-2 pt-4 ">
+    <section
+      className={clsx(
+        "h-full overflow-hidden  px-2 pt-4 ",
+        othermedia === ActivityType.YouTube ? "block" : "hidden",
+      )}
+    >
       <div className={clsx(" h-full w-full")}>
         <YouTube
           className="h-full w-full"
