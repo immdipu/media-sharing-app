@@ -178,9 +178,6 @@ const Excalidraws = () => {
             </Excalidraw>
           )}
         </div>
-        {OthersSelected && AmWatchingthirdPartyDrawing && (
-          <OtherUserExcalidraw />
-        )}
       </section>
       <section className="h-full w-full"></section>
     </div>

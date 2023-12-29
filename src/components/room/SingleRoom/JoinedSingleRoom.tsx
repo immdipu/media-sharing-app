@@ -3,7 +3,8 @@ import RoomShareButtonCard from "@/components/card/RoomShareButtonCard";
 import RidesideBar from "@/components/room/rightsideBar";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { useSocket } from "@/context/SocketProvider";
-import YouTubePlayer from "@/components/YoutubePlayer";
+import OtherActivity from "@/components/OtherActivity/OtherActivity";
+import MyActivity from "@/components/MyActivity/MyActivity";
 import {
   AddMessage,
   AddNewMemeberToTheRoom,
@@ -157,8 +158,8 @@ const JoinedSingleRoom = () => {
       <div className="flex min-h-screen justify-start   max-md:relative max-md:overflow-hidden">
         <div className="h-full w-full">
           <section className="h-[80vh]">
-            {media === ActivityType.YouTube && <YouTubePlayer />}
-            {media === ActivityType.Drawing && <Excalidraw />}
+            <MyActivity />
+            <OtherActivity />
           </section>
           <section className="flex h-[18vh] items-end justify-center gap-2 ">
             {JoinedRoom?.roomActivity.map((activity, index) => (

@@ -147,9 +147,7 @@ const YoutubePlayer = () => {
             ? "z-10"
             : "-z-10 opacity-0",
         )}
-      >
-        <OtherUserPlayer />
-      </div>
+      ></div>
     </section>
   );
 };
