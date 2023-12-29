@@ -4,10 +4,12 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 import clsx from "clsx";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { ActivityType } from "@/types/roomActivity";
+import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 
 const OtherUserPlayer = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
+  const { AmIWatchingOtherActivity } = useUserRoomActivity();
   const { OthersSelected, ExternalShared, setExternalShared, othermedia } =
     useContext(RoomContext);
 
@@ -25,13 +27,13 @@ const OtherUserPlayer = () => {
 
   useEffect(() => {
     if (ExternalShared === null) return;
-    if (othermedia !== ActivityType.YouTube) {
+    if (othermedia !== ActivityType.YouTube || !AmIWatchingOtherActivity) {
       if (ExternalShared?.playerInfo?.videoData?.video_id) {
         ExternalShared?.pauseVideo();
         ExternalShared?.mute();
       }
     }
-  }, [othermedia, ExternalShared]);
+  }, [othermedia, ExternalShared, AmIWatchingOtherActivity]);
 
   return (
     <section
