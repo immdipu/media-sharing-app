@@ -5,9 +5,8 @@ import { useContext } from "react";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { useSocket } from "@/context/SocketProvider";
 import clsx from "clsx";
-import OtherUserPlayer from "./OtherUserPlayer";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
-import { ActivityType } from "@/types/roomActivity";
+import { ActivityType, IGetActivityTypes } from "@/types/roomActivity";
 
 const YoutubePlayer = () => {
   const { OthersSelected, media, YoutubePlayer, isMyActivityShowing } =
@@ -31,48 +30,57 @@ const YoutubePlayer = () => {
     YoutubePlayer.current = event.target;
   };
 
-  // useEffect(() => {
-  //   if (!player?.getVideoData()?.video_id) return;
-  //   if (AmWatchingthirdPartyVideo && player) {
-  //     player?.mute();
-  //   } else if (AmIwatchingMyVideo && player) {
-  //     player?.unMute();
-  //   } else if (player && !!isMySharedVideo && !AmIwatchingMyVideo) {
-  //     player?.mute();
-  //   } else {
-  //     return;
-  //   }
-  // }, [AmWatchingthirdPartyVideo, AmIwatchingMyVideo, player, isMySharedVideo]);
+  useEffect(() => {
+    if (!YoutubePlayer.current?.getVideoData()?.video_id) return;
+    if (AmIWatchingOtherActivity && YoutubePlayer.current?.getVideoData()) {
+      YoutubePlayer.current?.mute();
+    } else if (AmIWatchingMyActivity && YoutubePlayer.current) {
+      YoutubePlayer.current?.unMute();
+    } else if (
+      YoutubePlayer.current &&
+      !!isMySharedActivity &&
+      !AmIWatchingMyActivity
+    ) {
+      YoutubePlayer.current?.mute();
+    } else {
+      return;
+    }
+  }, [
+    AmIWatchingOtherActivity,
+    AmIWatchingMyActivity,
+    YoutubePlayer.current,
+    isMySharedActivity,
+  ]);
 
-  // useEffect(() => {
-  //   if (!socket) return;
-  //   if (!!!isMySharedVideo) return;
-  //   if (!player) return;
-  //   if (media === "Drawing") return;
+  useEffect(() => {
+    if (!socket) return;
+    if (!!!isMySharedActivity) return;
+    if (!YoutubePlayer.current) return;
+    if (media === "Drawing") return;
 
-  //   const listner = () => {
-  //     const time = player?.getCurrentTime();
-  //     const VideoId = player?.getVideoData().video_id;
-  //     const state = player?.getPlayerState();
+    const listner = () => {
+      const time = YoutubePlayer.current?.getCurrentTime();
+      const VideoId = YoutubePlayer.current?.getVideoData().video_id;
+      const state = YoutubePlayer.current?.getPlayerState();
 
-  //     const ActivityDetails: IGetActivityTypes = {
-  //       activityId: isMySharedVideo?.id,
-  //       ActivityType: ActivityType.YouTube,
-  //       data: {
-  //         time: time,
-  //         VideoId,
-  //         state: state,
-  //       },
-  //     };
+      const ActivityDetails: IGetActivityTypes = {
+        activityId: isMySharedActivity?.id,
+        ActivityType: ActivityType.YouTube,
+        data: {
+          time: time,
+          VideoId,
+          state: state,
+        },
+      };
 
-  //     EmitCustomEvent("Get_Activity_Details", ActivityDetails);
-  //   };
+      EmitCustomEvent("Get_Activity_Details", ActivityDetails);
+    };
 
-  //   socket.on("GET_MEDIA_DETAILS", listner);
-  //   return () => {
-  //     socket?.off("GET_MEDIA_DETAILS", listner);
-  //   };
-  // }, [player, !!isMySharedVideo]);
+    socket.on("GET_MEDIA_DETAILS", listner);
+    return () => {
+      socket?.off("GET_MEDIA_DETAILS", listner);
+    };
+  }, [YoutubePlayer, !!isMySharedActivity]);
 
   useEffect(() => {
     if (!!isMySharedActivity && socket && YoutubePlayer.current) {
@@ -116,38 +124,14 @@ const YoutubePlayer = () => {
   };
 
   return (
-    <section className="relative h-full overflow-hidden px-2 pt-4 ">
-      <div
-        className={clsx(
-          " h-full w-full",
-          !!!isMySharedActivity && "block",
-          !!isMySharedActivity &&
-            AmIWatchingMyActivity &&
-            isMyActivityShowing === ActivityType.YouTube &&
-            "pointer-events-auto opacity-100",
-          !!isMySharedActivity &&
-            !AmIWatchingMyActivity &&
-            "pointer-events-none opacity-0",
-          // !YouTubeVideoId && "pointer-events-none opacity-0",
-        )}
-      >
-        <YouTube
-          onStateChange={hanldeOnStateChange}
-          className="h-full w-full"
-          iframeClassName={clsx("h-full w-full")}
-          opts={opts}
-          onReady={onReady}
-        />
-      </div>
-
-      <div
-        className={clsx(
-          "absolute bottom-0 left-0 right-0 top-0   h-full w-full",
-          OthersSelected && AmIWatchingOtherActivity
-            ? "z-10"
-            : "-z-10 opacity-0",
-        )}
-      ></div>
+    <section className="overflow-hidded relative h-full">
+      <YouTube
+        onStateChange={hanldeOnStateChange}
+        className="h-full w-full"
+        iframeClassName={clsx("h-full w-full")}
+        opts={opts}
+        onReady={onReady}
+      />
     </section>
   );
 };
