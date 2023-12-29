@@ -1,11 +1,5 @@
 "use client";
-import React, {
-  useState,
-  useEffect,
-  ComponentType,
-  useRef,
-  useContext,
-} from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { useSocket } from "@/context/SocketProvider";
 import {
   AppState,
@@ -48,7 +42,7 @@ const OtherUserExcalidraw = () => {
 
   useEffect(() => {
     const data = localStorage.getItem("excalidraw");
-    console.log("excalidraw is loaded");
+
     if (data && ExternalShared && excalidrawAPI) {
       // setExcaliData(JSON.parse(data));
       // excalidrawAPI?.updateScene(JSON.parse(data));
