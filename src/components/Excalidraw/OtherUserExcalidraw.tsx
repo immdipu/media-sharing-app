@@ -2,8 +2,11 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { useSocket } from "@/context/SocketProvider";
 import { useToast } from "../ui/use-toast";
+import { MainMenu } from "@excalidraw/excalidraw";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
+import { IAddActivity, IRemoveActivity } from "@/types/socketTypes";
 import { useAppSelector } from "@/hooks/reduxHooks";
+import { ActivityType, IGetActivityTypes } from "@/types/roomActivity";
 
 const OtherUserExcalidraw = () => {
   const {
