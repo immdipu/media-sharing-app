@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { resolve } from "path";
 import { ActivityType as IActivityTypes } from "@/types/roomActivity";
+import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 
 const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
   ActivityType,
@@ -23,6 +24,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
   const user = useAppSelector((state) => state.auth);
 
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
+  const { AmIWatchingActivity } = useUserRoomActivity();
   const JoinedRoom = useAppSelector((state) => state.room);
   const GET_MEDIA_DETAILS_RESPONSERef = useRef<any>(null);
   const {
@@ -30,10 +32,10 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
     ExternalShared,
     setMedia,
     setOtherSelectedChanged,
+    setOtherMedia,
   } = useContext(RoomContext);
 
   const isWatching = users?.find((u) => u._id == user?.id);
-
   const isMySharedActivity = admin._id === user?.id;
 
   useEffect(() => {
@@ -157,7 +159,8 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
 
   const handleJoinAndLeave = () => {
     if (isWatching) {
-      setOthersSelected(false);
+      // setOthersSelected(false);
+      setOtherMedia(null);
       let data: ActivityTypes = {
         type: "REMOVE_MEMBER_FROM_ACTIVITY",
         roomId: JoinedRoom.JoinedRoom?.id!,
@@ -167,11 +170,13 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       };
       EmitCustomEvent("room-update", data);
     } else {
-      setMedia(ActivityType);
-      if (!isMySharedActivity) {
-        setOthersSelected(true);
+      if (isMySharedActivity) {
+        // setOthersSelected(true);
+        setMedia(ActivityType);
+        setOtherMedia(null);
       } else {
-        setOthersSelected(false);
+        // setOthersSelected(false);
+        setOtherMedia(ActivityType);
       }
 
       let data: ActivityTypes = {
