@@ -24,8 +24,14 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
   const { socket, EmitCustomEvent } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room);
   const GET_MEDIA_DETAILS_RESPONSERef = useRef<any>(null);
-  const { ExternalShared, setMedia, setOtherSelectedChanged, setOtherMedia } =
-    useContext(RoomContext);
+  const {
+    OtherYouTubePlayer,
+    OtherExcalidraw,
+    setMedia,
+    setOtherSelectedChanged,
+    setOtherMedia,
+    othermedia,
+  } = useContext(RoomContext);
 
   const isWatching = users?.find((u) => u._id == user?.id);
   const isMySharedActivity = admin._id === user?.id;
@@ -40,40 +46,42 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
           if (ActivityType === IActivityTypes.YouTube) {
             if (data?.data?.time) {
               const timeDifference = Math.abs(
-                data?.data?.time - ExternalShared?.getCurrentTime(),
+                data?.data?.time - OtherYouTubePlayer.current?.getCurrentTime(),
               );
 
               if (timeDifference > 4) {
-                ExternalShared?.seekTo(data?.data?.time);
+                OtherYouTubePlayer.current?.seekTo(data?.data?.time);
               }
               if (
-                data?.data?.VideoId !== ExternalShared?.getVideoData()?.video_id
+                data?.data?.VideoId !==
+                OtherYouTubePlayer.current?.getVideoData()?.video_id
               ) {
-                ExternalShared?.loadVideoById(data?.data?.VideoId);
+                OtherYouTubePlayer.current?.loadVideoById(data?.data?.VideoId);
               }
             }
             if (data?.data?.state) {
-              const playerState = ExternalShared?.getPlayerState();
+              const playerState = OtherYouTubePlayer.current?.getPlayerState();
               if (playerState !== data?.data?.state) {
                 if (data?.data?.state === 1) {
-                  ExternalShared?.playVideo();
+                  OtherYouTubePlayer.current?.playVideo();
                 }
                 if (data?.data?.state === 2) {
-                  ExternalShared?.pauseVideo();
+                  OtherYouTubePlayer.current?.pauseVideo();
                 }
               }
             }
             if (
-              data?.data?.VideoId !== ExternalShared?.getVideoData()?.video_id
+              data?.data?.VideoId !==
+              OtherYouTubePlayer.current?.getVideoData()?.video_id
             ) {
-              ExternalShared?.loadVideoById(data?.data?.VideoId);
+              OtherYouTubePlayer.current?.loadVideoById(data?.data?.VideoId);
             }
           }
           if (ActivityType === IActivityTypes.Drawing) {
             console.log("Activity-state-sync", data);
             if (data?.data?.elements) {
               localStorage.setItem("excalidraw", JSON.stringify(data?.data));
-              if (ExternalShared) {
+              if (OtherExcalidraw.current) {
                 setOtherSelectedChanged((prev) => !prev);
               }
             }
@@ -81,28 +89,33 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
         });
 
         socket.on("GET_MEDIA_DETAILS_RESPONSE", async (data) => {
-          if (!ExternalShared) {
-            GET_MEDIA_DETAILS_RESPONSERef.current = data;
-            return;
-          }
           if (ActivityType === IActivityTypes.YouTube) {
+            if (!OtherYouTubePlayer.current) {
+              GET_MEDIA_DETAILS_RESPONSERef.current = data;
+              return;
+            }
+            console.log("GET_MEDIA_DETAILS_RESPONSE", data);
             if (data?.data?.VideoId) {
-              ExternalShared?.loadVideoById({
+              OtherYouTubePlayer.current?.loadVideoById({
                 videoId: data?.data?.VideoId,
                 startSeconds: data?.data?.time || 0,
               });
             }
             if (data?.data?.state) {
               if (data?.data?.state === 1) {
-                ExternalShared?.playVideo();
+                OtherYouTubePlayer.current?.playVideo();
               } else {
-                ExternalShared?.pauseVideo();
+                OtherYouTubePlayer.current?.pauseVideo();
               }
             }
           }
           if (ActivityType === IActivityTypes.Drawing) {
+            if (!OtherExcalidraw.current) {
+              GET_MEDIA_DETAILS_RESPONSERef.current = data;
+              return;
+            }
             localStorage.setItem("excalidraw", JSON.stringify(data?.data));
-            if (ExternalShared) {
+            if (OtherExcalidraw.current) {
               setOtherSelectedChanged((prev) => !prev);
             }
           }
@@ -114,32 +127,36 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isWatching, ExternalShared]);
+  }, [isWatching, OtherExcalidraw, OtherYouTubePlayer]);
 
   useEffect(() => {
-    if (ExternalShared && GET_MEDIA_DETAILS_RESPONSERef.current) {
+    if (
+      OtherYouTubePlayer.current &&
+      OtherExcalidraw.current &&
+      GET_MEDIA_DETAILS_RESPONSERef.current
+    ) {
       const data = GET_MEDIA_DETAILS_RESPONSERef.current;
       new Promise((resolve) => setTimeout(resolve, 3000)).then(() => {
         if (ActivityType === IActivityTypes.YouTube) {
           if (data?.data?.VideoId) {
             console.log("video Id", data?.data?.VideoId);
-            ExternalShared?.loadVideoById({
+            OtherYouTubePlayer.current?.loadVideoById({
               videoId: data?.data?.VideoId,
               startSeconds: data?.data?.time || 0,
             });
           }
           if (data?.data?.state) {
             if (data?.data?.state === 1) {
-              ExternalShared?.playVideo();
+              OtherYouTubePlayer.current?.playVideo();
             } else {
-              ExternalShared?.pauseVideo();
+              OtherYouTubePlayer.current?.pauseVideo();
             }
           }
         }
 
         if (ActivityType === IActivityTypes.Drawing) {
           localStorage.setItem("excalidraw", JSON.stringify(data?.data));
-          if (ExternalShared) {
+          if (OtherExcalidraw.current) {
             setOtherSelectedChanged((prev) => !prev);
           }
         }
@@ -147,7 +164,8 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
         GET_MEDIA_DETAILS_RESPONSERef.current = null;
       });
     }
-  }, [ExternalShared]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [OtherExcalidraw, OtherYouTubePlayer]);
 
   const handleJoinAndLeave = () => {
     if (isWatching) {

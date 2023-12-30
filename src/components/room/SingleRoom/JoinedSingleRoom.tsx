@@ -31,8 +31,7 @@ interface RoomContextTypes {
   >;
   OthersSelected: boolean;
   setOthersSelected: React.Dispatch<React.SetStateAction<boolean>>;
-  ExternalShared?: any;
-  setExternalShared?: React.Dispatch<React.SetStateAction<any>>;
+
   showRightSideBar?: boolean;
   setShowRightSideBar?: React.Dispatch<React.SetStateAction<boolean>>;
   MessageCount?: number;
@@ -40,6 +39,8 @@ interface RoomContextTypes {
   OtherSelectedChanged: boolean;
   setOtherSelectedChanged: React.Dispatch<React.SetStateAction<boolean>>;
   YoutubePlayer?: any;
+  OtherYouTubePlayer: any;
+  OtherExcalidraw: any;
 }
 
 let intialState: RoomContextTypes = {
@@ -53,8 +54,6 @@ let intialState: RoomContextTypes = {
   setIsMyActivityShowing: () => {},
   OthersSelected: false,
   setOthersSelected: () => {},
-  ExternalShared: null,
-  setExternalShared: () => {},
   showRightSideBar: true,
   setShowRightSideBar: () => {},
   MessageCount: 0,
@@ -62,6 +61,8 @@ let intialState: RoomContextTypes = {
   OtherSelectedChanged: false,
   setOtherSelectedChanged: () => {},
   YoutubePlayer: null,
+  OtherYouTubePlayer: null,
+  OtherExcalidraw: null,
 };
 
 export const RoomContext = React.createContext<RoomContextTypes>(intialState);
@@ -69,7 +70,7 @@ export const RoomContext = React.createContext<RoomContextTypes>(intialState);
 const JoinedSingleRoom = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const [MessageCount, setMessageCount] = React.useState<number>(0);
-  const YoutubePlayer = useRef<any | null>(null);
+
   const params = useSearchParams();
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const [media, setMedia] = useState<ActivityType | null>(null);
@@ -80,11 +81,13 @@ const JoinedSingleRoom = () => {
   const [isSharing, setIsSharing] = React.useState(false);
   const [showRightSideBar, setShowRightSideBar] = React.useState<boolean>(true);
   const [OthersSelected, setOthersSelected] = useState<boolean>(false);
-  const [ExternalShared, setExternalShared] = React.useState<any>(null);
   const [OtherSelectedChanged, setOtherSelectedChanged] =
     React.useState<boolean>(false);
 
   const dispatch = useAppDispatch();
+  const YoutubePlayer = useRef<any | null>(null);
+  const OtherYouTubePlayer = useRef<any | null>(null);
+  const OtherExcalidraw = useRef<any | null>(null);
 
   useEffect(() => {
     if (!socket) return;
@@ -148,8 +151,6 @@ const JoinedSingleRoom = () => {
         setIsMyActivityShowing,
         OthersSelected,
         setOthersSelected,
-        ExternalShared,
-        setExternalShared,
         showRightSideBar,
         setShowRightSideBar,
         MessageCount,
@@ -159,6 +160,8 @@ const JoinedSingleRoom = () => {
         YoutubePlayer,
         othermedia,
         setOtherMedia,
+        OtherYouTubePlayer,
+        OtherExcalidraw,
       }}
     >
       <div className="flex min-h-screen justify-start   max-md:relative max-md:overflow-hidden">

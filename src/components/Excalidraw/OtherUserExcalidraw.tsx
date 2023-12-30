@@ -1,52 +1,32 @@
 "use client";
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { useSocket } from "@/context/SocketProvider";
-import { useToast } from "../ui/use-toast";
+import React, { useState, useEffect, useContext } from "react";
 import { MainMenu } from "@excalidraw/excalidraw";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
-import { useAppSelector } from "@/hooks/reduxHooks";
 
 const OtherUserExcalidraw = () => {
-  const {
-    isSharing,
-    media,
-    setIsSharing,
-    ExternalShared,
-    setExternalShared,
-    OtherSelectedChanged,
-  } = useContext(RoomContext);
-  const previousElementsRef = useRef<any>();
-  const { socket, AddActivity, EmitCustomEvent, RoomUpdate } = useSocket();
-  const [ExcaliData, setExcaliData] = useState<any>("");
+  const { OtherExcalidraw, OtherSelectedChanged } = useContext(RoomContext);
   const [excalidrawAPI, setExcalidrawAPI] = useState<any>(null);
-  const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
-  const user = useAppSelector((state) => state.auth);
-  const { toast } = useToast();
-  const isMySharedDrawing = JoinedRoom?.roomActivity.find(
-    (activity) => activity.admin._id === user?.id,
-  );
 
   useEffect(() => {
-    if (!setExternalShared) return;
-    import("@excalidraw/excalidraw").then((comp) =>
-      setExternalShared(comp.Excalidraw),
+    if (!OtherExcalidraw.current) return;
+    import("@excalidraw/excalidraw").then(
+      (comp) => (OtherExcalidraw.current = comp.Excalidraw),
     );
   }, []);
 
   useEffect(() => {
     const data = localStorage.getItem("excalidraw");
-
-    if (data && ExternalShared && excalidrawAPI) {
+    if (data && OtherExcalidraw.current && excalidrawAPI) {
       // setExcaliData(JSON.parse(data));
       // excalidrawAPI?.updateScene(JSON.parse(data));
       excalidrawAPI?.updateScene(JSON.parse(data));
     }
-  }, [OtherSelectedChanged, ExternalShared, excalidrawAPI]);
+  }, [OtherSelectedChanged, OtherExcalidraw, excalidrawAPI]);
 
   return (
     <>
-      {ExternalShared && (
-        <ExternalShared
+      {OtherExcalidraw && (
+        <OtherExcalidraw.current
           excalidrawAPI={(api: any) => {
             setExcalidrawAPI(api);
           }}
@@ -60,7 +40,7 @@ const OtherUserExcalidraw = () => {
             <MainMenu.DefaultItems.LoadScene />
             <MainMenu.DefaultItems.ChangeCanvasBackground />
           </MainMenu>
-        </ExternalShared>
+        </OtherExcalidraw.current>
       )}
     </>
   );

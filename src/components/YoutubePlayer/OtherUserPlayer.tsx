@@ -8,8 +8,7 @@ import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 
 const OtherUserPlayer = () => {
   const { AmIWatchingOtherActivity } = useUserRoomActivity();
-  const { ExternalShared, setExternalShared, othermedia } =
-    useContext(RoomContext);
+  const { OtherYouTubePlayer, othermedia } = useContext(RoomContext);
 
   const opts: YouTubeProps["opts"] = {
     playerVars: {
@@ -19,19 +18,18 @@ const OtherUserPlayer = () => {
   };
 
   const onReady: YouTubeProps["onReady"] = (event) => {
-    if (setExternalShared === undefined) return;
-    setExternalShared(event.target);
+    OtherYouTubePlayer.current = event.target;
   };
 
   useEffect(() => {
-    if (ExternalShared === null) return;
+    if (!OtherYouTubePlayer.current) return;
     if (othermedia !== ActivityType.YouTube || !AmIWatchingOtherActivity) {
-      if (ExternalShared?.playerInfo?.videoData?.video_id) {
-        ExternalShared?.pauseVideo();
-        ExternalShared?.mute();
+      if (OtherYouTubePlayer.current?.playerInfo?.videoData?.video_id) {
+        OtherYouTubePlayer.current?.pauseVideo();
+        OtherYouTubePlayer.current?.mute();
       }
     }
-  }, [othermedia, ExternalShared, AmIWatchingOtherActivity]);
+  }, [othermedia, OtherYouTubePlayer, AmIWatchingOtherActivity]);
 
   return (
     <section
