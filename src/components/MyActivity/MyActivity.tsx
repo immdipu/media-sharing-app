@@ -16,10 +16,10 @@ const MyActivity = () => {
   return (
     <div
       className={clsx(
-        "transition-all duration-200 ease-in-out",
+        "overflow-hidden transition-all duration-200 ease-in-out",
         AmIWatchingOtherActivity ||
           (isMySharedActivity && !AmIWatchingMyActivity)
-          ? "h-0"
+          ? "h-0 "
           : "h-[80vh]",
       )}
     >

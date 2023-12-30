@@ -2,13 +2,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { MainMenu } from "@excalidraw/excalidraw";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
+import { ActivityType } from "@/types/roomActivity";
+import clsx from "clsx";
 
 const OtherUserExcalidraw = () => {
-  const { OtherExcalidraw, OtherSelectedChanged } = useContext(RoomContext);
+  const { OtherExcalidraw, OtherSelectedChanged, othermedia } =
+    useContext(RoomContext);
   const [excalidrawAPI, setExcalidrawAPI] = useState<any>(null);
 
   useEffect(() => {
-    if (!OtherExcalidraw.current) return;
     import("@excalidraw/excalidraw").then(
       (comp) => (OtherExcalidraw.current = comp.Excalidraw),
     );
@@ -25,23 +27,30 @@ const OtherUserExcalidraw = () => {
 
   return (
     <>
-      {OtherExcalidraw && (
-        <OtherExcalidraw.current
-          excalidrawAPI={(api: any) => {
-            setExcalidrawAPI(api);
-          }}
-        >
-          <MainMenu>
-            <MainMenu.DefaultItems.Export />
-            <MainMenu.DefaultItems.ClearCanvas />
-            <MainMenu.DefaultItems.SaveAsImage />
-            <MainMenu.DefaultItems.ToggleTheme />
-            <MainMenu.DefaultItems.Help />
-            <MainMenu.DefaultItems.LoadScene />
-            <MainMenu.DefaultItems.ChangeCanvasBackground />
-          </MainMenu>
-        </OtherExcalidraw.current>
-      )}
+      <section
+        className={clsx(
+          "Excalidrawing h-full overflow-hidden  px-2 pt-4 ",
+          othermedia === ActivityType.Drawing ? "block h-[80vh]" : "hidden",
+        )}
+      >
+        {OtherExcalidraw.current && (
+          <OtherExcalidraw.current
+            excalidrawAPI={(api: any) => {
+              setExcalidrawAPI(api);
+            }}
+          >
+            <MainMenu>
+              <MainMenu.DefaultItems.Export />
+              <MainMenu.DefaultItems.ClearCanvas />
+              <MainMenu.DefaultItems.SaveAsImage />
+              <MainMenu.DefaultItems.ToggleTheme />
+              <MainMenu.DefaultItems.Help />
+              <MainMenu.DefaultItems.LoadScene />
+              <MainMenu.DefaultItems.ChangeCanvasBackground />
+            </MainMenu>
+          </OtherExcalidraw.current>
+        )}
+      </section>
     </>
   );
 };

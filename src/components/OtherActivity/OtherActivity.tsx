@@ -9,7 +9,7 @@ const OtherActivity = () => {
   return (
     <div className={clsx(AmIWatchingOtherActivity ? "h-[80vh]" : "h-0 ")}>
       <OtherUserPlayer />
-      {/* <OtherUserExcalidraw /> */}
+      <OtherUserExcalidraw />
     </div>
   );
 };

@@ -34,7 +34,7 @@ const OtherUserPlayer = () => {
   return (
     <section
       className={clsx(
-        "h-full overflow-hidden  px-2 pt-4 ",
+        "h-full overflow-hidden  px-2 ",
         othermedia === ActivityType.YouTube ? "block" : "hidden",
       )}
     >
