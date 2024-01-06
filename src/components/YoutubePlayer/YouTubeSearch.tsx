@@ -91,7 +91,7 @@ const YouTubeSearch = () => {
 
   return (
     <div>
-      <div className="relative mx-3 mt-4 flex items-center justify-between ">
+      <div className="relative mx-2 mt-4 flex items-center justify-between ">
         <div className="BackButton w-6 transition-all duration-100 ease-linear">
           <ShareButton backButton={true} />
         </div>

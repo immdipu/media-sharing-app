@@ -104,8 +104,8 @@ const ShareButton = ({ backButton = false }: { backButton?: boolean }) => {
       onClick={handleSharing}
       disabled={!YoutubePlayer.current}
       className={clsx(
-        "mx-2 rounded-md  bg-button-background p-2 transition-transform  duration-100 ease-linear hover:opacity-80 active:scale-95 disabled:bg-neutral-500 disabled:opacity-30",
-        isSharing && "bg-green-500 text-neutral-50",
+        "ml-2  h-10 rounded-md p-2 text-sm text-neutral-100 transition-all  duration-300   ease-linear hover:opacity-80 active:scale-95 disabled:bg-neutral-500 disabled:opacity-30",
+        isSharing ? "bg-red-500 text-neutral-50" : "bg-green-600",
       )}
     >
       {isSharing ? "Sharing" : "Share"}
