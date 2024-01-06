@@ -91,7 +91,7 @@ const Index = () => {
         <TabsContent value="users">
           <Users />
         </TabsContent>
-        <TabsContent value="media">
+        <TabsContent value="media" className="h-[calc(100vh-70px)]  ">
           <Media />
         </TabsContent>
         <TabsContent value="room" className="h-[calc(100vh-56px)]   ">

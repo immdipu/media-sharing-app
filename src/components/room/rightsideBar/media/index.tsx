@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { FaYoutube } from "react-icons/fa";
 import { BsPencilSquare } from "react-icons/bs";
-
+import MediaClose from "./MediaClose";
 import YouTubeSearch from "@/components/YoutubePlayer/YouTubeSearch";
 import { RoomContext } from "../../SingleRoom/JoinedSingleRoom";
 import { ActivityType } from "@/types/roomActivity";
@@ -14,7 +14,8 @@ const Media = () => {
   }
 
   return (
-    <div>
+    <div className="relative h-full">
+      <MediaClose />
       <section className="mx-2 mt-5 flex items-center gap-5 rounded-md border border-third-color bg-fourth-background px-5 py-3">
         <button
           onClick={() => {
