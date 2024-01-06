@@ -9,6 +9,7 @@ import { MagnifyingGlass } from "react-loader-spinner";
 import YouTubeVideoCard from "../card/YouTubeVideoCard";
 import ShareButton from "../Buttons/ShareButton";
 import { YouTubeVideo } from "@/types/Youtube";
+import "./YouTubeSearch.css";
 
 const YouTubeSearch = () => {
   const [search, setSearch] = React.useState<string>("");
@@ -91,13 +92,24 @@ const YouTubeSearch = () => {
   return (
     <div>
       <div className="relative mx-3 mt-4 flex items-center justify-between ">
-        <ShareButton backButton={true} />
-        <div className="relative flex h-10 w-full items-center justify-between overflow-hidden rounded-md bg-Input-background">
+        <div className="BackButton w-6 transition-all duration-100 ease-linear">
+          <ShareButton backButton={true} />
+        </div>
+
+        <div className=" relative flex h-10 w-full items-center justify-between overflow-hidden rounded-md bg-Input-background">
           <input
             type="search"
-            className="h-full w-full bg-Input-background px-3 py-2 text-sm  text-Paragraph-primary focus:outline-none"
+            className="searchInput h-full w-full   bg-Input-background px-3 py-2 text-sm text-Paragraph-primary outline-none transition-all  duration-200 ease-linear  focus:outline-none"
             placeholder="Search"
             value={search}
+            onFocus={() => {
+              const backButton = document.querySelector(".BackButton");
+              backButton?.classList.add("backButtonhide");
+            }}
+            onBlur={() => {
+              const backButton = document.querySelector(".BackButton");
+              backButton?.classList.remove("backButtonhide");
+            }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 ImmediateSearchFunction(search);
