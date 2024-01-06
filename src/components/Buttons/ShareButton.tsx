@@ -24,7 +24,7 @@ const ShareButton = ({ backButton = false }: { backButton?: boolean }) => {
 
   const handleSharing = () => {
     const YouTubeVideoId = YoutubePlayer.current?.getVideoData().video_id;
-    if (!YouTubeVideoId)
+    if (!YouTubeVideoId && !backButton)
       return toast({
         title: "Please select a video first",
         variant: "destructive",
