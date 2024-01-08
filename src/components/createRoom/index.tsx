@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
@@ -8,6 +8,7 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 import { useSocket } from "@/context/SocketProvider";
 import { HiMiniPlus } from "react-icons/hi2";
 import CreatableSelect from "react-select/creatable";
+import RoomType from "./RoomType";
 
 import {
   Dialog,
@@ -23,6 +24,7 @@ const CreateRoom = () => {
   const [roomDetails, setRoomDetails] = React.useState({
     name: "",
     membersLimit: null,
+    roomType: "public",
   });
   const { toast } = useToast();
   const { isOnline, EmitCustomEvent } = useSocket();
@@ -55,6 +57,7 @@ const CreateRoom = () => {
       setRoomDetails({
         name: "",
         membersLimit: null,
+        roomType: "public",
       });
     }
   };
@@ -104,6 +107,12 @@ const CreateRoom = () => {
                 }
                 placeholder="Enter room name"
                 className="mt-1 border-primary-color  bg-Input-background placeholder:text-neutral-400"
+              />
+            </div>
+            <div>
+              <RoomType
+                setRoomDetails={setRoomDetails}
+                roomDetails={roomDetails}
               />
             </div>
 
