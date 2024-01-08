@@ -18,12 +18,12 @@ const RoomType = ({
       <Label className="px-1 font-normal text-neutral-200 caret-white">
         Room type
       </Label>
-      <TabContainer activeTab={activeTab} className="mt-3 flex ">
+      <TabContainer activeTab={activeTab} className="mt-3  flex ">
         <Tab
           onClick={() => {
             setRoomDetails((prev: any) => ({
               ...prev,
-              type: "public",
+              roomType: "public",
             }));
             setActiveTab(0);
           }}
@@ -36,7 +36,7 @@ const RoomType = ({
           onClick={() => {
             setRoomDetails((prev: any) => ({
               ...prev,
-              type: "friends",
+              roomType: "friends",
             }));
             setActiveTab(1);
           }}
@@ -49,7 +49,7 @@ const RoomType = ({
           onClick={() => {
             setRoomDetails((prev: any) => ({
               ...prev,
-              type: "private",
+              roomType: "private",
             }));
             setActiveTab(2);
           }}

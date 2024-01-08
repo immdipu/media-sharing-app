@@ -20,7 +20,7 @@ const RoomCard = () => {
       retry: 2,
       enabled: true,
       refetchIntervalInBackground: true,
-      refetchInterval: 5000,
+      refetchInterval: 8000,
       refetchOnMount: true,
     },
   );

@@ -1,3 +1,4 @@
+import { RoomType } from "./enums";
 import { Role } from "./role";
 import { roomActivityTypes } from "./roomActivity";
 
@@ -19,6 +20,8 @@ export interface RoomTypes {
   bannedUsers: string[];
   createdAt: Date;
   roomActivity: roomActivityTypes[];
+  invited: string[];
+  roomType: RoomType;
 }
 
 export type RoomChatTypes =

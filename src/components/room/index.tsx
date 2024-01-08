@@ -10,6 +10,8 @@ import Link from "next/link";
 import moment from "moment";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import clsx from "clsx";
+import { FcGlobe, FcLock, FcConferenceCall } from "react-icons/fc";
+import { RoomType } from "@/types/enums";
 
 const Room: React.FC<RoomTypes> = ({
   admin,
@@ -20,8 +22,8 @@ const Room: React.FC<RoomTypes> = ({
   membersLimit,
   moderators,
   name,
+  roomType,
 }) => {
-  const router = useRouter();
   const user = useAppSelector((state) => state.auth);
   const renderEmptyCards = (count: number) => {
     const EmtpyCards = [];
@@ -31,10 +33,23 @@ const Room: React.FC<RoomTypes> = ({
     return EmtpyCards;
   };
 
+  console.log("roomType", roomType);
+
   return (
     <div className="flex w-full flex-col rounded-xl   border border-neutral-500 bg-neutral-700 px-5 py-2">
       <h4 className="mb-3 flex items-center gap-2 font-medium text-neutral-50">
         <TitleLogo color="#ffffff" opacity={0.2} /> {name}{" "}
+        <div className="ml-1" title={roomType}>
+          {roomType === RoomType.public && (
+            <FcGlobe className="text-2xl text-button-primary" />
+          )}
+          {roomType === RoomType.private && (
+            <FcLock className="text-2xl text-button-primary" />
+          )}
+          {roomType === RoomType.friend && (
+            <FcConferenceCall className="text-2xl text-button-primary" />
+          )}
+        </div>
         <span className="inline-block h-1 w-1 rounded-full bg-button-background" />
         <p className="text-xs font-light text-paragraph-secondary">
           {moment(createdAt).fromNow()}
