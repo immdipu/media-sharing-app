@@ -23,6 +23,7 @@
     --border: #404040;
 
 
+
     /* Text color */
     --header-primary: #ffffff;
     --header-secondary: #e5e5e5;
@@ -63,6 +64,12 @@
     --btn-danger-text: #ffffff;
 
 
+
+
+    /* Extra */
+    --overlay-bg: #262626;
+    --bg-pill-circle: #786d6d;
+    --tooltip-background-color: #000000;
 
     --copy: #fbfbfb;
     --copy-light: #d9d9d9;
@@ -148,12 +155,14 @@
     content: attr(data-tooltip);
     border-radius: 3px;
     width: fit-content;
-    padding: 2px 9px 4px 9px;
+    padding: 4px 9px 6px 9px;
     background-color: var(--tooltip-background-color);
     z-index: 1000;
     white-space: nowrap;
     position: absolute;
     color: white;
+    font-weight: 500;
+    font-size: 13px;
 }
 
 .tooltip[data-tooltip-position="top"]::after,

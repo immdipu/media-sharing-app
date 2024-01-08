@@ -11,37 +11,31 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
   sender,
 }) => {
   return (
-    <div className="group flex flex-col px-3 py-1 hover:bg-secondary-hover">
-      <section className=" flex">
+    <div className="group flex flex-col px-3 py-1 hover:bg-neutral-900">
+      <section className=" flex items-start">
         <UserAvatarWithPopOver
           ImageLink={sender.profilePic}
           username={sender.username}
           fallback={sender.fullName}
+          className="mt-1"
         />
 
         <div className="ml-2 w-full">
-          <div className="flex items-center gap-3">
-            <h4 className="light:text-green-500 w-1/2 overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-medium capitalize text-Header-secondary ">
+          <div className="flex h-fit items-center gap-2  py-px ">
+            <h4 className="light:text-green-500 l h-fit max-w-[180px] overflow-hidden  overflow-ellipsis whitespace-nowrap  text-sm font-medium capitalize leading-none  text-Header-secondary ">
               {sender?.fullName}
             </h4>
+            <div className="bg-pill-circle h-1 w-1 rounded-full" />
+            <span className="text-[0.70rem] font-normal text-paragraph-secondary opacity-60 ">
+              {" "}
+              {momemnt(createdAt).format("hh:mm A")}
+            </span>
           </div>
 
-          <div className=" relative ">
-            <p className="mr-3 line-clamp-3 block  w-full break-words  pb-2 text-xs  font-light  text-Paragraph-primary   ">
+          <div className="relative mt-[2px] ">
+            <p className="mr-3 block w-full break-words   pb-2 text-sm font-normal leading-5  text-paragraph-secondary ">
               {content}
-              <span className="">
-                <span className="px-3">
-                  {" "}
-                  <span className="text-xs opacity-0"></span>{" "}
-                </span>
-              </span>
             </p>
-            <div className=" absolute bottom-1 right-5 flex  w-full justify-end ">
-              <span className="text-[0.65rem] font-extralight text-neutral-200 ">
-                {" "}
-                {momemnt(createdAt).format("hh:mm A")}
-              </span>
-            </div>
           </div>
         </div>
       </section>

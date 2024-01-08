@@ -29,6 +29,7 @@ module.exports = {
         "Input-background": "var(--Input-background-color)",
         "Overlay-background": "var(--overlay-background-color)",
         "button-background": "var(--button-background-color)",
+        "pill-circle": "var(--bg-pill-circle)",
         "btn-primary": "var(--btn-primary-bg)",
         "btn-secondary": "var(--btn-secondary-bg)",
         "btn-success": "var(--btn-success-bg)",

@@ -6,9 +6,11 @@ import RoomLeaveNotificationCard from "@/components/card/RoomLeaveNotificationCa
 import RoomJoinNotificationCard from "@/components/card/RoomJoinNotificationCard";
 import RoomUpdateCard from "@/components/card/RoomUpdateCard";
 import { useAppSelector } from "@/hooks/reduxHooks";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const Chat = () => {
   const Messages = useAppSelector((state) => state.room.RoomChat);
+  const [parent, enableAnimations] = useAutoAnimate();
 
   useEffect(() => {
     const messageContainer = document.querySelector(".MessageContainer");
@@ -19,7 +21,10 @@ const Chat = () => {
 
   return (
     <div className="flex h-full flex-col justify-end  ">
-      <section className="MessageContainer my-4 h-full overflow-y-auto scroll-smooth">
+      <section
+        ref={parent}
+        className="MessageContainer my-4 h-full overflow-y-auto scroll-smooth"
+      >
         {Messages &&
           Messages.length > 0 &&
           Messages?.map((message, index) => {
