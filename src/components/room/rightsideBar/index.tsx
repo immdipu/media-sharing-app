@@ -8,12 +8,14 @@ import clsx from "clsx";
 import { RoomContext } from "../SingleRoom/JoinedSingleRoom";
 import { BsTextRight } from "react-icons/bs";
 import { usePathname, useRouter } from "next/navigation";
+import { Tab, TabContainer } from "@/components/Tab/Tab";
 
 const Index = () => {
   const { showRightSideBar, setShowRightSideBar, MessageCount } =
     useContext(RoomContext);
   const router = useRouter();
   const path = usePathname();
+  const [active, setActive] = React.useState<0 | 1 | 2 | 3 | 4>(0);
 
   return (
     <div
@@ -36,7 +38,63 @@ const Index = () => {
       >
         <BsTextRight className="text-2xl font-normal text-neutral-200" />
       </button>
-      <Tabs defaultValue="chat" className="w-auto">
+      <TabContainer
+        sliderClassName=" -z-[1] bg-button-background"
+        activeTab={active}
+        className=" z-0 flex w-full bg-Input-background py-[2px] "
+      >
+        <Tab
+          onClick={() => {
+            setActive(0);
+          }}
+          className={clsx(
+            "grid w-full  text-sm font-medium text-Paragraph-primary duration-300",
+            active === 0 && " text-button-primary",
+          )}
+        >
+          Chat
+        </Tab>
+        <Tab
+          onClick={() => {
+            setActive(1);
+          }}
+          className={clsx(
+            "grid w-full text-Paragraph-primary duration-300",
+            active === 1 && "text-button-primary",
+          )}
+        >
+          users
+        </Tab>
+        <Tab
+          className={clsx(
+            "grid w-full text-Paragraph-primary duration-300",
+            active === 2 && "text-button-primary",
+          )}
+          onClick={() => {
+            setActive(2);
+          }}
+        >
+          Media
+        </Tab>
+        <Tab
+          onClick={() => {
+            setActive(3);
+          }}
+          className={clsx(
+            "grid w-full  text-Paragraph-primary duration-300",
+            active === 3 && "text-button-primary ",
+          )}
+        >
+          Room
+        </Tab>
+      </TabContainer>
+      <section className="h-[calc(100vh-70px)]">
+        {active === 0 && <Chat />}
+        {active === 1 && <Users />}
+        {active === 2 && <Media />}
+        {active === 3 && <RoomTab />}
+      </section>
+      {/* <Tabs defaultValue="chat" className="w-auto">
         <TabsList className="sticky top-0 z-10 w-full bg-Input-background   ">
           <TabsTrigger
             onClick={() => {
@@ -86,7 +144,7 @@ const Index = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="chat" className="h-[calc(100vh-56px)]   ">
-          <Chat />
+        
         </TabsContent>
         <TabsContent value="users">
           <Users />
@@ -97,7 +155,7 @@ const Index = () => {
         <TabsContent value="room" className="h-[calc(100vh-56px)]   ">
           <RoomTab />
         </TabsContent>
-      </Tabs>
+      </Tabs> */}
     </div>
   );
 };
