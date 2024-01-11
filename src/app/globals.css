@@ -17,7 +17,8 @@
     --button-background-color: #f1f5f9;
     --border-color: #a3a3a3;
     --border-color-2: #646464;
-    --border-color-3: #323232
+    --border-color-3: #323232;
+    --tooltip-background-color: #000000;
 }
 
 
@@ -44,4 +45,94 @@
 
 .messageInput::-webkit-scrollbar {
     width: 0.1rem;
+}
+
+.tooltip {
+
+    position: relative;
+
+}
+
+.tooltip[data-tooltip-position="top"]::before,
+.tooltip[data-tooltip-position="left"]::before,
+.tooltip[data-tooltip-position="right"]::before,
+.tooltip[data-tooltip-position="bottom"]::before {
+    --scale: 0;
+    content: attr(data-tooltip);
+    border-radius: 3px;
+    width: fit-content;
+    padding: 2px 9px 4px 9px;
+    background-color: var(--tooltip-background-color);
+    z-index: 1000;
+    white-space: nowrap;
+    position: absolute;
+    color: white;
+}
+
+.tooltip[data-tooltip-position="top"]::after,
+.tooltip[data-tooltip-position="bottom"]::after,
+.tooltip[data-tooltip-position="left"]::after,
+.tooltip[data-tooltip-position="right"]::after {
+    --arrow-size: 8px;
+    --scale: 0;
+    position: absolute;
+    z-index: 1000;
+    content: "";
+
+}
+
+
+.tooltip[data-tooltip-position="left"]::before {
+    top: 50%;
+    right: 100%;
+    transform: translate(-13px, -50%) scale(var(--scale));
+    transition: transform 0.1s ease-in-out;
+    transform-origin: right center;
+}
+
+.tooltip[data-tooltip-position="top"]::before {
+
+    left: 50%;
+    top: -4rem;
+    transform: translate(-50%, 0) scale(var(--scale));
+    transition: transform 0.1s ease-in-out;
+    transform-origin: bottom center;
+}
+
+
+.tooltip[data-tooltip-position="left"]::after {
+    top: 50%;
+    left: 0%;
+    border: var(--arrow-size) solid transparent;
+    border-left-color: var(--tooltip-background-color);
+    transform: translate(-13px, -50%) scale(var(--scale));
+    transition: transform 0.1s ease-in-out;
+    transform-origin: left center;
+}
+
+.tooltip[data-tooltip-position="top"]::after {
+    left: 50%;
+    top: -4rem;
+    transform: translate(-50%, 30px) scale(var(--scale));
+    border: var(--arrow-size) solid transparent;
+    border-top-color: var(--tooltip-background-color);
+    transition: transform 0.1s ease-in-out;
+    transform-origin: top center;
+}
+
+
+.tooltip:hover[data-tooltip-position="left"]::before,
+.tooltip:hover[data-tooltip-position="top"]::before,
+.tooltip:hover[data-tooltip-position="bottom"]::before,
+.tooltip:hover[data-tooltip-position="right"]::before {
+    --scale: 1;
+}
+
+
+
+.tooltip:hover[data-tooltip-position="left"]::after,
+.tooltip:hover[data-tooltip-position="top"]::after,
+.tooltip:hover[data-tooltip-position="bottom"]::after,
+.tooltip:hover[data-tooltip-position="right"]::after {
+    --scale: 1;
 }
