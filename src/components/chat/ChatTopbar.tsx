@@ -1,6 +1,7 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { IoSearchOutline } from "react-icons/io5";
 
 const ChatTopbar = () => {
   return (
@@ -16,14 +17,17 @@ const ChatTopbar = () => {
             <span className="text-Secondary-text text-base font-medium text-Header-primary">
               Arya Stark
             </span>
-            <span className="text-sm font-medium text-paragraph-secondary">
+            <span className="text-sm font-normal text-paragraph-secondary">
               Online
             </span>
           </div>
         </div>
         <div className="flex-grow">
-          <div className="flex justify-end">
-            <button className="rounded-full border border-secondary-color bg-Secondary-background p-2 transition-transform duration-150 ease-linear hover:bg-Main-background active:scale-75  ">
+          <div className="flex justify-end gap-4 ">
+            <button className=" mr-9 grid h-9 w-9 shrink-0 place-content-center rounded-full  duration-300 hover:bg-secondary-hover">
+              <IoSearchOutline className="text-xl text-neutral-300" />
+            </button>
+            <button className="shrink-0 rounded-full border border-secondary-color bg-Secondary-background p-2 transition-transform duration-150 ease-linear hover:bg-Main-background active:scale-75  ">
               <BsThreeDotsVertical className="text-lg text-neutral-300" />
             </button>
           </div>
