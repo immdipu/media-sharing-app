@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import dynamic from "next/dynamic";
 import { RoomMessageTypes } from "@/types/room";
 import momemnt from "moment";
+import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
 import UserProfilePopoverCardSkeleton from "../Skeleton/UserProfilePopoverCardSkeleton";
 import {
   Popover,
@@ -25,19 +26,11 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
 }) => {
   return (
     <div className="  flex px-3 py-2 hover:bg-secondary-hover">
-      <Popover>
-        <PopoverTrigger>
-          <Avatar className="h-10 w-10">
-            <AvatarImage src={sender?.profilePic} />
-            <AvatarFallback className="uppercase">
-              {sender?.fullName?.slice(0, 2)}
-            </AvatarFallback>
-          </Avatar>
-        </PopoverTrigger>
-        <PopoverContent className="border-secondary-color bg-Secondary-background px-3">
-          <UserProfilePopoverCard username={sender.username} />
-        </PopoverContent>
-      </Popover>
+      <UserAvatarWithPopOver
+        ImageLink={sender.profilePic}
+        username={sender.username}
+        fallback={sender.fullName}
+      />
 
       <div className="ml-2 w-full">
         <div className="flex items-center gap-3">

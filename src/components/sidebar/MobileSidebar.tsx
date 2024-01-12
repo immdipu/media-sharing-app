@@ -11,7 +11,7 @@ const MobileSidebar = () => {
     <>
       <div
         className={clsx(
-          "first-letter fixed z-[52] w-56 transition-all duration-100 ease-in-out",
+          "first-letter fixed z-[52]  hidden w-56 shrink-0 transition-all duration-100 ease-in-out max-md:block",
           GlobalContext?.showSider ? "left-0" : "-left-60",
         )}
       >
