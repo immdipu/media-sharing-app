@@ -18,8 +18,8 @@ const Chat = () => {
   }, [Messages?.length]);
 
   return (
-    <div className="flex h-full flex-col justify-end pb-1">
-      <section className="MessageContainer h-full overflow-y-auto scroll-smooth ">
+    <div className="flex h-full flex-col justify-end  ">
+      <section className="MessageContainer my-4 h-full overflow-y-auto scroll-smooth">
         {Messages &&
           Messages.length > 0 &&
           Messages?.map((message, index) => {

@@ -14,26 +14,30 @@ const Media = () => {
   }
 
   return (
-    <div className="relative h-full">
+    <div className="relative h-full pt-3">
       <MediaClose />
-      <section className="mx-2 mt-5 flex items-center gap-5 rounded-md border border-third-color bg-fourth-background px-5 py-3">
+
+      <p className="py-2 pl-3 text-lg font-medium text-Header-primary">
+        Select a media
+      </p>
+      <section className="mx-1   flex gap-4   px-2 py-3">
         <button
           onClick={() => {
             setMedia(ActivityType.YouTube);
           }}
-          className="flex flex-col items-center"
+          className="flex h-full w-full flex-col items-center  rounded-md border border-third-color bg-third-background py-3 transition-all duration-200 ease-linear hover:border-secondary-color hover:bg-Secondary-background"
         >
-          <FaYoutube className="overflow-hidden  text-4xl text-red-600" />
-          <p className="text-xs  text-Header-primary">YouTube</p>
+          <FaYoutube className="overflow-hidden   text-4xl text-red-600" />
+          <p className="text-sm  font-medium text-Header-secondary">YouTube</p>
         </button>
         <button
           onClick={() => {
             setMedia(ActivityType.Drawing);
           }}
-          className="mt-1 flex flex-col items-center"
+          className="flex h-full w-full flex-col items-center rounded-md border border-third-color bg-third-background py-3 transition-all duration-200 ease-linear hover:border-secondary-color hover:bg-Secondary-background"
         >
           <BsPencilSquare className="overflow-hidden  text-3xl text-neutral-200" />
-          <p className="text-xs  text-Header-primary">Drawing</p>
+          <p className="textsm font-medium  text-Header-secondary">Drawing</p>
         </button>
       </section>
     </div>

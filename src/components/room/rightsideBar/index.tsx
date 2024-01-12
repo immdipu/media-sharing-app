@@ -88,7 +88,7 @@ const Index = () => {
           Room
         </Tab>
       </TabContainer>
-      <section className="h-[calc(100vh-70px)]">
+      <section className="h-[calc(100vh-56px)]  ">
         {active === 0 && <Chat />}
         {active === 1 && <Users />}
         {active === 2 && <Media />}

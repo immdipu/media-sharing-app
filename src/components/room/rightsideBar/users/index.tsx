@@ -7,8 +7,8 @@ const UsersTab = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
 
   return (
-    <div>
-      <h3 className="light:text-neutral-900 my-2 mt-4 px-5 text-Header-primary  dark:text-neutral-50 ">
+    <div className="h-full pt-5">
+      <h3 className="light:text-neutral-900  px-5 text-Header-primary  dark:text-neutral-50 ">
         Members
       </h3>
       <section className="flex flex-col">
