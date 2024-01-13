@@ -5,13 +5,11 @@ import data, { Emoji } from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import MessageSendButon from "../Buttons/MessageSendButon";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import { useSocket } from "@/context/SocketProvider";
 import { useParams } from "next/navigation";
 import { ChatMessageTypes, chatContentTypes } from "@/types";
 import { userType } from "@/types/ApiResponseTypes";
 import { Role } from "@/types/role";
-import { useAppDispatch } from "@/hooks/reduxHooks";
+import { useAppDispatch, useSocket, useAppSelector } from "@/hooks";
 import { AddNewMessage } from "@/redux/slice/chatSlice";
 
 interface MessageInputProps {
