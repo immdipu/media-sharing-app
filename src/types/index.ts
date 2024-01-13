@@ -9,8 +9,10 @@ import {
 import { ChatMessageTypes, chatContentTypes } from "@/types/chatTypes";
 import { ActivityType } from "./roomActivity";
 import { ActivityTypes } from "./room";
+import { userType } from "./ApiResponseTypes";
+import { Role } from "./role";
 
-export { ActivityType, chatContentTypes };
+export { ActivityType, chatContentTypes, Role };
 export type {
   IUpdateSentMessage,
   IAddActivity,
@@ -20,4 +22,5 @@ export type {
   IjoinedRoomResponse,
   ActivityTypes,
   ChatMessageTypes,
+  userType,
 };

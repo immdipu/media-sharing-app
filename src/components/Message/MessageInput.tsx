@@ -6,9 +6,7 @@ import Picker from "@emoji-mart/react";
 import MessageSendButon from "../Buttons/MessageSendButon";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { useParams } from "next/navigation";
-import { ChatMessageTypes, chatContentTypes } from "@/types";
-import { userType } from "@/types/ApiResponseTypes";
-import { Role } from "@/types/role";
+import { ChatMessageTypes, chatContentTypes, userType, Role } from "@/types";
 import { useAppDispatch, useSocket, useAppSelector } from "@/hooks";
 import { AddNewMessage } from "@/redux/slice/chatSlice";
 
