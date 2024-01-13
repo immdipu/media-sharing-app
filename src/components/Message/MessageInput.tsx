@@ -8,7 +8,7 @@ import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { useSocket } from "@/context/SocketProvider";
 import { useParams } from "next/navigation";
-import { ChatMessageTypes, chatContentTypes } from "@/types/chatTypes";
+import { ChatMessageTypes, chatContentTypes } from "@/types";
 import { userType } from "@/types/ApiResponseTypes";
 import { Role } from "@/types/role";
 import { useAppDispatch } from "@/hooks/reduxHooks";
