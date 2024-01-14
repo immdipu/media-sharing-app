@@ -42,7 +42,7 @@ const MessageInput = () => {
   };
 
   return (
-    <div className="flex gap-px px-2">
+    <div className="px flex gap-2 px-2">
       <div className="relative flex w-full items-center rounded-md border border-secondary-color bg-neutral-800 pr-3 transition-colors duration-150 ease-linear focus-within:border-neutral-300">
         <Textarea
           className=" messageInput  resize-none   bg-transparent text-neutral-200 outline-none  placeholder:text-neutral-400  focus:outline-none "
