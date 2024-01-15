@@ -6,7 +6,7 @@ import ReceiverText from "./ReceiverText";
 
 const AllMessages = () => {
   return (
-    <div className=" h-[82vh] w-full max-w-6xl overflow-y-scroll  border px-2 pl-12 ">
+    <div className=" MessageContainer my-3 w-full overflow-y-scroll   px-2 pl-12 pr-16 ">
       {Messages.map((message, index) => {
         const lastMessageFromSameSender =
           index > 0 &&
