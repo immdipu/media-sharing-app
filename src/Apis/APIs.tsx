@@ -105,21 +105,12 @@ export const userApis = {
     return res.data;
   },
 
-  getUserList: async (
-    currentPage: number,
-    sort?: string,
-  ): Promise<getUserListTypes> => {
-    const res = await axiosInstance().get(
-      `${process.env.NEXT_PUBLIC_USER_URL}/user?page=${currentPage}${
-        sort ? `&sort=${sort}` : ""
-      }`,
-    );
-    return res.data;
-  },
-
-  searchUser: async (search: string): Promise<userList[]> => {
-    const res = await axiosInstance().get(
-      `${process.env.NEXT_PUBLIC_USER_URL}/user/search/term?q=${search}`,
+  getCreateSingleChat: async (userId: string): Promise<any> => {
+    const res = await axiosInstance().post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/chat/`,
+      {
+        otherUserId: userId,
+      },
     );
     return res.data;
   },

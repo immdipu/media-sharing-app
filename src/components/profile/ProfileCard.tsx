@@ -9,6 +9,11 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAppSelector } from "@/hooks/reduxHooks";
+import dynamic from "next/dynamic";
+
+const FollowersFollowingTab = dynamic(
+  () => import("@/components/FollowersFollowingTabList/FollowerFollowingTab"),
+);
 
 const ProfileCard: React.FC<getUserDataTypes> = ({
   _id,
@@ -51,29 +56,6 @@ const ProfileCard: React.FC<getUserDataTypes> = ({
   //   const handleStartMessage = () => {
   //     createAccessChat.mutate(_id);
   //   };
-
-  const Followers = (
-    <div>
-      <span className="text-sm font-semibold tracking-wide  text-neutral-300">
-        {followers}
-      </span>
-      <span className="ml-2 text-sm font-normal text-paragraph-secondary">
-        Followers
-      </span>
-    </div>
-  );
-
-  const Following = (
-    <div>
-      <span className="text-sm font-semibold tracking-wide text-neutral-300">
-        {following}
-      </span>
-      <span className="ml-2 text-sm font-normal text-paragraph-secondary">
-        {" "}
-        Following
-      </span>
-    </div>
-  );
 
   if (profilePic.includes("s96-c")) {
     profilePic = profilePic.replace("s96-c", "s300-c");
@@ -172,8 +154,12 @@ const ProfileCard: React.FC<getUserDataTypes> = ({
             )}
 
             <div className="mb-2 mt-4 flex translate-x-[4px] items-center  gap-8">
-              <div>{Following}</div>
-              <div>{Followers}</div>
+              {/* <div>{Following}</div>
+              <div>{Followers}</div> */}
+              <FollowersFollowingTab
+                followers={followers}
+                following={following}
+              />
             </div>
           </section>
         </div>

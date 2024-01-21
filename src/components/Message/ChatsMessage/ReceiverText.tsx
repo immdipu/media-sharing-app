@@ -4,6 +4,7 @@ import clsx from "clsx";
 import React from "react";
 import moment from "moment";
 import { useAppSelector } from "@/hooks/reduxHooks";
+import UserAvatarWithPopOver from "@/components/Resuable/UserAvatarWithPopOver";
 
 const ReceiverText = ({
   lastMessageFromSameSender,
@@ -53,7 +54,12 @@ const ReceiverText = ({
 
       {!lastMessageFromSameSender && (
         <div className="absolute -left-8 top-1 h-6 w-6 rounded-full">
-          <img src={senderPicture} className="h-6 w-6 rounded-full" alt="" />
+          <UserAvatarWithPopOver
+            ImageLink={senderPicture}
+            className="h-6 w-6"
+            username={"immdipu"}
+            fallback="Dipu"
+          />
           <div
             className={clsx(
               " absolute -right-0 bottom-0 h-2 w-2 rounded-full border border-neutral-400",
