@@ -6,39 +6,37 @@ import Picker from "@emoji-mart/react";
 import MessageSendButon from "../Buttons/MessageSendButon";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { useAppSelector } from "@/hooks/reduxHooks";
-import { RoomMessageTypes, membersTypes } from "@/types/room";
-import { Role } from "@/types/role";
 import { useSocket } from "@/context/SocketProvider";
+import { useParams } from "next/navigation";
+import { ChatMessageTypes } from "@/types/chatTypes";
+import { randomUUID } from "crypto";
+
 const MessageInput = () => {
   const [showEmoji, setShowEmoji] = useState(false);
   const [message, setMessage] = useState("");
+  const { id } = useParams();
   const user = useAppSelector((state) => state.auth);
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const { socket, EmitCustomEvent } = useSocket();
 
   const handleSend = () => {
-    if (!message || message.trim() === "") return;
-
+    if (!message || message.trim() === "" || !user || !socket) return;
     setMessage("");
-    let messageData = {
-      roomId: JoinedRoom?.id,
-      data: {
-        Type: "message",
-        content: message,
-        sender: {
-          _id: user.id!,
-          fullName: user.fullName!,
-          profilePic: user.profilePic!,
-          username: user.username!,
-          role: Role.User,
-          verified: user.vefified!,
-          followers: 0,
-          following: 0,
-        },
-        createdAt: new Date(),
+    const randomId = Math.floor(Math.random() * 100000000000000);
+    let messageData: ChatMessageTypes = {
+      chatId: id as unknown as string,
+      type: "text",
+      content: message,
+      sender: {
+        _id: user.id!,
+        username: user.username!,
+        profilePic: user.profilePic!,
+        fullName: user.fullName!,
       },
+      createdAt: new Date().toISOString(),
+      tempId: randomId.toString(),
     };
-    EmitCustomEvent("send-message-in-room", messageData);
+    EmitCustomEvent("send-message-in-chat", messageData);
   };
 
   return (
