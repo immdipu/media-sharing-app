@@ -1,21 +1,37 @@
 import React from "react";
 import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
 import moment from "moment";
+import { SingleGetAllChatTypes } from "@/types/ApiResponseTypes";
+import { useRouter } from "next/navigation";
 
-const SingleChatList = () => {
-  const date = new Date();
+const SingleChatList: React.FC<SingleGetAllChatTypes> = ({
+  _id,
+  createdAt,
+  lastMessage,
+  unreadMessagesCount,
+  user,
+}) => {
+  const router = useRouter();
+  const date = new Date(createdAt);
   return (
-    <div className="mx-1 flex h-16 items-center rounded-md  py-2 pl-2  hover:bg-Secondary-background">
+    <div
+      onClick={() => {
+        router.push(`/chat/${_id}`, {
+          scroll: false,
+        });
+      }}
+      className="mx-1 flex h-16 items-center rounded-md  py-2 pl-2  hover:bg-Secondary-background"
+    >
       <UserAvatarWithPopOver
-        ImageLink="https://avatars.githubusercontent.com/u/103568666?v=4"
-        username="immdipu"
-        fallback="Dipu"
+        ImageLink={user.profilePic}
+        username={user.username}
+        fallback={user.fullName}
         className="h-14 w-14"
       />
       <div className="h-full cursor-default pr-3 ">
         <div className="flex flex-nowrap items-center justify-between">
-          <h1 className="ml-2 line-clamp-1 text-sm font-medium text-Header-primary">
-            Dipu chaurasiya
+          <h1 className="ml-2 line-clamp-1 text-sm font-medium capitalize text-Header-primary">
+            {user.fullName || user.username}
           </h1>
           <p className=" shrink-0 select-none text-xs font-light leading-none text-Paragraph-primary">
             {moment(date).format("hh:mm A")}

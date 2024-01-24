@@ -12,3 +12,22 @@ export interface GetAllFollowersTypes {
   message: string;
   data: SingleFollowerTypes[];
 }
+
+export interface SingleGetAllChatTypes {
+  _id: string;
+  createdAt: string;
+  unreadMessagesCount: number;
+  lastMessage: string;
+  user: {
+    _id: string;
+    fullName: string;
+    username: string;
+    profilePic: string;
+  };
+}
+
+export interface GetAllChatsTypes {
+  success: boolean;
+  message: string;
+  data: SingleGetAllChatTypes[];
+}

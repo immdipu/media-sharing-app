@@ -13,7 +13,10 @@ import {
 } from "@/types/userTypes";
 import { RoomTypes } from "@/types/room";
 import { YouTubeVideo } from "@/types/Youtube";
-import { GetAllFollowersTypes } from "@/types/ApiResponseTypes";
+import {
+  GetAllChatsTypes,
+  GetAllFollowersTypes,
+} from "@/types/ApiResponseTypes";
 
 export const userApis = {
   GoogleLogin: async (token: string) => {
@@ -139,9 +142,9 @@ export const userApis = {
     return res.data;
   },
 
-  getUserChatList: async (): Promise<[]> => {
+  getUserChatList: async (): Promise<GetAllChatsTypes> => {
     const res = await axiosInstance().get(
-      `${process.env.NEXT_PUBLIC_USER_URL}/chat/allchats`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/chat/all-chats`,
     );
     return res.data;
   },
