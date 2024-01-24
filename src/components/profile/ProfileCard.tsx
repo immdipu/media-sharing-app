@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { BsCalendar2Week } from "react-icons/bs";
 import { HiMail } from "react-icons/hi";
 import { getUserDataTypes } from "@/types/userTypes";
@@ -10,6 +10,8 @@ import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import dynamic from "next/dynamic";
+import useFollow from "@/hooks/useFollow";
+import useFollowStatus from "@/hooks/useFollowStatus";
 
 const FollowersFollowingTab = dynamic(
   () => import("@/components/FollowersFollowingTabList/FollowerFollowingTab"),
@@ -21,25 +23,24 @@ const ProfileCard: React.FC<getUserDataTypes> = ({
   followers,
   following,
   fullName,
-  isFollowing,
+  isFollowing: isfollowing,
+  isAFollower,
   ownProfile,
   profilePic,
   username,
   email,
 }) => {
-  const [follow, setFollow] = React.useState<boolean>(isFollowing);
   const user = useAppSelector((state) => state.auth);
-  const queryClient = useQueryClient();
-  const router = useRouter();
+  const { handleFollow, isFollowing, setIsFollowing } = useFollow();
+  const { status } = useFollowStatus({ isFollowing, isAFollower });
+
   const [showFullImage, setShowFullImage] = React.useState<boolean>(false);
-  //   const updateFollow = useMutation((id: string) => userApis.FollowUser(id), {
-  //     onSuccess: (data) => {
-  //       queryClient.invalidateQueries(["getUser"]);
-  //     },
-  //     onError: (data) => {
-  //       toast.error("Failed to follow Try Again!");
-  //     },
-  //   });
+
+  useLayoutEffect(() => {
+    if (isfollowing) {
+      setIsFollowing(isfollowing);
+    }
+  }, [status, isfollowing, setIsFollowing]);
 
   //   const createAccessChat = useMutation(
   //     (id: string) => userApis.createAccessChat(id),
@@ -97,20 +98,12 @@ const ProfileCard: React.FC<getUserDataTypes> = ({
                 <>
                   <button
                     onClick={() => {
-                      //   updateFollow.mutate(_id);
-                      setFollow(!follow);
+                      setIsFollowing(!isFollowing);
+                      handleFollow(_id, "getUser");
                     }}
-                    className="border-_light_white mr-14 flex items-center rounded-2xl border border-opacity-60 px-5 py-px  leading-none transition-colors duration-200 ease-linear hover:border-opacity-100"
+                    className=" mr-14 flex items-center rounded-full border border-secondary-color px-4 py-2 text-sm leading-none text-Paragraph-primary  transition-colors duration-200 ease-linear hover:bg-secondary-hover"
                   >
-                    {follow ? (
-                      <span className="text-base font-normal  text-neutral-300 max-md:text-sm">
-                        Following
-                      </span>
-                    ) : (
-                      <span className="text-base font-normal text-neutral-300 max-md:text-sm">
-                        Follow
-                      </span>
-                    )}
+                    {status}
                   </button>
                 </>
               )}
@@ -154,8 +147,6 @@ const ProfileCard: React.FC<getUserDataTypes> = ({
             )}
 
             <div className="mb-2 mt-4 flex translate-x-[4px] items-center  gap-8">
-              {/* <div>{Following}</div>
-              <div>{Followers}</div> */}
               <FollowersFollowingTab
                 followers={followers}
                 following={following}

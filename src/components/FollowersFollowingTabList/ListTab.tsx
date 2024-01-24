@@ -5,8 +5,13 @@ import clsx from "clsx";
 const FollowersList = dynamic(() => import("./FollowersList"));
 const FollowingList = dynamic(() => import("./FollowingList"));
 
-const ListTab = ({ _id }: { _id: string }) => {
-  const [activeTab, setActiveTab] = useState(1);
+interface ListTabProsp {
+  _id: string;
+  activeTab: number;
+  setActiveTab: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const ListTab: React.FC<ListTabProsp> = ({ _id, activeTab, setActiveTab }) => {
   return (
     <div>
       <section className="mt-5 w-full">
@@ -41,7 +46,7 @@ const ListTab = ({ _id }: { _id: string }) => {
       </section>
       <section className="min-h-[10rem] w-full py-3">
         {activeTab === 0 && <FollowersList _id={_id} />}
-        {activeTab === 1 && <FollowingList />}
+        {activeTab === 1 && <FollowingList _id={_id} />}
       </section>
     </div>
   );

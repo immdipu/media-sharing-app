@@ -54,6 +54,7 @@ export interface getUserDataTypes {
   following: number;
   ownProfile: boolean;
   isFollowing: boolean;
+  isAFollower: boolean;
   email?: string;
   bio: string;
 }

@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import ListTab from "./ListTab";
@@ -20,23 +19,25 @@ const FollowerFollowingTab: React.FC<FollowerFollowingTabProps> = ({
   following = 0,
   _id,
 }) => {
+  const [activeTab, setActiveTab] = useState(3);
+
   const Followers = (
-    <div>
+    <div className=" group" onClick={() => setActiveTab(0)}>
       <span className="text-sm font-semibold tracking-wide  text-neutral-300">
         {followers}
       </span>
-      <span className="ml-2 text-sm font-normal text-paragraph-secondary">
+      <span className="ml-2 text-sm font-normal text-paragraph-secondary underline-offset-4 group-hover:underline">
         Followers
       </span>
     </div>
   );
 
   const Following = (
-    <div>
+    <div className="group" onClick={() => setActiveTab(1)}>
       <span className="text-sm font-semibold tracking-wide text-neutral-300">
         {following}
       </span>
-      <span className="ml-2 text-sm font-normal text-paragraph-secondary">
+      <span className="ml-2 text-sm font-normal text-paragraph-secondary underline-offset-4 group-hover:underline">
         {" "}
         Following
       </span>
@@ -44,7 +45,7 @@ const FollowerFollowingTab: React.FC<FollowerFollowingTabProps> = ({
   );
 
   return (
-    <Dialog open={true}>
+    <Dialog>
       <DialogTrigger>
         <div className="flex items-center gap-8">
           <div>{Following}</div>
@@ -54,7 +55,11 @@ const FollowerFollowingTab: React.FC<FollowerFollowingTabProps> = ({
       <DialogContent className="border-secondary-color bg-Main-background">
         <DialogHeader>
           <DialogDescription>
-            <ListTab _id={_id} />
+            <ListTab
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              _id={_id}
+            />
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
