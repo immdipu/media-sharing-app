@@ -129,6 +129,16 @@ export const userApis = {
     return res.data;
   },
 
+  getSingleChatByuserId: async (userId: string): Promise<any> => {
+    const res = await axiosInstance().post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/chat`,
+      {
+        otherUserId: userId,
+      },
+    );
+    return res.data;
+  },
+
   getUserChatList: async (): Promise<[]> => {
     const res = await axiosInstance().get(
       `${process.env.NEXT_PUBLIC_USER_URL}/chat/allchats`,
@@ -156,53 +166,6 @@ export const userApis = {
       {
         userId: id,
       },
-    );
-    return res.data;
-  },
-  createGroupChat: async (data: {
-    name: string;
-    numberOfUsersAllowed: number;
-  }) => {
-    const res = await axiosInstance().post(
-      `${process.env.NEXT_PUBLIC_USER_URL}/chat/group`,
-      data,
-    );
-    return res.data;
-  },
-  getAllGroupChats: async () => {
-    const res = await axiosInstance().get(
-      `${process.env.NEXT_PUBLIC_USER_URL}/chat/group`,
-    );
-    return res.data;
-  },
-  addToGroupChat: async (data: { chatId: string; userId: string }) => {
-    const res = await axiosInstance().put(
-      `${process.env.NEXT_PUBLIC_USER_URL}/chat/group`,
-      data,
-    );
-    return res.data;
-  },
-  getGroupDetails: async (chatId: string) => {
-    const res = await axiosInstance().post(
-      `${process.env.NEXT_PUBLIC_USER_URL}/chat/group/details`,
-      {
-        chatId,
-      },
-    );
-    return res.data;
-  },
-  removeFromGroupChat: async (data: { chatId: string; userId: string }) => {
-    const res = await axiosInstance().delete(
-      `${process.env.NEXT_PUBLIC_USER_URL}/chat/group`,
-      {
-        data,
-      },
-    );
-    return res.data;
-  },
-  loginasUser: async (id: string) => {
-    const res = await axiosInstance().get(
-      `${process.env.NEXT_PUBLIC_USER_URL}/user/loginas/${id}`,
     );
     return res.data;
   },

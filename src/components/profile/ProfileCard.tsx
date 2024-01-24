@@ -94,7 +94,7 @@ const ProfileCard: React.FC<getUserDataTypes> = ({
               {fullName}{" "}
             </h4>
             <div className="flex items-center gap-3">
-              <MessageButton />
+              <MessageButton _id={_id} />
               {!ownProfile && (
                 <>
                   <button
