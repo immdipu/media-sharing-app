@@ -1,3 +1,4 @@
+import { MessageTypes } from "./ApiResponseTypes";
 import { RoomTypes } from "./room";
 import { ActivityType, roomActivityTypes } from "./roomActivity";
 
@@ -79,3 +80,16 @@ export interface IRemoveActivity {
   userId: string;
   adminId: string;
 }
+
+export enum updateMessageTypes {
+  "UPDATE_SENT_MESSAGE" = "UPDATE_SENT_MESSAGE",
+  "UPDATE_DELIVERED_MESSAGE" = "UPDATE_DELIVERED_MESSAGE",
+  "UPDATE_SEEN_MESSAGE" = "UPDATE_SEEN_MESSAGE",
+}
+
+export interface IUpdateSentMessage {
+  type: updateMessageTypes.UPDATE_SENT_MESSAGE;
+  message: MessageTypes;
+}
+
+export type updateMessageDataTypes = IUpdateSentMessage;

@@ -1,30 +1,20 @@
-export type chatMessageTypes =
-  | "text"
-  | "image"
-  | "video"
-  | "audio"
-  | "document"
-  | "location"
-  | "sticker"
-  | "gif"
-  | "contact"
-  | "poll"
-  | "other";
-
-interface chatUserTypes {
-  _id: string;
-  fullName: string;
-  username: string;
-  profilePic: string;
+export enum chatContentTypes {
+  text = "text",
+  image = "image",
+  video = "video",
+  audio = "audio",
+  document = "document",
+  location = "location",
+  contact = "contact",
 }
 
-export interface ChatMessageTypes {
+export interface ChatMessageTextTypes {
   chatId: string;
-  type: chatMessageTypes;
+  type: chatContentTypes.text;
   content: string;
-  sender: chatUserTypes;
+  senderId: string;
   createdAt: string;
   tempId?: string;
 }
 
-export type SingleFollowerTypes = chatMessageTypes;
+export type ChatMessageTypes = ChatMessageTextTypes;

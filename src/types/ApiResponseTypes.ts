@@ -32,6 +32,24 @@ export interface GetAllChatsTypes {
   data: SingleGetAllChatTypes[];
 }
 
+export interface MessageTypes {
+  _id: string;
+  chatId: string;
+  type: string;
+  content: string;
+  sender: {
+    _id: string;
+    fullName: string;
+    username: string;
+    profilePic: string;
+  };
+  isEmoji: boolean;
+  status: string;
+  reaction: [];
+  createdAt: string;
+  tempId?: string;
+}
+
 export interface SingleGetChatTypes {
   success: boolean;
   message: string;
@@ -44,7 +62,7 @@ export interface SingleGetChatTypes {
         username: string;
         profilePic: string;
       };
+      messages: MessageTypes[];
     };
-    messages: any;
   };
 }

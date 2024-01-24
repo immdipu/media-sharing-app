@@ -8,10 +8,14 @@ import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { useSocket } from "@/context/SocketProvider";
 import { useParams } from "next/navigation";
-import { ChatMessageTypes } from "@/types/chatTypes";
-import { randomUUID } from "crypto";
+import { ChatMessageTypes, chatContentTypes } from "@/types/chatTypes";
+import { MessageTypes } from "@/types/ApiResponseTypes";
 
-const MessageInput = () => {
+interface MessageInputProps {
+  setMessages: React.Dispatch<React.SetStateAction<MessageTypes[]>>;
+}
+
+const MessageInput: React.FC<MessageInputProps> = ({ setMessages }) => {
   const [showEmoji, setShowEmoji] = useState(false);
   const [message, setMessage] = useState("");
   const { id } = useParams();
@@ -21,22 +25,35 @@ const MessageInput = () => {
 
   const handleSend = () => {
     if (!message || message.trim() === "" || !user || !socket) return;
-    setMessage("");
     const randomId = Math.floor(Math.random() * 100000000000000);
     let messageData: ChatMessageTypes = {
       chatId: id as unknown as string,
-      type: "text",
+      type: chatContentTypes.text,
       content: message,
-      sender: {
-        _id: user.id!,
-        username: user.username!,
-        profilePic: user.profilePic!,
-        fullName: user.fullName!,
-      },
+      senderId: user.id!,
       createdAt: new Date().toISOString(),
       tempId: randomId.toString(),
     };
+    setMessages((prev: any) => {
+      return [
+        ...prev,
+        {
+          _id: randomId.toString(),
+          content: message,
+          createdAt: new Date().toISOString(),
+          type: chatContentTypes.text,
+          tempId: messageData.tempId,
+          sender: {
+            _id: user.id!,
+            fullName: user.fullName!,
+            profilePic: user.profilePic!,
+            username: user.username!,
+          } as any,
+        },
+      ];
+    });
     EmitCustomEvent("send-message-in-chat", messageData);
+    setMessage("");
   };
 
   return (
