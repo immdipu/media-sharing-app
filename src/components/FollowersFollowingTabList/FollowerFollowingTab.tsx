@@ -12,11 +12,13 @@ import ListTab from "./ListTab";
 interface FollowerFollowingTabProps {
   followers: number;
   following: number;
+  _id: string;
 }
 
 const FollowerFollowingTab: React.FC<FollowerFollowingTabProps> = ({
   followers = 0,
   following = 0,
+  _id,
 }) => {
   const Followers = (
     <div>
@@ -49,11 +51,10 @@ const FollowerFollowingTab: React.FC<FollowerFollowingTabProps> = ({
           <div>{Followers}</div>
         </div>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="border-secondary-color bg-Main-background">
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription>
-            <ListTab />
+            <ListTab _id={_id} />
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

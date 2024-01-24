@@ -1,34 +1,32 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { SingleFollowerTypes } from "@/types/ApiResponseTypes";
+import useFollow from "@/hooks/useFollow";
+import useFollowStatus from "@/hooks/useFollowStatus";
+import { useAppSelector } from "@/hooks/reduxHooks";
 
-interface SingleUserListProps {
-  _id: string;
-  fullName: string;
-  username: string;
-  profilePic: string;
-  role: string;
-  status: string;
-  updateFollow: any;
-  user: any;
-  localIsFollowing: boolean;
-  setLocalIsFollowing: any;
-}
-
-const SingleUserList: React.FC<SingleUserListProps> = ({
+const SingleUserList: React.FC<SingleFollowerTypes> = ({
   _id,
   fullName,
-  localIsFollowing,
+  isAFollower,
+  isFollowing: following,
   profilePic,
-  role,
-  setLocalIsFollowing,
-  status,
-  updateFollow,
-  user,
   username,
 }) => {
+  const { handleFollow, isFollowing, setIsFollowing } = useFollow();
+  const { status } = useFollowStatus({ isFollowing, isAFollower });
+  const user = useAppSelector((state) => state.auth);
+
+  useLayoutEffect(() => {
+    if (following) {
+      setIsFollowing(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [following]);
+
   return (
-    <div className=" flex items-center  justify-between px-4 py-2 transition-colors duration-200 ease-linear hover:bg-neutral-900">
+    <div className=" flex items-center  justify-between rounded-md px-4 py-2 transition-colors duration-200 ease-linear hover:bg-Secondary-background">
       <Link
         className="flex  w-full items-center  space-x-2"
         key={_id}
@@ -44,7 +42,7 @@ const SingleUserList: React.FC<SingleUserListProps> = ({
         </div>
 
         <div>
-          <h1 className="font-Helvetica  items-center text-base font-normal capitalize text-neutral-200">
+          <h1 className=" items-center text-sm font-normal capitalize text-Header-primary">
             {fullName}{" "}
             {/* {role === Role.admin && (
               <span className="border-_light_white ml-5 inline-block rounded-full border border-opacity-40 bg-neutral-800 px-2 py-[1px] text-xs text-neutral-400">
@@ -52,7 +50,7 @@ const SingleUserList: React.FC<SingleUserListProps> = ({
               </span>
             )} */}
           </h1>
-          <h4 className="text-xs font-normal tracking-wide text-neutral-400">
+          <h4 className="text-xs font-light tracking-wide text-paragraph-secondary">
             @{username}
           </h4>
         </div>
@@ -61,10 +59,10 @@ const SingleUserList: React.FC<SingleUserListProps> = ({
         <div className="shrink-0">
           <button
             onClick={() => {
-              updateFollow.mutate(_id);
-              setLocalIsFollowing(!localIsFollowing);
+              setIsFollowing(!following);
+              handleFollow(_id, "user");
             }}
-            className="border-_welcometext_lightblue w-fit rounded-full border px-2 py-1 text-xs font-normal text-neutral-400 hover:text-neutral-200"
+            className=" rounded-full border px-2 py-1 text-xs font-normal text-paragraph-secondary transition-all duration-300 ease-in-out hover:text-Paragraph-primary"
           >
             {status}
           </button>

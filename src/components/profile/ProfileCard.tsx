@@ -159,6 +159,7 @@ const ProfileCard: React.FC<getUserDataTypes> = ({
               <FollowersFollowingTab
                 followers={followers}
                 following={following}
+                _id={_id}
               />
             </div>
           </section>

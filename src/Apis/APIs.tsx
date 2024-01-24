@@ -13,6 +13,7 @@ import {
 } from "@/types/userTypes";
 import { RoomTypes } from "@/types/room";
 import { YouTubeVideo } from "@/types/Youtube";
+import { GetAllFollowersTypes } from "@/types/ApiResponseTypes";
 
 export const userApis = {
   GoogleLogin: async (token: string) => {
@@ -111,6 +112,19 @@ export const userApis = {
       {
         otherUserId: userId,
       },
+    );
+    return res.data;
+  },
+
+  getAllFollowers: async (userId: string): Promise<GetAllFollowersTypes> => {
+    const res = await axiosInstance().get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/user/followers/${userId}`,
+    );
+    return res.data;
+  },
+  getAllFollowing: async (userId: string): Promise<GetAllFollowersTypes> => {
+    const res = await axiosInstance().get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/user/following/${userId}`,
     );
     return res.data;
   },

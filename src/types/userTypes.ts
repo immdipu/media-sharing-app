@@ -95,6 +95,7 @@ export interface FollowFollowersTypes {
   isAFollower: boolean;
   role: Role;
 }
+
 export interface FollowFollowingList {
   followers: FollowFollowersTypes[];
   following: FollowFollowersTypes[];
