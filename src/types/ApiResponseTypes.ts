@@ -31,3 +31,20 @@ export interface GetAllChatsTypes {
   message: string;
   data: SingleGetAllChatTypes[];
 }
+
+export interface SingleGetChatTypes {
+  success: boolean;
+  message: string;
+  data: {
+    chat: {
+      _id: string;
+      user: {
+        _id: string;
+        fullName: string;
+        username: string;
+        profilePic: string;
+      };
+    };
+    messages: any;
+  };
+}

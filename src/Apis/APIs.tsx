@@ -16,6 +16,7 @@ import { YouTubeVideo } from "@/types/Youtube";
 import {
   GetAllChatsTypes,
   GetAllFollowersTypes,
+  SingleGetChatTypes,
 } from "@/types/ApiResponseTypes";
 
 export const userApis = {
@@ -138,6 +139,15 @@ export const userApis = {
       {
         otherUserId: userId,
       },
+    );
+    return res.data;
+  },
+
+  getSingleChatByChatId: async (
+    chatId: string,
+  ): Promise<SingleGetChatTypes> => {
+    const res = await axiosInstance().get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/chat/one-chat/${chatId}`,
     );
     return res.data;
   },

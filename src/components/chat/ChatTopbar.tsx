@@ -3,19 +3,29 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoSearchOutline } from "react-icons/io5";
 
-const ChatTopbar = () => {
+interface ChatTopBarProps {
+  profilePic: string;
+  username: string;
+  fullName: string;
+}
+
+const ChatTopbar: React.FC<ChatTopBarProps> = ({
+  fullName,
+  profilePic,
+  username,
+}) => {
   return (
     <div className="h-16 bg-Secondary-background">
       <div className="flex h-full items-center justify-between px-6">
         <div className="flex items-center">
           <Avatar className="h-12 w-12">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src={profilePic} />
+            <AvatarFallback>{username}</AvatarFallback>
           </Avatar>
 
           <div className="ml-2 flex flex-col">
             <span className="text-Secondary-text text-base font-medium text-Header-primary">
-              Arya Stark
+              {fullName}
             </span>
             <span className="text-sm font-normal text-paragraph-secondary">
               Online
