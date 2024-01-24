@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { memo } from "react";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { useParams } from "next/navigation";
 import { userApis } from "@/Apis/APIs";
@@ -14,6 +14,7 @@ const Profile = () => {
   const { data, isLoading, error } = useQuery(
     ["getUser", params.username, user.isUserAuthenticated],
     () => userApis.GetUserProfile(params.username as string),
+    { enabled: user.isUserAuthenticated },
   );
 
   if (!user.isUserAuthenticated) {

@@ -19,6 +19,7 @@ const ProfileEdit: React.FC<getUserDataTypes> = ({
   profilePic,
   username,
   email,
+  isAFollower,
 }) => {
   const queryClient = useQueryClient(),
     [initialUser, setInitialUser] = useState<getUserDataTypes>({
@@ -33,6 +34,7 @@ const ProfileEdit: React.FC<getUserDataTypes> = ({
       username,
       email,
       bio,
+      isAFollower,
     }),
     [user, setuser] = useState<getUserDataTypes>({
       ...initialUser,

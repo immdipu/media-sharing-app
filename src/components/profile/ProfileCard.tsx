@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, memo } from "react";
 import { BsCalendar2Week } from "react-icons/bs";
 import { HiMail } from "react-icons/hi";
 import { getUserDataTypes } from "@/types/userTypes";
@@ -30,17 +31,15 @@ const ProfileCard: React.FC<getUserDataTypes> = ({
   username,
   email,
 }) => {
-  const user = useAppSelector((state) => state.auth);
   const { handleFollow, isFollowing, setIsFollowing } = useFollow();
   const { status } = useFollowStatus({ isFollowing, isAFollower });
-
   const [showFullImage, setShowFullImage] = React.useState<boolean>(false);
 
   useLayoutEffect(() => {
     if (isfollowing) {
       setIsFollowing(isfollowing);
     }
-  }, [status, isfollowing, setIsFollowing]);
+  }, [isfollowing]);
 
   //   const createAccessChat = useMutation(
   //     (id: string) => userApis.createAccessChat(id),
