@@ -12,12 +12,14 @@ const ReceiverText = ({
   date,
   senderPicture,
   senderId,
+  username,
 }: {
   lastMessageFromSameSender: boolean;
   senderId: string;
   message: string;
   date: string;
   senderPicture: string;
+  username: string;
 }) => {
   const isOnline = false;
   return (
@@ -57,8 +59,8 @@ const ReceiverText = ({
           <UserAvatarWithPopOver
             ImageLink={senderPicture}
             className="h-6 w-6"
-            username={"immdipu"}
-            fallback="Dipu"
+            username={username}
+            fallback={username}
           />
           <div
             className={clsx(

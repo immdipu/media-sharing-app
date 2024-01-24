@@ -8,6 +8,10 @@ import { useParams } from "next/navigation";
 import ChatTopbar from "@/components/chat/ChatTopbar";
 import { useSocket } from "@/context/SocketProvider";
 import { MessageTypes } from "@/types/ApiResponseTypes";
+import {
+  updateMessageDataTypes,
+  updateMessageTypes,
+} from "@/types/socketTypes";
 
 const Message = () => {
   const { id } = useParams();
@@ -24,10 +28,22 @@ const Message = () => {
       console.log(data);
     });
 
-    socket.on("update-message-in-chat", (data) => {
-      console.log("update-message-in-chat", data);
+    EmitCustomEvent("join-single-chat", {
+      chatId: id,
     });
-  }, [socket]);
+
+    socket.on("update-message-in-chat", (data: updateMessageDataTypes) => {
+      if (data.type === updateMessageTypes.UPDATE_SENT_MESSAGE) {
+        setMessages((prev) => {
+          let newMessages = prev.filter(
+            (message) => message.tempId !== data.message.tempId,
+          );
+          return [...newMessages, data.message];
+        });
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket, id]);
 
   useEffect(() => {
     if (!data) return;

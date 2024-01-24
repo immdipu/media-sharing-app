@@ -32,6 +32,7 @@ const AllMessages = ({ Messages }: { Messages: MessageTypes[] }) => {
               date={message.createdAt}
               senderPicture={message.sender.profilePic}
               senderId={message.sender._id}
+              username={message.sender.username}
             />
           );
         }
