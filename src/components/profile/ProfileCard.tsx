@@ -1,18 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useLayoutEffect, memo } from "react";
+import React, { useLayoutEffect } from "react";
 import { BsCalendar2Week } from "react-icons/bs";
 import { HiMail } from "react-icons/hi";
 import { getUserDataTypes } from "@/types/userTypes";
 import moment from "moment";
-import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useAppSelector } from "@/hooks/reduxHooks";
 import dynamic from "next/dynamic";
 import useFollow from "@/hooks/useFollow";
 import useFollowStatus from "@/hooks/useFollowStatus";
+
+const MessageButton = dynamic(
+  () => import("@/components/profile/MessageButton"),
+);
 
 const FollowersFollowingTab = dynamic(
   () => import("@/components/FollowersFollowingTabList/FollowerFollowingTab"),
@@ -93,6 +94,7 @@ const ProfileCard: React.FC<getUserDataTypes> = ({
               {fullName}{" "}
             </h4>
             <div className="flex items-center gap-3">
+              <MessageButton />
               {!ownProfile && (
                 <>
                   <button
