@@ -1,11 +1,9 @@
 "use client";
-import React, { useEffect } from "react";
-import Image from "next/image";
+import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 

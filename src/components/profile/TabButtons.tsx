@@ -41,7 +41,7 @@ const TabButtons: React.FC<TabButtonsProps> = ({
                 );
               }}
               className={clsx(
-                "hover:text-btn-primary h-fit cursor-pointer rounded-md px-2  py-1 text-sm  transition-all duration-200 ease-linear hover:opacity-90 hover:shadow-lg max-md:text-xs",
+                "h-fit cursor-pointer rounded-md px-2 py-1  text-sm transition-all  duration-200 ease-linear hover:text-btn-primary hover:opacity-90 hover:shadow-lg max-md:text-xs",
                 activeTab === item.split(" ").join("").toLowerCase()
                   ? "bg-btn-primary text-btn-primary"
                   : "",

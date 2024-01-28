@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import data, { Emoji } from "@emoji-mart/data";
+import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import uniqid from "uniqid";
 import MessageSendButon from "../Buttons/MessageSendButon";
