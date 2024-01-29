@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import { ReactionTypes, RoomMessageTypes } from "@/types/room";
+import React from "react";
+import { RoomMessageTypes } from "@/types/room";
 import SingleMessageWrapper from "./organism/SingleMessageWrapper";
 
 interface SingleMessageProps extends RoomMessageTypes {
