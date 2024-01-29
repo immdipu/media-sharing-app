@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import OtherUserPlayer from "@/components/YoutubePlayer/OtherUserPlayer";
 import OtherUserExcalidraw from "@/components/Excalidraw/OtherUserExcalidraw";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
