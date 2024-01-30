@@ -1,6 +1,4 @@
-import React, { ReactNode } from "react";
-import { MdReply } from "react-icons/md";
-import { ImReply } from "react-icons/im";
+import React from "react";
 import { IconType } from "react-icons";
 import { cn } from "@/lib/utils";
 
