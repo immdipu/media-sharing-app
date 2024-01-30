@@ -3,7 +3,6 @@
 import clsx from "clsx";
 import React from "react";
 import moment from "moment";
-import { useAppSelector } from "@/hooks/reduxHooks";
 import UserAvatarWithPopOver from "@/components/Resuable/UserAvatarWithPopOver";
 
 const ReceiverText = ({
