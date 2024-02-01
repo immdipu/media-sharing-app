@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import MessageInput from "../MessageInput";
 import AllMessages from "./AllMessages";
 import { userApis } from "@/Apis/APIs";
