@@ -44,7 +44,7 @@ const Chat = () => {
           })}
       </section>
       <section className="h-14   ">
-        <MessageInput />
+        <MessageInput MessageType="ROOM" />
       </section>
     </div>
   );

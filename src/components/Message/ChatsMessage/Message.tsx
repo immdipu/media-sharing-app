@@ -65,7 +65,7 @@ const Message = () => {
         {Messages && Messages?.length > 0 && (
           <AllMessages Messages={Messages} />
         )}
-        <MessageInput setMessages={setMessages} />
+        <MessageInput setMessages={setMessages} MessageType="CHAT" />
       </div>
     </>
   );

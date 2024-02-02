@@ -4,6 +4,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { LeaveRoom } from "@/redux/slice/roomSlice";
 import { AddNewRoom, StopRoomJoiningLoader } from "@/redux/slice/roomSlice";
 import { usePathname } from "next/navigation";
 import { RoomTypes } from "@/types/room";
@@ -90,6 +91,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
           roomId: JoinedRoom.id,
           userId: user.id,
         });
+        dispatch(LeaveRoom());
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

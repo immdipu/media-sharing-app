@@ -45,6 +45,11 @@ export const roomSlice = createSlice({
       state.RoomChat = null;
     },
 
+    LeaveRoom: (state) => {
+      state.JoinedRoom = null;
+      state.RoomChat = null;
+    },
+
     AddMessage: (state, action: PayloadAction<RoomChatTypes>) => {
       if (state.RoomChat) {
         state.RoomChat.push(action.payload);
@@ -121,6 +126,7 @@ export const roomSlice = createSlice({
 export const {
   AddNewRoom,
   JoinRoom,
+  LeaveRoom,
   AddAllRoom,
   AddMessage,
   AddNewMemeberToTheRoom,
