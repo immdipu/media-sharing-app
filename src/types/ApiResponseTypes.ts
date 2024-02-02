@@ -17,13 +17,13 @@ export interface SingleGetAllChatTypes {
   _id: string;
   createdAt: string;
   unreadMessagesCount: number;
-  lastMessage: string;
-  user: {
+  lastMessage?: {
     _id: string;
-    fullName: string;
-    username: string;
-    profilePic: string;
+    chatId: string;
+    content: string;
+    sender: userType;
   };
+  user: userType;
 }
 
 export interface GetAllChatsTypes {
@@ -37,12 +37,7 @@ export interface MessageTypes {
   chatId: string;
   type: string;
   content: string;
-  sender: {
-    _id: string;
-    fullName: string;
-    username: string;
-    profilePic: string;
-  };
+  sender: userType;
   isEmoji: boolean;
   status: string;
   reaction: [];

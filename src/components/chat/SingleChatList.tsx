@@ -39,8 +39,7 @@ const SingleChatList: React.FC<SingleGetAllChatTypes> = ({
         </div>
 
         <p className="ml-2 mt-px line-clamp-1 select-none text-xs font-light text-Paragraph-primary">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-          voluptates, quas, voluptatibus repellendus, quos eum
+          {lastMessage?.content}
         </p>
       </div>
     </div>

@@ -34,20 +34,28 @@ const Message = () => {
 
     socket.on("update-message-in-chat", (data: updateMessageDataTypes) => {
       if (data.type === updateMessageTypes.UPDATE_SENT_MESSAGE) {
-        setMessages((prev) => {
-          let newMessages = prev.filter(
-            (message) => message.tempId !== data.message.tempId,
-          );
-          return [...newMessages, data.message];
-        });
+        if (data.message.chatId === id) {
+          setMessages((prev) => {
+            let newMessages = prev.filter(
+              (message) => message.tempId !== data.message.tempId,
+            );
+            return [...newMessages, data.message];
+          });
+        }
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      if (socket) {
+        socket.off("new-message-in-chat");
+        socket.off("update-message-in-chat");
+      }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket, id]);
 
   useEffect(() => {
     if (!data) return;
-    console.log("chat details", data);
     setMessages(data.data.chat.messages);
   }, [data]);
 
