@@ -50,18 +50,20 @@ export interface MessageTypes {
   tempId?: string;
 }
 
+export interface userType {
+  _id: string;
+  fullName: string;
+  username: string;
+  profilePic: string;
+}
+
 export interface SingleGetChatTypes {
   success: boolean;
   message: string;
   data: {
     chat: {
       _id: string;
-      user: {
-        _id: string;
-        fullName: string;
-        username: string;
-        profilePic: string;
-      };
+      user: userType;
       messages: MessageTypes[];
     };
   };

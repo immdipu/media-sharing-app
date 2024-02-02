@@ -13,6 +13,7 @@ export interface ChatMessageTextTypes {
   type: chatContentTypes.text;
   content: string;
   senderId: string;
+  to: string;
   createdAt: string;
   tempId?: string;
 }

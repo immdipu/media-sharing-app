@@ -47,6 +47,7 @@ const Message = () => {
 
   useEffect(() => {
     if (!data) return;
+    console.log("chat details", data);
     setMessages(data.data.chat.messages);
   }, [data]);
 
@@ -65,7 +66,11 @@ const Message = () => {
         {Messages && Messages?.length > 0 && (
           <AllMessages Messages={Messages} />
         )}
-        <MessageInput setMessages={setMessages} MessageType="CHAT" />
+        <MessageInput
+          receiver={data?.data?.chat?.user}
+          setMessages={setMessages}
+          MessageType="CHAT"
+        />
       </div>
     </>
   );

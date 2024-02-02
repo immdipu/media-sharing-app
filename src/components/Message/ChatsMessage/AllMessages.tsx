@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import Messages from "@/components/FakeData/Messages.json";
+import React, { useEffect } from "react";
 import SenderText from "./SenderText";
 import ReceiverText from "./ReceiverText";
 import { MessageTypes } from "@/types/ApiResponseTypes";
@@ -9,8 +8,18 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 const AllMessages = ({ Messages }: { Messages: MessageTypes[] }) => {
   const user = useAppSelector((state) => state.auth);
 
+  useEffect(() => {
+    const messageContainer = document.querySelector(".Messages");
+    if (messageContainer) {
+      messageContainer.scrollTo({
+        top: messageContainer.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [Messages.length]);
+
   return (
-    <div className=" MessageContainer my-3 h-full w-full overflow-y-scroll  px-2 pl-12 pr-16 ">
+    <div className="MessageContainer Messages my-3 h-full w-full overflow-y-scroll  px-2 pl-12 pr-16 ">
       {Messages.map((message, index) => {
         const lastMessageFromSameSender =
           index > 0 && Messages[index - 1].sender._id === message.sender._id;

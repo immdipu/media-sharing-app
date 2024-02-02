@@ -9,17 +9,19 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 import { useSocket } from "@/context/SocketProvider";
 import { useParams } from "next/navigation";
 import { ChatMessageTypes, chatContentTypes } from "@/types/chatTypes";
-import { MessageTypes } from "@/types/ApiResponseTypes";
+import { MessageTypes, userType } from "@/types/ApiResponseTypes";
 import { Role } from "@/types/role";
 
 interface MessageInputProps {
   setMessages?: React.Dispatch<React.SetStateAction<MessageTypes[]>>;
   MessageType: "ROOM" | "CHAT";
+  receiver?: userType;
 }
 
 const MessageInput: React.FC<MessageInputProps> = ({
   setMessages,
   MessageType,
+  receiver,
 }) => {
   const [showEmoji, setShowEmoji] = useState(false);
   const [message, setMessage] = useState("");
@@ -51,16 +53,16 @@ const MessageInput: React.FC<MessageInputProps> = ({
         },
       };
       EmitCustomEvent("send-message-in-room", messageData);
-      return setMessage("");
     }
 
-    if (MessageType === "CHAT" && setMessages) {
+    if (MessageType === "CHAT" && setMessages && receiver) {
       const randomId = Math.floor(Math.random() * 100000000000000);
       let messageData: ChatMessageTypes = {
         chatId: id as unknown as string,
         type: chatContentTypes.text,
         content: message,
         senderId: user.id!,
+        to: receiver?._id,
         createdAt: new Date().toISOString(),
         tempId: randomId.toString(),
       };
@@ -82,8 +84,9 @@ const MessageInput: React.FC<MessageInputProps> = ({
           },
         ];
       });
-      return EmitCustomEvent("send-message-in-chat", messageData);
+      EmitCustomEvent("send-message-in-chat", messageData);
     }
+    return setMessage("");
   };
 
   return (
