@@ -51,6 +51,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <section>
+      {AutoLogin.isLoading && (
+        <section>
+          <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-Secondary-background bg-opacity-50">
+            <div>
+              <div className="h-14 w-14 animate-spin rounded-full border-b-2 border-t-2 border-primary-color"></div>
+              <div className="text-center text-Header-primary">
+                You are being logged in...
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
       {showModal && (
         <Dialog modal open>
           <DialogOverlay className="bg-Overlay-background " />

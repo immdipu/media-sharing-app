@@ -109,6 +109,8 @@ const JoinedSingleRoom = () => {
           }
         }
 
+        console.log("new message", data);
+
         dispatch(AddMessage(data));
       });
       ListenCustomEvent("room-update", (data: RoomUpdateResponseTypes) => {
