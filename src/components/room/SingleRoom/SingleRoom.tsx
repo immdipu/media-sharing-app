@@ -60,6 +60,10 @@ const SingleRoom = () => {
     });
   };
 
+  if (JoinedRoom && user?.id && JoinedRoom?.bannedUsers?.includes(user.id)) {
+    return <KickedOut />;
+  }
+
   if (
     verifying ||
     !JoinedRoom?.members?.find((member) => member?._id === user?.id)
@@ -80,10 +84,6 @@ const SingleRoom = () => {
         </section>
       </div>
     );
-
-  if (JoinedRoom && user?.id && JoinedRoom?.bannedUsers?.includes(user.id)) {
-    return <KickedOut />;
-  }
 
   return <JoinedSingleRoom />;
 };
