@@ -7,7 +7,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import ChatTopbar from "@/components/chat/ChatTopbar";
 import { useSocket } from "@/context/SocketProvider";
-import { MessageTypes } from "@/types/ApiResponseTypes";
+import { LoadAllMessages, AddNewMessage } from "@/redux/slice/chatSlice";
+import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
+import dynamic from "next/dynamic";
+const RightSidebar = dynamic(
+  () => import("@/components/Message/ChatsMessage/RightSidebar"),
+);
+
 import {
   updateMessageDataTypes,
   updateMessageTypes,
@@ -15,9 +21,10 @@ import {
 
 const Message = () => {
   const { id } = useParams();
+  const dispatch = useAppDispatch();
   const { socket, EmitCustomEvent } = useSocket();
-  const [Messages, setMessages] = useState<MessageTypes[]>([]);
-  const [showRightBar, setShowRightBar] = useState(false);
+
+  const { Messages, showRightSidebar } = useAppSelector((state) => state.chat);
 
   const { data, isLoading, error } = useQuery(["getSingleChat", id], () =>
     userApis.getSingleChatByChatId(id as unknown as string),
@@ -36,12 +43,7 @@ const Message = () => {
     socket.on("update-message-in-chat", (data: updateMessageDataTypes) => {
       if (data.type === updateMessageTypes.UPDATE_SENT_MESSAGE) {
         if (data.message.chatId === id) {
-          setMessages((prev) => {
-            let newMessages = prev.filter(
-              (message) => message.tempId !== data.message.tempId,
-            );
-            return [...newMessages, data.message];
-          });
+          dispatch(AddNewMessage(data.message));
         }
       }
     });
@@ -57,7 +59,7 @@ const Message = () => {
 
   useEffect(() => {
     if (!data) return;
-    setMessages(data.data.chat.messages);
+    dispatch(LoadAllMessages(data.data.chat.messages));
   }, [data]);
 
   if (isLoading) return <div>loading</div>;
@@ -79,14 +81,11 @@ const Message = () => {
             )}
             <MessageInput
               receiver={data?.data?.chat?.user}
-              setMessages={setMessages}
               MessageType="CHAT"
             />
           </div>
         </section>
-        <section className="h-screen w-96 shrink-0 bg-Secondary-background">
-          <p>This is a fucking hellf</p>
-        </section>
+        <RightSidebar />
       </div>
     </>
   );

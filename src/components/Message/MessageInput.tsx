@@ -11,15 +11,15 @@ import { useParams } from "next/navigation";
 import { ChatMessageTypes, chatContentTypes } from "@/types/chatTypes";
 import { MessageTypes, userType } from "@/types/ApiResponseTypes";
 import { Role } from "@/types/role";
+import { useAppDispatch } from "@/hooks/reduxHooks";
+import { AddNewMessage } from "@/redux/slice/chatSlice";
 
 interface MessageInputProps {
-  setMessages?: React.Dispatch<React.SetStateAction<MessageTypes[]>>;
   MessageType: "ROOM" | "CHAT";
   receiver?: userType;
 }
 
 const MessageInput: React.FC<MessageInputProps> = ({
-  setMessages,
   MessageType,
   receiver,
 }) => {
@@ -27,6 +27,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
   const [message, setMessage] = useState("");
   const { id } = useParams();
   const user = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const { socket, EmitCustomEvent } = useSocket();
 
@@ -55,7 +56,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
       EmitCustomEvent("send-message-in-room", messageData);
     }
 
-    if (MessageType === "CHAT" && setMessages && receiver) {
+    if (MessageType === "CHAT" && receiver) {
       const randomId = Math.floor(Math.random() * 100000000000000);
       let messageData: ChatMessageTypes = {
         chatId: id as unknown as string,
@@ -66,24 +67,25 @@ const MessageInput: React.FC<MessageInputProps> = ({
         createdAt: new Date().toISOString(),
         tempId: randomId.toString(),
       };
-      setMessages((prev: any) => {
-        return [
-          ...prev,
-          {
-            _id: randomId.toString(),
-            content: message,
-            createdAt: new Date().toISOString(),
-            type: chatContentTypes.text,
-            tempId: messageData.tempId,
-            sender: {
-              _id: user.id!,
-              fullName: user.fullName!,
-              profilePic: user.profilePic!,
-              username: user.username!,
-            } as any,
+      dispatch(
+        AddNewMessage({
+          _id: randomId.toString(),
+          chatId: id as unknown as string,
+          content: message,
+          createdAt: new Date().toISOString(),
+          isEmoji: false,
+          sender: {
+            _id: user.id!,
+            fullName: user.fullName!,
+            profilePic: user.profilePic!,
+            username: user.username!,
           },
-        ];
-      });
+          reaction: [],
+          status: "sending",
+          type: chatContentTypes.text,
+          tempId: randomId.toString(),
+        }),
+      );
       EmitCustomEvent("send-message-in-chat", messageData);
     }
     return setMessage("");

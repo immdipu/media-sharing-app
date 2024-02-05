@@ -2,6 +2,8 @@ import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoSearchOutline } from "react-icons/io5";
+import { useAppDispatch } from "@/hooks/reduxHooks";
+import { ToggleRightSidebar } from "@/redux/slice/chatSlice";
 
 interface ChatTopBarProps {
   profilePic: string;
@@ -14,6 +16,7 @@ const ChatTopbar: React.FC<ChatTopBarProps> = ({
   profilePic,
   username,
 }) => {
+  const dispatch = useAppDispatch();
   return (
     <div className="h-16 bg-Secondary-background">
       <div className="flex h-full items-center justify-between px-6">
@@ -37,7 +40,12 @@ const ChatTopbar: React.FC<ChatTopBarProps> = ({
             <button className=" mr-9 grid h-9 w-9 shrink-0 place-content-center rounded-full  duration-300 hover:bg-secondary-hover">
               <IoSearchOutline className="text-xl text-neutral-300" />
             </button>
-            <button className="shrink-0 rounded-full border border-secondary-color bg-Secondary-background p-2 transition-transform duration-150 ease-linear hover:bg-Main-background active:scale-75  ">
+            <button
+              onClick={() => {
+                dispatch(ToggleRightSidebar());
+              }}
+              className="shrink-0 rounded-full border border-secondary-color bg-Secondary-background p-2 transition-transform duration-150 ease-linear hover:bg-Main-background active:scale-75  "
+            >
               <BsThreeDotsVertical className="text-lg text-neutral-300" />
             </button>
           </div>

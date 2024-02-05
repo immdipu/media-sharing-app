@@ -22,7 +22,7 @@ const AllMessages = ({ Messages }: { Messages: MessageTypes[] }) => {
     <div className="MessageContainer Messages my-5 h-full w-full overflow-y-scroll  px-2 pl-12 pr-16 ">
       {Messages.map((message, index) => {
         const lastMessageFromSameSender =
-          index > 0 && Messages[index - 1].sender._id === message.sender._id;
+          index > 0 && Messages[index - 1].sender._id === message?.sender._id;
         if (message.sender._id === user?.id) {
           return (
             <SenderText
