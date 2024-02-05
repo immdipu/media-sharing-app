@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ChatSearch from "@/components/chat/ChatSearch";
 import SingleChatList from "@/components/chat/SingleChatList";
 import { useQuery } from "@tanstack/react-query";
 import { userApis } from "@/Apis/APIs";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { LoadAllChats } from "@/redux/slice/chatSlice";
 
 const MessageSidebar = () => {
+  const dispatch = useAppDispatch();
+  const { AllChats } = useAppSelector((state) => state.chat);
   const { data, isLoading, error } = useQuery(["getAllChats"], () =>
     userApis.getUserChatList(),
   );
+
+  useEffect(() => {
+    if (data) {
+      dispatch(LoadAllChats(data.data));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error || !data) return <div>Something went wrong</div>;
@@ -22,9 +33,8 @@ const MessageSidebar = () => {
           All Chats
         </h1>
         <section className="chatScroll MessageContainer mt-2 flex h-[83vh] flex-col gap-2  overflow-y-auto">
-          {data.data.map((item) => (
-            <SingleChatList key={item._id} {...item} />
-          ))}
+          {AllChats.length > 0 &&
+            AllChats.map((item) => <SingleChatList key={item._id} {...item} />)}
         </section>
       </div>
     </div>

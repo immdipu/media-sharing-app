@@ -1,13 +1,19 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { MessageTypes } from "@/types/ApiResponseTypes";
+import {
+  GetAllChatsTypes,
+  MessageTypes,
+  SingleGetAllChatTypes,
+} from "@/types/ApiResponseTypes";
 interface initialStateProps {
   showRightSidebar: boolean;
   Messages: MessageTypes[];
+  AllChats: SingleGetAllChatTypes[];
 }
 
 const initialState: initialStateProps = {
   showRightSidebar: false,
   Messages: [],
+  AllChats: [],
 };
 
 export const chatSlice = createSlice({
@@ -16,6 +22,9 @@ export const chatSlice = createSlice({
   reducers: {
     ToggleRightSidebar: (state) => {
       state.showRightSidebar = !state.showRightSidebar;
+    },
+    LoadAllChats: (state, action: PayloadAction<SingleGetAllChatTypes[]>) => {
+      state.AllChats = action.payload;
     },
     LoadAllMessages: (state, action: PayloadAction<MessageTypes[]>) => {
       state.Messages = action.payload;
@@ -29,6 +38,10 @@ export const chatSlice = createSlice({
   },
 });
 
-export const { ToggleRightSidebar, LoadAllMessages, AddNewMessage } =
-  chatSlice.actions;
+export const {
+  ToggleRightSidebar,
+  LoadAllMessages,
+  AddNewMessage,
+  LoadAllChats,
+} = chatSlice.actions;
 export default chatSlice.reducer;
