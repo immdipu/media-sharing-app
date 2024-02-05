@@ -17,6 +17,7 @@ const Message = () => {
   const { id } = useParams();
   const { socket, EmitCustomEvent } = useSocket();
   const [Messages, setMessages] = useState<MessageTypes[]>([]);
+  const [showRightBar, setShowRightBar] = useState(false);
 
   const { data, isLoading, error } = useQuery(["getSingleChat", id], () =>
     userApis.getSingleChatByChatId(id as unknown as string),
@@ -65,20 +66,27 @@ const Message = () => {
 
   return (
     <>
-      <ChatTopbar
-        fullName={data?.data.chat.user.fullName}
-        profilePic={data?.data?.chat?.user?.profilePic}
-        username={data?.data.chat.user.username}
-      />
-      <div className="flex h-[calc(100vh-64px)] w-full flex-col overflow-hidden bg-Main-background pb-2">
-        {Messages && Messages?.length > 0 && (
-          <AllMessages Messages={Messages} />
-        )}
-        <MessageInput
-          receiver={data?.data?.chat?.user}
-          setMessages={setMessages}
-          MessageType="CHAT"
-        />
+      <div className="flex w-full">
+        <section className=" w-full">
+          <ChatTopbar
+            fullName={data?.data.chat.user.fullName}
+            profilePic={data?.data?.chat?.user?.profilePic}
+            username={data?.data.chat.user.username}
+          />
+          <div className="flex h-[calc(100vh-64px)] w-full flex-col overflow-hidden  bg-Main-background pb-2 ">
+            {Messages && Messages?.length > 0 && (
+              <AllMessages Messages={Messages} />
+            )}
+            <MessageInput
+              receiver={data?.data?.chat?.user}
+              setMessages={setMessages}
+              MessageType="CHAT"
+            />
+          </div>
+        </section>
+        <section className="h-screen w-96 shrink-0 bg-Secondary-background">
+          <p>This is a fucking hellf</p>
+        </section>
       </div>
     </>
   );

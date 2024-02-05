@@ -1,5 +1,4 @@
 import React from "react";
-import ChatTopbar from "@/components/chat/ChatTopbar";
 import Message from "@/components/Message/ChatsMessage/Message";
 
 const page = () => {
