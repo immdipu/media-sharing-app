@@ -5,11 +5,16 @@ import React, { createContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { LeaveRoom } from "@/redux/slice/roomSlice";
+import { AddNewMessage } from "@/redux/slice/chatSlice";
 import { AddNewRoom, StopRoomJoiningLoader } from "@/redux/slice/roomSlice";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { RoomTypes } from "@/types/room";
 import { useToast } from "@/components/ui/use-toast";
 import { IAddActivity, IRemoveActivity } from "@/types/socketTypes";
+import {
+  updateMessageDataTypes,
+  updateMessageTypes,
+} from "@/types/socketTypes";
 
 interface SocketContextProps {
   socket: Socket | null;
@@ -36,6 +41,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const [socket, setSocket] = useState<Socket | null>(null);
   const pathanme = usePathname();
+  const URLParams = useParams();
   const dispatch = useAppDispatch();
   const [isOnline, setIsOnline] = useState(false);
   const { toast } = useToast();
@@ -94,8 +100,23 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
         dispatch(LeaveRoom());
       }
     }
+
+    socket.on("update-message-in-chat", (data: updateMessageDataTypes) => {
+      if (data.type === updateMessageTypes.UPDATE_SENT_MESSAGE) {
+        if (pathanme.includes("chat") && data.message.chatId === URLParams.id) {
+          dispatch(AddNewMessage(data.message));
+        }
+      }
+    });
+
+    return () => {
+      if (socket) {
+        socket.off("update-message-in-chat");
+      }
+    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathanme]);
+  }, [pathanme, URLParams.id, socket]);
 
   const EmitCustomEvent = (event: string, data: any) => {
     if (socket) {

@@ -6,60 +6,27 @@ import { userApis } from "@/Apis/APIs";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import ChatTopbar from "@/components/chat/ChatTopbar";
-import { useSocket } from "@/context/SocketProvider";
-import { LoadAllMessages, AddNewMessage } from "@/redux/slice/chatSlice";
+import { LoadAllMessages } from "@/redux/slice/chatSlice";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import dynamic from "next/dynamic";
 const RightSidebar = dynamic(
   () => import("@/components/Message/ChatsMessage/RightSidebar"),
 );
 
-import {
-  updateMessageDataTypes,
-  updateMessageTypes,
-} from "@/types/socketTypes";
-
 const Message = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const { socket, EmitCustomEvent } = useSocket();
 
-  const { Messages, showRightSidebar } = useAppSelector((state) => state.chat);
+  const { Messages } = useAppSelector((state) => state.chat);
 
   const { data, isLoading, error } = useQuery(["getSingleChat", id], () =>
     userApis.getSingleChatByChatId(id as unknown as string),
   );
 
   useEffect(() => {
-    if (!socket) return;
-    socket.on("new-message-in-chat", (data) => {
-      console.log(data);
-    });
-
-    EmitCustomEvent("join-single-chat", {
-      chatId: id,
-    });
-
-    socket.on("update-message-in-chat", (data: updateMessageDataTypes) => {
-      if (data.type === updateMessageTypes.UPDATE_SENT_MESSAGE) {
-        if (data.message.chatId === id) {
-          dispatch(AddNewMessage(data.message));
-        }
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    return () => {
-      if (socket) {
-        socket.off("new-message-in-chat");
-        socket.off("update-message-in-chat");
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [socket, id]);
-
-  useEffect(() => {
     if (!data) return;
     dispatch(LoadAllMessages(data.data.chat.messages));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   if (isLoading) return <div>loading</div>;
