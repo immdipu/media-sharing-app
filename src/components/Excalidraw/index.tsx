@@ -28,7 +28,7 @@ const Excalidraws = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
   const { isMySharedActivity } = useUserRoomActivity();
-  // const { toast } = useToast();
+  const { toast } = useToast();
   const isMySharedDrawing = JoinedRoom?.roomActivity.find(
     (activity) => activity.admin._id === user?.id,
   );
