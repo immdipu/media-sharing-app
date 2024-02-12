@@ -25,10 +25,10 @@ const Excalidraws = () => {
   const { media, setIsSharing } = useContext(RoomContext);
   const previousElementsRef = useRef<any>();
   const { socket, AddActivity, EmitCustomEvent, RoomUpdate } = useSocket();
-  const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
-  const user = useAppSelector((state) => state.auth);
-  const { isMySharedActivity } = useUserRoomActivity();
-  const { toast } = useToast();
+  // const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
+  // const user = useAppSelector((state) => state.auth);
+  // const { isMySharedActivity } = useUserRoomActivity();
+  // const { toast } = useToast();
   const isMySharedDrawing = JoinedRoom?.roomActivity.find(
     (activity) => activity.admin._id === user?.id,
   );
