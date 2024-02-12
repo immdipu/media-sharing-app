@@ -22,7 +22,7 @@ import clsx from "clsx";
 const Excalidraws = () => {
   const [Excalidraw, setExcalidraw] =
     useState<ComponentType<ExcalidrawProps> | null>(null);
-  const { media, setIsSharing, OthersSelected } = useContext(RoomContext);
+  const { media, setIsSharing } = useContext(RoomContext);
   const previousElementsRef = useRef<any>();
   const { socket, AddActivity, EmitCustomEvent, RoomUpdate } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
