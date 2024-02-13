@@ -11,13 +11,13 @@ import { useToast } from "../ui/use-toast";
 import { MainMenu } from "@excalidraw/excalidraw";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { useAppSelector, useSocket, useUserRoomActivity } from "@/hooks";
-import {
-  ActivityType,
-  IGetActivityTypes,
-  IAddActivity,
-  IRemoveActivity,
-} from "@/types";
-import clsx from "clsx";
+// import {
+//   ActivityType,
+//   IGetActivityTypes,
+//   IAddActivity,
+//   IRemoveActivity,
+// } from "@/types";
+// import clsx from "clsx";
 
 const Excalidraws = () => {
   const [Excalidraw, setExcalidraw] =
