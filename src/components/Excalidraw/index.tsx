@@ -33,15 +33,15 @@ const Excalidraws = () => {
     (activity) => activity.admin._id === user?.id,
   );
 
-  const AmIwatchingMyDrawing = isMySharedDrawing?.users?.find(
-    (u) => u._id === user?.id,
-  );
+  // const AmIwatchingMyDrawing = isMySharedDrawing?.users?.find(
+  //   (u) => u._id === user?.id,
+  // );
 
-  useEffect(() => {
-    import("@excalidraw/excalidraw").then((comp) =>
-      setExcalidraw(comp.Excalidraw),
-    );
-  }, []);
+  // useEffect(() => {
+  //   import("@excalidraw/excalidraw").then((comp) =>
+  //     setExcalidraw(comp.Excalidraw),
+  //   );
+  // }, []);
 
   useEffect(() => {
     if (!socket) return;
