@@ -2,8 +2,7 @@ import React, { useLayoutEffect } from "react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SingleFollowerTypes } from "@/types/ApiResponseTypes";
-import useFollow from "@/hooks/useFollow";
-import useFollowStatus from "@/hooks/useFollowStatus";
+import { useFollow, useFollowStatus } from "@/hooks";
 import { useAppSelector } from "@/hooks/reduxHooks";
 
 const SingleUserList: React.FC<SingleFollowerTypes> = ({
