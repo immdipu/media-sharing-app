@@ -22,19 +22,12 @@ import clsx from "clsx";
 const Excalidraws = () => {
   const [Excalidraw, setExcalidraw] =
     useState<ComponentType<ExcalidrawProps> | null>(null);
-  const { isSharing, media, setIsSharing, OthersSelected } =
-    useContext(RoomContext);
+  const { media, setIsSharing, OthersSelected } = useContext(RoomContext);
   const previousElementsRef = useRef<any>();
   const { socket, AddActivity, EmitCustomEvent, RoomUpdate } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
-  const {
-    AmIWatchingActivity,
-    AmIWatchingMyActivity,
-    AmIWatchingOtherActivity,
-    isMySharedActivity,
-    userJoinedActivity,
-  } = useUserRoomActivity();
+  const { isMySharedActivity, userJoinedActivity } = useUserRoomActivity();
   const { toast } = useToast();
   const isMySharedDrawing = JoinedRoom?.roomActivity.find(
     (activity) => activity.admin._id === user?.id,
