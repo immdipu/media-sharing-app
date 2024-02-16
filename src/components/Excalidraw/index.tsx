@@ -6,12 +6,11 @@ import React, {
   useRef,
   useContext,
 } from "react";
-import { useSocket } from "@/context/SocketProvider";
 import { ExcalidrawProps } from "@excalidraw/excalidraw/types/types";
 import { useToast } from "../ui/use-toast";
 import { MainMenu } from "@excalidraw/excalidraw";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
-import { useAppSelector } from "@/hooks/reduxHooks";
+import { useAppSelector, useSocket } from "@/hooks";
 import {
   ActivityType,
   IGetActivityTypes,
