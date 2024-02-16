@@ -7,7 +7,11 @@ import {
   IjoinedRoomResponse,
 } from "./socketTypes";
 import { ChatMessageTypes, chatContentTypes } from "@/types/chatTypes";
-import { ActivityType, roomActivityTypes } from "./roomActivity";
+import {
+  ActivityType,
+  roomActivityTypes,
+  IGetActivityTypes,
+} from "./roomActivity";
 import { ActivityTypes } from "./room";
 import { userType } from "./ApiResponseTypes";
 import { Role } from "./role";
@@ -24,4 +28,5 @@ export type {
   ChatMessageTypes,
   userType,
   roomActivityTypes,
+  IGetActivityTypes,
 };

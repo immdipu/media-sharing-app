@@ -11,9 +11,13 @@ import { ExcalidrawProps } from "@excalidraw/excalidraw/types/types";
 import { useToast } from "../ui/use-toast";
 import { MainMenu } from "@excalidraw/excalidraw";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
-import { IAddActivity, IRemoveActivity } from "@/types/socketTypes";
 import { useAppSelector } from "@/hooks/reduxHooks";
-import { ActivityType, IGetActivityTypes } from "@/types/roomActivity";
+import {
+  ActivityType,
+  IGetActivityTypes,
+  IAddActivity,
+  IRemoveActivity,
+} from "@/types";
 import clsx from "clsx";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 
