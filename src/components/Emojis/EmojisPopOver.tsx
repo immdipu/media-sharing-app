@@ -27,7 +27,6 @@ const EmojisPopOver: React.FC<EmojisPopOverProps> = ({
 }) => {
   const user = useAppSelector((state) => state.auth);
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
-  const messages = useAppSelector((state) => state.room.RoomChat);
   const { EmitCustomEvent } = useSocket();
 
   const handleClick = (code: string) => {
