@@ -7,7 +7,6 @@ import {
 import Emoji from "./Emoji";
 import { EmojisCollection } from "@/lib/constants";
 import { useAppSelector, useSocket } from "@/hooks";
-import { Role } from "@/types";
 import uniqid from "uniqid";
 import clsx from "clsx";
 import { ReactionTypes } from "@/types/room";
