@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/popover";
 import Emoji from "./Emoji";
 import { EmojisCollection } from "@/lib/constants";
-import { useAppDispatch, useAppSelector, useSocket } from "@/hooks";
+import { useAppSelector, useSocket } from "@/hooks";
 import { Role } from "@/types";
 import uniqid from "uniqid";
 import clsx from "clsx";
