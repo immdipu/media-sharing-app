@@ -5,6 +5,7 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 
 const UsersTab = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
+  const id = useAppSelector((state) => state.auth.id);
 
   return (
     <div className="h-full pt-5">
@@ -16,10 +17,25 @@ const UsersTab = () => {
           return <UserCardList key={index} {...user} roomRole="moderator" />;
         })}
         {JoinedRoom?.members?.map((user, index) => {
+          const isSelf = user._id === id;
           if (user._id === JoinedRoom.admin._id) {
-            return <UserCardList key={index} {...user} roomRole="admin" />;
+            return (
+              <UserCardList
+                self={isSelf}
+                key={index}
+                {...user}
+                roomRole="admin"
+              />
+            );
           }
-          return <UserCardList key={index} {...user} roomRole="member" />;
+          return (
+            <UserCardList
+              self={isSelf}
+              key={index}
+              {...user}
+              roomRole="member"
+            />
+          );
         })}
       </section>
     </div>

@@ -20,8 +20,18 @@ const UserListOptionCard = dynamic(() => import("./UserListOptionCard"), {
   ),
 });
 
+const UserAvatarWithPopOver = dynamic(
+  () => import("../Resuable/UserAvatarWithPopOver"),
+  {
+    loading: () => (
+      <div className="flex h-10 w-10 animate-pulse rounded-full bg-Main-background" />
+    ),
+  },
+);
+
 interface UserCardListProps extends membersTypes {
   roomRole: "admin" | "moderator" | "member";
+  self?: boolean;
 }
 
 const UserCardList: React.FC<UserCardListProps> = ({
@@ -31,16 +41,16 @@ const UserCardList: React.FC<UserCardListProps> = ({
   username,
   verified,
   roomRole,
+  self,
 }) => {
   const user = useAppSelector((state) => state.auth);
   return (
     <div className="flex px-4 py-3 hover:bg-secondary-hover">
-      <Avatar className="h-10 w-10">
-        <AvatarImage src={profilePic} />
-        <AvatarFallback className="uppercase">
-          {fullName.slice(0, 2)}
-        </AvatarFallback>
-      </Avatar>
+      <UserAvatarWithPopOver
+        ImageLink={profilePic}
+        fallback={fullName.slice(0, 2)}
+        username={username}
+      />
       <div className="ml-2 flex-1 ">
         <h1 className="font-Helvetica flex  items-center  text-sm font-normal  text-Paragraph-primary">
           <p className="mr-2 overflow-hidden overflow-ellipsis whitespace-nowrap  ">
@@ -50,8 +60,13 @@ const UserCardList: React.FC<UserCardListProps> = ({
             Admin
           </span> */}
           {roomRole === "admin" && (
+            <span className="ml-1 inline-block rounded-full border border-primary-color bg-green-500  px-2 py-[2px] text-xs leading-none text-Header-secondary ">
+              Owner
+            </span>
+          )}
+          {self && (
             <span className="ml-1 inline-block rounded-full border border-primary-color   bg-Input-background  px-2 py-[2px] text-xs leading-none text-Header-secondary ">
-              owner
+              You
             </span>
           )}
         </h1>
