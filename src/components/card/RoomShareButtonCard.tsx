@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { roomActivityTypes } from "@/types/roomActivity";
 import clsx from "clsx";
 import { useAppSelector, useSocket } from "@/hooks";
-import { useContext } from "react";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { ActivityType as IActivityTypes, ActivityTypes } from "@/types";
 
