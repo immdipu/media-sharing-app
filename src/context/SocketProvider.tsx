@@ -8,7 +8,7 @@ import { LeaveRoom } from "@/redux/slice/roomSlice";
 import { AddNewMessage } from "@/redux/slice/chatSlice";
 import { AddNewRoom, StopRoomJoiningLoader } from "@/redux/slice/roomSlice";
 import { useParams, usePathname } from "next/navigation";
-import { RoomTypes } from "@/types/room";
+import { ActivityTypes, RoomTypes } from "@/types/room";
 import { useToast } from "@/components/ui/use-toast";
 import { IAddActivity, IRemoveActivity } from "@/types/socketTypes";
 import {
@@ -23,7 +23,7 @@ interface SocketContextProps {
   ListenCustomEvent: (event: string, callback: (data: any) => void) => void;
   CloseCustomEvent: (event: string, callback: (data: any) => void) => void;
   AddActivity: (data: IAddActivity) => void;
-  RoomUpdate: (data: IRemoveActivity) => void;
+  RoomUpdate: (data: ActivityTypes) => void;
 }
 
 const SocketContext = createContext<SocketContextProps>({
@@ -142,7 +142,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const RoomUpdate = (data: IRemoveActivity) => {
+  const RoomUpdate = (data: ActivityTypes) => {
     if (socket) {
       socket.emit("room-update", data);
     }

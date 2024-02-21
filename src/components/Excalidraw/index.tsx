@@ -15,6 +15,7 @@ import { IAddActivity, IRemoveActivity } from "@/types/socketTypes";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { ActivityType, IGetActivityTypes } from "@/types/roomActivity";
 import clsx from "clsx";
+import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 
 const Excalidraws = () => {
   const [Excalidraw, setExcalidraw] =
@@ -25,17 +26,16 @@ const Excalidraws = () => {
   const { socket, AddActivity, EmitCustomEvent, RoomUpdate } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
+  const {
+    AmIWatchingActivity,
+    AmIWatchingMyActivity,
+    AmIWatchingOtherActivity,
+    isMySharedActivity,
+    userJoinedActivity,
+  } = useUserRoomActivity();
   const { toast } = useToast();
   const isMySharedDrawing = JoinedRoom?.roomActivity.find(
     (activity) => activity.admin._id === user?.id,
-  );
-
-  const AmWatchingthirdPartyDrawing = !!JoinedRoom?.roomActivity.find(
-    (activity) => {
-      return activity.users?.find(
-        (u) => u._id === user?.id && activity.admin._id !== user?.id,
-      );
-    },
   );
 
   const AmIwatchingMyDrawing = isMySharedDrawing?.users?.find(
@@ -74,7 +74,7 @@ const Excalidraws = () => {
 
   const handleShare = () => {
     if (!Excalidraw || !JoinedRoom || !user.id) return;
-    if (isSharing) {
+    if (!!isMySharedActivity) {
       let activity = JoinedRoom?.roomActivity.find(
         (item) => item.admin._id === user?.id,
       );
@@ -86,7 +86,7 @@ const Excalidraws = () => {
         return;
       }
       // stop sharing
-      setIsSharing(false);
+
       let RemoveActivity: IRemoveActivity = {
         type: "REMOVE_ACTIVITY",
         activityId: activity.id,
@@ -97,7 +97,6 @@ const Excalidraws = () => {
       console.log("RemoveActivity :", RemoveActivity);
       RoomUpdate(RemoveActivity);
     } else {
-      setIsSharing(true);
       const NewActivityData: IAddActivity = {
         type: ActivityType.Drawing,
         room: JoinedRoom?.id,
@@ -113,16 +112,8 @@ const Excalidraws = () => {
   return (
     <div className="w-full">
       <section className="h-[80vh]">
-        <div
-          className={clsx(
-            "h-full",
-            !!!isMySharedDrawing && "block",
-            !!isMySharedDrawing && AmIwatchingMyDrawing && "opacity-100",
-            !!isMySharedDrawing && !AmIwatchingMyDrawing && "opacity-0",
-            OthersSelected && "hidden opacity-0",
-          )}
-        >
-          {Excalidraw && !OthersSelected && (
+        <div className={clsx("h-full")}>
+          {Excalidraw && (
             <Excalidraw
               onChange={(excalidrawElements, appState, files) => {
                 // if (
@@ -138,7 +129,7 @@ const Excalidraws = () => {
                 //   });
                 // }
                 previousElementsRef.current = excalidrawElements;
-                if (!isSharing) return;
+                if (!!!isMySharedActivity) return;
                 EmitCustomEvent("Activity-state-server", {
                   activityId: isMySharedDrawing?.id,
                   data: {
@@ -151,7 +142,7 @@ const Excalidraws = () => {
                   onClick={handleShare}
                   className="flex w-full items-center justify-center rounded-md border bg-neutral-200 px-2"
                 >
-                  {isSharing ? <>Sharing</> : <>share</>}
+                  {!!isMySharedActivity ? <>Sharing</> : <>share</>}
                 </button>
               )}
             >

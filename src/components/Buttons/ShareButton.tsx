@@ -13,6 +13,7 @@ import { useToast } from "../ui/use-toast";
 import { BiArrowBack } from "react-icons/bi";
 import { IAddActivity, IRemoveActivity } from "@/types/socketTypes";
 import { ActivityType } from "@/types/roomActivity";
+import { ActivityTypes } from "@/types/room";
 
 const ShareButton = ({ backButton = false }: { backButton?: boolean }) => {
   const { AddActivity, RoomUpdate } = useSocket();
@@ -44,7 +45,7 @@ const ShareButton = ({ backButton = false }: { backButton?: boolean }) => {
         return;
       }
 
-      let Remove: IRemoveActivity = {
+      let Remove: ActivityTypes = {
         type: "REMOVE_ACTIVITY",
         activityId: activity.id,
         roomId: JoinedRoom.id,

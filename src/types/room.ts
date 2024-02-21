@@ -63,7 +63,10 @@ export interface RoomMessageTypes {
 }
 
 export interface ActivityTypes {
-  type: "ADD_MEMBER_FROM_ACTIVITY" | "REMOVE_MEMBER_FROM_ACTIVITY";
+  type:
+    | "ADD_MEMBER_FROM_ACTIVITY"
+    | "REMOVE_MEMBER_FROM_ACTIVITY"
+    | "REMOVE_ACTIVITY";
   activityId: string;
   roomId: string;
   userId: string;
