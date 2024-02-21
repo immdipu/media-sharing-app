@@ -15,6 +15,7 @@ interface initialStateProps {
   JoinedRoom: RoomTypes | null;
   RoomChat: RoomChatTypes[] | null;
   RoomJoiningLoader: boolean;
+  StreamingLink: string | null;
 }
 
 const initialState: initialStateProps = {
@@ -22,6 +23,7 @@ const initialState: initialStateProps = {
   JoinedRoom: null,
   RoomChat: null,
   RoomJoiningLoader: false,
+  StreamingLink: null,
 };
 
 export const roomSlice = createSlice({
@@ -113,6 +115,9 @@ export const roomSlice = createSlice({
         state.JoinedRoom.roomActivity = newActivities;
       }
     },
+    AddStreamingLink: (state, action: PayloadAction<string>) => {
+      state.StreamingLink = action.payload;
+    },
 
     StopRoomJoiningLoader: (state) => {
       state.RoomJoiningLoader = false;
@@ -137,5 +142,6 @@ export const {
   UpdateAnActivity,
   DeleteAnActivity,
   UpdateAllActivity,
+  AddStreamingLink,
 } = roomSlice.actions;
 export default roomSlice.reducer;

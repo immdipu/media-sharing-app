@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import ReactPlayer from "react-player";
+import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
+import { useAppSelector } from "@/hooks";
 
-const index = () => {
-  return <div>index</div>;
+const VideoStreamer = () => {
+  const { media, VideoStreamer } = useContext(RoomContext);
+  const { StreamingLink } = useAppSelector((state) => state.room);
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  return (
+    <div className="h-full w-full ">
+      <ReactPlayer
+        ref={VideoStreamer}
+        controls
+        url={StreamingLink || ""}
+        width={"100%"}
+        height={"100%"}
+      />
+    </div>
+  );
 };
 
-export default index;
+export default VideoStreamer;

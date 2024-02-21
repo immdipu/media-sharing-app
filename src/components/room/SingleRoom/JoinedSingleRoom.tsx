@@ -39,6 +39,7 @@ interface RoomContextTypes {
   OtherSelectedChanged: boolean;
   setOtherSelectedChanged: React.Dispatch<React.SetStateAction<boolean>>;
   YoutubePlayer?: any;
+  VideoStreamer?: any;
   OtherYouTubePlayer: any;
   OtherExcalidraw: any;
 }
@@ -61,6 +62,7 @@ let intialState: RoomContextTypes = {
   OtherSelectedChanged: false,
   setOtherSelectedChanged: () => {},
   YoutubePlayer: null,
+  VideoStreamer: null,
   OtherYouTubePlayer: null,
   OtherExcalidraw: null,
 };
@@ -75,7 +77,6 @@ const JoinedSingleRoom = () => {
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const [media, setMedia] = useState<ActivityType | null>(null);
   const [othermedia, setOtherMedia] = useState<ActivityType | null>(null);
-
   const [isMyActivityShowing, setIsMyActivityShowing] =
     React.useState<ActivityType | null>(null);
   const [isSharing, setIsSharing] = React.useState(false);
@@ -83,11 +84,11 @@ const JoinedSingleRoom = () => {
   const [OthersSelected, setOthersSelected] = useState<boolean>(false);
   const [OtherSelectedChanged, setOtherSelectedChanged] =
     React.useState<boolean>(false);
-
   const dispatch = useAppDispatch();
   const YoutubePlayer = useRef<any | null>(null);
   const OtherYouTubePlayer = useRef<any | null>(null);
   const OtherExcalidraw = useRef<any | null>(null);
+  const VideoStreamer = useRef<any | null>(null);
 
   useEffect(() => {
     if (!socket) return;
@@ -162,12 +163,13 @@ const JoinedSingleRoom = () => {
         setOtherMedia,
         OtherYouTubePlayer,
         OtherExcalidraw,
+        VideoStreamer,
       }}
     >
       <div className="flex min-h-screen justify-start   max-md:relative max-md:overflow-hidden">
         <div className="h-full w-full">
           <section className="h-[80vh]">
-            {/* <MyActivity /> */}
+            <MyActivity />
             {/* <OtherActivity /> */}
           </section>
           <section className="flex h-[18vh] items-end justify-center gap-2 ">

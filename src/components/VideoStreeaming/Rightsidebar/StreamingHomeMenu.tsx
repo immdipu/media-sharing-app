@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BackButton from "@/components/Buttons/BackButton";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ShareButton from "@/components/Buttons/ShareButton";
+import { RoomContext } from "@/components/room/SingleRoom/JoinedSingleRoom";
+import { useAppDispatch } from "@/hooks";
+import { AddStreamingLink } from "@/redux/slice/roomSlice";
 
 const StreamingHomeMenu = () => {
+  const { VideoStreamer } = React.useContext(RoomContext);
+  const [StreamingLink, setStreamingLink] = React.useState<string>("");
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const link = localStorage.getItem("streamingLink");
+    if (link) {
+      setStreamingLink(link);
+      dispatch(AddStreamingLink(link));
+    }
+  }, []);
+
   return (
     <div>
       <section className="mx-1 flex items-center gap-4  p-2">
@@ -21,13 +36,24 @@ const StreamingHomeMenu = () => {
             Add Video Link
           </h3>
           <Input
+            value={StreamingLink}
+            onChange={(e) => setStreamingLink(e.target.value)}
             placeholder="Paste the link here..."
             className="mt-2 w-full bg-secondary-hover placeholder:text-paragraph-secondary"
             type="text"
           />
         </section>
         <section className="mt-6 flex flex-col gap-3 ">
-          <Button className="bg-button-background  text-button-primary">
+          <Button
+            disabled={StreamingLink.trim() === ""}
+            className="bg-button-background  text-button-primary"
+            onClick={() => {
+              if (VideoStreamer.current) {
+                localStorage.setItem("streamingLink", StreamingLink);
+                dispatch(AddStreamingLink(StreamingLink));
+              }
+            }}
+          >
             Play Video
           </Button>
           <ShareButton

@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
-import { useContext } from "react";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
-import { useSocket } from "@/context/SocketProvider";
 import clsx from "clsx";
-import useUserRoomActivity from "@/hooks/useUserRoomActivity";
+import { useUserRoomActivity, useSocket } from "@/hooks";
 import { ActivityType, IGetActivityTypes } from "@/types/roomActivity";
 
 const YoutubePlayer = () => {

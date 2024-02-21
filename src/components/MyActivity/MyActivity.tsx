@@ -5,6 +5,7 @@ import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { ActivityType } from "@/types/roomActivity";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 import clsx from "clsx";
+import VideoStreamer from "../VideoStreeaming";
 
 const MyActivity = () => {
   const { media } = useContext(RoomContext);
@@ -23,8 +24,9 @@ const MyActivity = () => {
           : "h-[80vh]",
       )}
     >
-      {media === ActivityType.YouTube && <YouTubePlayer />}
-      {media === ActivityType.Drawing && <Excalidraws />}
+      {/* {media === ActivityType.YouTube && <YouTubePlayer />}
+      {media === ActivityType.Drawing && <Excalidraws />} */}
+      {media === ActivityType.Streaming && <VideoStreamer />}
     </div>
   );
 };
