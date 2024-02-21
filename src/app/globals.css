@@ -105,7 +105,7 @@
 .tooltip[data-tooltip-position="top"]::before {
 
     left: 50%;
-    top: -4rem;
+    top: -2.4rem;
     transform: translate(-50%, 0) scale(var(--scale));
     transition: transform 0.1s ease-in-out;
     transform-origin: bottom center;
@@ -124,8 +124,8 @@
 
 .tooltip[data-tooltip-position="top"]::after {
     left: 50%;
-    top: -4rem;
-    transform: translate(-50%, 30px) scale(var(--scale));
+    top: -2.4rem;
+    transform: translate(-50%, 26px) scale(var(--scale));
     border: var(--arrow-size) solid transparent;
     border-top-color: var(--tooltip-background-color);
     transition: transform 0.1s ease-in-out;

@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import useDebounce from "@/hooks/useDebounce";
 import { MagnifyingGlass } from "react-loader-spinner";
 import YouTubeVideoCard from "../card/YouTubeVideoCard";
-import ShareButton from "../Buttons/ShareButton";
+import ShareButton from "../Buttons/YouTubeShareButton";
 import { YouTubeVideo } from "@/types/Youtube";
 import "./YouTubeSearch.css";
 
