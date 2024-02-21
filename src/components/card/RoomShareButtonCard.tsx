@@ -78,7 +78,6 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
             }
           }
           if (ActivityType === IActivityTypes.Drawing) {
-            console.log("Activity-state-sync", data);
             if (data?.data?.elements) {
               localStorage.setItem("excalidraw", JSON.stringify(data?.data));
               if (OtherExcalidraw.current) {
@@ -94,7 +93,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
               GET_MEDIA_DETAILS_RESPONSERef.current = data;
               return;
             }
-            console.log("GET_MEDIA_DETAILS_RESPONSE", data);
+
             if (data?.data?.VideoId) {
               OtherYouTubePlayer.current?.loadVideoById({
                 videoId: data?.data?.VideoId,
@@ -139,7 +138,6 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       new Promise((resolve) => setTimeout(resolve, 3000)).then(() => {
         if (ActivityType === IActivityTypes.YouTube) {
           if (data?.data?.VideoId) {
-            console.log("video Id", data?.data?.VideoId);
             OtherYouTubePlayer.current?.loadVideoById({
               videoId: data?.data?.VideoId,
               startSeconds: data?.data?.time || 0,

@@ -107,8 +107,6 @@ export const roomSlice = createSlice({
       action: PayloadAction<ActivityDeleteResponseTypes>,
     ) => {
       if (state.JoinedRoom) {
-        console.log("all activities", state.JoinedRoom.roomActivity);
-        console.log("activity id", action.payload.activityId);
         let newActivities = state.JoinedRoom.roomActivity.filter(
           (activity) => activity.id !== action.payload.activityId,
         );

@@ -112,8 +112,6 @@ const JoinedSingleRoom = () => {
         dispatch(AddMessage(data));
       });
       ListenCustomEvent("room-update", (data: RoomUpdateResponseTypes) => {
-        console.log("room-update", data);
-
         if (data.type === "EditRoom") {
           dispatch(UpdateRoom(data.room));
         }

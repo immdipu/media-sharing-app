@@ -94,7 +94,7 @@ const Excalidraws = () => {
         userId: user.id!,
         adminId: activity.admin._id,
       };
-      console.log("RemoveActivity :", RemoveActivity);
+
       RoomUpdate(RemoveActivity);
     } else {
       const NewActivityData: IAddActivity = {

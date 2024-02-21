@@ -24,8 +24,6 @@ const MediaClose = () => {
         onClick={() => {
           setMedia(null);
           if (!!isMySharedActivity) {
-            console.log("isMySharedActivity", isMySharedActivity);
-            console.log("isMySharedActivityExist", !!isMySharedActivity);
             RoomUpdate({
               type: "REMOVE_ACTIVITY",
               roomId: JoinedRoom?.id || "",

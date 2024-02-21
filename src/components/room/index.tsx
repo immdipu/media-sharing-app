@@ -33,8 +33,6 @@ const Room: React.FC<RoomTypes> = ({
     return EmtpyCards;
   };
 
-  console.log("roomType", roomType);
-
   return (
     <div className=" flex w-full flex-col rounded-xl   border border-neutral-500 bg-neutral-700 px-5 py-2">
       <h4 className="mb-3 flex items-center gap-2 font-medium text-neutral-50">
