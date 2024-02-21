@@ -35,8 +35,15 @@ const Room: React.FC<RoomTypes> = ({
 
   return (
     <div className=" flex w-full flex-col rounded-xl   border border-neutral-500 bg-neutral-700 px-5 py-2">
-      <h4 className="mb-3 flex items-center gap-2 font-medium text-neutral-50">
-        <TitleLogo color="#ffffff" opacity={0.2} /> {name}{" "}
+      <div className="mb-3 flex items-center gap-2 font-medium text-neutral-50">
+        <TitleLogo color="#ffffff" opacity={0.2} />{" "}
+        <p
+          data-tooltip={name}
+          data-tooltip-position="top"
+          className="tooltip line-clamp-1 block  w-full max-w-xs overflow-hidden  truncate "
+        >
+          {name}
+        </p>{" "}
         <div
           data-tooltip={`${roomType} room`}
           data-tooltip-position="top"
@@ -56,7 +63,7 @@ const Room: React.FC<RoomTypes> = ({
         <p className="text-xs font-light text-paragraph-secondary">
           {moment(createdAt).fromNow()}
         </p>
-      </h4>
+      </div>
       <section className="flex gap-1 overflow-clip">
         {members &&
           members.length > 0 &&

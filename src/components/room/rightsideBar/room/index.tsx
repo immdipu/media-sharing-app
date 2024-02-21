@@ -13,9 +13,9 @@ const RoomTab = () => {
   const currentUser = useAppSelector((state) => state.auth);
   return (
     <div className="flex h-full flex-col">
-      <section className=" mt-2 flex flex-col items-center justify-center">
+      <section className="  mt-2 flex flex-col items-center  justify-center">
         <RoomIcon color="#ffffff" opacity={0.2} height={90} width={90} />
-        <h3 className="text-xl font-medium capitalize text-Header-primary">
+        <h3 className=" tooltip line-clamp-1 overflow-hidden px-5 text-center text-xl font-medium capitalize text-Header-primary">
           {JoinedRoom?.name}
         </h3>
       </section>

@@ -24,8 +24,8 @@ const MyActivity = () => {
           : "h-[80vh]",
       )}
     >
-      {/* {media === ActivityType.YouTube && <YouTubePlayer />}
-      {media === ActivityType.Drawing && <Excalidraws />} */}
+      {media === ActivityType.YouTube && <YouTubePlayer />}
+      {media === ActivityType.Drawing && <Excalidraws />}
       {media === ActivityType.Streaming && <VideoStreamer />}
     </div>
   );

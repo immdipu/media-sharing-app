@@ -8,7 +8,7 @@ import { useAppDispatch } from "@/hooks";
 import { AddStreamingLink } from "@/redux/slice/roomSlice";
 
 const StreamingHomeMenu = () => {
-  const { VideoStreamer } = React.useContext(RoomContext);
+  const { VideoStreamer, setMedia } = React.useContext(RoomContext);
   const [StreamingLink, setStreamingLink] = React.useState<string>("");
   const dispatch = useAppDispatch();
 
@@ -25,7 +25,7 @@ const StreamingHomeMenu = () => {
       <section className="mx-1 flex items-center gap-4  p-2">
         <BackButton
           onClick={() => {
-            console.log("back button clicked");
+            setMedia(null);
           }}
         />
         <h3 className="text-lg font-medium text-Header-secondary">Streaming</h3>
