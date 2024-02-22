@@ -10,7 +10,7 @@ const SideBarToggleButton = () => {
       onClick={() => {
         GlobalContext?.setShowSidebar(!GlobalContext.showSider);
       }}
-      className="ml-4 hidden h-full w-fit rounded-full p-2  active:bg-neutral-600  max-md:block"
+      className="hidden h-full w-fit rounded-full border p-2  active:bg-neutral-600  max-md:block"
     >
       <BsTextLeft className=" text-2xl text-neutral-300" />
     </button>

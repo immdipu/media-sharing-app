@@ -1,6 +1,4 @@
 import { Input } from "@/components/ui/input";
-import Room from "@/components/room";
-import Dialog from "@/components/Dialog";
 import CreateRoom from "@/components/createRoom";
 import Avatar from "@/components/Avatar/Avatar";
 import RoomCard from "@/components/room/RoomCard";
@@ -10,7 +8,6 @@ export default function Home() {
   return (
     <section className="min-h-screen w-full  bg-Main-background">
       <br />
-
       <div className="flex items-center justify-end ">
         <div className="w-full max-md:hidden" />
         <SideBarToggleButton />

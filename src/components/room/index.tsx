@@ -40,7 +40,7 @@ const Room: React.FC<RoomTypes> = ({
         <p
           data-tooltip={name}
           data-tooltip-position="top"
-          className="tooltip line-clamp-1 block  w-full max-w-xs overflow-hidden  truncate "
+          className="tooltip line-clamp-1 block   max-w-xs overflow-hidden  truncate "
         >
           {name}
         </p>{" "}
@@ -86,13 +86,11 @@ const Room: React.FC<RoomTypes> = ({
           <Link
             href={`/room/${id}?tab=chat`}
             className={clsx(
-              "block w-full",
+              "block w-full rounded-sm border border-dashed border-primary-color py-1  text-center text-lg text-Header-primary hover:bg-secondary-hover",
               !user.isUserAuthenticated && "pointer-events-none opacity-60",
             )}
           >
-            <Button variant={"secondary"} className="mt-3 w-full text-lg">
-              Join
-            </Button>
+            Join Room
           </Link>
         )}
       </section>
