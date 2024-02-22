@@ -111,6 +111,15 @@
     transform-origin: bottom center;
 }
 
+.tooltip[data-tooltip-position="bottom"]::before {
+
+    left: 50%;
+    top: 2.4rem;
+    transform: translate(-50%, 0) scale(var(--scale));
+    transition: transform 0.1s ease-in-out;
+    transform-origin: top center;
+}
+
 
 .tooltip[data-tooltip-position="left"]::after {
     top: 50%;
@@ -126,6 +135,16 @@
     left: 50%;
     top: -2.4rem;
     transform: translate(-50%, 26px) scale(var(--scale));
+    border: var(--arrow-size) solid transparent;
+    border-top-color: var(--tooltip-background-color);
+    transition: transform 0.1s ease-in-out;
+    transform-origin: top center;
+}
+
+.tooltip[data-tooltip-position="bottom"]::after {
+    left: 50%;
+    top: 0rem;
+    transform: translate(-50%, 40px) rotate(180deg) scale(var(--scale));
     border: var(--arrow-size) solid transparent;
     border-top-color: var(--tooltip-background-color);
     transition: transform 0.1s ease-in-out;
