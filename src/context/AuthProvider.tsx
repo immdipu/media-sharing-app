@@ -36,6 +36,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     onError: (error) => {
       setShowModal(true);
     },
+    retry: 2,
   });
 
   useEffect(() => {

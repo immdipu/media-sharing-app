@@ -25,7 +25,6 @@ const ChatTopbar: React.FC<ChatTopBarProps> = ({
             <AvatarImage src={profilePic} />
             <AvatarFallback>{username}</AvatarFallback>
           </Avatar>
-
           <div className="ml-2 flex flex-col">
             <span className="text-Secondary-text text-base font-medium text-Header-primary">
               {fullName}
