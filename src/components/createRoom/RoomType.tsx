@@ -15,7 +15,7 @@ const RoomType = ({
 
   return (
     <div className="my-4 flex flex-col ">
-      <Label className="px-1 font-normal text-neutral-200 caret-white">
+      <Label className="px-1 text-base font-normal text-Header-secondary">
         Room type
       </Label>
       <TabContainer activeTab={activeTab} className="mt-3  flex ">
@@ -30,7 +30,7 @@ const RoomType = ({
           className="flex w-full flex-col items-center gap-2 rounded-md  px-5 py-2"
         >
           <FcGlobe className="text-4xl" />
-          <p className="text-xs text-Header-primary">Public</p>
+          <p className="text-xs font-normal text-paragraph-secondary">Public</p>
         </Tab>
         <Tab
           onClick={() => {
@@ -43,7 +43,7 @@ const RoomType = ({
           className="flex w-full flex-col items-center gap-2 rounded-md  px-5 py-2"
         >
           <FcConferenceCall className="text-4xl" />
-          <p className="text-xs text-Header-primary">Friends Only</p>
+          <p className="text-xs text-paragraph-secondary">Friends Only</p>
         </Tab>
         <Tab
           onClick={() => {
@@ -56,13 +56,13 @@ const RoomType = ({
           className="flex w-full flex-col items-center gap-2 rounded-md  px-5 py-2"
         >
           <FcLock className="text-4xl" />
-          <p className="text-xs text-Header-primary">Private</p>
+          <p className="text-xs text-paragraph-secondary">Private</p>
         </Tab>
       </TabContainer>
       <div className="ml-2 mt-5  flex items-center gap-2">
         <TfiInfoAlt className="text-sm text-Header-primary" />
         {activeTab === 0 && (
-          <p className=" text-sm text-paragraph-secondary">
+          <p className="  text-sm text-paragraph-secondary">
             Anyone can join the room
           </p>
         )}

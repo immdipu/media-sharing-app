@@ -18,7 +18,7 @@ const ListTab: React.FC<ListTabProsp> = ({ _id, activeTab, setActiveTab }) => {
         <TabContainer
           activeTab={activeTab}
           className="z-0 flex w-full rounded-md bg-secondary-hover"
-          sliderClassName="bg-button-background"
+          sliderClassName="bg-btn-primary"
         >
           <Tab
             onClick={() => {
@@ -26,7 +26,7 @@ const ListTab: React.FC<ListTabProsp> = ({ _id, activeTab, setActiveTab }) => {
             }}
             className={clsx(
               "text-base text-Paragraph-primary transition-colors duration-300",
-              activeTab === 0 && "text-button-primary",
+              activeTab === 0 && "text-btn-primary",
             )}
           >
             Followers
@@ -37,7 +37,7 @@ const ListTab: React.FC<ListTabProsp> = ({ _id, activeTab, setActiveTab }) => {
             }}
             className={clsx(
               "text-base text-Paragraph-primary transition-colors duration-300",
-              activeTab === 1 && "text-button-primary",
+              activeTab === 1 && "text-btn-primary",
             )}
           >
             Following

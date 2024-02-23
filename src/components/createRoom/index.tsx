@@ -4,8 +4,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import { useSocket } from "@/context/SocketProvider";
+import { useAppSelector, useSocket } from "@/hooks";
 import { HiMiniPlus } from "react-icons/hi2";
 import CreatableSelect from "react-select/creatable";
 import RoomType from "./RoomType";
@@ -82,9 +81,8 @@ const CreateRoom = () => {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogOverlay className="bg-Overlay-background " />
       <DialogTrigger asChild>
-        <Button className="flex items-center bg-button-background font-medium   text-button-primary">
-          Create a room{" "}
-          <HiMiniPlus className="ml-1 text-lg text-button-primary" />
+        <Button className="flex items-center bg-btn-primary font-medium   text-btn-primary">
+          Create a room <HiMiniPlus className="ml-1 text-lg text-btn-primary" />
         </Button>
       </DialogTrigger>
       <DialogContent className="border border-primary-color bg-Secondary-background sm:max-w-[425px]">
@@ -96,7 +94,7 @@ const CreateRoom = () => {
         <div className="grid gap-4 py-4">
           <div className="">
             <div>
-              <Label className="px-1 font-normal text-neutral-200 caret-white">
+              <Label className="px-1 text-base font-normal text-Header-secondary">
                 Room name
               </Label>
 
@@ -117,7 +115,7 @@ const CreateRoom = () => {
             </div>
 
             <div className="mb-1 mt-4">
-              <Label className="mb-3 px-1 py-3 font-normal text-neutral-200">
+              <Label className="mb-3 px-1  py-3 text-base font-normal text-Header-secondary">
                 Maximum members{" "}
               </Label>
 
@@ -166,7 +164,7 @@ const CreateRoom = () => {
             </div>
             <Button
               onClick={handleSubmit}
-              className="mt-8 w-full bg-button-background text-button-primary transition-transform duration-75 ease-linear hover:opacity-80 active:scale-95"
+              className="mt-8 w-full bg-btn-primary tracking-wide text-btn-primary transition-transform duration-75 ease-linear hover:opacity-80 active:scale-95"
             >
               Create
             </Button>

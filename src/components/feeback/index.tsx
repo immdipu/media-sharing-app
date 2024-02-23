@@ -69,7 +69,7 @@ const Feedback = () => {
           type="submit"
           disabled={loading}
           onSubmit={handleSubmit}
-          className="mt-8 bg-button-background text-button-primary"
+          className="bg-btn-primary text-btn-primary mt-8"
         >
           Submit
         </Button>

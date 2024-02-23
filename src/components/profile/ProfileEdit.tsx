@@ -220,7 +220,7 @@ const ProfileEdit: React.FC<getUserDataTypes> = ({
         <button
           onClick={handleSubmit}
           className={clsx(
-            " flex items-center  rounded-md bg-button-background px-3 py-1 font-normal tracking-wide text-button-primary ",
+            " bg-btn-primary text-btn-primary  flex items-center rounded-md px-3 py-1 font-normal tracking-wide ",
             isEdit
               ? "pointer-events-auto opacity-100"
               : "pointer-events-none opacity-30",

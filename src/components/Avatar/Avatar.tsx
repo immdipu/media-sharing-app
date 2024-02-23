@@ -64,7 +64,7 @@ const Avatar = () => {
         >
           Log out{" "}
           <DropdownMenuShortcut>
-            <BiLogOutCircle className="text-Header- text-lg  group-hover:text-button-primary" />
+            <BiLogOutCircle className="text-Header- group-hover:text-btn-primary  text-lg" />
           </DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>

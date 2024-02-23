@@ -32,7 +32,7 @@ const UserAvatarWithPopOver: React.FC<UserAvatarWithPopOverProps> = ({
   return (
     <Popover>
       <PopoverTrigger>
-        <Avatar className={cn("h-10 w-10", className)}>
+        <Avatar className={cn(" h-10 w-10", className)}>
           <AvatarImage src={ImageLink} />
           <AvatarFallback className="uppercase">{fallback}</AvatarFallback>
         </Avatar>

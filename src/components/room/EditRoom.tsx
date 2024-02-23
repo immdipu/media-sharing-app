@@ -112,7 +112,7 @@ const EditRoom = () => {
             </div>
             <Button
               onClick={handleSubmit}
-              className="mt-8 w-full bg-button-background text-button-primary transition-transform duration-75 ease-linear hover:opacity-80 active:scale-95"
+              className="bg-btn-primary text-btn-primary mt-8 w-full transition-transform duration-75 ease-linear hover:opacity-80 active:scale-95"
             >
               Save Changes
             </Button>

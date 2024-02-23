@@ -1,19 +1,27 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { MdReply } from "react-icons/md";
 import { ImReply } from "react-icons/im";
+import { IconType } from "react-icons";
+import { cn } from "@/lib/utils";
 
 interface MessageOptionChipProps {
-  title: string;
+  Icon: IconType;
+  TooltipText: string;
+  className?: string;
 }
 
-const MessageOptionChip: React.FC<MessageOptionChipProps> = ({ title }) => {
+const MessageOptionChip: React.FC<MessageOptionChipProps> = ({
+  Icon,
+  TooltipText,
+  className,
+}) => {
   return (
     <div
-      data-tooltip="Reply"
+      data-tooltip={TooltipText}
       data-tooltip-position="bottom"
-      className="tooltip group block h-fit w-fit cursor-pointer rounded-lg   text-xs  text-paragraph-secondary"
+      className="tooltip  block h-fit w-fit cursor-pointer rounded-lg text-xs     text-paragraph-secondary"
     >
-      <ImReply className=" inline-block text-sm duration-300 group-hover:text-blue-600" />
+      <Icon className={cn(" inline-block text-sm  duration-300 ", className)} />
     </div>
   );
 };

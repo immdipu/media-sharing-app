@@ -39,7 +39,7 @@ const Index = () => {
         <BsTextRight className="text-2xl font-normal text-neutral-200" />
       </button>
       <TabContainer
-        sliderClassName=" -z-[1] bg-button-background"
+        sliderClassName=" -z-[1] bg-btn-primary"
         activeTab={active}
         className=" z-0 flex w-full bg-Input-background py-[2px] "
       >
@@ -49,7 +49,7 @@ const Index = () => {
           }}
           className={clsx(
             "grid w-full  text-sm font-medium text-Paragraph-primary duration-300",
-            active === 0 && " text-button-primary",
+            active === 0 && " text-btn-primary",
           )}
         >
           Chat
@@ -60,7 +60,7 @@ const Index = () => {
           }}
           className={clsx(
             "grid w-full text-Paragraph-primary duration-300",
-            active === 1 && "text-button-primary",
+            active === 1 && "text-btn-primary",
           )}
         >
           users
@@ -68,7 +68,7 @@ const Index = () => {
         <Tab
           className={clsx(
             "grid w-full text-Paragraph-primary duration-300",
-            active === 2 && "text-button-primary",
+            active === 2 && "text-btn-primary",
           )}
           onClick={() => {
             setActive(2);
@@ -82,7 +82,7 @@ const Index = () => {
           }}
           className={clsx(
             "grid w-full  text-Paragraph-primary duration-300",
-            active === 3 && "text-button-primary ",
+            active === 3 && "text-btn-primary ",
           )}
         >
           Room

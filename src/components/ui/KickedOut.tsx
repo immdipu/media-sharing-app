@@ -21,7 +21,7 @@ const KickedOut = () => {
           </p>
           <Link
             href={"/"}
-            className="mt-4 block rounded-md bg-button-background px-4  py-2 text-center font-medium text-button-primary hover:opacity-80"
+            className="bg-btn-primary text-btn-primary mt-4 block rounded-md  px-4 py-2 text-center font-medium hover:opacity-80"
           >
             Go to home page
           </Link>

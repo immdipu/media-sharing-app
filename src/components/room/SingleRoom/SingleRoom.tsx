@@ -74,7 +74,7 @@ const SingleRoom = () => {
           <Button
             disabled={isLoading || !socket || !user.isUserAuthenticated}
             onClick={handleJoinRoom}
-            className=" bg-button-background px-4 text-button-primary"
+            className=" bg-btn-primary text-btn-primary px-4"
           >
             {isLoading ? "Joining..." : "Join Room"}
           </Button>

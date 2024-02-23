@@ -1,8 +1,82 @@
 @tailwind base;
 @tailwind components;
 
+:root {
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
 [data-theme="darkTheme"] {
-    --Main-background-color: #171616;
+
+    /* main color */
+    --primary: #2554d9;
+    --primary-content: #fefeff;
+    --primary-dark: #1e43ad;
+    --primary-light: #5076e1;
+
+
+    /* Background Colors */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #262626;
+    --border: #404040;
+
+
+    /* Text color */
+    --header-primary: #ffffff;
+    --header-secondary: #e5e5e5;
+    --paragraph-primary: #e0e0e0;
+    --paragraph-secondary: #c2c2c2;
+
+
+
+    /* Border color */
+    --border-primary: #404040;
+    --border-secondary: #646464;
+    --border-third: #3f3f3f;
+    --border-success: #25d944;
+    --border-success-light: #50e169;
+    --border-success-muted: #589362;
+    --border-success-dark: #1ead36;
+    --secondary: #25d944;
+    --secondary-content: #000000;
+    --secondary-dark: #1ead36;
+    --secondary-light: #50e169;
+
+
+    /* Button colors */
+    --btn-primary-bg: #007bff;
+    --btn-secondary-bg: #6c757d;
+    --btn-success-bg: #28a745;
+    --btn-info-bg: #17a2b8;
+    --btn-warning-bg: #ffc107;
+    --btn-danger-bg: #dc3545;
+
+    --btn-primary-text: #ffffff;
+    --btn-secondary-text: #ffffff;
+    --btn-success-text: #25d944;
+    --btn-success-dark-text: #1ead36;
+
+    --btn-info-text: #ffffff;
+    --btn-warning-text: #000000;
+    --btn-danger-text: #ffffff;
+
+
+
+    --copy: #fbfbfb;
+    --copy-light: #d9d9d9;
+    --copy-lighter: #a6a6a6;
+
+    --success: #25d925;
+    --warning: #d9d925;
+    --error: #d92525;
+    --success-content: #000000;
+    --warning-content: #000000;
+    --error-content: #fffefe;
+
+
+
+    /* --Main-background-color: #171616;
     --Secondary-background-color: #404040;
     --third-background-color: #2c2c2c;
     --fourth-background-color: #525252;
@@ -18,7 +92,7 @@
     --border-color: #a3a3a3;
     --border-color-2: #646464;
     --border-color-3: #323232;
-    --tooltip-background-color: #000000;
+    --tooltip-background-color: #000000; */
 }
 
 

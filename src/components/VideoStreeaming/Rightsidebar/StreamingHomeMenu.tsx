@@ -46,7 +46,7 @@ const StreamingHomeMenu = () => {
         <section className="mt-6 flex flex-col gap-3 ">
           <Button
             disabled={StreamingLink.trim() === ""}
-            className="bg-button-background  text-button-primary"
+            className="bg-btn-primary  text-btn-primary"
             onClick={() => {
               if (VideoStreamer.current) {
                 localStorage.setItem("streamingLink", StreamingLink);

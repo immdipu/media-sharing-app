@@ -33,7 +33,7 @@ const MediaClose = () => {
             });
           }
         }}
-        className="bg-button-background text-button-primary"
+        className="bg-btn-primary text-btn-primary"
       >
         <h1>Close Drawing</h1>
       </Button>

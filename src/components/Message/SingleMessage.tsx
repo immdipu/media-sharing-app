@@ -1,13 +1,9 @@
 "use client";
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import dynamic from "next/dynamic";
 import { RoomMessageTypes } from "@/types/room";
 import momemnt from "moment";
 import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
-import UserProfilePopoverCardSkeleton from "../Skeleton/UserProfilePopoverCardSkeleton";
-import MessageOptionChip from "./MessageOptionChip";
-
+import MessageOptions from "./MessageOptions";
 const SingleMessage: React.FC<RoomMessageTypes> = ({
   Type,
   content,
@@ -15,8 +11,8 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
   sender,
 }) => {
   return (
-    <div className="group flex flex-col px-3 py-2 hover:bg-secondary-hover">
-      <section className="flex ">
+    <div className="group flex flex-col px-3 py-1 hover:bg-secondary-hover">
+      <section className=" flex">
         <UserAvatarWithPopOver
           ImageLink={sender.profilePic}
           username={sender.username}
@@ -49,8 +45,8 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
           </div>
         </div>
       </section>
-      <section className=" ml-12 h-5  leading-3  transition-all duration-200 ease-in-out group-hover:h-5 ">
-        <MessageOptionChip title="Reply" />
+      <section className=" z-10 ml-12 h-5 translate-y-2 leading-3 opacity-0 transition-all duration-500  ease-in-out group-hover:translate-y-0 group-hover:overflow-visible group-hover:opacity-100 ">
+        <MessageOptions />
       </section>
     </div>
   );
