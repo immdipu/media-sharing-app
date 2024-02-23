@@ -20,7 +20,7 @@ const Index = () => {
   return (
     <div
       className={clsx(
-        "w-96 shrink-0 bg-Secondary-background  transition-all duration-200 ease-linear max-md:absolute",
+        " w-96 shrink-0 bg-Secondary-background  transition-all duration-200 ease-linear max-md:absolute",
         showRightSideBar ? "max-md:right-0" : "max-md:-right-96",
       )}
     >
@@ -41,7 +41,7 @@ const Index = () => {
       <TabContainer
         sliderClassName=" -z-[1] bg-btn-primary"
         activeTab={active}
-        className=" z-0 flex w-full bg-Input-background py-[2px] "
+        className=" bg-Third-background z-0 flex w-full rounded-b-md py-[2px] "
       >
         <Tab
           onClick={() => {

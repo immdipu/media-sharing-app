@@ -25,6 +25,7 @@ module.exports = {
       backgroundColor: {
         "Main-background": "var(--bg-primary)",
         "Secondary-background": "var(--bg-secondary)",
+        "Third-background": "var(--bg-third)",
         "Input-background": "var(--Input-background-color)",
         "Overlay-background": "var(--overlay-background-color)",
         "button-background": "var(--button-background-color)",
@@ -34,7 +35,6 @@ module.exports = {
         "btn-danger": "var(--btn-danger-bg)",
         "btn-warning": "var(--btn-warning-bg)",
         "secondary-hover": "var(--secondary-hover-background-color)",
-        "third-background": "var(--third-background-color)",
         "fourth-background": "var(--fourth-background-color)",
       },
       borderColor: {

@@ -1,15 +1,15 @@
 "use client";
 import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { useSocket } from "@/context/SocketProvider";
-import { useAppSelector } from "@/hooks/reduxHooks";
 import { useToast } from "@/components/ui/use-toast";
 import { usePathname } from "next/navigation";
+import { useSocket, useAppSelector } from "@/hooks";
 import { JoinRoom } from "@/redux/slice/roomSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import { IjoinedRoomResponse } from "@/types/socketTypes";
 import JoinedSingleRoom from "./JoinedSingleRoom";
 import KickedOut from "@/components/ui/KickedOut";
+import RoomJoinButton from "@/components/Buttons/RoomJoinButton";
 import {
   StartRoomJoiningLoader,
   StopRoomJoiningLoader,
@@ -71,13 +71,11 @@ const SingleRoom = () => {
     return (
       <div className="fixed z-20 grid h-full  w-full place-content-center items-center justify-center bg-Secondary-background">
         <section className=" flex flex-col justify-center gap-4">
-          <Button
+          <RoomJoinButton
+            onclick={handleJoinRoom}
             disabled={isLoading || !socket || !user.isUserAuthenticated}
-            onClick={handleJoinRoom}
-            className=" bg-btn-primary text-btn-primary px-4"
-          >
-            {isLoading ? "Joining..." : "Join Room"}
-          </Button>
+            isLoading={isLoading}
+          />
           <p className="font-light text-paragraph-secondary">
             Click the button to join the room.
           </p>
