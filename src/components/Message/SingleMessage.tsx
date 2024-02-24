@@ -5,6 +5,7 @@ import momemnt from "moment";
 import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
 import MessageOptions from "./MessageOptions";
 import clsx from "clsx";
+import MessageReaction from "./MessageReaction/MessageReaction";
 
 interface SinlgeMessageContextTypes {
   showEmojis: boolean;
@@ -68,6 +69,7 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
       <SinlgeMessageContext.Provider
         value={{ showEmojis, setShowEmojis, messageId: _id }}
       >
+        <MessageReaction />
         <MessageOptions />
       </SinlgeMessageContext.Provider>
     </div>
