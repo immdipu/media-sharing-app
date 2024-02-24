@@ -13,11 +13,13 @@ import { AddNewMessage } from "@/redux/slice/chatSlice";
 interface MessageInputProps {
   MessageType: "ROOM" | "CHAT";
   receiver?: userType;
+  row?: number;
 }
 
 const MessageInput: React.FC<MessageInputProps> = ({
   MessageType,
   receiver,
+  row = 2,
 }) => {
   const [showEmoji, setShowEmoji] = useState(false);
   const [message, setMessage] = useState("");
@@ -93,7 +95,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
         <Textarea
           className=" messageInput  resize-none   bg-transparent text-neutral-200 outline-none  placeholder:text-neutral-400  focus:outline-none "
           placeholder="Write your message"
-          rows={1}
+          rows={row}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={(e) => {
