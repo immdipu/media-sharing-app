@@ -30,17 +30,19 @@ export type RoomChatTypes =
   | RoomUpdateMessageTypes
   | MessageReactionTypes;
 
+export interface MessageReactionDataTypes {
+  sender: {
+    _id: string;
+  };
+  emoji: string;
+  msgId: string;
+  createdAt: Date;
+}
+
 export interface MessageReactionTypes {
   Type: "MsgReaction";
   roomId: string;
-  data: {
-    sender: {
-      _id: string;
-    };
-    emoji: string;
-    msgId: string;
-    createdAt: Date;
-  };
+  data: MessageReactionDataTypes;
 }
 
 export interface RoomUpdateMessageTypes {
@@ -54,6 +56,10 @@ export interface RoomJoinLeaveTypes {
   status: "joined" | "left";
   user: membersTypes;
   createdAt: Date;
+}
+
+export interface ReactionTypes extends MessageReactionDataTypes {
+  sender: membersTypes;
 }
 
 export interface RoomMessageTypes {
@@ -75,6 +81,7 @@ export interface RoomMessageTypes {
   content: string;
   sender: membersTypes;
   createdAt: Date;
+  reactions: ReactionTypes[];
 }
 
 export interface ActivityTypes {

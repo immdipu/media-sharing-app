@@ -12,8 +12,9 @@ import {
   RemoveMemberFromRoom,
   UpdateAnActivity,
   UpdateRoom,
+  UpdateMessageReaction,
 } from "@/redux/slice/roomSlice";
-import { RoomChatTypes } from "@/types/room";
+import { MessageReactionDataTypes, RoomChatTypes } from "@/types/room";
 import { RoomUpdateResponseTypes } from "@/types/socketTypes";
 import { useSearchParams } from "next/navigation";
 import { ActivityType } from "@/types/roomActivity";
@@ -105,7 +106,10 @@ const JoinedSingleRoom = () => {
         }
 
         if (data.Type === "MsgReaction") {
-          console.log(data);
+          console.log("data", data);
+          dispatch(
+            UpdateMessageReaction(data as unknown as MessageReactionDataTypes),
+          );
         }
 
         if (data.Type === "message") {

@@ -6,6 +6,7 @@ import {
   RoomChatTypes,
   membersTypes,
   ActivityTypes,
+  MessageReactionDataTypes,
 } from "@/types/room";
 import { roomActivityTypes } from "@/types/roomActivity";
 import { ActivityDeleteResponseTypes } from "@/types/socketTypes";
@@ -119,6 +120,85 @@ export const roomSlice = createSlice({
       state.StreamingLink = action.payload;
     },
 
+    UpdateMessageReaction: (
+      state,
+      action: PayloadAction<MessageReactionDataTypes>,
+    ) => {
+      const { sender, emoji, msgId, createdAt } = action.payload;
+      if (!state.RoomChat) {
+        return;
+      }
+      const senderDetails = state.JoinedRoom?.members.find(
+        (member) => member._id === sender._id,
+      );
+      if (!senderDetails) {
+        return;
+      }
+
+      const message = state.RoomChat.find(
+        (message) => message.Type === "message" && message._id === msgId,
+      );
+      if (message && message.Type === "message") {
+        if (message.reactions.length > 0) {
+          const ReactionExist = message.reactions.find(
+            (reaction) => reaction.sender._id === sender._id,
+          );
+          if (ReactionExist && ReactionExist.emoji === emoji) {
+            const newReactions = message.reactions.filter(
+              (reaction) => reaction.sender._id !== sender._id,
+            );
+            message.reactions = newReactions;
+            return;
+          }
+          if (ReactionExist && ReactionExist.emoji !== emoji) {
+            const newReactions = message.reactions.filter(
+              (reaction) => reaction.sender._id !== sender._id,
+            );
+            message.reactions = newReactions;
+            message.reactions.push({
+              createdAt,
+              emoji,
+              msgId,
+              sender: {
+                _id: senderDetails._id,
+                fullName: senderDetails.fullName,
+                profilePic: senderDetails.profilePic,
+                username: senderDetails.username,
+                verified: senderDetails.verified,
+              },
+            });
+            return;
+          }
+
+          message.reactions.push({
+            createdAt,
+            emoji,
+            msgId,
+            sender: {
+              _id: senderDetails._id,
+              fullName: senderDetails.fullName,
+              profilePic: senderDetails.profilePic,
+              username: senderDetails.username,
+              verified: senderDetails.verified,
+            },
+          });
+        } else {
+          message.reactions.push({
+            createdAt,
+            emoji,
+            msgId,
+            sender: {
+              _id: senderDetails._id,
+              fullName: senderDetails.fullName,
+              profilePic: senderDetails.profilePic,
+              username: senderDetails.username,
+              verified: senderDetails.verified,
+            },
+          });
+        }
+      }
+    },
+
     StopRoomJoiningLoader: (state) => {
       state.RoomJoiningLoader = false;
     },
@@ -143,5 +223,6 @@ export const {
   DeleteAnActivity,
   UpdateAllActivity,
   AddStreamingLink,
+  UpdateMessageReaction,
 } = roomSlice.actions;
 export default roomSlice.reducer;

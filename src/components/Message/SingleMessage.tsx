@@ -28,6 +28,7 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
   createdAt,
   sender,
   _id,
+  reactions,
 }) => {
   const [showEmojis, setShowEmojis] = useState(false);
 
@@ -69,7 +70,9 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
       <SinlgeMessageContext.Provider
         value={{ showEmojis, setShowEmojis, messageId: _id }}
       >
-        <MessageReaction />
+        {reactions && reactions.length > 0 && (
+          <MessageReaction reactions={reactions} />
+        )}
         <MessageOptions />
       </SinlgeMessageContext.Provider>
     </div>

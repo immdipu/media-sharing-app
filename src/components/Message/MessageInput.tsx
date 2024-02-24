@@ -50,6 +50,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
             followers: 0,
             following: 0,
           },
+          reactions: [],
           createdAt: new Date(),
         },
       };
