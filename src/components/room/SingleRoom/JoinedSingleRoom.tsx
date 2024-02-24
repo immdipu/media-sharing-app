@@ -106,7 +106,6 @@ const JoinedSingleRoom = () => {
         }
 
         if (data.Type === "MsgReaction") {
-          console.log("data", data);
           dispatch(
             UpdateMessageReaction(data as unknown as MessageReactionDataTypes),
           );

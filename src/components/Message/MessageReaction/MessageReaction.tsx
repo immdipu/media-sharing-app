@@ -7,8 +7,6 @@ interface MessageReactionProps {
 }
 
 const MessageReaction: React.FC<MessageReactionProps> = ({ reactions }) => {
-  console.log("reactions", reactions);
-
   const Reactions: any = {};
 
   reactions.forEach((reaction) => {

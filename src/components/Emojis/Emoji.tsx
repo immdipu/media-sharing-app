@@ -8,6 +8,7 @@ interface EmojiProps {
   alt: string;
   onclick: (emoji: string) => void;
   code: string;
+  myReaction?: boolean;
 }
 
 const Emoji: React.FC<EmojiProps> = ({
@@ -16,6 +17,7 @@ const Emoji: React.FC<EmojiProps> = ({
   alt,
   onclick,
   code,
+  myReaction,
 }) => {
   return (
     <Avatar

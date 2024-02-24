@@ -10,16 +10,18 @@ import { SinlgeMessageContext } from "../Message/SingleMessage";
 import { useAppDispatch, useAppSelector, useSocket } from "@/hooks";
 import { Role } from "@/types";
 import uniqid from "uniqid";
+import clsx from "clsx";
 
 interface EmojisPopOverProps {
   children: React.ReactNode;
 }
 
 const EmojisPopOver: React.FC<EmojisPopOverProps> = ({ children }) => {
-  const { showEmojis, setShowEmojis, messageId } =
+  const { showEmojis, setShowEmojis, messageId, reactions } =
     React.useContext(SinlgeMessageContext);
   const user = useAppSelector((state) => state.auth);
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
+  const messages = useAppSelector((state) => state.room.RoomChat);
   const { EmitCustomEvent } = useSocket();
 
   const handleClick = (code: string) => {
@@ -55,7 +57,14 @@ const EmojisPopOver: React.FC<EmojisPopOverProps> = ({ children }) => {
             alt={emoji.alt}
             code={emoji.code}
             onclick={handleClick}
-            className="h-10 w-10 cursor-pointer rounded-full p-2  transition-all duration-300 ease-in-out hover:scale-125 hover:shadow-lg"
+            className={clsx(
+              "h-10 w-10 cursor-pointer rounded-full p-2  transition-all duration-300 ease-in-out hover:scale-125 hover:shadow-lg",
+              reactions.find(
+                (reaction) =>
+                  reaction.sender._id === user.id &&
+                  emoji.code === reaction.emoji,
+              ) && "scale-125 bg-Main-background",
+            )}
           />
         ))}
       </PopoverContent>

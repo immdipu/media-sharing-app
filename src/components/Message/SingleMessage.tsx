@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { RoomMessageTypes } from "@/types/room";
+import { ReactionTypes, RoomMessageTypes } from "@/types/room";
 import momemnt from "moment";
 import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
 import MessageOptions from "./MessageOptions";
@@ -11,12 +11,14 @@ interface SinlgeMessageContextTypes {
   showEmojis: boolean;
   setShowEmojis: React.Dispatch<React.SetStateAction<boolean>>;
   messageId?: string;
+  reactions: ReactionTypes[];
 }
 
 const initialState: SinlgeMessageContextTypes = {
   showEmojis: false,
   setShowEmojis: () => {},
   messageId: "",
+  reactions: [],
 };
 
 export const SinlgeMessageContext =
@@ -68,7 +70,7 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
       </section>
 
       <SinlgeMessageContext.Provider
-        value={{ showEmojis, setShowEmojis, messageId: _id }}
+        value={{ showEmojis, setShowEmojis, messageId: _id, reactions }}
       >
         {reactions && reactions.length > 0 && (
           <MessageReaction reactions={reactions} />
