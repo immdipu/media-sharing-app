@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { RoomMessageTypes } from "@/types/room";
 import momemnt from "moment";
 import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
@@ -11,7 +11,7 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
   sender,
 }) => {
   return (
-    <div className="group flex flex-col px-3 py-1 hover:bg-neutral-900">
+    <div className="group relative flex flex-col px-3 py-1 hover:bg-neutral-900">
       <section className=" flex items-start">
         <UserAvatarWithPopOver
           ImageLink={sender.profilePic}
@@ -25,7 +25,7 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
             <h4 className="light:text-green-500 l h-fit max-w-[180px] overflow-hidden  overflow-ellipsis whitespace-nowrap  text-sm font-medium capitalize leading-none  text-Header-secondary ">
               {sender?.fullName}
             </h4>
-            <div className="bg-pill-circle h-1 w-1 rounded-full" />
+            <div className="h-1 w-1 rounded-full bg-pill-circle" />
             <span className="text-[0.70rem] font-normal text-paragraph-secondary opacity-60 ">
               {" "}
               {momemnt(createdAt).format("hh:mm A")}
@@ -39,9 +39,8 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
           </div>
         </div>
       </section>
-      <section className=" z-10 ml-12 h-5 translate-y-2 leading-3 opacity-0 transition-all duration-500  ease-in-out group-hover:translate-y-0 group-hover:overflow-visible group-hover:opacity-100 ">
-        <MessageOptions />
-      </section>
+
+      <MessageOptions />
     </div>
   );
 };

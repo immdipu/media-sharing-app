@@ -40,3 +40,30 @@ export const MemeberLimitSelectoptions = [
     value: 10,
   },
 ];
+
+export const EmojisCollection = [
+  {
+    link: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f44d/512.gif",
+    alt: "👍",
+  },
+  {
+    link: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f44e/512.gif",
+    alt: "👎",
+  },
+  {
+    link: "https://fonts.gstatic.com/s/e/notoemoji/latest/2764_fe0f/512.gif",
+    alt: "❤",
+  },
+  {
+    link: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f602/512.gif",
+    alt: "😂",
+  },
+  {
+    link: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f621/512.gif",
+    alt: "😡",
+  },
+  {
+    link: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f622/512.gif",
+    alt: "😢",
+  },
+];

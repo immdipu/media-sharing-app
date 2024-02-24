@@ -1,13 +1,23 @@
 import React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
 
-const Emoji = () => {
+interface EmojiProps {
+  className?: string;
+  link: string;
+  alt: string;
+  onclick?: () => void;
+}
+
+const Emoji: React.FC<EmojiProps> = ({ className, link, alt, onclick }) => {
   return (
-    <div>
-      {/* <picture>
-  <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f44d/512.webp" type="image/webp">
-  <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f44d/512.gif" alt="" width="32" height="32">
-</picture> */}
-    </div>
+    <Avatar
+      onClick={onclick}
+      className={cn(" relative hover:bg-Main-background", className)}
+    >
+      <AvatarImage src={link} />
+      <AvatarFallback>{alt}</AvatarFallback>
+    </Avatar>
   );
 };
 
