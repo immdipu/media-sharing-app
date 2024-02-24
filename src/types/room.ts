@@ -27,7 +27,21 @@ export interface RoomTypes {
 export type RoomChatTypes =
   | RoomJoinLeaveTypes
   | RoomMessageTypes
-  | RoomUpdateMessageTypes;
+  | RoomUpdateMessageTypes
+  | MessageReactionTypes;
+
+export interface MessageReactionTypes {
+  Type: "MsgReaction";
+  roomId: string;
+  data: {
+    sender: {
+      _id: string;
+    };
+    emoji: string;
+    msgId: string;
+    createdAt: Date;
+  };
+}
 
 export interface RoomUpdateMessageTypes {
   Type: "RoomUpdate";
@@ -43,6 +57,7 @@ export interface RoomJoinLeaveTypes {
 }
 
 export interface RoomMessageTypes {
+  _id: string;
   Type:
     | "message"
     | "image"

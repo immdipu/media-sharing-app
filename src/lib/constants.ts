@@ -45,25 +45,31 @@ export const EmojisCollection = [
   {
     link: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f44d/512.gif",
     alt: "👍",
+    code: "1f44d",
   },
   {
     link: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f44e/512.gif",
     alt: "👎",
+    code: "1f44e",
   },
   {
     link: "https://fonts.gstatic.com/s/e/notoemoji/latest/2764_fe0f/512.gif",
     alt: "❤",
+    code: "2764",
   },
   {
     link: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f602/512.gif",
     alt: "😂",
+    code: "1f602",
   },
   {
     link: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f621/512.gif",
     alt: "😡",
+    code: "1f621",
   },
   {
     link: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f622/512.gif",
     alt: "😢",
+    code: "1f622",
   },
 ];

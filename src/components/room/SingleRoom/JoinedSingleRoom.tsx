@@ -104,6 +104,10 @@ const JoinedSingleRoom = () => {
           }
         }
 
+        if (data.Type === "MsgReaction") {
+          console.log(data);
+        }
+
         if (data.Type === "message") {
           if (params.get("tab") !== "chat") {
             setMessageCount((prev) => prev + 1);

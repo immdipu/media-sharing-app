@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   FaReply,
   FaRegSmile,
@@ -8,17 +8,21 @@ import {
 import MessageOptionChip from "./MessageOptionChip";
 import EmojisPopOver from "../Emojis/EmojisPopOver";
 import clsx from "clsx";
+import { SinlgeMessageContext } from "./SingleMessage";
 
 const MessageOptions = () => {
   const [active, setActive] = useState<
     "reply" | "emojis" | "delete" | "report" | null
   >(null);
-  const [showEmojis, setShowEmojis] = useState(false);
+  const { showEmojis, setShowEmojis } = useContext(SinlgeMessageContext);
+
   return (
     <section
       className={clsx(
-        "z-10 ml-12 h-5 translate-y-2 leading-3 opacity-0 transition-all duration-500  ease-in-out group-hover:translate-y-0 group-hover:overflow-visible group-hover:opacity-100",
-        showEmojis && "translate-y-0 overflow-visible opacity-100",
+        "z-10 ml-12 h-5  leading-3 opacity-0 transition-all duration-500  ease-in-out  group-hover:overflow-visible group-hover:opacity-100",
+        showEmojis
+          ? "translate-y-0 overflow-visible opacity-100"
+          : "translate-y-2 overflow-hidden opacity-0 group-hover:translate-y-0",
       )}
     >
       <div className="flex gap-9">
@@ -34,7 +38,7 @@ const MessageOptions = () => {
             }
           }}
         />
-        <EmojisPopOver showEmojis={showEmojis} setEmojis={setShowEmojis}>
+        <EmojisPopOver>
           <MessageOptionChip
             Icon={FaRegSmile}
             TooltipText="React to message"
@@ -42,13 +46,6 @@ const MessageOptions = () => {
               "hover:text-yellow-400",
               showEmojis && "text-yellow-400",
             )}
-            onClick={() => {
-              if (active === "emojis") {
-                setActive(null);
-              } else {
-                setActive("emojis");
-              }
-            }}
           />
         </EmojisPopOver>
 

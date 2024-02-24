@@ -6,13 +6,22 @@ interface EmojiProps {
   className?: string;
   link: string;
   alt: string;
-  onclick?: () => void;
+  onclick: (emoji: string) => void;
+  code: string;
 }
 
-const Emoji: React.FC<EmojiProps> = ({ className, link, alt, onclick }) => {
+const Emoji: React.FC<EmojiProps> = ({
+  className,
+  link,
+  alt,
+  onclick,
+  code,
+}) => {
   return (
     <Avatar
-      onClick={onclick}
+      onClick={() => {
+        onclick(code);
+      }}
       className={cn(" relative hover:bg-Main-background", className)}
     >
       <AvatarImage src={link} />

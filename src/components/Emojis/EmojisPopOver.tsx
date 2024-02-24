@@ -6,24 +6,43 @@ import {
 } from "@/components/ui/popover";
 import Emoji from "./Emoji";
 import { EmojisCollection } from "@/lib/constants";
+import { SinlgeMessageContext } from "../Message/SingleMessage";
+import { useAppDispatch, useAppSelector, useSocket } from "@/hooks";
+import { Role } from "@/types";
+import uniqid from "uniqid";
 
 interface EmojisPopOverProps {
   children: React.ReactNode;
-  setEmojis?: React.Dispatch<React.SetStateAction<boolean>>;
-  showEmojis: boolean;
 }
 
-const EmojisPopOver: React.FC<EmojisPopOverProps> = ({
-  children,
-  setEmojis,
-  showEmojis,
-}) => {
+const EmojisPopOver: React.FC<EmojisPopOverProps> = ({ children }) => {
+  const { showEmojis, setShowEmojis, messageId } =
+    React.useContext(SinlgeMessageContext);
+  const user = useAppSelector((state) => state.auth);
+  const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
+  const { EmitCustomEvent } = useSocket();
+
+  const handleClick = (code: string) => {
+    let messageData = {
+      roomId: JoinedRoom?.id,
+      data: {
+        Type: "MsgReaction",
+        sender: {
+          _id: user.id!,
+        },
+        msgId: messageId,
+        emoji: code,
+        createdAt: new Date(),
+      },
+    };
+    EmitCustomEvent("send-message-in-room", messageData);
+    setShowEmojis(!showEmojis);
+  };
+
   return (
     <Popover
       onOpenChange={(e) => {
-        if (setEmojis) {
-          setEmojis(e);
-        }
+        setShowEmojis(e);
       }}
       open={showEmojis}
     >
@@ -34,6 +53,8 @@ const EmojisPopOver: React.FC<EmojisPopOverProps> = ({
             key={index}
             link={emoji.link}
             alt={emoji.alt}
+            code={emoji.code}
+            onclick={handleClick}
             className="h-10 w-10 cursor-pointer rounded-full p-2  transition-all duration-300 ease-in-out hover:scale-125 hover:shadow-lg"
           />
         ))}

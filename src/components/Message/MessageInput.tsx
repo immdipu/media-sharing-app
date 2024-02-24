@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import data, { Emoji } from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
+import uniqid from "uniqid";
 import MessageSendButon from "../Buttons/MessageSendButon";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { useParams } from "next/navigation";
@@ -36,6 +37,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
       let messageData = {
         roomId: JoinedRoom?.id,
         data: {
+          _id: uniqid(),
           Type: "message",
           content: message,
           sender: {

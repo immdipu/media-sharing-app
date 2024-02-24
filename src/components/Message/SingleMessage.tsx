@@ -4,14 +4,39 @@ import { RoomMessageTypes } from "@/types/room";
 import momemnt from "moment";
 import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
 import MessageOptions from "./MessageOptions";
+import clsx from "clsx";
+
+interface SinlgeMessageContextTypes {
+  showEmojis: boolean;
+  setShowEmojis: React.Dispatch<React.SetStateAction<boolean>>;
+  messageId?: string;
+}
+
+const initialState: SinlgeMessageContextTypes = {
+  showEmojis: false,
+  setShowEmojis: () => {},
+  messageId: "",
+};
+
+export const SinlgeMessageContext =
+  React.createContext<SinlgeMessageContextTypes>(initialState);
+
 const SingleMessage: React.FC<RoomMessageTypes> = ({
   Type,
   content,
   createdAt,
   sender,
+  _id,
 }) => {
+  const [showEmojis, setShowEmojis] = useState(false);
+
   return (
-    <div className="group relative flex flex-col px-3 py-1 hover:bg-neutral-900">
+    <div
+      className={clsx(
+        "group relative flex flex-col px-3 py-1 hover:bg-Main-background",
+        showEmojis && "bg-Main-background",
+      )}
+    >
       <section className=" flex items-start">
         <UserAvatarWithPopOver
           ImageLink={sender.profilePic}
@@ -40,7 +65,11 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
         </div>
       </section>
 
-      <MessageOptions />
+      <SinlgeMessageContext.Provider
+        value={{ showEmojis, setShowEmojis, messageId: _id }}
+      >
+        <MessageOptions />
+      </SinlgeMessageContext.Provider>
     </div>
   );
 };
