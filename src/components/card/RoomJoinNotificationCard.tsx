@@ -1,8 +1,7 @@
 import React from "react";
 import { TbLogout2 } from "react-icons/tb";
-import MessageTime from "../Message/atoms/MessageTime";
 import { RoomJoinLeaveTypes } from "@/types/room";
-import moment from "moment";
+import MessageHeader from "../Message/organism/MessageHeader";
 import dynamic from "next/dynamic";
 import UserProfilePopoverCardSkeleton from "../Skeleton/UserProfilePopoverCardSkeleton";
 const UserAvatarWithPopOver = dynamic(
@@ -19,22 +18,17 @@ const RoomJoinNotificationCard: React.FC<RoomJoinLeaveTypes> = ({
   user,
 }) => {
   return (
-    <div className="  bg-third-background flex items-center px-3 py-2 hover:bg-secondary-hover">
+    <div className="flex items-center  px-3 py-2 hover:bg-Main-background">
       <UserAvatarWithPopOver
         ImageLink={user?.profilePic}
         fallback={user?.fullName[0]}
         username={user?.fullName}
-        className="h-8 w-8"
       />
       <div className="relative ml-2 w-full">
-        <div className="flex items-center">
-          <h4 className="light:text-green-500 w-1/2 overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-medium text-Header-secondary ">
-            {user?.fullName}{" "}
-          </h4>
-          <MessageTime date={createdAt} />
-        </div>
-
-        <h3 className="text-xs text-green-600">Joined the room</h3>
+        <MessageHeader name={user?.fullName} date={createdAt} />
+        <h3 className="font-poppins text-xs font-medium text-green-600">
+          Joined the room
+        </h3>
       </div>
       <div>
         <TbLogout2 className="mr-1 text-2xl text-green-600" />
