@@ -51,10 +51,20 @@
     --border-success-light: #50e169;
     --border-success-muted: #589362;
     --border-success-dark: #1ead36;
+    --border-warning: #ffc107;
+    --border-warning-light: #ffcd38;
+    --border-warning-muted: #d9d925;
+    --border-warning-dark: #d9d925;
+    --border-danger: #dc3545;
+    --border-danger-light: #e76a7d;
+    --border-danger-muted: #d92525;
+    --border-error-dark: #d92525;
+
     --secondary: #25d944;
     --secondary-content: #000000;
     --secondary-dark: #1ead36;
     --secondary-light: #50e169;
+
 
 
     /* Button colors */

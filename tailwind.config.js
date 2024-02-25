@@ -46,6 +46,10 @@ module.exports = {
         "success-muted": "var(--border-success-muted)",
         "success-light-color": "var(--border-success-light)",
         "success-dark-color": "var(--border-success-dark)",
+        danger: "var(--border-danger)",
+        "danger-light": "var(--border-danger-light)",
+        "danger-muted": "var(--border-danger-muted)",
+        "danger-dark": "var(--border-danger-dark)",
       },
 
       keyframes: {

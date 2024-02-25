@@ -22,13 +22,22 @@ const UserListOptionCard = ({ id }: { id: string }) => {
     <>
       {isCurrentUserAdmin && <TransferRoomAlert id={id} />}
       {isCurrentUserAdmin && (
-        <UserOptionSingleList Icon={MdAddModerator} title="Add as moderator" />
+        <UserOptionSingleList
+          Icon={MdAddModerator}
+          iconClass="text-blue-600"
+          title="Add as moderator"
+        />
       )}
 
-      <UserOptionSingleList Icon={MdBlock} title="Block user" />
+      <UserOptionSingleList
+        Icon={MdBlock}
+        iconClass="text-red-500"
+        title="Block user"
+      />
 
       {isCurrentUserAdmin && (
-        <li
+        <UserOptionSingleList
+          Icon={IoExitOutline}
           onClick={() => {
             const data: RoomUpdateTypes = {
               type: "KickUser",
@@ -38,11 +47,9 @@ const UserListOptionCard = ({ id }: { id: string }) => {
             };
             EmitCustomEvent("room-update", data);
           }}
-          className="flex cursor-pointer items-center gap-3 px-4 py-2 hover:bg-Main-background"
-        >
-          <IoExitOutline className="text-lg text-red-600" />{" "}
-          <span className="text-sm text-Paragraph-primary">Kick out</span>
-        </li>
+          iconClass="text-red-500"
+          title="Kick out"
+        />
       )}
     </>
   );

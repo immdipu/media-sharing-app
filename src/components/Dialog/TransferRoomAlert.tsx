@@ -56,7 +56,7 @@ export function TransferRoomAlert({ id }: { id: string }) {
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={handleTransferRoom}
-            className=" bg-btn-primary text-btn-primary hover:opacity-95"
+            className=" bg-btn-success text-btn-primary duration-200 hover:opacity-95 active:scale-90"
           >
             Confirm
           </AlertDialogAction>

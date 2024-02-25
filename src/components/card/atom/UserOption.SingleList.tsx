@@ -20,8 +20,9 @@ const UserOptionSingleList: React.FC<UserOptionSingleListProps> = ({
 }) => {
   return (
     <li
+      onClick={onClick}
       className={cn(
-        "flex items-center gap-3 px-4 py-3 hover:bg-Main-background",
+        "flex cursor-pointer items-center gap-3 px-4 py-3 hover:bg-Main-background",
         containerClass,
       )}
     >
