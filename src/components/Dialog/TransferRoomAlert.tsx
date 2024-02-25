@@ -14,6 +14,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { useSocket } from "@/context/SocketProvider";
 import { RoomUpdateTypes } from "@/types/socketTypes";
 import { useAppSelector } from "@/hooks/reduxHooks";
+import UserOptionSingleList from "../card/atom/UserOption.SingleList";
 
 export function TransferRoomAlert({ id }: { id: string }) {
   const currentUser = useAppSelector((state) => state.auth);
@@ -33,12 +34,11 @@ export function TransferRoomAlert({ id }: { id: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <li className=" flex cursor-pointer items-center gap-3 px-4 py-3 hover:bg-Main-background">
-          <RiAdminFill className="text-lg text-green-600" />{" "}
-          <span className="text-sm text-Paragraph-primary">
-            Transfer Ownership
-          </span>
-        </li>
+        <UserOptionSingleList
+          Icon={RiAdminFill}
+          iconClass="text-green-600"
+          title=" Transfer Ownership"
+        />
       </AlertDialogTrigger>
       <AlertDialogContent className="border-secondary-color bg-Secondary-background">
         <AlertDialogHeader>

@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
+import UserOptionSingleList from "./atom/UserOption.SingleList";
 import { MdBlock } from "react-icons/md";
 import { IoExitOutline } from "react-icons/io5";
-import { SlUserFollow } from "react-icons/sl";
-
 import { MdAddModerator } from "react-icons/md";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { TransferRoomAlert } from "../Dialog/TransferRoomAlert";
@@ -23,17 +22,11 @@ const UserListOptionCard = ({ id }: { id: string }) => {
     <>
       {isCurrentUserAdmin && <TransferRoomAlert id={id} />}
       {isCurrentUserAdmin && (
-        <li className=" flex items-center gap-3 px-4 py-3 hover:bg-Main-background">
-          <MdAddModerator className="text-lg text-blue-700" />{" "}
-          <span className="text-sm text-Paragraph-primary">
-            Add as moderator
-          </span>
-        </li>
+        <UserOptionSingleList Icon={MdAddModerator} title="Add as moderator" />
       )}
-      <li className=" flex items-center gap-3 px-4 py-3 hover:bg-Main-background">
-        <MdBlock className="text-lg text-red-600" />{" "}
-        <span className="text-sm text-Paragraph-primary">Block User</span>
-      </li>
+
+      <UserOptionSingleList Icon={MdBlock} title="Block user" />
+
       {isCurrentUserAdmin && (
         <li
           onClick={() => {

@@ -176,8 +176,8 @@ const JoinedSingleRoom = () => {
       <div className="flex min-h-screen justify-start   max-md:relative max-md:overflow-hidden">
         <div className="h-full w-full">
           <section className="h-[80vh]">
-            <MyActivity />
-            <OtherActivity />
+            {/* <MyActivity />
+            <OtherActivity /> */}
           </section>
           <section className="flex h-[18vh] items-end justify-center gap-2 ">
             {JoinedRoom?.roomActivity.map((activity, index) => (

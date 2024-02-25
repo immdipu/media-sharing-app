@@ -1,5 +1,4 @@
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Popover,
   PopoverContent,
@@ -53,7 +52,7 @@ const UserCardList: React.FC<UserCardListProps> = ({
       />
       <div className="ml-2 flex-1 ">
         <h1 className="font-Helvetica flex  items-center  text-sm font-normal  text-Paragraph-primary">
-          <p className="mr-2 overflow-hidden overflow-ellipsis whitespace-nowrap  ">
+          <p className="mr-2 overflow-hidden  overflow-ellipsis whitespace-nowrap  ">
             {fullName}
           </p>
           {/* <span className="text-paragraph-secondary ml-2 inline-block rounded-full border  border-secondary-color bg-Secondary-background px-2 py-[1px] text-xs">
@@ -81,7 +80,7 @@ const UserCardList: React.FC<UserCardListProps> = ({
               <BsThreeDotsVertical className="text-neutral-300" />
             </div>
           </PopoverTrigger>
-          <PopoverContent className="mr-6 h-fit w-fit overflow-hidden border-secondary-color bg-third-background p-0">
+          <PopoverContent className="mr-6 h-fit w-fit overflow-hidden border-secondary-color bg-Secondary-background p-0">
             <ul className="list-none">
               <UserListOptionCard id={_id} />
             </ul>
