@@ -1,17 +1,12 @@
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TbLogout2 } from "react-icons/tb";
+import MessageTime from "../Message/atoms/MessageTime";
 import { RoomJoinLeaveTypes } from "@/types/room";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import moment from "moment";
 import dynamic from "next/dynamic";
 import UserProfilePopoverCardSkeleton from "../Skeleton/UserProfilePopoverCardSkeleton";
-const UserProfilePopoverCard = dynamic(
-  () => import("@/components/card/UserProfilePopoverCard"),
+const UserAvatarWithPopOver = dynamic(
+  () => import("@/components/Resuable/UserAvatarWithPopOver"),
   {
     loading: () => <UserProfilePopoverCardSkeleton />,
   },
@@ -24,28 +19,21 @@ const RoomJoinNotificationCard: React.FC<RoomJoinLeaveTypes> = ({
   user,
 }) => {
   return (
-    <div className="  flex items-center bg-third-background px-3 py-2 hover:bg-secondary-hover">
-      <Popover>
-        <PopoverTrigger>
-          <Avatar className="h-10 w-10">
-            <AvatarImage src={user.profilePic} />
-            <AvatarFallback className="uppercase">
-              {user.fullName?.slice(0, 2)}
-            </AvatarFallback>
-          </Avatar>
-        </PopoverTrigger>
-        <PopoverContent className="border-secondary-color bg-Secondary-background px-3">
-          <UserProfilePopoverCard username={user.username} />
-        </PopoverContent>
-      </Popover>
+    <div className="  bg-third-background flex items-center px-3 py-2 hover:bg-secondary-hover">
+      <UserAvatarWithPopOver
+        ImageLink={user?.profilePic}
+        fallback={user?.fullName[0]}
+        username={user?.fullName}
+        className="h-8 w-8"
+      />
       <div className="relative ml-2 w-full">
-        <h4 className="light:text-green-500 w-1/2 overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-medium text-Header-secondary ">
-          {user?.fullName}{" "}
-        </h4>
-        <span className="absolute -bottom-2 -right-1 float-right text-[10px] font-light text-paragraph-secondary">
-          {" "}
-          {moment(createdAt).format("hh:mm A")}
-        </span>
+        <div className="flex items-center">
+          <h4 className="light:text-green-500 w-1/2 overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-medium text-Header-secondary ">
+            {user?.fullName}{" "}
+          </h4>
+          <MessageTime date={createdAt} />
+        </div>
+
         <h3 className="text-xs text-green-600">Joined the room</h3>
       </div>
       <div>

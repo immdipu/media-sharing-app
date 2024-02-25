@@ -8,23 +8,19 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { membersTypes } from "@/types/room";
 import dynamic from "next/dynamic";
 import { useAppSelector } from "@/hooks/reduxHooks";
+import {
+  UserProfilePopoverCardSkeleton,
+  UserListOptionCardSkeleton,
+} from "../Skeleton";
+
 const UserListOptionCard = dynamic(() => import("./UserListOptionCard"), {
-  loading: () => (
-    <div className="flex w-48 flex-col gap-2 px-3 py-3">
-      <div className="h-9 w-full  rounded bg-Main-background" />
-      <div className="h-9 w-full rounded bg-Main-background" />
-      <div className="h-9 w-full rounded bg-Main-background" />
-      <div className="h-9 w-full rounded bg-Main-background" />
-    </div>
-  ),
+  loading: () => <UserListOptionCardSkeleton />,
 });
 
 const UserAvatarWithPopOver = dynamic(
   () => import("../Resuable/UserAvatarWithPopOver"),
   {
-    loading: () => (
-      <div className="flex h-10 w-10 animate-pulse rounded-full bg-Main-background" />
-    ),
+    loading: () => <UserProfilePopoverCardSkeleton />,
   },
 );
 

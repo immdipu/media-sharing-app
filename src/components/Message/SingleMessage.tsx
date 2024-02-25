@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { ReactionTypes, RoomMessageTypes } from "@/types/room";
-import momemnt from "moment";
 import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
 import MessageOptions from "./MessageOptions";
 import clsx from "clsx";
 import MessageReaction from "./MessageReaction/MessageReaction";
+import MessageHeader from "./organism/MessageHeader";
 
 interface SinlgeMessageContextTypes {
   showEmojis: boolean;
@@ -50,17 +50,7 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
         />
 
         <div className="ml-2 w-full">
-          <div className="flex h-fit items-center gap-2  py-px ">
-            <h4 className="light:text-green-500 l h-fit max-w-[180px] overflow-hidden  overflow-ellipsis whitespace-nowrap  text-sm font-medium capitalize leading-none  text-Header-secondary ">
-              {sender?.fullName}
-            </h4>
-            <div className="h-1 w-1 rounded-full bg-pill-circle" />
-            <span className="text-[0.70rem] font-normal text-paragraph-secondary opacity-60 ">
-              {" "}
-              {momemnt(createdAt).format("hh:mm A")}
-            </span>
-          </div>
-
+          <MessageHeader date={createdAt} name={sender?.fullName} />
           <div className="relative mt-[2px] ">
             <p className="mr-3 block w-full break-words   pb-2 text-sm font-normal leading-5  text-paragraph-secondary ">
               {content}
