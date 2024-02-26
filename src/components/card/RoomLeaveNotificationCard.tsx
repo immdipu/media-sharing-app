@@ -1,7 +1,6 @@
 import React from "react";
 import { TbLogout } from "react-icons/tb";
 import { RoomJoinLeaveTypes } from "@/types/room";
-import moment from "moment";
 import dynamic from "next/dynamic";
 import UserProfilePopoverCardSkeleton from "../Skeleton/UserProfilePopoverCardSkeleton";
 import MessageHeader from "../Message/organism/MessageHeader";
