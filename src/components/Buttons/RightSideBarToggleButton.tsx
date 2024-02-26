@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { BsTextLeft } from "react-icons/bs";
-import { SearchContext } from "@/context/GlobalProvider";
 
 const RightSideBarToggleButton = ({ allProps }: any) => {
   const { showRightSideBar, setShowRightSideBar } = allProps;
