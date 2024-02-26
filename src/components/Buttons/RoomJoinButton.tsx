@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { FiLock } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 const CYCLES_PER_LETTER = 2;
