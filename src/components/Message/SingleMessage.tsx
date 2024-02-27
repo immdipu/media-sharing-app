@@ -52,7 +52,7 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
         <div className="ml-2 w-full">
           <MessageHeader date={createdAt} name={sender?.fullName} />
           <div className="relative mt-[2px] ">
-            <p className="mr-3 block w-full break-words   pb-2 text-sm font-normal leading-5  text-paragraph-secondary ">
+            <p className="mr-3 block w-full break-words pb-2  font-roboto text-sm font-normal leading-5  text-paragraph-secondary ">
               {content}
             </p>
           </div>

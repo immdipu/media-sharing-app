@@ -28,7 +28,9 @@ const RoomLeaveNotificationCard: React.FC<RoomJoinLeaveTypes> = ({
       />
       <div className="relative ml-2 w-full">
         <MessageHeader name={user?.fullName} date={createdAt} />
-        <h3 className="text-xs text-red-600 ">Left the room</h3>
+        <h3 className="font-poppins text-xs font-medium text-red-600 ">
+          Left the room
+        </h3>
       </div>
       <div>
         <TbLogout className="text-2xl text-red-600" />
