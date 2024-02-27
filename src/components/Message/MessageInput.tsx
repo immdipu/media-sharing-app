@@ -10,6 +10,7 @@ import { useParams } from "next/navigation";
 import { ChatMessageTypes, chatContentTypes, userType, Role } from "@/types";
 import { useAppDispatch, useSocket, useAppSelector } from "@/hooks";
 import { AddNewMessage } from "@/redux/slice/chatSlice";
+import ReplyInputBoxHeader from "./MessageReply/ReplyInputBoxHeader";
 
 interface MessageInputProps {
   MessageType: "ROOM" | "CHAT";
@@ -93,38 +94,43 @@ const MessageInput: React.FC<MessageInputProps> = ({
   };
 
   return (
-    <div className="px flex gap-2 px-2">
-      <div className="relative flex w-full items-center rounded-md border border-secondary-color bg-neutral-800 pr-3 transition-colors duration-150 ease-linear focus-within:border-neutral-300">
-        <Textarea
-          className=" messageInput  resize-none   bg-transparent text-neutral-200 outline-none  placeholder:text-neutral-400  focus:outline-none "
-          placeholder="Write your message"
-          rows={row}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              return handleSend();
-            }
-          }}
-        />
-        <HiOutlineEmojiHappy
-          className="cursor-pointer text-3xl text-neutral-400"
-          onClick={() => setShowEmoji(!showEmoji)}
-        />
-        {showEmoji && (
-          <div className="absolute  bottom-14 right-0 z-10">
-            <Picker
-              data={data}
-              onClickOutside={() => setShowEmoji(false)}
-              onEmojiSelect={(e: any) => {
-                setMessage(message + e.native);
+    <div className="px flex flex-col gap-2  px-2">
+      <div className="flex gap-2  ">
+        <div className="relative flex w-full flex-col  rounded-md border border-secondary-color bg-neutral-800  transition-colors duration-150 ease-linear focus-within:border-neutral-300">
+          <ReplyInputBoxHeader />
+          <div className="relative flex w-full items-center rounded-md  bg-neutral-800 pr-3  ">
+            <Textarea
+              className=" messageInput  resize-none   bg-transparent text-neutral-200 outline-none  placeholder:text-neutral-400  focus:outline-none "
+              placeholder="Write your message"
+              rows={row}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  return handleSend();
+                }
               }}
             />
+            <HiOutlineEmojiHappy
+              className="cursor-pointer text-3xl text-neutral-400"
+              onClick={() => setShowEmoji(!showEmoji)}
+            />
+            {showEmoji && (
+              <div className="absolute  bottom-14 right-0 z-10">
+                <Picker
+                  data={data}
+                  onClickOutside={() => setShowEmoji(false)}
+                  onEmojiSelect={(e: any) => {
+                    setMessage(message + e.native);
+                  }}
+                />
+              </div>
+            )}
           </div>
-        )}
+        </div>
+        <MessageSendButon onclick={handleSend} />
       </div>
-      <MessageSendButon onclick={handleSend} />
     </div>
   );
 };
