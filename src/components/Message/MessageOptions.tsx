@@ -6,9 +6,13 @@ import {
   FaExclamationCircle,
 } from "react-icons/fa";
 import MessageOptionChip from "./MessageOptionChip";
-import EmojisPopOver from "../Emojis/EmojisPopOver";
 import clsx from "clsx";
 import { SinlgeMessageContext } from "./SingleMessage";
+import dynamic from "next/dynamic";
+
+const EmojisPopOver = dynamic(() => import("../Emojis/EmojisPopOver"), {
+  loading: () => <p>Loading...</p>,
+});
 
 const MessageOptions = () => {
   const [active, setActive] = useState<

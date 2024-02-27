@@ -2,10 +2,22 @@
 import React, { useState } from "react";
 import { ReactionTypes, RoomMessageTypes } from "@/types/room";
 import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
-import MessageOptions from "./MessageOptions";
+import dynamic from "next/dynamic";
 import clsx from "clsx";
-import MessageReaction from "./MessageReaction/MessageReaction";
 import MessageHeader from "./organism/MessageHeader";
+
+const MessageReaction = dynamic(
+  () => import("./MessageReaction/MessageReaction"),
+  {
+    loading: () => (
+      <div className="h-2 w-2 animate-pulse rounded-md bg-Main-background" />
+    ),
+  },
+);
+
+const MessageOptions = dynamic(() => import("./MessageOptions"), {
+  loading: () => <p>Loading...</p>,
+});
 
 interface SinlgeMessageContextTypes {
   showEmojis: boolean;

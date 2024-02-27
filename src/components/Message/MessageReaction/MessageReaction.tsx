@@ -21,7 +21,7 @@ const MessageReaction: React.FC<MessageReactionProps> = ({ reactions }) => {
     <div className="ml-10 flex justify-start space-x-3 py-px">
       {Object.keys(Reactions).map((emoji, index) => (
         <div
-          className="my-1 flex items-center rounded-lg border border-primary-color bg-Main-background px-2 py-1 text-sm"
+          className="my-1 flex items-center rounded-lg border border-primary-color bg-Main-background px-2 py-1 text-sm text-red-500"
           key={index}
         >
           <span>
