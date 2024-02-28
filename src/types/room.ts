@@ -69,7 +69,7 @@ interface DefaultMessageTypes {
 
 export interface MessageReplyTypes extends DefaultMessageTypes {
   Type: "reply";
-  replyTo: string | RoomMessageTypes;
+  replyTo: string | RoomMessageTypes | null;
 }
 
 export interface ReactionTypes extends MessageReactionDataTypes {

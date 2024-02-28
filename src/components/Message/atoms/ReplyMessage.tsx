@@ -1,23 +1,6 @@
 import { MessageReplyTypes } from "@/types/room";
-import React, { useState } from "react";
-import MessageHeader from "../organism/MessageHeader";
-import dynamic from "next/dynamic";
-import UserAvatarWithPopOver from "@/components/Resuable/UserAvatarWithPopOver";
-
-import clsx from "clsx";
-
-const MessageReaction = dynamic(
-  () => import("../MessageReaction/MessageReaction"),
-  {
-    loading: () => (
-      <div className="h-2 w-2 animate-pulse rounded-md bg-Main-background" />
-    ),
-  },
-);
-
-const MessageOptions = dynamic(() => import("../MessageOptions"), {
-  loading: () => <p>Loading...</p>,
-});
+import React from "react";
+import SingleMessageWrapper from "../organism/SingleMessageWrapper";
 
 const ReplyMessage: React.FC<MessageReplyTypes> = ({
   Type,
@@ -28,42 +11,31 @@ const ReplyMessage: React.FC<MessageReplyTypes> = ({
   replyTo,
   sender,
 }) => {
-  const [showEmojis, setShowEmojis] = useState(false);
-  return (
-    <div
-      className={clsx(
-        "group relative flex flex-col px-3 py-1 hover:bg-Main-background",
-        showEmojis && "bg-Main-background",
-      )}
-    >
-      <section className=" flex items-start">
-        <UserAvatarWithPopOver
-          ImageLink={sender.profilePic}
-          username={sender.username}
-          fallback={sender.fullName}
-          className="mt-1"
-        />
+  if (replyTo === null || typeof replyTo === "string") return null;
 
-        <div className="ml-2 w-full">
-          <MessageHeader date={createdAt} name={sender?.fullName} />
-          <div className="relative mt-[2px] ">
-            <p className="mr-3 block w-full break-words pb-2  font-roboto text-sm font-normal leading-5  text-paragraph-secondary ">
-              {content}
+  return (
+    <SingleMessageWrapper
+      content={content}
+      createdAt={createdAt}
+      reactions={reactions}
+      sender={sender}
+      Type={Type}
+      _id={_id}
+      replyTo={replyTo}
+    >
+      <div className="relative mt-[2px] ">
+        <div className=" my-1 flex h-full min-h-[2rem] items-center overflow-hidden rounded-md  border border-transparent bg-Main-background bg-opacity-50 py-1     backdrop-blur-md transition-colors duration-150 ease-linear group-hover:border-primary-color group-hover:bg-Secondary-background">
+          <div className="pill relative mx-1 flex h-auto w-full  items-center pl-2  ">
+            <p className="ml-px w-full self-start overflow-hidden   pr-1  font-poppins text-xs text-paragraph-secondary ">
+              {replyTo.content}
             </p>
           </div>
         </div>
-      </section>
-
-      {reactions && reactions.length > 0 && (
-        <MessageReaction reactions={reactions} />
-      )}
-      <MessageOptions
-        _id={_id}
-        setShowEmojis={setShowEmojis}
-        showEmojis={showEmojis}
-        reactions={reactions}
-      />
-    </div>
+        <p className=" mr-3 block w-full break-words pb-2  font-roboto text-sm font-normal leading-5  text-paragraph-secondary ">
+          {content}
+        </p>
+      </div>
+    </SingleMessageWrapper>
   );
 };
 

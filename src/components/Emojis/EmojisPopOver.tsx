@@ -6,19 +6,27 @@ import {
 } from "@/components/ui/popover";
 import Emoji from "./Emoji";
 import { EmojisCollection } from "@/lib/constants";
-import { SinlgeMessageContext } from "../Message/SingleMessage";
 import { useAppDispatch, useAppSelector, useSocket } from "@/hooks";
 import { Role } from "@/types";
 import uniqid from "uniqid";
 import clsx from "clsx";
+import { ReactionTypes } from "@/types/room";
 
 interface EmojisPopOverProps {
   children: React.ReactNode;
+  showEmojis: boolean;
+  setShowEmojis: React.Dispatch<React.SetStateAction<boolean>>;
+  messageId: string;
+  reactions: ReactionTypes[];
 }
 
-const EmojisPopOver: React.FC<EmojisPopOverProps> = ({ children }) => {
-  const { showEmojis, setShowEmojis, messageId, reactions } =
-    React.useContext(SinlgeMessageContext);
+const EmojisPopOver: React.FC<EmojisPopOverProps> = ({
+  children,
+  messageId,
+  reactions,
+  setShowEmojis,
+  showEmojis,
+}) => {
   const user = useAppSelector((state) => state.auth);
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const messages = useAppSelector((state) => state.room.RoomChat);

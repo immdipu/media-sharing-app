@@ -7,7 +7,6 @@ import {
 } from "react-icons/fa";
 import MessageOptionChip from "./MessageOptionChip";
 import clsx from "clsx";
-import { SinlgeMessageContext } from "./SingleMessage";
 import dynamic from "next/dynamic";
 import { useAppDispatch } from "@/hooks";
 import { AddReplyTo } from "@/redux/slice/roomSlice";
@@ -47,7 +46,12 @@ const MessageOptions: React.FC<MessageOptionsProps> = ({
           className="hover:text-green-500 "
           onClick={() => dispatch(AddReplyTo(_id))}
         />
-        <EmojisPopOver>
+        <EmojisPopOver
+          messageId={_id}
+          reactions={reactions}
+          setShowEmojis={setShowEmojis}
+          showEmojis={showEmojis}
+        >
           <MessageOptionChip
             Icon={FaRegSmile}
             TooltipText="React to message"
