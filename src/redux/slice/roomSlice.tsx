@@ -163,9 +163,11 @@ export const roomSlice = createSlice({
       }
 
       const message = state.RoomChat.find(
-        (message) => message.Type === "message" && message._id === msgId,
+        (message) =>
+          (message.Type === "message" || message.Type === "reply") &&
+          message._id === msgId,
       );
-      if (message && message.Type === "message") {
+      if (message && (message.Type === "message" || message.Type === "reply")) {
         if (message.reactions.length > 0) {
           const ReactionExist = message.reactions.find(
             (reaction) => reaction.sender._id === sender._id,
@@ -229,7 +231,8 @@ export const roomSlice = createSlice({
     AddReplyTo: (state, action: PayloadAction<string>) => {
       const replyTo = state.RoomChat?.find(
         (message) =>
-          message.Type === "message" && message._id === action.payload,
+          (message.Type === "message" || message.Type === "reply") &&
+          message._id === action.payload,
       );
       if (replyTo) {
         state.ReplyTo = replyTo as RoomMessageTypes;

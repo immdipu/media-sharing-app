@@ -10,6 +10,7 @@ import { useParams } from "next/navigation";
 import { ChatMessageTypes, chatContentTypes, userType, Role } from "@/types";
 import { useAppDispatch, useSocket, useAppSelector } from "@/hooks";
 import { AddNewMessage } from "@/redux/slice/chatSlice";
+import { RemoveReplyTo } from "@/redux/slice/roomSlice";
 import ReplyInputBoxHeader from "./MessageReply/ReplyInputBoxHeader";
 
 interface MessageInputProps {
@@ -57,6 +58,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
           replyTo: ReplyTo ? ReplyTo._id : null,
         },
       };
+      if (ReplyTo) dispatch(RemoveReplyTo());
       EmitCustomEvent("send-message-in-room", messageData);
     }
 

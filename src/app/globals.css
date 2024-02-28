@@ -29,6 +29,7 @@
 
     /* Background Colors */
     --bg-primary: #1a1a1a;
+    --bg-primary-dark: #0f0f0f;
     --bg-secondary: #262626;
     --bg-third: #373636;
     --border: #404040;
@@ -132,6 +133,7 @@
 
 
 
+
 .pill::before {
     content: "";
     display: block;
@@ -142,9 +144,26 @@
     border-radius: 8px;
     width: 4px;
     height: 100%;
-
     background-color: var(--primary);
     z-index: -1;
+}
+
+
+@keyframes pulse {
+
+    0%,
+    50% {
+        background-color: var(--bg-primary-dark);
+    }
+
+    100% {
+        background-color: var(--bg-secondary);
+    }
+}
+
+.highlightedMessage {
+    animation: pulse 1s alternate 15;
+
 }
 
 .MessageContainer::-webkit-scrollbar {

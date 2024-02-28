@@ -28,6 +28,7 @@ interface SingleMessageWrapperProps
     MessageReplyTypes {
   children: React.ReactNode;
   Type: any;
+  highlightedMessageId: string | null;
 }
 
 const SingleMessageWrapper: React.FC<SingleMessageWrapperProps> = ({
@@ -39,6 +40,7 @@ const SingleMessageWrapper: React.FC<SingleMessageWrapperProps> = ({
   reactions,
   children,
   replyTo,
+  highlightedMessageId,
 }) => {
   const [showEmojis, setShowEmojis] = useState(false);
 
@@ -47,7 +49,9 @@ const SingleMessageWrapper: React.FC<SingleMessageWrapperProps> = ({
       className={clsx(
         "group relative flex flex-col px-3 py-1 hover:bg-Main-background",
         showEmojis && "bg-Main-background",
+        highlightedMessageId === _id && "highlightedMessage",
       )}
+      id={_id}
     >
       <section className=" flex items-start">
         <UserAvatarWithPopOver

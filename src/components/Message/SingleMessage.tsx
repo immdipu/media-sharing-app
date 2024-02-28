@@ -3,13 +3,18 @@ import React, { useState } from "react";
 import { ReactionTypes, RoomMessageTypes } from "@/types/room";
 import SingleMessageWrapper from "./organism/SingleMessageWrapper";
 
-const SingleMessage: React.FC<RoomMessageTypes> = ({
+interface SingleMessageProps extends RoomMessageTypes {
+  highlightedMessageId: string | null;
+}
+
+const SingleMessage: React.FC<SingleMessageProps> = ({
   Type,
   content,
   createdAt,
   sender,
   _id,
   reactions,
+  highlightedMessageId,
 }) => {
   return (
     <SingleMessageWrapper
@@ -20,6 +25,7 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
       Type={Type}
       _id={_id}
       replyTo={null}
+      highlightedMessageId={highlightedMessageId}
     >
       <div className="relative mt-[2px] ">
         <p className="mr-3 block w-full break-words pb-2  font-roboto text-sm font-normal leading-5  text-paragraph-secondary ">
