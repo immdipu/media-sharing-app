@@ -29,6 +29,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
   const user = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
+  const ReplyTo = useAppSelector((state) => state.room.ReplyTo);
   const { socket, EmitCustomEvent } = useSocket();
 
   const handleSend = () => {
@@ -39,7 +40,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
         roomId: JoinedRoom?.id,
         data: {
           _id: uniqid(),
-          Type: "message",
+          Type: ReplyTo ? "reply" : "message",
           content: message,
           sender: {
             _id: user.id!,
@@ -53,6 +54,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
           },
           reactions: [],
           createdAt: new Date(),
+          replyTo: ReplyTo ? ReplyTo._id : null,
         },
       };
       EmitCustomEvent("send-message-in-room", messageData);

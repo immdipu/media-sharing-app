@@ -10,6 +10,7 @@ module.exports = {
   theme: {
     extend: {
       textColor: {
+        primary: "var(--primary)",
         "Header-primary": "var(--header-primary)",
         "Header-secondary": "var(--header-secondary)",
         "Paragraph-primary": "var(--paragraph-primary)",

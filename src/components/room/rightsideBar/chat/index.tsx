@@ -7,6 +7,7 @@ import RoomJoinNotificationCard from "@/components/card/RoomJoinNotificationCard
 import RoomUpdateCard from "@/components/card/RoomUpdateCard";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import ReplyMessage from "@/components/Message/atoms/ReplyMessage";
 
 const Chat = () => {
   const Messages = useAppSelector((state) => state.room.RoomChat);
@@ -37,6 +38,11 @@ const Chat = () => {
             if (message.Type === "message") {
               return <SingleMessage key={index} {...message} />;
             }
+
+            if (message.Type === "reply") {
+              return <ReplyMessage key={index} {...message} />;
+            }
+
             if (message.Type === "RoomUpdate") {
               return (
                 <RoomUpdateCard

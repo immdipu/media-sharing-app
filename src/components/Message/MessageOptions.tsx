@@ -9,17 +9,28 @@ import MessageOptionChip from "./MessageOptionChip";
 import clsx from "clsx";
 import { SinlgeMessageContext } from "./SingleMessage";
 import dynamic from "next/dynamic";
+import { useAppDispatch } from "@/hooks";
+import { AddReplyTo } from "@/redux/slice/roomSlice";
+import { ReactionTypes } from "@/types/room";
 
 const EmojisPopOver = dynamic(() => import("../Emojis/EmojisPopOver"), {
   loading: () => <p>Loading...</p>,
 });
 
-const MessageOptions = () => {
-  const [active, setActive] = useState<
-    "reply" | "emojis" | "delete" | "report" | null
-  >(null);
-  const { showEmojis, setShowEmojis } = useContext(SinlgeMessageContext);
+interface MessageOptionsProps {
+  _id: string;
+  showEmojis: boolean;
+  setShowEmojis: React.Dispatch<React.SetStateAction<boolean>>;
+  reactions: ReactionTypes[];
+}
 
+const MessageOptions: React.FC<MessageOptionsProps> = ({
+  _id,
+  setShowEmojis,
+  showEmojis,
+  reactions,
+}) => {
+  const dispatch = useAppDispatch();
   return (
     <section
       className={clsx(
@@ -34,13 +45,7 @@ const MessageOptions = () => {
           Icon={FaReply}
           TooltipText="Reply to message"
           className="hover:text-green-500 "
-          onClick={() => {
-            if (active === "reply") {
-              setActive(null);
-            } else {
-              setActive("reply");
-            }
-          }}
+          onClick={() => dispatch(AddReplyTo(_id))}
         />
         <EmojisPopOver>
           <MessageOptionChip

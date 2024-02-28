@@ -1,13 +1,13 @@
-"use client";
+import { MessageReplyTypes } from "@/types/room";
 import React, { useState } from "react";
-import { ReactionTypes, RoomMessageTypes } from "@/types/room";
-import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
+import MessageHeader from "../organism/MessageHeader";
 import dynamic from "next/dynamic";
+import UserAvatarWithPopOver from "@/components/Resuable/UserAvatarWithPopOver";
+
 import clsx from "clsx";
-import MessageHeader from "./organism/MessageHeader";
 
 const MessageReaction = dynamic(
-  () => import("./MessageReaction/MessageReaction"),
+  () => import("../MessageReaction/MessageReaction"),
   {
     loading: () => (
       <div className="h-2 w-2 animate-pulse rounded-md bg-Main-background" />
@@ -15,37 +15,20 @@ const MessageReaction = dynamic(
   },
 );
 
-const MessageOptions = dynamic(() => import("./MessageOptions"), {
+const MessageOptions = dynamic(() => import("../MessageOptions"), {
   loading: () => <p>Loading...</p>,
 });
 
-interface SinlgeMessageContextTypes {
-  showEmojis: boolean;
-  setShowEmojis: React.Dispatch<React.SetStateAction<boolean>>;
-  messageId?: string;
-  reactions: ReactionTypes[];
-}
-
-const initialState: SinlgeMessageContextTypes = {
-  showEmojis: false,
-  setShowEmojis: () => {},
-  messageId: "",
-  reactions: [],
-};
-
-export const SinlgeMessageContext =
-  React.createContext<SinlgeMessageContextTypes>(initialState);
-
-const SingleMessage: React.FC<RoomMessageTypes> = ({
+const ReplyMessage: React.FC<MessageReplyTypes> = ({
   Type,
+  _id,
   content,
   createdAt,
-  sender,
-  _id,
   reactions,
+  replyTo,
+  sender,
 }) => {
   const [showEmojis, setShowEmojis] = useState(false);
-
   return (
     <div
       className={clsx(
@@ -75,12 +58,13 @@ const SingleMessage: React.FC<RoomMessageTypes> = ({
         <MessageReaction reactions={reactions} />
       )}
       <MessageOptions
+        _id={_id}
         setShowEmojis={setShowEmojis}
         showEmojis={showEmojis}
-        _id={_id}
+        reactions={reactions}
       />
     </div>
   );
 };
 
-export default SingleMessage;
+export default ReplyMessage;

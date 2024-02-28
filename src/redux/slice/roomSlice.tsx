@@ -7,9 +7,12 @@ import {
   membersTypes,
   ActivityTypes,
   MessageReactionDataTypes,
+  RoomMessageTypes,
+  MessageReplyTypes,
 } from "@/types/room";
 import { roomActivityTypes } from "@/types/roomActivity";
 import { ActivityDeleteResponseTypes } from "@/types/socketTypes";
+import { MessageTypes } from "@/types/ApiResponseTypes";
 
 interface initialStateProps {
   Room: RoomTypes[] | null;
@@ -17,6 +20,7 @@ interface initialStateProps {
   RoomChat: RoomChatTypes[] | null;
   RoomJoiningLoader: boolean;
   StreamingLink: string | null;
+  ReplyTo: RoomMessageTypes | null;
 }
 
 const initialState: initialStateProps = {
@@ -25,6 +29,7 @@ const initialState: initialStateProps = {
   RoomChat: null,
   RoomJoiningLoader: false,
   StreamingLink: null,
+  ReplyTo: null,
 };
 
 export const roomSlice = createSlice({
@@ -60,6 +65,28 @@ export const roomSlice = createSlice({
         state.RoomChat = [action.payload];
       }
     },
+
+    AddReplyMessage: (state, action: PayloadAction<MessageReplyTypes>) => {
+      const originalMessage = state.RoomChat?.find(
+        (message) =>
+          (message.Type === "message" || message.Type === "reply") &&
+          message._id === action.payload.replyTo,
+      ) as unknown as RoomMessageTypes | MessageReplyTypes | null | undefined;
+
+      if (!originalMessage) return;
+
+      let replyMessage = {
+        ...action.payload,
+        replyTo: {
+          _id: originalMessage._id,
+          content: originalMessage.content,
+          sender: originalMessage.sender,
+          createdAt: originalMessage.createdAt,
+        },
+      };
+      state.RoomChat?.push(replyMessage as MessageReplyTypes);
+    },
+
     AddNewMemeberToTheRoom: (state, action: PayloadAction<membersTypes>) => {
       const user = action.payload;
       const userAlreadyExist = state.JoinedRoom?.members?.find(
@@ -199,6 +226,20 @@ export const roomSlice = createSlice({
       }
     },
 
+    AddReplyTo: (state, action: PayloadAction<string>) => {
+      const replyTo = state.RoomChat?.find(
+        (message) =>
+          message.Type === "message" && message._id === action.payload,
+      );
+      if (replyTo) {
+        state.ReplyTo = replyTo as RoomMessageTypes;
+      }
+    },
+
+    RemoveReplyTo: (state) => {
+      state.ReplyTo = null;
+    },
+
     StopRoomJoiningLoader: (state) => {
       state.RoomJoiningLoader = false;
     },
@@ -224,5 +265,8 @@ export const {
   UpdateAllActivity,
   AddStreamingLink,
   UpdateMessageReaction,
+  AddReplyTo,
+  RemoveReplyTo,
+  AddReplyMessage,
 } = roomSlice.actions;
 export default roomSlice.reducer;

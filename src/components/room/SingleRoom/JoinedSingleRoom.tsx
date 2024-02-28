@@ -13,8 +13,13 @@ import {
   UpdateAnActivity,
   UpdateRoom,
   UpdateMessageReaction,
+  AddReplyMessage,
 } from "@/redux/slice/roomSlice";
-import { MessageReactionDataTypes, RoomChatTypes } from "@/types/room";
+import {
+  MessageReactionDataTypes,
+  MessageReplyTypes,
+  RoomChatTypes,
+} from "@/types/room";
 import { RoomUpdateResponseTypes } from "@/types/socketTypes";
 import { useSearchParams } from "next/navigation";
 import { ActivityType } from "@/types/roomActivity";
@@ -115,6 +120,10 @@ const JoinedSingleRoom = () => {
           if (params.get("tab") !== "chat") {
             setMessageCount((prev) => prev + 1);
           }
+        }
+
+        if (data.Type === "reply") {
+          dispatch(AddReplyMessage(data as MessageReplyTypes));
         }
 
         dispatch(AddMessage(data));

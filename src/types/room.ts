@@ -28,7 +28,8 @@ export type RoomChatTypes =
   | RoomJoinLeaveTypes
   | RoomMessageTypes
   | RoomUpdateMessageTypes
-  | MessageReactionTypes;
+  | MessageReactionTypes
+  | MessageReplyTypes;
 
 export interface MessageReactionDataTypes {
   sender: {
@@ -58,12 +59,24 @@ export interface RoomJoinLeaveTypes {
   createdAt: Date;
 }
 
+interface DefaultMessageTypes {
+  _id: string;
+  content: string;
+  sender: membersTypes;
+  createdAt: Date;
+  reactions: ReactionTypes[];
+}
+
+export interface MessageReplyTypes extends DefaultMessageTypes {
+  Type: "reply";
+  replyTo: string | RoomMessageTypes;
+}
+
 export interface ReactionTypes extends MessageReactionDataTypes {
   sender: membersTypes;
 }
 
-export interface RoomMessageTypes {
-  _id: string;
+export interface RoomMessageTypes extends DefaultMessageTypes {
   Type:
     | "message"
     | "image"
@@ -75,13 +88,8 @@ export interface RoomMessageTypes {
     | "sticker"
     | "gif"
     | "poll"
-    | "reply"
     | "forwarded"
     | "system";
-  content: string;
-  sender: membersTypes;
-  createdAt: Date;
-  reactions: ReactionTypes[];
 }
 
 export interface ActivityTypes {
