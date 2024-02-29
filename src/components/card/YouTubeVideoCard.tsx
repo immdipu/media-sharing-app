@@ -1,11 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { YouTubeVideo } from "@/types/Youtube";
-import { useContext } from "react";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
-import { useSocket } from "@/context/SocketProvider";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import useUserRoomActivity from "@/hooks/useUserRoomActivity";
+import { useAppSelector, useSocket, useUserRoomActivity } from "@/hooks";
 import { ViewsFormat } from "@/lib/utils";
 import { ActivityType } from "@/types/roomActivity";
 
@@ -63,12 +60,12 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   return (
     <div
       onClick={() => handlePlayVideo()}
-      className="mb-4 flex  h-24 w-full px-2 transition-colors duration-300 ease-linear hover:bg-third-background"
+      className="mb-4 flex  h-24 w-full px-2 transition-colors duration-300 ease-linear hover:bg-Main-background"
     >
-      <Avatar className="h-full w-40 cursor-pointer rounded-md bg-neutral-700 shadow-md ">
+      <Avatar className="h-full  w-40 cursor-pointer rounded-md bg-neutral-700 shadow-md ">
         <AvatarImage
           src={thumbnail?.url}
-          className="object-contain"
+          className="h-full object-cover"
           alt="@shadcn"
         />
         <p className="absolute bottom-0 right-0 rounded-sm bg-neutral-900 px-1 py-px text-xs text-neutral-100">

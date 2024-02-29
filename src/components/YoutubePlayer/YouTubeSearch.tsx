@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { use, useEffect, useRef } from "react";
 import { IoSearch } from "react-icons/io5";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { userApis } from "@/Apis/APIs";
@@ -10,6 +10,8 @@ import YouTubeVideoCard from "../card/YouTubeVideoCard";
 import ShareButton from "../Buttons/YouTubeShareButton";
 import { YouTubeVideo } from "@/types/Youtube";
 import "./YouTubeSearch.css";
+import Each from "../Resuable/Each";
+import ChipContainer from "./ChipContainer";
 
 const YouTubeSearch = () => {
   const [search, setSearch] = React.useState<string>("");
@@ -95,11 +97,10 @@ const YouTubeSearch = () => {
         <div className="BackButton w-6 transition-all duration-100 ease-linear">
           <ShareButton backButton={true} />
         </div>
-
-        <div className=" relative flex h-10 w-full items-center justify-between overflow-hidden rounded-md bg-Input-background">
+        <div className=" relative flex h-10 w-full items-center justify-between overflow-hidden rounded-md bg-Main-background">
           <input
             type="search"
-            className="searchInput h-full w-full   bg-Input-background px-3 py-2 text-sm text-Paragraph-primary outline-none transition-all  duration-200 ease-linear  focus:outline-none"
+            className="searchInput h-full w-full   bg-Main-background px-3 py-2 text-sm text-Paragraph-primary outline-none transition-all  duration-200 ease-linear  focus:outline-none"
             placeholder="Search"
             value={search}
             onFocus={() => {
@@ -128,30 +129,34 @@ const YouTubeSearch = () => {
         {searchSuggestion.length > 0 && showSuggestion && (
           <section
             ref={SuggestionRef}
-            className="absolute left-0 right-0 top-12 z-20 h-40 rounded-md bg-third-background shadow-lg"
+            className="absolute  left-0 right-0 top-14 z-20 h-40 rounded-md border border-primary-color bg-Secondary-background shadow-lg"
           >
             <ScrollArea className="h-full w-full py-2 ">
-              {searchSuggestion.map((item, index) => (
-                <p
-                  key={index}
-                  onClick={() => {
-                    ImmediateSearchFunction(item);
-                  }}
-                  className=" cursor-pointer px-3 py-1 text-sm font-light text-paragraph-secondary hover:bg-Secondary-background"
-                >
-                  {item}
-                </p>
-              ))}
+              <Each
+                of={searchSuggestion}
+                render={(item, index) => (
+                  <p
+                    key={index}
+                    onClick={() => {
+                      ImmediateSearchFunction(item);
+                    }}
+                    className=" cursor-pointer px-3 py-1 font-roboto text-sm  font-light text-paragraph-secondary hover:bg-Main-background"
+                  >
+                    {item}
+                  </p>
+                )}
+              />
             </ScrollArea>
           </section>
         )}
       </div>
-      <div className=" w-full px-4 py-2"></div>
+      <ChipContainer setSearchResult={setSearchResult} />
       <section className="relative">
-        <ScrollArea className="h-[calc(100vh-135px)] w-full  py-2 ">
-          {searchResult.map((item, index) => (
-            <YouTubeVideoCard {...item} key={item.id} />
-          ))}
+        <ScrollArea className=" h-[calc(100vh-149px)] w-full  py-2 ">
+          <Each
+            of={searchResult}
+            render={(item) => <YouTubeVideoCard {...item} key={item.id} />}
+          />
         </ScrollArea>
         {searchVideos.isLoading && (
           <div className="absolute bottom-0 left-0 right-0 top-0 z-10 grid place-content-center bg-neutral-700 bg-opacity-5 backdrop-blur-sm">

@@ -202,4 +202,17 @@ export const userApis = {
     );
     return res.data;
   },
+
+  getTrendingVideos: async (): Promise<YouTubeVideo[]> => {
+    const res = await axiosInstance().get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/media/youtube/trending`,
+    );
+    return res.data;
+  },
+  getHomePageVideos: async (): Promise<YouTubeVideo[]> => {
+    const res = await axiosInstance().get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/media/youtube/home`,
+    );
+    return res.data;
+  },
 };

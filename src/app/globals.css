@@ -305,3 +305,21 @@
 .tooltip:hover[data-tooltip-position="right"]::after {
     --scale: 1;
 }
+
+.lineLoader {
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 50%, var(--primary) 100%);
+    animation: swipe 1s linear infinite;
+    border-radius: 4px;
+    overflow: hidden;
+
+}
+
+@keyframes swipe {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
