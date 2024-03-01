@@ -34,6 +34,15 @@ const ChipContainer: React.FC<ChipContainerProps> = ({
     },
   });
 
+  const getRecentVideos = useMutation(() => userApis.getRecentVideos(), {
+    onSuccess: (data) => {
+      setSearchResult(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   React.useEffect(() => {
     const data = localStorage.getItem("YouTubeSearchResult");
     if (!data) {
@@ -73,6 +82,7 @@ const ChipContainer: React.FC<ChipContainerProps> = ({
         >
           Trending
         </Tab>
+
         <Tab
           onClick={() => {
             setActive(2);
@@ -82,18 +92,19 @@ const ChipContainer: React.FC<ChipContainerProps> = ({
             active === 2 && " text-btn-primary",
           )}
         >
-          Recent
+          Queue
         </Tab>
         <Tab
           onClick={() => {
             setActive(3);
+            getRecentVideos.mutate();
           }}
           className={clsx(
             "grid w-full px-1 py-1 font-roboto text-xs text-Paragraph-primary duration-300",
             active === 3 && " text-btn-primary",
           )}
         >
-          Queue
+          Recent
         </Tab>
       </TabContainer>
       <div
@@ -101,6 +112,7 @@ const ChipContainer: React.FC<ChipContainerProps> = ({
           "  h-[3px] w-full overflow-hidden bg-blue-300 opacity-0",
           getTrending.isLoading && "opacity-100",
           getHomepage.isLoading && "opacity-100",
+          getRecentVideos.isLoading && "opacity-100",
         )}
       >
         <div className="lineLoader h-full  w-[80%] bg-opacity-100"></div>

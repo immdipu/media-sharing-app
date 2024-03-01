@@ -221,4 +221,10 @@ export const userApis = {
     );
     return res.data;
   },
+  getRecentVideos: async (): Promise<YouTubeVideo[]> => {
+    const res = await axiosInstance().get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/media/youtube/recent`,
+    );
+    return res.data;
+  },
 };
