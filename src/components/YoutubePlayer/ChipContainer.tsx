@@ -7,9 +7,13 @@ import { YouTubeVideo } from "@/types/Youtube";
 
 interface ChipContainerProps {
   setSearchResult: React.Dispatch<React.SetStateAction<YouTubeVideo[]>>;
+  searchResult: YouTubeVideo[];
 }
 
-const ChipContainer: React.FC<ChipContainerProps> = ({ setSearchResult }) => {
+const ChipContainer: React.FC<ChipContainerProps> = ({
+  setSearchResult,
+  searchResult,
+}) => {
   const [active, setActive] = React.useState<0 | 1 | 2 | 3 | 4>(0);
 
   const getTrending = useMutation(() => userApis.getTrendingVideos(), {
@@ -29,6 +33,14 @@ const ChipContainer: React.FC<ChipContainerProps> = ({ setSearchResult }) => {
       console.log(error);
     },
   });
+
+  React.useEffect(() => {
+    const data = localStorage.getItem("YouTubeSearchResult");
+    if (!data) {
+      getHomepage.mutate();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className=" relative mt-2 overflow-hidden px-5">
@@ -86,7 +98,7 @@ const ChipContainer: React.FC<ChipContainerProps> = ({ setSearchResult }) => {
       </TabContainer>
       <div
         className={clsx(
-          "  h-1 w-full overflow-hidden bg-blue-300 opacity-0",
+          "  h-[3px] w-full overflow-hidden bg-blue-300 opacity-0",
           getTrending.isLoading && "opacity-100",
           getHomepage.isLoading && "opacity-100",
         )}

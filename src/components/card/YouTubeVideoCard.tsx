@@ -6,7 +6,11 @@ import { useAppSelector, useSocket, useUserRoomActivity } from "@/hooks";
 import { ViewsFormat } from "@/lib/utils";
 import { ActivityType } from "@/types/roomActivity";
 
-const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
+interface YouTubeVideoCardProps extends YouTubeVideo {
+  handlePlay: (videoId: string) => void;
+}
+
+const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({
   title,
   thumbnail,
   duration_formatted,
@@ -14,6 +18,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
   channel,
   views,
   id,
+  handlePlay,
 }) => {
   const {
     setIsMyActivityShowing,
@@ -31,6 +36,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideo> = ({
       return;
     } else {
       YoutubePlayer.current?.loadVideoById(id);
+      handlePlay(id);
     }
     localStorage.setItem("YouTubeVideoId", id);
     localStorage.setItem("YouTubeThumbnail", thumbnail?.url);

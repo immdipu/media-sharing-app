@@ -73,6 +73,19 @@ const YouTubeSearch = () => {
     },
   );
 
+  const getRelatedVideos = useMutation(
+    (videoId: string) => userApis.getRelatedVideos(videoId),
+    {
+      onSuccess: (data) => {
+        localStorage.setItem("YouTubeSearchResult", JSON.stringify(data));
+        setSearchResult(data);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    },
+  );
+
   const ImmediateSearchFunction = (searchTerms: string) => {
     setImmediateSearch(true);
     setSearch(searchTerms);
@@ -90,6 +103,10 @@ const YouTubeSearch = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm]);
+
+  const handlePlayVideo = (id: string) => {
+    getRelatedVideos.mutate(id);
+  };
 
   return (
     <div>
@@ -150,12 +167,21 @@ const YouTubeSearch = () => {
           </section>
         )}
       </div>
-      <ChipContainer setSearchResult={setSearchResult} />
+      <ChipContainer
+        searchResult={searchResult}
+        setSearchResult={setSearchResult}
+      />
       <section className="relative">
         <ScrollArea className=" h-[calc(100vh-149px)] w-full  py-2 ">
           <Each
             of={searchResult}
-            render={(item) => <YouTubeVideoCard {...item} key={item.id} />}
+            render={(item) => (
+              <YouTubeVideoCard
+                {...item}
+                handlePlay={handlePlayVideo}
+                key={item.id}
+              />
+            )}
           />
         </ScrollArea>
         {searchVideos.isLoading && (

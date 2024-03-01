@@ -215,4 +215,10 @@ export const userApis = {
     );
     return res.data;
   },
+  getRelatedVideos: async (videoId: string): Promise<YouTubeVideo[]> => {
+    const res = await axiosInstance().get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/media/youtube/related/${videoId}`,
+    );
+    return res.data;
+  },
 };
