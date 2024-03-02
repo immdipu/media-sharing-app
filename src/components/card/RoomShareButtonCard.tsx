@@ -4,10 +4,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { roomActivityTypes } from "@/types/roomActivity";
 import clsx from "clsx";
 import { useAppSelector, useSocket } from "@/hooks";
-import { ActivityTypes } from "@/types/room";
 import { useContext } from "react";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
-import { ActivityType as IActivityTypes } from "@/types/roomActivity";
+import { ActivityType as IActivityTypes, ActivityTypes } from "@/types";
 
 const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
   ActivityType,
