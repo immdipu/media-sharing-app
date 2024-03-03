@@ -1,6 +1,6 @@
 "use client";
 import React, { Dispatch, SetStateAction } from "react";
-import { Card, CardHeader, CardTitle, CardDescription } from "../ui/card";
+import { Card, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
