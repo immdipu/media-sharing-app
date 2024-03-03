@@ -5,10 +5,8 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar";
-import { useAppSelector } from "@/hooks/reduxHooks";
+import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { BiLogOutCircle } from "react-icons/bi";
-import { useDispatch } from "react-redux";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,7 +22,7 @@ import Link from "next/link";
 
 const Avatar = () => {
   const user = useAppSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <DropdownMenu>
@@ -64,7 +62,7 @@ const Avatar = () => {
         >
           Log out{" "}
           <DropdownMenuShortcut>
-            <BiLogOutCircle className="text-Header- group-hover:text-btn-primary  text-lg" />
+            <BiLogOutCircle className="text-Header- text-lg  group-hover:text-btn-primary" />
           </DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
