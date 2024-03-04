@@ -34,10 +34,7 @@ const RoomCard = () => {
   });
 
   return (
-    <section
-      ref={parent}
-      className="mt-7 flex flex-col gap-10 px-20 max-md:px-2 "
-    >
+    <section ref={parent} className="mt-7 flex flex-col  gap-10   ">
       {rooms &&
         rooms.length > 0 &&
         rooms?.map((room, index) => <Room {...room} key={index} />)}

@@ -35,7 +35,7 @@ const Room: React.FC<RoomTypes> = ({
   };
 
   return (
-    <div className=" flex w-full flex-col rounded-xl   border border-primary-color bg-Secondary-background   px-5 py-2">
+    <div className="  flex w-full flex-col  rounded-xl    border border-primary-color bg-Secondary-background   px-5 py-2">
       <div className="mb-3 flex items-center gap-2 font-medium text-neutral-50">
         <TitleLogo color="#ffffff" opacity={0.2} />{" "}
         <p
@@ -51,21 +51,22 @@ const Room: React.FC<RoomTypes> = ({
           className="tooltip ml-1 capitalize"
         >
           {roomType === RoomType.public && (
-            <FcGlobe className="tooltip text-btn-primary text-2xl" />
+            <FcGlobe className="tooltip text-2xl text-btn-primary" />
           )}
           {roomType === RoomType.private && (
-            <FcLock className="text-btn-primary text-2xl" />
+            <FcLock className="text-2xl text-btn-primary" />
           )}
           {roomType === RoomType.friend && (
-            <FcConferenceCall className="text-btn-primary text-2xl" />
+            <FcConferenceCall className="text-2xl text-btn-primary" />
           )}
         </div>
-        <span className="bg-btn-primary inline-block h-1 w-1 rounded-full" />
+        <span className="inline-block h-1 w-1 rounded-full bg-btn-primary" />
         <p className="text-xs font-light text-paragraph-secondary">
           {moment(createdAt).fromNow()}
         </p>
       </div>
-      <section className="flex gap-1 overflow-clip">
+
+      <section className=" max-w-fulll flex h-[104px] w-full shrink-0 flex-wrap  gap-1 gap-y-5 overflow-y-hidden">
         {members &&
           members.length > 0 &&
           members?.map((member, index) => (
@@ -73,21 +74,18 @@ const Room: React.FC<RoomTypes> = ({
           ))}
         {members.length > 0 && renderEmptyCards(membersLimit - members.length)}
 
-        {members && members.length === 0 && renderEmptyCards(10)}
+        {members && members.length === 0 && renderEmptyCards(7)}
       </section>
       <section className="my-3">
         {members && members.length === membersLimit && admin._id !== user.id ? (
-          <Button
-            variant={"destructive"}
-            className="mt-3 w-full text-lg opacity-90"
-          >
+          <Button variant={"destructive"} className="mt-3  text-lg opacity-90">
             Room is full
           </Button>
         ) : (
           <Link
             href={`/room/${id}?tab=chat`}
             className={clsx(
-              " border-success-muted hover:border-success-color text-btn-success-dark group block w-full rounded-sm border border-dashed py-1 text-center text-lg  duration-300   hover:bg-secondary-hover",
+              " group block w-full rounded-sm border border-dashed border-success-muted py-1 text-center text-lg text-btn-success-dark duration-300  hover:border-success-color   hover:bg-secondary-hover",
               !user.isUserAuthenticated && "pointer-events-none opacity-60",
             )}
           >
