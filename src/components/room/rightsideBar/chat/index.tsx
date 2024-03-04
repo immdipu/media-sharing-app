@@ -8,6 +8,8 @@ import RoomUpdateCard from "@/components/card/RoomUpdateCard";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import ReplyMessage from "@/components/Message/atoms/ReplyMessage";
+import { motion } from "framer-motion";
+import { tabAnimation } from "@/lib/constants";
 
 const Chat = () => {
   const Messages = useAppSelector((state) => state.room.RoomChat);
@@ -35,7 +37,13 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex h-full flex-col justify-end  ">
+    <motion.div
+      initial={tabAnimation.initial}
+      animate={tabAnimation.animate}
+      exit={tabAnimation.exit}
+      transition={tabAnimation.transition}
+      className="flex h-full flex-col justify-end  "
+    >
       <section
         ref={parent}
         className="MessageContainer my-4 h-full overflow-y-auto scroll-smooth"
@@ -84,7 +92,7 @@ const Chat = () => {
       <section className="h-fit   ">
         <MessageInput MessageType="ROOM" row={3} />
       </section>
-    </div>
+    </motion.div>
   );
 };
 

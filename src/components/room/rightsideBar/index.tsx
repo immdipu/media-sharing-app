@@ -9,6 +9,7 @@ import { RoomContext } from "../SingleRoom/JoinedSingleRoom";
 import { BsTextRight } from "react-icons/bs";
 import { usePathname, useRouter } from "next/navigation";
 import { Tab, TabContainer } from "@/components/Tab/Tab";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Index = () => {
   const { showRightSideBar, setShowRightSideBar, MessageCount } =
@@ -20,7 +21,7 @@ const Index = () => {
   return (
     <div
       className={clsx(
-        " w-96 shrink-0 bg-Secondary-background  transition-all duration-200 ease-linear max-md:absolute",
+        " w-96 shrink-0 overflow-hidden bg-Secondary-background  transition-all duration-200 ease-linear max-md:absolute",
         showRightSideBar ? "max-md:right-0" : "max-md:-right-96",
       )}
     >
@@ -38,10 +39,11 @@ const Index = () => {
       >
         <BsTextRight className="text-2xl font-normal text-neutral-200" />
       </button>
+
       <TabContainer
         sliderClassName=" -z-[1] bg-btn-primary"
         activeTab={active}
-        className=" bg-Third-background z-0 flex w-full rounded-b-md py-[2px] "
+        className=" z-0 flex w-full rounded-b-md bg-Third-background py-[2px] "
       >
         <Tab
           onClick={() => {
@@ -88,12 +90,16 @@ const Index = () => {
           Room
         </Tab>
       </TabContainer>
-      <section className="h-[calc(100vh-56px)]  ">
-        {active === 0 && <Chat />}
-        {active === 1 && <Users />}
-        {active === 2 && <Media />}
-        {active === 3 && <RoomTab />}
+
+      <section className="h-[calc(100vh-56px)] ">
+        <AnimatePresence mode="sync">
+          {active === 0 && <Chat key={"Chat"} />}
+          {active === 1 && <Users key={"Users"} />}
+          {active === 2 && <Media key={"media"} />}
+          {active === 3 && <RoomTab key={"Room"} />}
+        </AnimatePresence>
       </section>
+
       {/* <Tabs defaultValue="chat" className="w-auto">
         <TabsList className="sticky top-0 z-10 w-full bg-Input-background   ">
           <TabsTrigger

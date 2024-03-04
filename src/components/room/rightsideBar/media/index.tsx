@@ -8,6 +8,8 @@ import { ActivityType } from "@/types/roomActivity";
 import { ActivityTypes } from "@/types/room";
 import MediaButton from "./Media.Button";
 import { useSocket, useUserRoomActivity, useAppSelector } from "@/hooks";
+import { motion } from "framer-motion";
+import { tabAnimation } from "@/lib/constants";
 
 const YouTubeSearch = dynamic(
   () => import("@/components/YoutubePlayer/YouTubeSearch"),
@@ -32,7 +34,13 @@ const Media = () => {
   }
 
   return (
-    <div className="relative h-full pt-3">
+    <motion.div
+      initial={tabAnimation.initial}
+      animate={tabAnimation.animate}
+      exit={tabAnimation.exit}
+      transition={tabAnimation.transition}
+      className="relative h-full pt-3"
+    >
       <MediaClose />
       <p className="py-2 pl-3 text-lg font-medium text-Header-primary">
         Select a media
@@ -75,7 +83,7 @@ const Media = () => {
           }}
         />
       </section>
-    </div>
+    </motion.div>
   );
 };
 

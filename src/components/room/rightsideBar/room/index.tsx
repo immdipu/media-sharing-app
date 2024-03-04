@@ -7,12 +7,20 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import EditRoom from "../../EditRoom";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { tabAnimation } from "@/lib/constants";
 
 const RoomTab = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const currentUser = useAppSelector((state) => state.auth);
   return (
-    <div className="flex h-full flex-col">
+    <motion.div
+      initial={tabAnimation.initial}
+      animate={tabAnimation.animate}
+      exit={tabAnimation.exit}
+      transition={tabAnimation.transition}
+      className="flex h-full flex-col"
+    >
       <section className="  mt-2 flex flex-col items-center  justify-center">
         <RoomIcon color="#ffffff" opacity={0.2} height={90} width={90} />
         <h3 className=" tooltip line-clamp-1 overflow-hidden px-5 text-center text-xl font-medium capitalize text-Header-primary">
@@ -22,7 +30,7 @@ const RoomTab = () => {
 
       {/* second box */}
 
-      <section className="mx-2 mt-6 flex justify-around gap-2 rounded-md border border-secondary-color bg-third-background px-2 py-5">
+      <section className="bg-third-background mx-2 mt-6 flex justify-around gap-2 rounded-md border border-secondary-color px-2 py-5">
         <div className="flex w-fit flex-col items-center gap-1 ">
           <h5 className=" text-sm capitalize  text-Header-secondary">
             Members Limit
@@ -49,7 +57,7 @@ const RoomTab = () => {
 
       {/* third box */}
 
-      <section className="mx-2 mt-3 flex flex-col  rounded-md border border-secondary-color bg-third-background px-3 py-2">
+      <section className="bg-third-background mx-2 mt-3 flex  flex-col rounded-md border border-secondary-color px-3 py-2">
         <h3 className="mt-2 font-medium text-Header-secondary">
           {" "}
           About Admin{" "}
@@ -90,7 +98,7 @@ const RoomTab = () => {
           </Button>
         </Link>
       </section>
-    </div>
+    </motion.div>
   );
 };
 

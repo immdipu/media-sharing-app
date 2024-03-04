@@ -73,3 +73,10 @@ export const EmojisCollection = [
     code: "1f622",
   },
 ];
+
+export const tabAnimation = {
+  initial: { x: -600, transition: { duration: 0.5 } },
+  animate: { x: 0 },
+  exit: { x: 400, transition: { duration: 0.3 } },
+  transition: { duration: 0.5 },
+};
