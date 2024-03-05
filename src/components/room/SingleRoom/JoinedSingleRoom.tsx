@@ -15,14 +15,9 @@ import {
   UpdateMessageReaction,
   AddReplyMessage,
 } from "@/redux/slice/roomSlice";
-import {
-  MessageReactionDataTypes,
-  MessageReplyTypes,
-  RoomChatTypes,
-} from "@/types/room";
+import { MessageReplyTypes, RoomChatTypes } from "@/types/room";
 import { RoomUpdateResponseTypes } from "@/types/socketTypes";
 import { useSearchParams } from "next/navigation";
-import { ActivityType } from "@/types/roomActivity";
 
 interface RoomContextTypes {
   setMedia: React.Dispatch<React.SetStateAction<ActivityType | null>>;

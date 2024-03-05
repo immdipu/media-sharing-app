@@ -10,18 +10,10 @@ import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { useAppDispatch } from "@/hooks";
 import { AddReplyTo } from "@/redux/slice/roomSlice";
-import { ReactionTypes } from "@/types/room";
 
 const EmojisPopOver = dynamic(() => import("../Emojis/EmojisPopOver"), {
   loading: () => <p>Loading...</p>,
 });
-
-interface MessageOptionsProps {
-  _id: string;
-  showEmojis: boolean;
-  setShowEmojis: React.Dispatch<React.SetStateAction<boolean>>;
-  reactions: ReactionTypes[];
-}
 
 const MessageOptions: React.FC<MessageOptionsProps> = ({
   _id,
@@ -30,6 +22,9 @@ const MessageOptions: React.FC<MessageOptionsProps> = ({
   reactions,
 }) => {
   const dispatch = useAppDispatch();
+
+  const hadleMessageDelete = () => {};
+
   return (
     <section
       className={clsx(
@@ -66,6 +61,7 @@ const MessageOptions: React.FC<MessageOptionsProps> = ({
           Icon={FaTrash}
           TooltipText="Delete message"
           className="hover:text-red-500"
+          onClick={hadleMessageDelete}
         />
         <MessageOptionChip
           Icon={FaExclamationCircle}

@@ -8,15 +8,6 @@ import Emoji from "./Emoji";
 import { EmojisCollection } from "@/lib/constants";
 import { useAppSelector, useSocket } from "@/hooks";
 import clsx from "clsx";
-import { ReactionTypes } from "@/types/room";
-
-interface EmojisPopOverProps {
-  children: React.ReactNode;
-  showEmojis: boolean;
-  setShowEmojis: React.Dispatch<React.SetStateAction<boolean>>;
-  messageId: string;
-  reactions: ReactionTypes[];
-}
 
 const EmojisPopOver: React.FC<EmojisPopOverProps> = ({
   children,

@@ -1,11 +1,5 @@
 import { membersTypes } from "./room";
 
-export enum ActivityType {
-  YouTube = "YouTube",
-  Drawing = "Drawing",
-  Streaming = "Streaming",
-}
-
 export interface IActivityYouTubeTypes {
   id: string;
   status: string;
