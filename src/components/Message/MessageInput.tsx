@@ -47,7 +47,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
             fullName: user.fullName!,
             profilePic: user.profilePic!,
             username: user.username!,
-            role: Role.User,
+            role: "USER",
             verified: user.vefified!,
             followers: 0,
             following: 0,

@@ -22,7 +22,7 @@ const OtherUserPlayer = () => {
 
   useEffect(() => {
     if (!OtherYouTubePlayer.current) return;
-    if (othermedia !== ActivityType.YouTube || !AmIWatchingOtherActivity) {
+    if (othermedia !== "YOUTUBE" || !AmIWatchingOtherActivity) {
       if (OtherYouTubePlayer.current?.playerInfo?.videoData?.video_id) {
         OtherYouTubePlayer.current?.pauseVideo();
         OtherYouTubePlayer.current?.mute();
@@ -34,7 +34,7 @@ const OtherUserPlayer = () => {
     <section
       className={clsx(
         "h-full overflow-hidden  px-2 ",
-        othermedia === ActivityType.YouTube ? "block" : "hidden",
+        othermedia === "YOUTUBE" ? "block" : "hidden",
       )}
     >
       <div className={clsx(" h-full w-full")}>

@@ -52,7 +52,7 @@ const YoutubePlayer = () => {
     if (!socket) return;
     if (!!!isMySharedActivity) return;
     if (!YoutubePlayer.current) return;
-    if (media === "Drawing") return;
+    if (media === "DRAWING") return;
 
     const listner = () => {
       const time = YoutubePlayer.current?.getCurrentTime();
@@ -61,7 +61,7 @@ const YoutubePlayer = () => {
 
       const ActivityDetails: IGetActivityTypes = {
         activityId: isMySharedActivity?.id,
-        ActivityType: ActivityType.YouTube,
+        ActivityType: "YOUTUBE",
         data: {
           time: time,
           VideoId,

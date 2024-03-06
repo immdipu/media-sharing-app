@@ -15,8 +15,6 @@ import {
   UpdateMessageReaction,
   AddReplyMessage,
 } from "@/redux/slice/roomSlice";
-import { MessageReplyTypes, RoomChatTypes } from "@/types/room";
-import { RoomUpdateResponseTypes } from "@/types/socketTypes";
 import { useSearchParams } from "next/navigation";
 
 interface RoomContextTypes {

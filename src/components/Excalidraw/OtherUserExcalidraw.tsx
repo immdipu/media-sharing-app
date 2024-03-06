@@ -29,7 +29,7 @@ const OtherUserExcalidraw = () => {
       <section
         className={clsx(
           "Excalidrawing h-full overflow-hidden  px-2 pt-4 ",
-          othermedia === ActivityType.Drawing ? "block h-[80vh]" : "hidden",
+          othermedia === "DRAWING" ? "block h-[80vh]" : "hidden",
         )}
       >
         {OtherExcalidraw.current && (
