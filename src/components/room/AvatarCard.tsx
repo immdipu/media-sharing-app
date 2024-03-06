@@ -7,8 +7,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { membersTypes } from "@/types/room";
-
 const AvatarCard: React.FC<membersTypes> = ({
   _id,
   fullName,

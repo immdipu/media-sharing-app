@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
-import { useAppSelector } from "@/hooks/reduxHooks";
 import clsx from "clsx";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";

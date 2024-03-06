@@ -1,6 +1,5 @@
 import React from "react";
 import { EmojisCollection } from "@/lib/constants";
-import { ReactionTypes } from "@/types/room";
 
 interface MessageReactionProps {
   reactions: ReactionTypes[];

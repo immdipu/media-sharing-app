@@ -3,7 +3,6 @@ import { TabContainer, Tab } from "../Tab/Tab";
 import clsx from "clsx";
 import { useMutation } from "@tanstack/react-query";
 import { userApis } from "@/Apis/APIs";
-import { YouTubeVideo } from "@/types/Youtube.api";
 
 interface ChipContainerProps {
   setSearchResult: React.Dispatch<React.SetStateAction<YouTubeVideo[]>>;

@@ -1,4 +1,3 @@
-import { MessageReplyTypes } from "@/types/room";
 import React from "react";
 import SingleMessageWrapper from "../organism/SingleMessageWrapper";
 

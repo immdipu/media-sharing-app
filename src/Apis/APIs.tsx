@@ -1,23 +1,5 @@
 import { axiosInstance } from "@/lib/AxiosInstace";
 import axios from "axios";
-import {
-  signupParamsTypes,
-  AddMediaDataTypes,
-  getUserDataTypes,
-  feedbackDataTypes,
-  EditProfileDataTypes,
-  getUserListTypes,
-  FollowFollowingList,
-  userList,
-  loginResponseTypes,
-} from "@/types/user.type";
-import { RoomTypes } from "@/types/room";
-import { YouTubeVideo } from "@/types/Youtube.api";
-import {
-  GetAllChatsTypes,
-  GetAllFollowersTypes,
-  SingleGetChatTypes,
-} from "@/types/api.response";
 
 export const userApis = {
   GoogleLogin: async (token: string) => {

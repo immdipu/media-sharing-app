@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { RiAdminFill } from "react-icons/ri";
 import { useSocket } from "@/context/SocketProvider";
-import { RoomUpdateTypes } from "@/types/socketTypes";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import UserOptionSingleList from "../card/atom/UserOption.SingleList";
 

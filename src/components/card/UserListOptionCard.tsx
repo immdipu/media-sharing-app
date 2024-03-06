@@ -7,7 +7,6 @@ import { MdAddModerator } from "react-icons/md";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { TransferRoomAlert } from "../Dialog/TransferRoomAlert";
 import { useSocket } from "@/context/SocketProvider";
-import { RoomUpdateTypes } from "@/types/socketTypes";
 
 const UserListOptionCard = ({ id }: { id: string }) => {
   const currentUser = useAppSelector((state) => state.auth);

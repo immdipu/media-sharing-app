@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-
 interface initialStateProps {
   showRightSidebar: boolean;
   Messages: MessageTypes[];

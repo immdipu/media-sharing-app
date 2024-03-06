@@ -4,7 +4,6 @@
 import React, { useLayoutEffect } from "react";
 import { BsCalendar2Week } from "react-icons/bs";
 import { HiMail } from "react-icons/hi";
-import { getUserDataTypes } from "@/types/user.type";
 import moment from "moment";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import dynamic from "next/dynamic";

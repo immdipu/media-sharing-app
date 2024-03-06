@@ -10,15 +10,11 @@ import { useSocket } from "@/context/SocketProvider";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogOverlay,
   DialogTrigger,
-  DialogClose,
 } from "@/components/ui/dialog";
-import { EditRoomTypes } from "@/types/socketTypes";
 
 const EditRoom = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
@@ -112,7 +108,7 @@ const EditRoom = () => {
             </div>
             <Button
               onClick={handleSubmit}
-              className="bg-btn-primary text-btn-primary mt-8 w-full transition-transform duration-75 ease-linear hover:opacity-80 active:scale-95"
+              className="mt-8 w-full bg-btn-primary text-btn-primary transition-transform duration-75 ease-linear hover:opacity-80 active:scale-95"
             >
               Save Changes
             </Button>

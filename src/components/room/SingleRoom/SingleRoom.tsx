@@ -1,12 +1,10 @@
 "use client";
-import React, { useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import React from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { usePathname } from "next/navigation";
 import { useSocket, useAppSelector } from "@/hooks";
 import { JoinRoom } from "@/redux/slice/roomSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
-import { IjoinedRoomResponse } from "@/types/socketTypes";
 import JoinedSingleRoom from "./JoinedSingleRoom";
 import KickedOut from "@/components/ui/KickedOut";
 import RoomJoinButton from "@/components/Buttons/RoomJoinButton";

@@ -1,5 +1,5 @@
 "use client";
-import React, { memo } from "react";
+import React from "react";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { useParams } from "next/navigation";
 import { userApis } from "@/Apis/APIs";

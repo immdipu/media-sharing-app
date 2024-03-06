@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { MessageReplyTypes, RoomMessageTypes } from "@/types/room";
 import UserAvatarWithPopOver from "@/components/Resuable/UserAvatarWithPopOver";
 import dynamic from "next/dynamic";
 import clsx from "clsx";

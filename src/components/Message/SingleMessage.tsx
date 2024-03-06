@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { RoomMessageTypes } from "@/types/room";
 import SingleMessageWrapper from "./organism/SingleMessageWrapper";
 
 interface SingleMessageProps extends RoomMessageTypes {

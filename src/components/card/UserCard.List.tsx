@@ -5,7 +5,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { membersTypes } from "@/types/room";
 import dynamic from "next/dynamic";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import {
