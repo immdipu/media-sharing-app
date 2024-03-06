@@ -7,7 +7,6 @@ import uniqid from "uniqid";
 import MessageSendButon from "../Buttons/MessageSendButon";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { useParams } from "next/navigation";
-import { ChatMessageTypes, chatContentTypes, userType, Role } from "@/types";
 import { useAppDispatch, useSocket, useAppSelector } from "@/hooks";
 import { AddNewMessage } from "@/redux/slice/chatSlice";
 import { RemoveReplyTo } from "@/redux/slice/roomSlice";

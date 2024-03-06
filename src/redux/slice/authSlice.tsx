@@ -1,6 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { loginResponseTypes } from "@/types/userTypes";
-import { Role } from "@/types/role";
 
 interface initialStateProps {
   fullName: string | null;
@@ -9,7 +7,7 @@ interface initialStateProps {
   token: string | null;
   id: string | null;
   profilePic: string | null;
-  role: Role;
+  role: RoleType;
   vefified: boolean;
 }
 
@@ -20,7 +18,7 @@ const initialState: initialStateProps = {
   token: null,
   id: null,
   profilePic: null,
-  role: Role.User,
+  role: "USER",
   vefified: false,
 };
 

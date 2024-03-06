@@ -4,7 +4,6 @@ import YouTube, { YouTubeProps } from "react-youtube";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import clsx from "clsx";
 import { useUserRoomActivity, useSocket } from "@/hooks";
-import { ActivityType, IGetActivityTypes } from "@/types/roomActivity";
 
 const YoutubePlayer = () => {
   const { media, YoutubePlayer } = useContext(RoomContext);

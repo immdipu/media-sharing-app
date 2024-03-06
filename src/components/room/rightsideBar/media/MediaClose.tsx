@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Button } from "@/components/ui/button";
-import { ActivityType } from "@/types/roomActivity";
 import { RoomContext } from "../../SingleRoom/JoinedSingleRoom";
 import { useSocket } from "@/context/SocketProvider";
 import clsx from "clsx";
@@ -17,7 +16,7 @@ const MediaClose = () => {
     <div
       className={clsx(
         "absolute inset-0 z-20 grid h-full w-full place-content-center bg-transparent backdrop-blur-sm",
-        media !== ActivityType.Drawing && "hidden",
+        media !== "DRAWING" && "hidden",
       )}
     >
       <Button

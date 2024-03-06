@@ -11,12 +11,6 @@ import { useToast } from "../ui/use-toast";
 import { MainMenu } from "@excalidraw/excalidraw";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { useAppSelector, useSocket, useUserRoomActivity } from "@/hooks";
-import {
-  ActivityType,
-  IGetActivityTypes,
-  IAddActivity,
-  IRemoveActivity,
-} from "@/types";
 import clsx from "clsx";
 
 const Excalidraws = () => {
@@ -47,12 +41,12 @@ const Excalidraws = () => {
     if (!socket) return;
     if (!!!isMySharedDrawing) return;
     if (!Excalidraw) return;
-    if (media === "YouTube") return;
+    if (media === "YOUTUBE") return;
 
     const listner = () => {
       let ActiivtyDetails: IGetActivityTypes = {
         activityId: isMySharedDrawing?.id,
-        ActivityType: ActivityType.Drawing,
+        ActivityType: "DRAWING",
         data: {
           elements: previousElementsRef.current,
         },
@@ -93,7 +87,7 @@ const Excalidraws = () => {
       RoomUpdate(RemoveActivity);
     } else {
       const NewActivityData: IAddActivity = {
-        type: ActivityType.Drawing,
+        type: "DRAWING",
         room: JoinedRoom?.id,
         admin: user.id,
         data: {

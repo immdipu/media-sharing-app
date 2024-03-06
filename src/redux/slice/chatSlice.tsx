@@ -1,9 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import {
-  GetAllChatsTypes,
-  MessageTypes,
-  SingleGetAllChatTypes,
-} from "@/types/ApiResponseTypes";
+
 interface initialStateProps {
   showRightSidebar: boolean;
   Messages: MessageTypes[];

@@ -4,8 +4,6 @@ import { BsPencilSquare } from "react-icons/bs";
 import { CgData } from "react-icons/cg";
 import dynamic from "next/dynamic";
 import { RoomContext } from "../../SingleRoom/JoinedSingleRoom";
-import { ActivityType } from "@/types/roomActivity";
-import { ActivityTypes } from "@/types/room";
 import MediaButton from "./Media.Button";
 import { useSocket, useUserRoomActivity, useAppSelector } from "@/hooks";
 import { motion } from "framer-motion";
@@ -26,10 +24,10 @@ const Media = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const user = useAppSelector((state) => state.auth);
 
-  if (media === "YouTube") {
+  if (media === "YOUTUBE") {
     return <YouTubeSearch />;
   }
-  if (media === "Streaming") {
+  if (media === "STREAMING") {
     return <StreamingHomeMenu />;
   }
 
@@ -49,7 +47,7 @@ const Media = () => {
         <MediaButton
           icon={FaYoutube}
           onClick={() => {
-            setMedia(ActivityType.YouTube);
+            setMedia("YOUTUBE");
           }}
           title="YouTube"
           className="text-red-500"
@@ -60,7 +58,7 @@ const Media = () => {
           title="Drawing"
           className="text-neutral-300"
           onClick={() => {
-            setMedia(ActivityType.Drawing);
+            setMedia("DRAWING");
             if (!!AmIWatchingActivity) {
               let data: ActivityTypes = {
                 type: "REMOVE_MEMBER_FROM_ACTIVITY",
@@ -79,7 +77,7 @@ const Media = () => {
           title=" Streaming"
           className="text-neutral-300"
           onClick={() => {
-            setMedia(ActivityType.Streaming);
+            setMedia("DRAWING");
           }}
         />
       </section>

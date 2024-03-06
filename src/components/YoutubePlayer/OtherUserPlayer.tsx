@@ -3,7 +3,6 @@ import YouTube, { YouTubeProps } from "react-youtube";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import clsx from "clsx";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
-import { ActivityType } from "@/types/roomActivity";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 
 const OtherUserPlayer = () => {

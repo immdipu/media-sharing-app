@@ -1,7 +1,7 @@
 import React from "react";
 import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
 import moment from "moment";
-import { SingleGetAllChatTypes } from "@/types/ApiResponseTypes";
+import { SingleGetAllChatTypes } from "@/types/api.response";
 import { useRouter, useParams } from "next/navigation";
 import clsx from "clsx";
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProfileInput from "./InputComponent/ProfileInput";
-import { getUserDataTypes, EditProfileDataTypes } from "@/types/userTypes";
+import { getUserDataTypes, EditProfileDataTypes } from "@/types/user.type";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

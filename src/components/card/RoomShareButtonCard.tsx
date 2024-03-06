@@ -3,11 +3,7 @@ import React, { useEffect, useRef, useContext } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAppSelector, useSocket } from "@/hooks";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
-import {
-  ActivityType as IActivityTypes,
-  ActivityTypes,
-  roomActivityTypes,
-} from "@/types";
+
 import clsx from "clsx";
 
 const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
@@ -43,7 +39,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
     ) {
       if (socket) {
         socket.on("Activity-state-sync", (data: any) => {
-          if (ActivityType === IActivityTypes.YouTube) {
+          if (ActivityType === "YOUTUBE") {
             if (data?.data?.time) {
               const timeDifference = Math.abs(
                 data?.data?.time - OtherYouTubePlayer.current?.getCurrentTime(),
@@ -77,7 +73,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
               OtherYouTubePlayer.current?.loadVideoById(data?.data?.VideoId);
             }
           }
-          if (ActivityType === IActivityTypes.Drawing) {
+          if (ActivityType === "DRAWING") {
             if (data?.data?.elements) {
               localStorage.setItem("excalidraw", JSON.stringify(data?.data));
               if (OtherExcalidraw.current) {
@@ -88,7 +84,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
         });
 
         socket.on("GET_MEDIA_DETAILS_RESPONSE", async (data) => {
-          if (ActivityType === IActivityTypes.YouTube) {
+          if (ActivityType === "YOUTUBE") {
             if (!OtherYouTubePlayer.current) {
               GET_MEDIA_DETAILS_RESPONSERef.current = data;
               return;
@@ -108,7 +104,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
               }
             }
           }
-          if (ActivityType === IActivityTypes.Drawing) {
+          if (ActivityType === "DRAWING") {
             if (!OtherExcalidraw.current) {
               GET_MEDIA_DETAILS_RESPONSERef.current = data;
               return;
@@ -136,7 +132,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
     ) {
       const data = GET_MEDIA_DETAILS_RESPONSERef.current;
       new Promise((resolve) => setTimeout(resolve, 3000)).then(() => {
-        if (ActivityType === IActivityTypes.YouTube) {
+        if (ActivityType === "YOUTUBE") {
           if (data?.data?.VideoId) {
             OtherYouTubePlayer.current?.loadVideoById({
               videoId: data?.data?.VideoId,
@@ -152,7 +148,7 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
           }
         }
 
-        if (ActivityType === IActivityTypes.Drawing) {
+        if (ActivityType === "DRAWING") {
           localStorage.setItem("excalidraw", JSON.stringify(data?.data));
           if (OtherExcalidraw.current) {
             setOtherSelectedChanged((prev) => !prev);

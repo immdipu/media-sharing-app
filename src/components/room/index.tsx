@@ -1,18 +1,14 @@
 "use client";
 import AvatarCard from "./AvatarCard";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import TitleLogo from "../Icons/TitleLogo";
 import { Button } from "../ui/button";
-import { RoomTypes } from "@/types/room";
-import { useRouter } from "next/navigation";
 import EmptyRoomAvatarCard from "../card/EmptyRoomAvatarCard";
 import Link from "next/link";
 import moment from "moment";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import clsx from "clsx";
 import { FcGlobe, FcLock, FcConferenceCall } from "react-icons/fc";
-import { RoomType } from "@/types/enums";
-import { motion } from "framer-motion";
 
 const Room: React.FC<RoomTypes> = ({
   admin,
@@ -50,13 +46,13 @@ const Room: React.FC<RoomTypes> = ({
           data-tooltip-position="top"
           className="tooltip ml-1 capitalize"
         >
-          {roomType === RoomType.public && (
+          {roomType === "PUBLIC" && (
             <FcGlobe className="tooltip text-2xl text-btn-primary" />
           )}
-          {roomType === RoomType.private && (
+          {roomType === "PRIVATE" && (
             <FcLock className="text-2xl text-btn-primary" />
           )}
-          {roomType === RoomType.friend && (
+          {roomType === "FRIEND" && (
             <FcConferenceCall className="text-2xl text-btn-primary" />
           )}
         </div>

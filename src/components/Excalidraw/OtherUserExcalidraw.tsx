@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { MainMenu } from "@excalidraw/excalidraw";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
-import { ActivityType } from "@/types/roomActivity";
 import clsx from "clsx";
 
 const OtherUserExcalidraw = () => {

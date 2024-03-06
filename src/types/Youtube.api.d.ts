@@ -1,4 +1,4 @@
-export interface YouTubeVideo {
+interface YouTubeVideo {
   id: string;
   url: string;
   shorts_url: string;

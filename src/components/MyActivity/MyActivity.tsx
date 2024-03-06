@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import YouTubePlayer from "@/components/YoutubePlayer";
 import Excalidraws from "@/components/Excalidraw";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
-import { ActivityType } from "@/types/roomActivity";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 import clsx from "clsx";
 import VideoStreamer from "../VideoStreeaming";

@@ -1,13 +1,11 @@
-import { Role } from "./role";
-
-export interface signupParamsTypes {
+interface signupParamsTypes {
   fullName: string;
   username: string;
   email: string;
   password: string;
 }
 
-export interface loginResponseTypes {
+interface loginResponseTypes {
   fullName: string;
   username: string;
   _id: string;
@@ -18,7 +16,7 @@ export interface loginResponseTypes {
   verified: boolean;
 }
 
-export interface AddMediaDataTypes {
+interface AddMediaDataTypes {
   id: string;
   original_title?: string;
   name?: string;
@@ -32,19 +30,19 @@ export interface AddMediaDataTypes {
   type?: "history" | "watchlist" | "favorite";
 }
 
-export interface AddMediaResponse extends AddMediaDataTypes {
+interface AddMediaResponse extends AddMediaDataTypes {
   createdAt: string;
   _id: string;
   Index: number;
 }
 
-export interface feedbackDataTypes {
+interface feedbackDataTypes {
   name?: string;
   user?: string;
   message: string;
 }
 
-export interface getUserDataTypes {
+interface getUserDataTypes {
   _id: string;
   createdAt: string;
   fullName: string;
@@ -59,7 +57,7 @@ export interface getUserDataTypes {
   bio: string;
 }
 
-export interface EditProfileDataTypes {
+interface EditProfileDataTypes {
   _id: string;
   createdAt: string;
   fullName: string;
@@ -72,7 +70,7 @@ export interface EditProfileDataTypes {
   bio: string;
 }
 
-export interface userList {
+interface userList {
   _id: string;
   fullName: string;
   username: string;
@@ -81,13 +79,13 @@ export interface userList {
   isFollowing: boolean;
 }
 
-export interface getUserListTypes {
+interface getUserListTypes {
   data: userList[];
   page: number;
   results: number;
 }
 
-export interface FollowFollowersTypes {
+interface FollowFollowersTypes {
   _id: string;
   fullName: string;
   username: string;
@@ -97,7 +95,7 @@ export interface FollowFollowersTypes {
   role: Role;
 }
 
-export interface FollowFollowingList {
+interface FollowFollowingList {
   followers: FollowFollowersTypes[];
   following: FollowFollowersTypes[];
 }

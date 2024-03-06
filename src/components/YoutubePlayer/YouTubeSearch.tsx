@@ -8,7 +8,7 @@ import useDebounce from "@/hooks/useDebounce";
 import { MagnifyingGlass } from "react-loader-spinner";
 import YouTubeVideoCard from "../card/YouTubeVideoCard";
 import ShareButton from "../Buttons/YouTubeShareButton";
-import { YouTubeVideo } from "@/types/Youtube";
+import { YouTubeVideo } from "@/types/Youtube.api";
 import "./YouTubeSearch.css";
 import Each from "../Resuable/Each";
 import ChipContainer from "./ChipContainer";

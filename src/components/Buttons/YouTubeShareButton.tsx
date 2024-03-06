@@ -2,7 +2,6 @@ import React from "react";
 import { useSocket, useAppSelector } from "@/hooks";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { useToast } from "../ui/use-toast";
-import { IAddActivity, ActivityType, ActivityTypes } from "@/types";
 import BackButton from "./BackButton";
 import ShareButton from "./ShareButton";
 
@@ -60,7 +59,7 @@ const YouTubeShareButton = ({
       }
 
       let NewActivity: IAddActivity = {
-        type: ActivityType.YouTube,
+        type: "YOUTUBE",
         room: JoinedRoom?.id,
         admin: user?.id!,
         data: {

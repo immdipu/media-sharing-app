@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import SenderText from "./SenderText";
 import ReceiverText from "./ReceiverText";
-import { MessageTypes } from "@/types/ApiResponseTypes";
+import { MessageTypes } from "@/types/api.response";
 import { useAppSelector } from "@/hooks/reduxHooks";
 
 const AllMessages = ({ Messages }: { Messages: MessageTypes[] }) => {

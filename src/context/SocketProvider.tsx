@@ -8,13 +8,7 @@ import { LeaveRoom } from "@/redux/slice/roomSlice";
 import { AddNewMessage } from "@/redux/slice/chatSlice";
 import { AddNewRoom, StopRoomJoiningLoader } from "@/redux/slice/roomSlice";
 import { useParams, usePathname } from "next/navigation";
-import { ActivityTypes, RoomTypes } from "@/types/room";
 import { useToast } from "@/components/ui/use-toast";
-import { IAddActivity, IRemoveActivity } from "@/types/socketTypes";
-import {
-  updateMessageDataTypes,
-  updateMessageTypes,
-} from "@/types/socketTypes";
 
 interface SocketContextProps {
   socket: Socket | null;

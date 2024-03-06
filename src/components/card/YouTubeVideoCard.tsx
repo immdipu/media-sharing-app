@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { YouTubeVideo } from "@/types/Youtube";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { useAppSelector, useSocket, useUserRoomActivity } from "@/hooks";
 import { ViewsFormat } from "@/lib/utils";
-import { ActivityType } from "@/types/roomActivity";
 
 interface YouTubeVideoCardProps extends YouTubeVideo {
   handlePlay: (videoId: string) => void;
@@ -41,7 +39,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({
     localStorage.setItem("YouTubeVideoId", id);
     localStorage.setItem("YouTubeThumbnail", thumbnail?.url);
     setOthersSelected(false);
-    setIsMyActivityShowing(ActivityType.YouTube);
+    setIsMyActivityShowing("YOUTUBE");
     if (!isSharing && !!AmIWatchingActivity) {
       EmitCustomEvent("room-update", {
         type: "REMOVE_USER_FROM_ALL_ACTIVITY",

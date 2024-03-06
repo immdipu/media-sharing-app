@@ -1,18 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { loginResponseTypes } from "@/types/userTypes";
-import { Role } from "@/types/role";
-import {
-  RoomTypes,
-  RoomChatTypes,
-  membersTypes,
-  ActivityTypes,
-  MessageReactionDataTypes,
-  RoomMessageTypes,
-  MessageReplyTypes,
-} from "@/types/room";
-import { roomActivityTypes } from "@/types/roomActivity";
-import { ActivityDeleteResponseTypes } from "@/types/socketTypes";
-import { MessageTypes } from "@/types/ApiResponseTypes";
 
 interface initialStateProps {
   Room: RoomTypes[] | null;

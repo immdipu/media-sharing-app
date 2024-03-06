@@ -1,4 +1,4 @@
-export enum chatContentTypes {
+declare enum chatContentTypes {
   text = "text",
   image = "image",
   video = "video",
@@ -8,7 +8,7 @@ export enum chatContentTypes {
   contact = "contact",
 }
 
-export interface ChatMessageTextTypes {
+interface ChatMessageTextTypes {
   chatId: string;
   type: chatContentTypes.text;
   content: string;
@@ -18,4 +18,4 @@ export interface ChatMessageTextTypes {
   tempId?: string;
 }
 
-export type ChatMessageTypes = ChatMessageTextTypes;
+type ChatMessageTypes = ChatMessageTextTypes;

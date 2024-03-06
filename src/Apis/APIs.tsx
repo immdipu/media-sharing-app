@@ -10,14 +10,14 @@ import {
   FollowFollowingList,
   userList,
   loginResponseTypes,
-} from "@/types/userTypes";
+} from "@/types/user.type";
 import { RoomTypes } from "@/types/room";
-import { YouTubeVideo } from "@/types/Youtube";
+import { YouTubeVideo } from "@/types/Youtube.api";
 import {
   GetAllChatsTypes,
   GetAllFollowersTypes,
   SingleGetChatTypes,
-} from "@/types/ApiResponseTypes";
+} from "@/types/api.response";
 
 export const userApis = {
   GoogleLogin: async (token: string) => {

@@ -1,4 +1,4 @@
-export interface SingleFollowerTypes {
+interface SingleFollowerTypes {
   _id: string;
   fullName: string;
   username: string;
@@ -7,13 +7,13 @@ export interface SingleFollowerTypes {
   isAFollower: boolean;
 }
 
-export interface GetAllFollowersTypes {
+interface GetAllFollowersTypes {
   success: boolean;
   message: string;
   data: SingleFollowerTypes[];
 }
 
-export interface SingleGetAllChatTypes {
+interface SingleGetAllChatTypes {
   _id: string;
   createdAt: string;
   unreadMessagesCount: number;
@@ -26,13 +26,13 @@ export interface SingleGetAllChatTypes {
   user: userType;
 }
 
-export interface GetAllChatsTypes {
+interface GetAllChatsTypes {
   success: boolean;
   message: string;
   data: SingleGetAllChatTypes[];
 }
 
-export interface MessageTypes {
+interface MessageTypes {
   _id: string;
   chatId: string;
   type: string;
@@ -45,14 +45,14 @@ export interface MessageTypes {
   tempId?: string;
 }
 
-export interface userType {
+interface userType {
   _id: string;
   fullName: string;
   username: string;
   profilePic: string;
 }
 
-export interface SingleGetChatTypes {
+interface SingleGetChatTypes {
   success: boolean;
   message: string;
   data: {
