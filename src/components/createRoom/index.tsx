@@ -23,7 +23,7 @@ const CreateRoom = () => {
   const [roomDetails, setRoomDetails] = React.useState({
     name: "",
     membersLimit: null,
-    roomType: "public",
+    roomType: "PUBLIC",
   });
   const { toast } = useToast();
   const { isOnline, EmitCustomEvent } = useSocket();
@@ -56,7 +56,7 @@ const CreateRoom = () => {
       setRoomDetails({
         name: "",
         membersLimit: null,
-        roomType: "public",
+        roomType: "PUBLIC",
       });
     }
   };
@@ -81,7 +81,7 @@ const CreateRoom = () => {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogOverlay className="bg-Overlay-background " />
       <DialogTrigger asChild>
-        <Button className="flex items-center bg-btn-primary font-medium   text-btn-primary">
+        <Button className="flex items-center bg-btn-primary font-medium text-btn-primary">
           Create a room <HiMiniPlus className="ml-1 text-lg text-btn-primary" />
         </Button>
       </DialogTrigger>

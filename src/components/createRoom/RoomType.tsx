@@ -23,7 +23,7 @@ const RoomType = ({
           onClick={() => {
             setRoomDetails((prev: any) => ({
               ...prev,
-              roomType: "public",
+              roomType: "PUBLIC",
             }));
             setActiveTab(0);
           }}
@@ -36,7 +36,7 @@ const RoomType = ({
           onClick={() => {
             setRoomDetails((prev: any) => ({
               ...prev,
-              roomType: "friends",
+              roomType: "FRIEND",
             }));
             setActiveTab(1);
           }}
@@ -49,7 +49,7 @@ const RoomType = ({
           onClick={() => {
             setRoomDetails((prev: any) => ({
               ...prev,
-              roomType: "private",
+              roomType: "PRIVATE",
             }));
             setActiveTab(2);
           }}

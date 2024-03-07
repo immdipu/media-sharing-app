@@ -36,12 +36,18 @@ const UserProfilePopoverCard = ({ username }: { username: string }) => {
         </Avatar>
         <div className="ml-2 w-full">
           <div className="flex justify-between">
-            <h1 className="line-clamp-1 capitalize text-Header-primary">
+            <h1 className="line-clamp-1 capitalize leading-normal text-Header-primary">
               {data.fullName}
             </h1>
             {!data.ownProfile && (
               <button
-                title={isFollowing ? "Unfollow" : "Follow"}
+                data-tooltip-position="top"
+                data-tooltip={
+                  isFollowing
+                    ? `Unfollow ${data.fullName}`
+                    : `Follow ${data.fullName}`
+                }
+                className="tooltip"
                 onClick={() => {
                   if (!data?._id) return;
                   handleFollow(data._id, "userdetails");
