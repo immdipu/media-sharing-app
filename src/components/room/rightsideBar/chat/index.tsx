@@ -1,15 +1,31 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import SingleMessage from "@/components/Message/SingleMessage";
-import MessageInput from "../../../Message/MessageInput";
-import RoomLeaveNotificationCard from "@/components/card/RoomLeaveNotificationCard";
-import RoomJoinNotificationCard from "@/components/card/RoomJoinNotificationCard";
-import RoomUpdateCard from "@/components/card/RoomUpdateCard";
+import dynamic from "next/dynamic";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import ReplyMessage from "@/components/Message/atoms/ReplyMessage";
 import { motion } from "framer-motion";
 import { tabAnimation } from "@/lib/constants";
+
+const SingleMessage = dynamic(
+  () => import("@/components/Message/SingleMessage"),
+);
+const RoomJoinNotificationCard = dynamic(
+  () => import("@/components/card/RoomJoinNotificationCard"),
+);
+
+const RoomLeaveNotificationCard = dynamic(
+  () => import("@/components/card/RoomLeaveNotificationCard"),
+);
+
+const RoomUpdateCard = dynamic(
+  () => import("@/components/card/RoomUpdateCard"),
+);
+
+const ReplyMessage = dynamic(
+  () => import("@/components/Message/atoms/ReplyMessage"),
+);
+
+const MessageInput = dynamic(() => import("@/components/Message/MessageInput"));
 
 const Chat = () => {
   const Messages = useAppSelector((state) => state.room.RoomChat);
@@ -18,12 +34,12 @@ const Chat = () => {
     string | null
   >(null);
 
-  useEffect(() => {
-    const messageContainer = document.querySelector(".MessageContainer");
-    if (messageContainer) {
-      messageContainer.scrollTop = messageContainer.scrollHeight;
-    }
-  }, [Messages?.length]);
+  // useEffect(() => {
+  //   const messageContainer = document.querySelector(".MessageContainer");
+  //   if (messageContainer) {
+  //     messageContainer.scrollTop = messageContainer.scrollHeight;
+  //   }
+  // }, [Messages?.length]);
 
   const scrollToMessage = (messageId: string) => {
     const messageContainer = document.querySelector(".MessageContainer");

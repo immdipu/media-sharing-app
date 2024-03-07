@@ -19,7 +19,7 @@ const Index = () => {
   return (
     <div
       className={clsx(
-        " w-96 shrink-0 overflow-hidden bg-Secondary-background  transition-all duration-200 ease-linear max-md:absolute",
+        " w-96 shrink-0 overflow-hidden  bg-Secondary-background  transition-all duration-200 ease-linear max-md:absolute",
         showRightSideBar ? "max-md:right-0" : "max-md:-right-96",
       )}
     >

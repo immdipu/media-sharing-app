@@ -120,7 +120,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
               onClick={() => setShowEmoji(!showEmoji)}
             />
             {showEmoji && (
-              <div className="absolute  bottom-14 right-0 z-10">
+              <div className="z-100 fixed bottom-20 right-6">
                 <Picker
                   data={data}
                   onClickOutside={() => setShowEmoji(false)}
