@@ -1,14 +1,11 @@
 "use client";
 import React from "react";
-import useSidebarRoutes from "@/hooks/useRoutes";
 import SingleComponent from "./SingleComponent";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import { DesktopSingleComponentProps } from "./SingleComponent";
-
+import { useAppSelector, useRoutes } from "@/hooks";
 import { APP_NAME } from "@/lib/constants";
 
 const Sidebarcomponent = () => {
-  const routes = useSidebarRoutes(),
+  const routes = useRoutes(),
     user = useAppSelector((state) => state.auth);
   return (
     <div className="relative ">

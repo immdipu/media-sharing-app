@@ -7,6 +7,7 @@ import { AiOutlineUserAdd, AiOutlineTeam } from "react-icons/ai";
 import useFollow from "@/hooks/useFollow";
 import UserProfilePopoverCardSkeleton from "../Skeleton/UserProfilePopoverCardSkeleton";
 import moment from "moment";
+
 const UserProfilePopoverCard = ({ username }: { username: string }) => {
   const { GetUserProfile } = userApis;
   const { data, isLoading } = useQuery(["user", username], () =>

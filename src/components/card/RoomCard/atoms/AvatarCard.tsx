@@ -1,5 +1,5 @@
 import React from "react";
-import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
+import UserAvatarWithPopOver from "../../../Resuable/UserAvatarWithPopOver";
 
 const AvatarCard: React.FC<membersTypes> = ({
   _id,

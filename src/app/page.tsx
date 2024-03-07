@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import CreateRoom from "@/components/createRoom";
 import Avatar from "@/components/Avatar/Avatar";
-import RoomCard from "@/components/room/RoomCard";
+import Room from "@/components/room/Room";
 import SideBarToggleButton from "@/components/Buttons/SideBarToggleButton";
 import CardOne from "@/components/card/info/CardOne";
 import { APP_NAME } from "@/lib/constants";
@@ -34,7 +34,7 @@ export default function Home() {
             <h3 className="mt-10 text-lg font-bold text-neutral-50 max-md:px-3">
               Rooms
             </h3>
-            <RoomCard />
+            <Room />
           </section>
         </div>
         <section className="cardContainer  mr-5 mt-7 flex h-[calc(100vh-130px)] w-fit shrink-0 flex-col gap-3 overflow-hidden  max-[850px]:hidden">

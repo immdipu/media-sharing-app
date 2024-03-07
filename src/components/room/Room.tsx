@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import Room from "@/components/room";
+import RoomCard from "@/components/card/RoomCard";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { useQuery } from "@tanstack/react-query";
 import { userApis } from "@/Apis/APIs";
@@ -8,7 +8,7 @@ import { AddAllRoom } from "@/redux/slice/roomSlice";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Each from "../Resuable/Each";
 
-const RoomCard = () => {
+const Room = () => {
   const rooms = useAppSelector((state) => state.room.Room);
   const [parent, enableAnimations] = useAutoAnimate();
   const dispatch = useAppDispatch();
@@ -39,7 +39,7 @@ const RoomCard = () => {
       {rooms && rooms.length > 0 && (
         <Each
           of={rooms}
-          render={(room, index) => <Room {...room} key={index} />}
+          render={(room, index) => <RoomCard {...room} key={index} />}
         />
       )}
 
@@ -55,4 +55,4 @@ const RoomCard = () => {
   );
 };
 
-export default RoomCard;
+export default Room;
