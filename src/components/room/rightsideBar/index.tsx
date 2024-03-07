@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Chat from "@/components/room/rightsideBar/chat";
 import Users from "./users";
 import RoomTab from "@/components/room/rightsideBar/room";
