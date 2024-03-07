@@ -80,3 +80,5 @@ export const tabAnimation = {
   exit: { x: 400, transition: { duration: 0.3 } },
   transition: { duration: 0.5 },
 };
+
+export const APP_NAME = "MediaSharing";

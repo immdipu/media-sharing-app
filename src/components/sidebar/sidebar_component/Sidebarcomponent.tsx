@@ -4,11 +4,8 @@ import useSidebarRoutes from "@/hooks/useRoutes";
 import SingleComponent from "./SingleComponent";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { DesktopSingleComponentProps } from "./SingleComponent";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
+import { APP_NAME } from "@/lib/constants";
 
 const Sidebarcomponent = () => {
   const routes = useSidebarRoutes(),
@@ -16,21 +13,7 @@ const Sidebarcomponent = () => {
   return (
     <div className="relative ">
       <h1 className="font-Helvetica relative mt-8 pl-7 text-xl font-bold tracking-wider text-Header-primary">
-        MediaSharing
-        <Tooltip delayDuration={100}>
-          <TooltipTrigger>
-            <span className=" absolute -top-1 rounded-sm bg-blue-500 px-1 py-1 text-[10px] font-medium  leading-none">
-              Beta
-            </span>
-            <TooltipContent className="border-secondary-color bg-Secondary-background font-normal text-Paragraph-primary">
-              <p>
-                This is beta version and
-                <br />
-                this website is still under development.
-              </p>
-            </TooltipContent>
-          </TooltipTrigger>
-        </Tooltip>
+        {APP_NAME}
       </h1>
       <section className="mt-14 flex flex-col gap-6 ">
         {routes.map((item: DesktopSingleComponentProps) => {

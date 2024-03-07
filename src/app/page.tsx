@@ -4,6 +4,7 @@ import Avatar from "@/components/Avatar/Avatar";
 import RoomCard from "@/components/room/RoomCard";
 import SideBarToggleButton from "@/components/Buttons/SideBarToggleButton";
 import CardOne from "@/components/card/info/CardOne";
+import { APP_NAME } from "@/lib/constants";
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
         <div className="w-full max-md:hidden" />
         <SideBarToggleButton />
         <h3 className=" h-fit w-full  text-center  text-xl font-bold text-Header-primary">
-          Welcome to MediaSharing
+          Welcome to {APP_NAME}
         </h3>
         <div className="flex w-full justify-end   pr-24  max-md:w-fit max-md:pr-3">
           <Avatar />
