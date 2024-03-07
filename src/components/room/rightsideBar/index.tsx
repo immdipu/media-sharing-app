@@ -1,20 +1,19 @@
 import React, { useContext } from "react";
-import Chat from "@/components/room/rightsideBar/chat";
-import Users from "./users";
-import RoomTab from "@/components/room/rightsideBar/room";
-import Media from "./media";
+import dynamic from "next/dynamic";
 import clsx from "clsx";
 import { RoomContext } from "../SingleRoom/JoinedSingleRoom";
 import { BsTextRight } from "react-icons/bs";
-import { usePathname, useRouter } from "next/navigation";
 import { Tab, TabContainer } from "@/components/Tab/Tab";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+
+const Chat = dynamic(() => import("@/components/room/rightsideBar/chat"));
+const Users = dynamic(() => import("@/components/room/rightsideBar/users"));
+const Room = dynamic(() => import("@/components/room/rightsideBar/room"));
+const Media = dynamic(() => import("@/components/room/rightsideBar/media"));
 
 const Index = () => {
   const { showRightSideBar, setShowRightSideBar, MessageCount } =
     useContext(RoomContext);
-  const router = useRouter();
-  const path = usePathname();
   const [active, setActive] = React.useState<0 | 1 | 2 | 3 | 4>(0);
 
   return (
@@ -64,7 +63,7 @@ const Index = () => {
             active === 1 && "text-btn-primary",
           )}
         >
-          users
+          Users
         </Tab>
         <Tab
           className={clsx(
@@ -95,72 +94,9 @@ const Index = () => {
           {active === 0 && <Chat key={"Chat"} />}
           {active === 1 && <Users key={"Users"} />}
           {active === 2 && <Media key={"media"} />}
-          {active === 3 && <RoomTab key={"Room"} />}
+          {active === 3 && <Room key={"Room"} />}
         </AnimatePresence>
       </section>
-
-      {/* <Tabs defaultValue="chat" className="w-auto">
-        <TabsList className="sticky top-0 z-10 w-full bg-Input-background   ">
-          <TabsTrigger
-            onClick={() => {
-              router.push(`${path}?tab=chat`);
-            }}
-            value="chat"
-            className="relative w-full text-Paragraph-primary "
-          >
-            {MessageCount !== 0 && (
-              <span
-                className={clsx(
-                  "absolute left-3 top-2 rounded-full bg-red-500 px-[7px] py-[3px]  text-xs text-white",
-                )}
-              >
-                {MessageCount}
-              </span>
-            )}
-            chat
-          </TabsTrigger>
-          <TabsTrigger
-            onClick={() => {
-              router.push(`${path}?tab=users`);
-            }}
-            value="users"
-            className="w-full text-Paragraph-primary"
-          >
-            users
-          </TabsTrigger>
-
-          <TabsTrigger
-            onClick={() => {
-              router.push(`${path}?tab=media`);
-            }}
-            value="media"
-            className="w-full text-Paragraph-primary"
-          >
-            Media
-          </TabsTrigger>
-          <TabsTrigger
-            onClick={() => {
-              router.push(`${path}?tab=room`);
-            }}
-            value="room"
-            className="w-full text-Paragraph-primary"
-          >
-            Room
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="chat" className="h-[calc(100vh-56px)]   ">
-        
-        </TabsContent>
-        <TabsContent value="users">
-          <Users />
-        </TabsContent>
-        <TabsContent value="media" className="h-[calc(100vh-70px)]  ">
-          <Media />
-        </TabsContent>
-        <TabsContent value="room" className="h-[calc(100vh-56px)]   ">
-          <RoomTab />
-        </TabsContent>
-      </Tabs> */}
     </div>
   );
 };
