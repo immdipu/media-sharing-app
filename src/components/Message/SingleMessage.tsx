@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import SingleMessageWrapper from "./organism/SingleMessageWrapper";
+import clsx from "clsx";
 
 interface SingleMessageProps extends RoomMessageTypes {
   highlightedMessageId: string | null;
@@ -14,6 +15,7 @@ const SingleMessage: React.FC<SingleMessageProps> = ({
   _id,
   reactions,
   highlightedMessageId,
+  deleted,
 }) => {
   return (
     <SingleMessageWrapper
@@ -27,7 +29,13 @@ const SingleMessage: React.FC<SingleMessageProps> = ({
       highlightedMessageId={highlightedMessageId}
     >
       <div className="relative mt-[2px] ">
-        <p className="mr-3 block w-full break-words pb-2  font-roboto text-sm font-normal leading-5  text-paragraph-secondary ">
+        <p
+          className={clsx(
+            "mr-3 block w-full break-words pb-2  font-roboto text-sm font-normal leading-5  text-paragraph-secondary",
+            deleted &&
+              "cursor-not-allowed select-none text-red-200 opacity-60 ",
+          )}
+        >
           {content}
         </p>
       </div>

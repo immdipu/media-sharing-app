@@ -14,6 +14,7 @@ import {
   UpdateRoom,
   UpdateMessageReaction,
   AddReplyMessage,
+  DeleteMessage,
 } from "@/redux/slice/roomSlice";
 import { useSearchParams } from "next/navigation";
 
@@ -117,6 +118,10 @@ const JoinedSingleRoom = () => {
 
         if (data.Type === "reply") {
           dispatch(AddReplyMessage(data as MessageReplyTypes));
+        }
+
+        if (data.Type === "MsgDelete") {
+          dispatch(DeleteMessage(data as MessageDeleteTypes));
         }
 
         dispatch(AddMessage(data));

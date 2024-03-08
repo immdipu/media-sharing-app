@@ -225,6 +225,17 @@ export const roomSlice = createSlice({
       }
     },
 
+    DeleteMessage: (state, action: PayloadAction<MessageDeleteTypes>) => {
+      const { msgId, sender, Type } = action.payload;
+      const message = state.RoomChat?.find(
+        (msg) => msg?._id === msgId,
+      ) as unknown as DefaultMessageTypes | null;
+      if (message && message.content && message.sender._id === sender._id) {
+        message.content = "This message has been deleted";
+        message.deleted = true;
+      }
+    },
+
     RemoveReplyTo: (state) => {
       state.ReplyTo = null;
     },
@@ -257,5 +268,6 @@ export const {
   AddReplyTo,
   RemoveReplyTo,
   AddReplyMessage,
+  DeleteMessage,
 } = roomSlice.actions;
 export default roomSlice.reducer;

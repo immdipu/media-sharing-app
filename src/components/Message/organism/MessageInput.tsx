@@ -4,13 +4,13 @@ import { Textarea } from "@/components/ui/textarea";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import uniqid from "uniqid";
-import MessageSendButon from "../Buttons/MessageSendButon";
+import MessageSendButon from "../../Buttons/MessageSendButon";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { useParams } from "next/navigation";
 import { useAppDispatch, useSocket, useAppSelector } from "@/hooks";
 import { AddNewMessage } from "@/redux/slice/chatSlice";
 import { RemoveReplyTo } from "@/redux/slice/roomSlice";
-import ReplyInputBoxHeader from "./MessageReply/ReplyInputBoxHeader";
+import ReplyInputBoxHeader from "../MessageReply/ReplyInputBoxHeader";
 
 interface MessageInputProps {
   MessageType: "ROOM" | "CHAT";

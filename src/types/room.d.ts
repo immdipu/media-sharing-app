@@ -23,7 +23,8 @@ type RoomChatTypes =
   | RoomMessageTypes
   | RoomUpdateMessageTypes
   | MessageReactionTypes
-  | MessageReplyTypes;
+  | MessageReplyTypes
+  | MessageDeleteTypes;
 
 interface MessageReactionDataTypes {
   sender: {
@@ -35,6 +36,7 @@ interface MessageReactionDataTypes {
 }
 
 interface RoomUpdateMessageTypes {
+  _id?: string;
   Type: "RoomUpdate";
   message: string;
   updatedBy: string;
@@ -42,6 +44,7 @@ interface RoomUpdateMessageTypes {
 }
 
 interface RoomJoinLeaveTypes {
+  _id?: string;
   Type: "JoinLeaveNotification";
   status: "joined" | "left";
   user: membersTypes;
@@ -54,6 +57,7 @@ interface DefaultMessageTypes {
   sender: membersTypes;
   createdAt: Date;
   reactions: ReactionTypes[];
+  deleted?: boolean;
 }
 
 interface MessageReplyTypes extends DefaultMessageTypes {
@@ -61,7 +65,15 @@ interface MessageReplyTypes extends DefaultMessageTypes {
   replyTo: string | RoomMessageTypes | null;
 }
 
+interface MessageDeleteTypes {
+  _id?: string;
+  Type: "MsgDelete";
+  sender: membersTypes;
+  msgId: string;
+}
+
 interface MessageReactionTypes {
+  _id?: string;
   Type: "MsgReaction";
   roomId: string;
   data: MessageReactionDataTypes;

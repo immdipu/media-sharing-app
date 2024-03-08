@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import MessageInput from "../MessageInput";
+import MessageInput from "../organism/MessageInput";
 import AllMessages from "./AllMessages";
 import { userApis } from "@/Apis/APIs";
 import { useQuery } from "@tanstack/react-query";

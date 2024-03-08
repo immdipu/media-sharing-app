@@ -14,7 +14,7 @@ const MessageReaction = dynamic(
   },
 );
 
-const MessageOptions = dynamic(() => import("../MessageOptions"), {
+const MessageOptions = dynamic(() => import("./MessageOptions"), {
   loading: () => <p>Loading...</p>,
 });
 

@@ -5,13 +5,13 @@ import {
   FaTrash,
   FaExclamationCircle,
 } from "react-icons/fa";
-import MessageOptionChip from "./MessageOptionChip";
+import MessageOptionChip from "../atoms/MessageOptionChip";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
-import { useAppDispatch } from "@/hooks";
+import { useAppDispatch, useAppSelector, useSocket } from "@/hooks";
 import { AddReplyTo } from "@/redux/slice/roomSlice";
 
-const EmojisPopOver = dynamic(() => import("../Emojis/EmojisPopOver"), {
+const EmojisPopOver = dynamic(() => import("../../Emojis/EmojisPopOver"), {
   loading: () => <p>Loading...</p>,
 });
 
@@ -22,8 +22,23 @@ const MessageOptions: React.FC<MessageOptionsProps> = ({
   reactions,
 }) => {
   const dispatch = useAppDispatch();
+  const { EmitCustomEvent } = useSocket();
+  const user = useAppSelector((state) => state.auth);
+  const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
 
-  const hadleMessageDelete = () => {};
+  const hadleMessageDelete = () => {
+    let messageData = {
+      roomId: JoinedRoom?.id,
+      data: {
+        Type: "MsgDelete",
+        sender: {
+          _id: user.id!,
+        },
+        msgId: _id,
+      },
+    };
+    EmitCustomEvent("send-message-in-room", messageData);
+  };
 
   return (
     <section
@@ -63,6 +78,7 @@ const MessageOptions: React.FC<MessageOptionsProps> = ({
           className="hover:text-red-500"
           onClick={hadleMessageDelete}
         />
+
         <MessageOptionChip
           Icon={FaExclamationCircle}
           TooltipText="Report this message "

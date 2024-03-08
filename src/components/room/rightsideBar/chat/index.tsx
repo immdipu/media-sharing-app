@@ -25,7 +25,9 @@ const ReplyMessage = dynamic(
   () => import("@/components/Message/atoms/ReplyMessage"),
 );
 
-const MessageInput = dynamic(() => import("@/components/Message/MessageInput"));
+const MessageInput = dynamic(
+  () => import("@/components/Message/organism/MessageInput"),
+);
 
 const Chat = () => {
   const Messages = useAppSelector((state) => state.room.RoomChat);
