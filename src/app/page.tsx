@@ -5,6 +5,7 @@ import Room from "@/components/room/Room";
 import SideBarToggleButton from "@/components/Buttons/SideBarToggleButton";
 import CardOne from "@/components/card/info/CardOne";
 import { APP_NAME } from "@/lib/constants";
+import RecommedationUser from "@/components/recommendation/user/Index";
 
 export default function Home() {
   return (
@@ -34,6 +35,7 @@ export default function Home() {
             <h3 className="mt-10 text-lg font-bold text-neutral-50 max-md:px-3">
               Rooms
             </h3>
+            <RecommedationUser />
             <Room />
           </section>
         </div>

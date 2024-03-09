@@ -92,6 +92,13 @@ export const userApis = {
     return res.data;
   },
 
+  UserRecommendation: async (): Promise<any> => {
+    const res = await axiosInstance().get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/user/recommend/user`,
+    );
+    return res.data;
+  },
+
   getCreateSingleChat: async (userId: string): Promise<any> => {
     const res = await axiosInstance().post(
       `${process.env.NEXT_PUBLIC_BASE_URL}/chat/`,
