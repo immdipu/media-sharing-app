@@ -16,7 +16,7 @@ const RecommedationUser = () => {
     return;
   }
 
-  if (!data || data?.data?.length === 0) {
+  if (!data || !data?.data || data?.data?.length === 0) {
     return;
   }
 
