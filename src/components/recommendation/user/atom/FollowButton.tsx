@@ -1,5 +1,6 @@
 import React from "react";
 import { useFollow, useFollowStatus } from "@/hooks";
+import clsx from "clsx";
 
 interface IFollowButton {
   userId: string;
@@ -13,9 +14,12 @@ const FollowButton: React.FC<IFollowButton> = ({ userId }) => {
     <button
       onClick={() => {
         handleFollow(userId, "follow");
-        setIsFollow(true);
+        setIsFollow(!follow);
       }}
-      className="w-full rounded-md bg-btn-primary py-1 font-poppins text-sm capitalize text-btn-primary hover:opacity-70"
+      className={clsx(
+        "w-full rounded-md border border-secondary-color py-1 font-poppins text-sm capitalize text-btn-primary duration-200 hover:opacity-70 active:scale-75",
+        follow && "border-transparent bg-btn-primary text-white",
+      )}
     >
       {follow ? "Following" : "Follow"}
     </button>

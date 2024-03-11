@@ -10,12 +10,14 @@ const CardInfo: React.FC<ICardInfor> = ({ fullName, username }) => {
     <div
       data-tooltip={fullName}
       data-tooltip-position="bottom"
-      className="tooltip w-full"
+      className="tooltip w-full px-1"
     >
-      <h1 className="tooltip  overflow-hidden overflow-ellipsis whitespace-nowrap   capitalize leading-none text-Header-primary">
+      <h1 className="tooltip  overflow-hidden overflow-ellipsis whitespace-nowrap text-sm capitalize leading-none text-Header-primary">
         {fullName}
       </h1>
-      <p className="text-xs  text-paragraph-secondary">@{username}</p>
+      <p className=" overflow-hidden overflow-ellipsis  text-xs text-paragraph-secondary">
+        @{username}
+      </p>
     </div>
   );
 };

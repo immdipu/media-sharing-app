@@ -30,7 +30,7 @@ const RecommedationUser = () => {
             className="rounded-md  bg-Secondary-background px-4 py-2"
           >
             <div className="flex justify-between">
-              <h3 className="mb-3 font-bold text-Header-secondary">
+              <h3 className="mb-3 font-semibold text-Header-secondary">
                 Who to follow
               </h3>
               <X

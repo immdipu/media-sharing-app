@@ -11,7 +11,7 @@ const RecommendationCard = ({ profilPic, fullName, username, _id }: any) => {
         ImageLink={profilPic}
         username={username}
         fallback={fullName}
-        className="h-full w-full rounded-none  p-2"
+        className=" h-32 w-32 rounded-none  p-2"
       />
       <CardInfo fullName={fullName} username={username} />
       <div className="mt-2 w-full  text-center">
