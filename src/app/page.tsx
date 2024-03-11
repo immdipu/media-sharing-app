@@ -1,4 +1,3 @@
-import { Input } from "@/components/ui/input";
 import CreateRoom from "@/components/createRoom";
 import Avatar from "@/components/Avatar/Avatar";
 import Room from "@/components/room/Room";
@@ -23,22 +22,7 @@ export default function Home() {
       </div>
 
       <section className="flex w-full overflow-hidden ">
-        <div className=" grow pr-4">
-          <section className="mt-7 flex gap-2 pl-20 max-md:px-2">
-            <CreateRoom />
-            <Input
-              className="border-neutral-500 bg-neutral-700 text-neutral-100 placeholder:text-neutral-400"
-              placeholder="Search room, people or tags"
-            />
-          </section>
-          <section className=" pl-20 max-md:px-3">
-            <h3 className="mt-10 text-lg font-bold text-neutral-50 max-md:px-3">
-              Rooms
-            </h3>
-            <RecommedationUser />
-            <Room />
-          </section>
-        </div>
+        <Room />
         <section className="cardContainer  mr-5 mt-7 flex h-[calc(100vh-130px)] w-fit shrink-0 flex-col gap-3 overflow-hidden  max-[850px]:hidden">
           <CardOne
             header="🎉 Create and Share "

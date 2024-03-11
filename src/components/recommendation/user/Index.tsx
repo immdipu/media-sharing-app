@@ -38,18 +38,20 @@ const RecommedationUser = () => {
                 className=" h-4 w-4 cursor-pointer  text-paragraph-secondary duration-300 active:scale-125"
               />
             </div>
-            {data &&
-              data?.data &&
-              data?.data.length > 0 &&
-              data?.data.map((user: any) => (
-                <RecommendationCard
-                  key={user._id}
-                  profilPic={user.profilePic}
-                  fullName={user.fullName}
-                  username={user.username}
-                  _id={user._id}
-                />
-              ))}
+            <div className="flex gap-3">
+              {data &&
+                data?.data &&
+                data?.data.length > 0 &&
+                data?.data.map((user: any) => (
+                  <RecommendationCard
+                    key={user._id}
+                    profilPic={user.profilePic}
+                    fullName={user.fullName}
+                    username={user.username}
+                    _id={user._id}
+                  />
+                ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

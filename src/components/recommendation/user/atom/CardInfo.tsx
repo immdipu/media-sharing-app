@@ -7,8 +7,14 @@ interface ICardInfor {
 
 const CardInfo: React.FC<ICardInfor> = ({ fullName, username }) => {
   return (
-    <div className="w-full ">
-      <h1 className="leading-none text-Header-primary">{fullName}</h1>
+    <div
+      data-tooltip={fullName}
+      data-tooltip-position="bottom"
+      className="tooltip w-full"
+    >
+      <h1 className="tooltip  overflow-hidden overflow-ellipsis whitespace-nowrap   capitalize leading-none text-Header-primary">
+        {fullName}
+      </h1>
       <p className="text-xs  text-paragraph-secondary">@{username}</p>
     </div>
   );
