@@ -1,5 +1,5 @@
 import React from "react";
-import { useFollow, useFollowStatus } from "@/hooks";
+import { useFollow } from "@/hooks";
 import clsx from "clsx";
 
 interface IFollowButton {
