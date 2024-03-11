@@ -17,7 +17,7 @@ const RoomJoinNotificationCard: React.FC<RoomJoinLeaveTypes> = ({
   user,
 }) => {
   return (
-    <div className="flex items-center  px-3 py-2 hover:bg-Main-background">
+    <div className=" flex items-center px-3 py-3 pb-4 hover:bg-Main-background">
       <UserAvatarWithPopOver
         ImageLink={user?.profilePic}
         fallback={user?.fullName[0]}
