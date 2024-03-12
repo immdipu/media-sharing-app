@@ -124,6 +124,10 @@ const JoinedSingleRoom = () => {
           dispatch(DeleteMessage(data as MessageDeleteTypes));
         }
 
+        if (data.Type === "RoomJoinRequest") {
+          console.log("Room Join Request", data);
+        }
+
         dispatch(AddMessage(data));
       });
       ListenCustomEvent("room-update", (data: RoomUpdateResponseTypes) => {

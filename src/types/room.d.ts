@@ -24,7 +24,8 @@ type RoomChatTypes =
   | RoomUpdateMessageTypes
   | MessageReactionTypes
   | MessageReplyTypes
-  | MessageDeleteTypes;
+  | MessageDeleteTypes
+  | RoomJoinRequest;
 
 interface MessageReactionDataTypes {
   sender: {
@@ -49,6 +50,10 @@ interface RoomJoinLeaveTypes {
   status: "joined" | "left";
   user: membersTypes;
   createdAt: Date;
+}
+
+interface RoomJoinRequest extends DefaultMessageTypes {
+  Type: "RoomJoinRequest";
 }
 
 interface DefaultMessageTypes {
