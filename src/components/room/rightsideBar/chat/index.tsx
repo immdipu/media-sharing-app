@@ -5,6 +5,7 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { motion } from "framer-motion";
 import { tabAnimation } from "@/lib/constants";
+import { RoomJoinRequestCard } from "@/components/card";
 
 const SingleMessage = dynamic(
   () => import("@/components/Message/SingleMessage"),
@@ -104,6 +105,9 @@ const Chat = () => {
                   updatedBy={message.updatedBy}
                 />
               );
+            }
+            if (message.Type === "RoomJoinRequest") {
+              return <RoomJoinRequestCard key={index} {...message} />;
             }
           })}
       </section>

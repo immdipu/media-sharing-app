@@ -2,7 +2,9 @@ interface ActivityTypes {
   type:
     | "ADD_MEMBER_FROM_ACTIVITY"
     | "REMOVE_MEMBER_FROM_ACTIVITY"
-    | "REMOVE_ACTIVITY";
+    | "REMOVE_ACTIVITY"
+    | "ACCEPT_JOIN_REQUEST"
+    | "REJECT_JOIN_REQUEST";
   activityId: string;
   roomId: string;
   userId: string;

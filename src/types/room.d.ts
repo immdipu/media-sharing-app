@@ -133,6 +133,7 @@ interface RoomEditResponseTypes {
 }
 
 interface IjoinedRoomResponse {
+  type: "statusChecking" | "accepted";
   success: boolean;
   message: string;
   room: RoomTypes;
@@ -160,13 +161,23 @@ interface KickUserTypes {
   ToKickId: string;
 }
 
-type RoomUpdateTypes = EditRoomTypes | RoleTransferTypes | KickUserTypes;
+type RoomUpdateTypes =
+  | EditRoomTypes
+  | RoleTransferTypes
+  | KickUserTypes
+  | RoomJoinRequestResponse;
 
 interface RoomRoleTransferResponseTypes {
   type: "RoleTransfer";
   AdminId: string;
   roomId: string;
   ToTransferId: string;
+}
+
+interface RoomJoinRequestResponse {
+  type: "RoomJoinRequest";
+  roomId: string;
+  userId: string;
 }
 
 interface IUpdateSentMessage {

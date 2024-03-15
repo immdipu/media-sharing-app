@@ -15,6 +15,7 @@ import {
   UpdateMessageReaction,
   AddReplyMessage,
   DeleteMessage,
+  AddJoinRequestMessage,
 } from "@/redux/slice/roomSlice";
 import { useSearchParams } from "next/navigation";
 
@@ -125,7 +126,7 @@ const JoinedSingleRoom = () => {
         }
 
         if (data.Type === "RoomJoinRequest") {
-          console.log("Room Join Request", data);
+          dispatch(AddJoinRequestMessage(data));
         }
 
         dispatch(AddMessage(data));
@@ -187,8 +188,8 @@ const JoinedSingleRoom = () => {
       <div className="flex min-h-screen justify-start   max-md:relative max-md:overflow-hidden">
         <div className="h-full w-full">
           <section className="h-[80vh]">
-            <MyActivity />
-            <OtherActivity />
+            {/* <MyActivity />
+            <OtherActivity /> */}
           </section>
           <section className="flex h-[18vh] items-end justify-center gap-2 ">
             {JoinedRoom?.roomActivity.map((activity, index) => (

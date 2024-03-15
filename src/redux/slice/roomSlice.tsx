@@ -236,6 +236,14 @@ export const roomSlice = createSlice({
       }
     },
 
+    AddJoinRequestMessage(state, action: PayloadAction<RoomJoinRequest>) {
+      if (state.RoomChat) {
+        state.RoomChat.push(action.payload);
+      } else {
+        state.RoomChat = [action.payload];
+      }
+    },
+
     RemoveReplyTo: (state) => {
       state.ReplyTo = null;
     },
@@ -269,5 +277,6 @@ export const {
   RemoveReplyTo,
   AddReplyMessage,
   DeleteMessage,
+  AddJoinRequestMessage,
 } = roomSlice.actions;
 export default roomSlice.reducer;

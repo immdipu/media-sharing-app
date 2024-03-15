@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { usePathname } from "next/navigation";
 import { useSocket, useAppSelector } from "@/hooks";
@@ -22,6 +22,47 @@ const SingleRoom = () => {
   const pathname = usePathname();
   const { toast } = useToast();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!socket) {
+      return;
+    }
+
+    const handleJoinRoomResponse = (data: IjoinedRoomResponse) => {
+      if (data.type === "accepted" && data.success) {
+        dispatch(JoinRoom(data.room));
+        setVerifying(false);
+        dispatch(StopRoomJoiningLoader());
+        socket.off("joined-room-response");
+        return;
+      }
+      if (data.type === "statusChecking" && data.success) {
+        const pathName = pathname.replace("/room/", "");
+        console.log("pathName", pathName);
+        console.log("data.room", data.room);
+        console.log(
+          "data.room === pathName",
+          (data.room as unknown as string) === pathName,
+        );
+
+        if (
+          pathname.replace("/room/", "") === (data.room as unknown as string)
+        ) {
+          EmitCustomEvent("join-room", {
+            roomId: pathname.replace("/room/", ""),
+            userId: user?.id,
+          });
+        }
+      }
+    };
+
+    ListenCustomEvent("joined-room-response", handleJoinRoomResponse);
+
+    return () => {
+      socket.off("joined-room-response");
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket, EmitCustomEvent, pathname]);
 
   const handleJoinRoom = () => {
     dispatch(StartRoomJoiningLoader());
@@ -48,14 +89,7 @@ const SingleRoom = () => {
       userId: user?.id,
     });
 
-    ListenCustomEvent("joined-room-response", (data: IjoinedRoomResponse) => {
-      if (data.success) {
-        dispatch(JoinRoom(data.room));
-        setVerifying(false);
-        dispatch(StopRoomJoiningLoader());
-        socket.off("joined-room-response");
-      }
-    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   };
 
   if (JoinedRoom && user?.id && JoinedRoom?.bannedUsers?.includes(user.id)) {

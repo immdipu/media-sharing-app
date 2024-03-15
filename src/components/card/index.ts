@@ -6,6 +6,7 @@ import UserCardList from "./UserCard.List";
 import UserListOptionCard from "./UserListOptionCard";
 import UserProfilePopoverCard from "./UserProfilePopoverCard";
 import YouTubeVideoCard from "./YouTubeVideoCard";
+import RoomJoinRequestCard from "./RoomJoinRequestCard";
 
 export {
   RoomJoinNotificationCard,
@@ -16,4 +17,5 @@ export {
   UserListOptionCard,
   UserProfilePopoverCard,
   YouTubeVideoCard,
+  RoomJoinRequestCard,
 };
