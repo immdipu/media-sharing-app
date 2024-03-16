@@ -1,8 +1,8 @@
 import React from "react";
 import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
 import MessageHeader from "../Message/organism/MessageHeader";
-import { useSocket, useAppSelector } from "@/hooks";
-
+import { useSocket, useAppSelector, useAppDispatch } from "@/hooks";
+import { UpdateJoinRequest } from "@/redux/slice/roomSlice";
 const RoomJoinRequestCard: React.FC<RoomJoinRequest> = ({
   Type,
   _id,
@@ -11,9 +11,11 @@ const RoomJoinRequestCard: React.FC<RoomJoinRequest> = ({
   reactions,
   sender,
   deleted,
+  status,
 }) => {
   const { EmitCustomEvent } = useSocket();
   const room = useAppSelector((state) => state.room.JoinedRoom);
+  const dispatch = useAppDispatch();
 
   const AcceptRequest = () => {
     EmitCustomEvent("room-update", {
@@ -22,6 +24,7 @@ const RoomJoinRequestCard: React.FC<RoomJoinRequest> = ({
       userId: sender._id,
       response: "accept",
     });
+    dispatch(UpdateJoinRequest({ _id: _id, status: "accepted" }));
   };
 
   const RejectRequest = () => {
@@ -31,6 +34,7 @@ const RoomJoinRequestCard: React.FC<RoomJoinRequest> = ({
       userId: sender._id,
       response: "reject",
     });
+    dispatch(UpdateJoinRequest({ _id: _id, status: "rejected" }));
   };
 
   return (
@@ -47,25 +51,41 @@ const RoomJoinRequestCard: React.FC<RoomJoinRequest> = ({
           <MessageHeader date={createdAt} name={sender?.fullName} />
           <p className="mt-2  text-sm text-Paragraph-primary">
             {" "}
-            <span className="font-medium capitalize text-green-600">
-              {sender.fullName}
-            </span>{" "}
-            wants to join the room ?
+            {status === "accepted" && (
+              <p className="mt-2 text-sm text-Paragraph-primary text-green-600">
+                Join Request Accepted
+              </p>
+            )}
+            {status === "rejected" && (
+              <p className="mt-2 text-sm text-Paragraph-primary text-red-600">
+                Join Request Rejected
+              </p>
+            )}
+            {status === "pending" && (
+              <>
+                <span className="font-medium capitalize text-green-600">
+                  {sender.fullName}
+                </span>{" "}
+                wants to join the room ?
+              </>
+            )}
           </p>
-          <div>
-            <button
-              className="mt-2 rounded-md bg-btn-success px-2 py-1 text-white"
-              onClick={AcceptRequest}
-            >
-              Accept
-            </button>
-            <button
-              className="ml-2 mt-2 rounded-md bg-btn-danger px-2 py-1 text-white"
-              onClick={RejectRequest}
-            >
-              Reject
-            </button>
-          </div>
+          {status === "pending" && (
+            <div>
+              <button
+                className="mt-2 rounded-md bg-btn-success px-2 py-1 text-white"
+                onClick={AcceptRequest}
+              >
+                Accept
+              </button>
+              <button
+                className="ml-2 mt-2 rounded-md bg-btn-danger px-2 py-1 text-white"
+                onClick={RejectRequest}
+              >
+                Reject
+              </button>
+            </div>
+          )}
         </div>
       </section>
     </div>

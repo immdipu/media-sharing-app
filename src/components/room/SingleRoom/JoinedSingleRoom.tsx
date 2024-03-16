@@ -126,7 +126,7 @@ const JoinedSingleRoom = () => {
         }
 
         if (data.Type === "RoomJoinRequest") {
-          dispatch(AddJoinRequestMessage(data));
+          return dispatch(AddJoinRequestMessage(data));
         }
 
         dispatch(AddMessage(data));

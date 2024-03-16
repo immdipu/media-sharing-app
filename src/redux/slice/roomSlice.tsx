@@ -238,9 +238,31 @@ export const roomSlice = createSlice({
 
     AddJoinRequestMessage(state, action: PayloadAction<RoomJoinRequest>) {
       if (state.RoomChat) {
+        // const removeOldRequest = state.RoomChat.filter(
+        //   (message) =>
+        //     message.Type === "RoomJoinRequest" &&
+        //     message.sender._id !== action.payload.sender._id,
+        // );
+        // state.RoomChat = removeOldRequest;
         state.RoomChat.push(action.payload);
       } else {
         state.RoomChat = [action.payload];
+      }
+    },
+    UpdateJoinRequest: (
+      state,
+      action: PayloadAction<{
+        status: "accepted" | "rejected";
+        _id: string;
+      }>,
+    ) => {
+      const joinRequest = state.RoomChat?.find(
+        (message) =>
+          message.Type === "RoomJoinRequest" &&
+          message._id === action.payload._id,
+      ) as unknown as RoomJoinRequest | null;
+      if (joinRequest) {
+        joinRequest.status = action.payload.status;
       }
     },
 
@@ -278,5 +300,6 @@ export const {
   AddReplyMessage,
   DeleteMessage,
   AddJoinRequestMessage,
+  UpdateJoinRequest,
 } = roomSlice.actions;
 export default roomSlice.reducer;

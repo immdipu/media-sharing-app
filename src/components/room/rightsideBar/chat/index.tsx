@@ -32,6 +32,8 @@ const MessageInput = dynamic(
 
 const Chat = () => {
   const Messages = useAppSelector((state) => state.room.RoomChat);
+  const user = useAppSelector((state) => state.auth);
+  const joinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const [parent, enableAnimations] = useAutoAnimate();
   const [highlightedMessageId, setHighlightedMessageId] = useState<
     string | null
@@ -106,7 +108,10 @@ const Chat = () => {
                 />
               );
             }
-            if (message.Type === "RoomJoinRequest") {
+            if (
+              message.Type === "RoomJoinRequest" &&
+              joinedRoom?.admin?._id === user.id
+            ) {
               return <RoomJoinRequestCard key={index} {...message} />;
             }
           })}

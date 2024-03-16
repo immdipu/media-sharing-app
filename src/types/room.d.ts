@@ -54,6 +54,7 @@ interface RoomJoinLeaveTypes {
 
 interface RoomJoinRequest extends DefaultMessageTypes {
   Type: "RoomJoinRequest";
+  status: "pending" | "accepted" | "rejected";
 }
 
 interface DefaultMessageTypes {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { usePathname } from "next/navigation";
 import { useSocket, useAppSelector } from "@/hooks";
@@ -8,6 +8,7 @@ import { useAppDispatch } from "@/hooks/reduxHooks";
 import JoinedSingleRoom from "./JoinedSingleRoom";
 import KickedOut from "@/components/ui/KickedOut";
 import RoomJoinButton from "@/components/Buttons/RoomJoinButton";
+
 import {
   StartRoomJoiningLoader,
   StopRoomJoiningLoader,
@@ -17,6 +18,7 @@ const SingleRoom = () => {
   const [verifying, setVerifying] = React.useState(true);
   const { socket, EmitCustomEvent, ListenCustomEvent } = useSocket();
   const user = useAppSelector((state) => state.auth);
+
   const isLoading = useAppSelector((state) => state.room.RoomJoiningLoader);
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const pathname = usePathname();
@@ -36,21 +38,23 @@ const SingleRoom = () => {
         socket.off("joined-room-response");
         return;
       }
-      if (data.type === "statusChecking" && data.success) {
-        const pathName = pathname.replace("/room/", "");
-        console.log("pathName", pathName);
-        console.log("data.room", data.room);
-        console.log(
-          "data.room === pathName",
-          (data.room as unknown as string) === pathName,
-        );
-
+      if (data.type === "statusChecking") {
         if (
+          data.success &&
           pathname.replace("/room/", "") === (data.room as unknown as string)
         ) {
           EmitCustomEvent("join-room", {
             roomId: pathname.replace("/room/", ""),
             userId: user?.id,
+          });
+        } else {
+          dispatch(StopRoomJoiningLoader());
+          setVerifying(false);
+          toast({
+            title: "Request rejected",
+            description:
+              "Your request to join the room was rejected by the admin",
+            variant: "destructive",
           });
         }
       }
