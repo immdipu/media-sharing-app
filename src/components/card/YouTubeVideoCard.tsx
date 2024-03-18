@@ -5,7 +5,7 @@ import { useAppSelector, useSocket, useUserRoomActivity } from "@/hooks";
 import { ViewsFormat } from "@/lib/utils";
 
 interface YouTubeVideoCardProps extends YouTubeVideo {
-  handlePlay: (videoId: string) => void;
+  handlePlay?: (videoId: string) => void;
 }
 
 const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({
@@ -34,7 +34,6 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({
       return;
     } else {
       YoutubePlayer.current?.loadVideoById(id);
-      handlePlay(id);
     }
     localStorage.setItem("YouTubeVideoId", id);
     localStorage.setItem("YouTubeThumbnail", thumbnail?.url);

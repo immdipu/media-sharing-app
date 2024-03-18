@@ -13,8 +13,6 @@ interface ChipContainerProps {
 const ChipContainer: React.FC<ChipContainerProps> = ({ active, setActive }) => {
   const queryClient = useQueryClient();
 
-  console.log("active", active);
-
   return (
     <div className=" relative mt-2 overflow-hidden px-5">
       <TabContainer

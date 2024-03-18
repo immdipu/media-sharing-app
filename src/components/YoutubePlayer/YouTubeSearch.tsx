@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { IoSearch } from "react-icons/io5";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { userApis } from "@/Apis/APIs";
 import { useMutation } from "@tanstack/react-query";
 import useDebounce from "@/hooks/useDebounce";
@@ -9,6 +8,7 @@ import ShareButton from "../Buttons/YouTubeShareButton";
 import "./YouTubeSearch.css";
 import Each from "../Resuable/Each";
 import YouTubeTab from "./Tabs/YouTubeTab";
+import InLineLoader from "../Skeleton/InLineLoader";
 
 const YouTubeSearch = () => {
   const [search, setSearch] = React.useState<string>("");
@@ -61,7 +61,7 @@ const YouTubeSearch = () => {
 
   React.useEffect(() => {
     if (!ImmediateSearch && debouncedSearchTerm) {
-      // searchVideos.mutate(debouncedSearchTerm);
+      searchVideos.mutate(debouncedSearchTerm);
     } else {
       setImmediateSearch(false);
     }
@@ -101,29 +101,27 @@ const YouTubeSearch = () => {
           />
           <datalist
             id="searchOptions"
-            className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg"
+            className="absolute z-10 mt-1 w-full rounded-md border bg-Main-background text-primary  shadow-lg"
           >
             {searchSuggestion.length > 0 && (
               <Each
                 of={searchSuggestion}
-                render={(item, index) => (
-                  <option
-                    key={index}
-                    onClick={() => {
-                      ImmediateSearchFunction(item);
-                    }}
-                    value={item}
-                  />
-                )}
+                render={(item, index) => <option key={index} value={item} />}
               />
             )}
           </datalist>
-          <button className="h-full w-fit bg-Input-background px-3 py-2 text-sm text-Paragraph-primary focus:outline-none">
+          <button
+            onClick={() => {
+              ImmediateSearchFunction(search);
+            }}
+            className="h-full w-fit bg-Input-background px-3 py-2 text-sm text-Paragraph-primary focus:outline-none"
+          >
             <IoSearch className="text-xl" />
           </button>
         </div>
         <ShareButton />
       </div>
+      <InLineLoader isLoading={searchVideos.isLoading} />
       <YouTubeTab
         active={active}
         setActive={setActive}

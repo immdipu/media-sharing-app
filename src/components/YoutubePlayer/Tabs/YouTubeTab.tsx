@@ -32,7 +32,7 @@ const YouTubeTab: React.FC<YouTubeTabProps> = ({
           {active === 3 && <QueueTab key={"queue"} />}
           {active === 4 && <RecentTab key={"recent"} />}
           {active === undefined && (
-            <SearchResults key={"search"} data={searchResult} />
+            <SearchResults key={"searchResult"} data={searchResult} />
           )}
         </AnimatePresence>
       </section>

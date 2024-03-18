@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use, useEffect, useLayoutEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Each from "@/components/Resuable/Each";
 import { YouTubeVideoCard } from "@/components/card";
@@ -8,7 +8,21 @@ interface SearchResultsProps {
   data: YouTubeVideo[] | null;
 }
 
-const SearchResults: React.FC<SearchResultsProps> = ({ hanldlePlay, data }) => {
+const SearchResults: React.FC<SearchResultsProps> = ({
+  hanldlePlay,
+  data: datas,
+}) => {
+  const [data, setData] = useState<YouTubeVideo[] | null>(datas);
+
+  useEffect(() => {
+    if (!datas && localStorage.getItem("YouTubeSearchResult")) {
+      console.log("setting data");
+      setData(JSON.parse(localStorage.getItem("YouTubeSearchResult")!));
+    } else {
+      setData(datas);
+    }
+  }, [datas]);
+
   return (
     <ScrollArea className=" h-[calc(100vh-149px)] w-full  py-2 ">
       {data && data.length > 0 && (
