@@ -1,54 +1,19 @@
 import React from "react";
 import { TabContainer, Tab } from "../Tab/Tab";
 import clsx from "clsx";
-import { useMutation } from "@tanstack/react-query";
-import { userApis } from "@/Apis/APIs";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ChipContainerProps {
-  setSearchResult: React.Dispatch<React.SetStateAction<YouTubeVideo[]>>;
-  searchResult: YouTubeVideo[];
+  setActive: React.Dispatch<
+    React.SetStateAction<0 | 1 | 2 | 3 | 4 | undefined>
+  >;
+  active: 0 | 1 | 2 | 3 | 4 | undefined;
 }
 
-const ChipContainer: React.FC<ChipContainerProps> = ({
-  setSearchResult,
-  searchResult,
-}) => {
-  const [active, setActive] = React.useState<0 | 1 | 2 | 3 | 4>(0);
+const ChipContainer: React.FC<ChipContainerProps> = ({ active, setActive }) => {
+  const queryClient = useQueryClient();
 
-  const getTrending = useMutation(() => userApis.getTrendingVideos(), {
-    onSuccess: (data) => {
-      setSearchResult(data);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
-
-  const getHomepage = useMutation(() => userApis.getHomePageVideos(), {
-    onSuccess: (data) => {
-      setSearchResult(data);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
-
-  const getRecentVideos = useMutation(() => userApis.getRecentVideos(), {
-    onSuccess: (data) => {
-      setSearchResult(data);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
-
-  React.useEffect(() => {
-    const data = localStorage.getItem("YouTubeSearchResult");
-    if (!data) {
-      getHomepage.mutate();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  console.log("active", active);
 
   return (
     <div className=" relative mt-2 overflow-hidden px-5">
@@ -60,23 +25,41 @@ const ChipContainer: React.FC<ChipContainerProps> = ({
         <Tab
           onClick={() => {
             setActive(0);
-            getHomepage.mutate();
+            if (active === 0) {
+              queryClient.invalidateQueries(["YouTubeSuggested"]);
+            }
           }}
           className={clsx(
             "grid w-full px-1 py-1 font-roboto text-xs text-Paragraph-primary duration-300",
             active === 0 && " text-btn-primary",
           )}
         >
-          Home
+          Suggested
         </Tab>
         <Tab
           onClick={() => {
             setActive(1);
-            getTrending.mutate();
+            if (active === 1) {
+              queryClient.invalidateQueries(["YouTubeHomepage"]);
+            }
+          }}
+          className={clsx(
+            "grid w-full px-1 py-1 font-roboto text-xs text-Paragraph-primary duration-300",
+            active === 1 && " text-btn-primary",
+          )}
+        >
+          Home
+        </Tab>
+        <Tab
+          onClick={() => {
+            setActive(2);
+            if (active === 2) {
+              queryClient.invalidateQueries(["YouTubeTrending"]);
+            }
           }}
           className={clsx(
             "grid w-full  px-1 py-1 font-roboto text-xs text-Paragraph-primary duration-300",
-            active === 1 && " text-btn-primary",
+            active === 2 && " text-btn-primary",
           )}
         >
           Trending
@@ -84,38 +67,30 @@ const ChipContainer: React.FC<ChipContainerProps> = ({
 
         <Tab
           onClick={() => {
-            setActive(2);
-          }}
-          className={clsx(
-            "grid w-full px-1 py-1 font-roboto text-xs text-Paragraph-primary duration-300",
-            active === 2 && " text-btn-primary",
-          )}
-        >
-          Queue
-        </Tab>
-        <Tab
-          onClick={() => {
             setActive(3);
-            getRecentVideos.mutate();
           }}
           className={clsx(
             "grid w-full px-1 py-1 font-roboto text-xs text-Paragraph-primary duration-300",
             active === 3 && " text-btn-primary",
           )}
         >
+          Queue
+        </Tab>
+        <Tab
+          onClick={() => {
+            setActive(4);
+            if (active === 4) {
+              queryClient.invalidateQueries(["YouTubeRecent"]);
+            }
+          }}
+          className={clsx(
+            "grid w-full px-1 py-1 font-roboto text-xs text-Paragraph-primary duration-300",
+            active === 4 && " text-btn-primary",
+          )}
+        >
           Recent
         </Tab>
       </TabContainer>
-      <div
-        className={clsx(
-          "  h-[3px] w-full overflow-hidden bg-blue-300 opacity-0",
-          getTrending.isLoading && "opacity-100",
-          getHomepage.isLoading && "opacity-100",
-          getRecentVideos.isLoading && "opacity-100",
-        )}
-      >
-        <div className="lineLoader h-full  w-[80%] bg-opacity-100"></div>
-      </div>
     </div>
   );
 };

@@ -33,7 +33,7 @@ const Tab = forwardRef<HTMLButtonElement, TabProps>(
 Tab.displayName = "Tab";
 
 const TabContainer = forwardRef<HTMLDivElement, TabContainerProps>(
-  ({ children, className, activeTab = 0, sliderClassName, ...rest }, ref) => {
+  ({ children, className, activeTab, sliderClassName, ...rest }, ref) => {
     const [containerWidth, setContainerWidth] = React.useState(0);
     const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -50,16 +50,18 @@ const TabContainer = forwardRef<HTMLDivElement, TabContainerProps>(
     return (
       <div ref={containerRef} className={cn("relative", className)} {...rest}>
         {children}
-        <div
-          style={{
-            width: `${sliderWidth}px`,
-            transform: `translateX(${sliderWidth * activeTab}px)`,
-          }}
-          className={cn(
-            " absolute inset-0 -z-10 rounded-md bg-Main-background transition-all duration-200 ease-in-out",
-            sliderClassName,
-          )}
-        />
+        {typeof activeTab === "number" && (
+          <div
+            style={{
+              width: `${sliderWidth}px`,
+              transform: `translateX(${sliderWidth * activeTab}px)`,
+            }}
+            className={cn(
+              " absolute inset-0 -z-10 rounded-md bg-Main-background transition-all duration-200 ease-in-out",
+              sliderClassName,
+            )}
+          />
+        )}
       </div>
     );
   },
