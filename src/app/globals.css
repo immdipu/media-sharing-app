@@ -191,6 +191,22 @@
 }
 
 
+.hideScrollbar::-webkit-scrollbar {
+    width: 0.1px;
+}
+
+.hideScrollbar::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+.hideScrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.hideScrollbar::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+}
+
 
 
 

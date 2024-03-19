@@ -9,16 +9,16 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Each from "../Resuable/Each";
 import CreateRoom from "../createRoom";
 import RecommedationUser from "../recommendation/user/Index";
-import { Input } from "../ui/input";
+import RoomSearch from "./RoomSearch";
 
 const Room = () => {
   const rooms = useAppSelector((state) => state.room.Room);
   const [parent, enableAnimations] = useAutoAnimate();
-  const [search, setSearch] = React.useState("");
+  const [search, setSearch] = React.useState<string[]>([]);
   const [searchResult, SetSearchResults] = React.useState<
     RoomTypes[] | undefined
   >([]);
-  const [debouncedSearchTerm, clearTimer] = useDebounce(search, 500);
+
   const dispatch = useAppDispatch();
   const { data, isLoading } = useQuery(
     ["rooms"],
@@ -43,39 +43,32 @@ const Room = () => {
   }, [data]);
 
   useEffect(() => {
-    if (debouncedSearchTerm) {
-      if (debouncedSearchTerm.toLowerCase() === "public") {
-        SetSearchResults(rooms?.filter((room) => room.roomType === "PUBLIC"));
-        return;
-      } else if (debouncedSearchTerm.toLowerCase() === "private") {
-        SetSearchResults(rooms?.filter((room) => room.roomType === "PRIVATE"));
-        return;
-      } else if (
-        debouncedSearchTerm.toLocaleLowerCase() === "friends" ||
-        debouncedSearchTerm.toLocaleLowerCase() === "friend"
-      ) {
-        SetSearchResults(rooms?.filter((room) => room.roomType === "FRIEND"));
-        return;
-      } else {
-        const results = rooms?.filter(
-          (room) =>
-            room.name
-              .toLowerCase()
-              .includes(debouncedSearchTerm.toLowerCase()) ||
-            room.members.some(
-              (member) =>
-                member.username
-                  .toLowerCase()
-                  .includes(debouncedSearchTerm.toLowerCase()) ||
-                member.fullName
-                  .toLowerCase()
-                  .includes(debouncedSearchTerm.toLowerCase()),
-            ),
-        );
-        SetSearchResults(results);
-      }
+    if (search.length > 0) {
+      const filteredRooms = rooms?.filter((room) => {
+        const matches = search.every((term) => {
+          const roomMatches =
+            room.name.toLowerCase().includes(term.toLowerCase()) ||
+            room.roomType.toLowerCase().includes(term.toLowerCase()) ||
+            room.members.some((member) => {
+              return (
+                member.username.toLowerCase().includes(term.toLowerCase()) ||
+                member.fullName.toLowerCase().includes(term.toLowerCase())
+              );
+            });
+          console.log(
+            `Term: ${term}, Room: ${room.name}, Matches: ${roomMatches}`,
+          );
+          return roomMatches;
+        });
+        console.log(`Room: ${room.name}, All Matches: ${matches}`);
+        return matches;
+      });
+      console.log("Filtered Rooms:", filteredRooms);
+      SetSearchResults(filteredRooms);
+    } else {
+      SetSearchResults([]);
     }
-  }, [debouncedSearchTerm, rooms]);
+  }, [search, rooms]);
 
   const roomsToDisplay =
     searchResult && searchResult.length > 0 ? searchResult : rooms;
@@ -84,17 +77,8 @@ const Room = () => {
     <div className=" grow pr-4">
       <section className="mt-7 flex gap-2 pl-20 max-md:px-2">
         <CreateRoom />
-        <Input
-          value={search}
-          onChange={(e) => {
-            if (e.target.value.length === 0) {
-              SetSearchResults(undefined);
-            }
-            setSearch(e.target.value);
-          }}
-          className="border-neutral-500 bg-neutral-700 text-neutral-100 placeholder:text-neutral-400"
-          placeholder="Search room, people or tags e.g public, private, friends, room name, username, full name"
-        />
+
+        <RoomSearch search={search} setSearch={setSearch} />
       </section>
       <section className=" pl-20 max-md:px-3">
         <h3 className="mt-10 text-lg font-bold text-neutral-50 max-md:px-3">
