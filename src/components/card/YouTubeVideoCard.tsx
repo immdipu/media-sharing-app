@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import { useAppSelector, useSocket, useUserRoomActivity } from "@/hooks";
 import { ViewsFormat } from "@/lib/utils";
+import AddQueueButton from "./AddQueueButton";
 
 interface YouTubeVideoCardProps extends YouTubeVideo {
   handlePlay?: (videoId: string) => void;
@@ -16,6 +17,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({
   channel,
   views,
   id,
+  type,
   handlePlay,
 }) => {
   const {
@@ -64,7 +66,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({
   return (
     <div
       onClick={() => handlePlayVideo()}
-      className="mb-4 flex  h-24 w-full px-2 transition-colors duration-300 ease-linear hover:bg-Main-background"
+      className="group mb-4 flex h-24 w-full px-2 transition-colors duration-300 ease-linear hover:bg-Main-background"
     >
       <Avatar className="h-full  w-40 cursor-pointer rounded-md bg-neutral-700 shadow-md ">
         <AvatarImage
@@ -75,6 +77,19 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({
         <p className="absolute bottom-0 right-0 rounded-sm bg-neutral-900 px-1 py-px text-xs text-neutral-100">
           {duration_formatted}
         </p>
+        <AddQueueButton
+          {...{
+            channel,
+            duration_formatted,
+            id,
+            thumbnail,
+            uploadedAt,
+            title,
+            views,
+            type,
+          }}
+        />
+
         <AvatarFallback className="h-full w-full rounded-md ">
           <div className="h-full w-full bg-neutral-500" />
         </AvatarFallback>
