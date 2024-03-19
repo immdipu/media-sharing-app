@@ -19,6 +19,9 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
 
   const { socket, EmitCustomEvent } = useSocket();
   const JoinedRoom = useAppSelector((state) => state.room);
+  const [thumbnail, setThumbnail] = React.useState<string | null | undefined>(
+    data?.thumbnail,
+  );
   const GET_MEDIA_DETAILS_RESPONSERef = useRef<any>(null);
   const {
     OtherYouTubePlayer,
@@ -71,6 +74,12 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
               OtherYouTubePlayer.current?.getVideoData()?.video_id
             ) {
               OtherYouTubePlayer.current?.loadVideoById(data?.data?.VideoId);
+            }
+
+            console.log("thumnaill", data);
+
+            if (data?.data?.thumbnail && data?.data?.thumbnail !== thumbnail) {
+              setThumbnail(data?.data?.thumbnail);
             }
           }
           if (ActivityType === "DRAWING") {
@@ -213,13 +222,23 @@ const RoomShareButtonCard: React.FC<roomActivityTypes> = ({
       >
         <AvatarImage src={admin?.profilePic} alt="@shadcn" className="" />
         <AvatarFallback>{admin?.fullName}</AvatarFallback>
-        {data?.thumbnail && (
+        {thumbnail && !isMySharedActivity && (
           <img
             className={clsx(
               "absolute h-full w-full object-cover opacity-0 transition-opacity duration-200 ease-linear group-hover:opacity-70",
             )}
-            src={data?.thumbnail}
+            src={thumbnail}
             alt=""
+          />
+        )}
+
+        {isMySharedActivity && localStorage.getItem("YouTubeThumbnail") && (
+          <img
+            className={clsx(
+              "absolute h-full w-full object-cover opacity-0 transition-opacity duration-200 ease-linear group-hover:opacity-70",
+            )}
+            src={localStorage.getItem("YouTubeThumbnail")!}
+            alt="YouTubeThumbnail"
           />
         )}
       </Avatar>

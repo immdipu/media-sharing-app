@@ -24,7 +24,7 @@ export const roomSlice = createSlice({
   reducers: {
     AddNewRoom: (state, action: PayloadAction<RoomTypes>) => {
       if (state.Room) {
-        state.Room.push(action.payload);
+        state.Room.unshift(action.payload);
       } else {
         state.Room = [action.payload];
       }

@@ -55,6 +55,7 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({
           time: 0,
           VideoId: id,
           state: 1,
+          thumbnail: thumbnail?.url,
         },
       });
     }

@@ -44,20 +44,36 @@ const Room = () => {
 
   useEffect(() => {
     if (debouncedSearchTerm) {
-      const results = rooms?.filter(
-        (room) =>
-          room.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-          room.members.some(
-            (member) =>
-              member.username
-                .toLowerCase()
-                .includes(debouncedSearchTerm.toLowerCase()) ||
-              member.fullName
-                .toLowerCase()
-                .includes(debouncedSearchTerm.toLowerCase()),
-          ),
-      );
-      SetSearchResults(results);
+      if (debouncedSearchTerm.toLowerCase() === "public") {
+        SetSearchResults(rooms?.filter((room) => room.roomType === "PUBLIC"));
+        return;
+      } else if (debouncedSearchTerm.toLowerCase() === "private") {
+        SetSearchResults(rooms?.filter((room) => room.roomType === "PRIVATE"));
+        return;
+      } else if (
+        debouncedSearchTerm.toLocaleLowerCase() === "friends" ||
+        debouncedSearchTerm.toLocaleLowerCase() === "friend"
+      ) {
+        SetSearchResults(rooms?.filter((room) => room.roomType === "FRIEND"));
+        return;
+      } else {
+        const results = rooms?.filter(
+          (room) =>
+            room.name
+              .toLowerCase()
+              .includes(debouncedSearchTerm.toLowerCase()) ||
+            room.members.some(
+              (member) =>
+                member.username
+                  .toLowerCase()
+                  .includes(debouncedSearchTerm.toLowerCase()) ||
+                member.fullName
+                  .toLowerCase()
+                  .includes(debouncedSearchTerm.toLowerCase()),
+            ),
+        );
+        SetSearchResults(results);
+      }
     }
   }, [debouncedSearchTerm, rooms]);
 
@@ -77,7 +93,7 @@ const Room = () => {
             setSearch(e.target.value);
           }}
           className="border-neutral-500 bg-neutral-700 text-neutral-100 placeholder:text-neutral-400"
-          placeholder="Search room, people or tags"
+          placeholder="Search room, people or tags e.g public, private, friends, room name, username, full name"
         />
       </section>
       <section className=" pl-20 max-md:px-3">
