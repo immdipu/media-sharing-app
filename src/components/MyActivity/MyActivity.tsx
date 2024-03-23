@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
 import YouTubePlayer from "@/components/YoutubePlayer";
-import Excalidraws from "@/components/Excalidraw";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import useUserRoomActivity from "@/hooks/useUserRoomActivity";
 import clsx from "clsx";
+import dynamic from "next/dynamic";
 import VideoStreamer from "../VideoStreeaming";
+const Excalidraws = dynamic(() => import("@/components/Excalidraw"), {
+  ssr: false,
+});
 
 const MyActivity = () => {
   const { media } = useContext(RoomContext);

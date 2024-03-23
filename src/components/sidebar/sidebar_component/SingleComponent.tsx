@@ -20,6 +20,7 @@ const SingleComponent: React.FC<DesktopSingleComponentProps> = ({
         )}
       >
         <Icon
+          size={20}
           className={clsx(
             "text-2xl",
             active ? "text-blue-500 " : "text-paragraph-secondary ",

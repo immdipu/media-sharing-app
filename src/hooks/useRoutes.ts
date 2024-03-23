@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { MdExplore } from "react-icons/md";
 import { BiMessageSquareDots } from "react-icons/bi";
-
+import { Home, Mail, User } from "lucide-react";
 import { BsPersonCircle } from "react-icons/bs";
 import { useAppSelector } from "./reduxHooks";
 
@@ -15,24 +15,24 @@ const useRoutes = () => {
       {
         label: "Home",
         href: "/",
-        icon: MdExplore,
+        icon: Home,
         active: pathname === "/",
       },
       {
         label: "Chat",
         href: `/chat`,
-        icon: BiMessageSquareDots,
+        icon: Mail,
         active: pathname === `/chat`,
       },
       {
         label: "Profile",
         href: `/profile/${user?.username}`,
-        icon: BsPersonCircle,
+        icon: User,
         active: pathname === `/profile/${user?.username}`,
       },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [pathname, user.isUserAuthenticated]
+    [pathname, user.isUserAuthenticated],
   );
 
   return routes;

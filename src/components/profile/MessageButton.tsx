@@ -3,6 +3,7 @@ import { MdMessage } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
 import { userApis } from "@/Apis/APIs";
 import { useToast } from "../ui/use-toast";
+import { Mail } from "lucide-react";
 
 const MessageButton = ({ _id }: { _id: string }) => {
   const { toast } = useToast();
@@ -29,7 +30,7 @@ const MessageButton = ({ _id }: { _id: string }) => {
       }}
       className="rounded-full border border-secondary-color px-2 py-2 hover:bg-secondary-hover"
     >
-      <MdMessage className="text-xl text-Paragraph-primary" />
+      <Mail size={20} className="text-xl text-Paragraph-primary" />
     </button>
   );
 };

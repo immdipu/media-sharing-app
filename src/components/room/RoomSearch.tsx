@@ -36,6 +36,9 @@ const RoomSearch: React.FC<RoomSearchProps> = ({ search, setSearch }) => {
             setSearch([...search, e.currentTarget.value]);
             e.currentTarget.value = "";
           }
+          if (e.key === "Backspace" && e.currentTarget.value === "") {
+            setSearch(search.slice(0, search.length - 1));
+          }
         }}
       />
     </div>

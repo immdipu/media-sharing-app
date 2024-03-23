@@ -5,10 +5,13 @@ import { useQuery } from "@tanstack/react-query";
 import { userApis } from "@/Apis/APIs";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { LoadAllChats } from "@/redux/slice/chatSlice";
+import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const MessageSidebar = () => {
   const dispatch = useAppDispatch();
   const { AllChats } = useAppSelector((state) => state.chat);
+  const router = useRouter();
   const { data, isLoading, error } = useQuery(["getAllChats"], () =>
     userApis.getUserChatList(),
   );
@@ -25,8 +28,22 @@ const MessageSidebar = () => {
 
   return (
     <div className="">
-      <div className="mx-4 mt-4">
-        <ChatSearch />
+      <div className="  mx-2 mt-3 flex items-center ">
+        <button
+          onClick={() => {
+            router.push("/");
+          }}
+          className=" duration-20 transition-all peer-focus:opacity-0"
+        >
+          <ArrowLeft
+            size={20}
+            strokeWidth={2}
+            className="text-paragraph-secondary"
+          />
+        </button>
+        <div className=" w-full">
+          <ChatSearch />
+        </div>
       </div>
       <div className="mt-4">
         <h1 className="ml-5  text-lg font-medium text-Header-primary">

@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import dynamic from "next/dynamic";
 import useFollow from "@/hooks/useFollow";
 import useFollowStatus from "@/hooks/useFollowStatus";
+import { Mail } from "lucide-react";
 
 const MessageButton = dynamic(
   () => import("@/components/profile/MessageButton"),
@@ -93,9 +94,9 @@ const ProfileCard: React.FC<getUserDataTypes> = ({
               {fullName}{" "}
             </h4>
             <div className="flex items-center gap-3">
-              <MessageButton _id={_id} />
               {!ownProfile && (
                 <>
+                  <MessageButton _id={_id} />
                   <button
                     onClick={() => {
                       setIsFollowing(!isFollowing);
