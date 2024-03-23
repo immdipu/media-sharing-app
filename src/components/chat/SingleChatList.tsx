@@ -3,6 +3,7 @@ import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
 import moment from "moment";
 import { useRouter, useParams } from "next/navigation";
 import clsx from "clsx";
+import Link from "next/link";
 
 const SingleChatList: React.FC<SingleGetAllChatTypes> = ({
   _id,
@@ -16,12 +17,8 @@ const SingleChatList: React.FC<SingleGetAllChatTypes> = ({
   const { id } = useParams();
 
   return (
-    <div
-      onClick={() => {
-        router.push(`/chat/${_id}`, {
-          scroll: false,
-        });
-      }}
+    <Link
+      href={`/chat/${_id}`}
       className={clsx(
         "mx-1 flex h-16 items-center rounded-md   py-2 pl-2  hover:bg-Secondary-background",
         id === _id && "bg-Secondary-background",
@@ -47,7 +44,7 @@ const SingleChatList: React.FC<SingleGetAllChatTypes> = ({
           {lastMessage?.content}
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 
