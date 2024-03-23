@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ChatSearch from "@/components/chat/ChatSearch";
 import SingleChatList from "@/components/chat/SingleChatList";
 import { useQuery } from "@tanstack/react-query";
@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation";
 const MessageSidebar = () => {
   const dispatch = useAppDispatch();
   const { AllChats } = useAppSelector((state) => state.chat);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResult, setSearchResult] = useState<SingleGetAllChatTypes[]>([]);
   const router = useRouter();
   const { data, isLoading, error } = useQuery(["getAllChats"], () =>
     userApis.getUserChatList(),
@@ -23,8 +25,24 @@ const MessageSidebar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  useEffect(() => {
+    if (searchTerm.length > 0) {
+      const match = AllChats.filter(
+        (chat) =>
+          chat.user.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          chat.user.username.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+      setSearchResult(match);
+    }
+    if (searchTerm.length === 0) {
+      setSearchResult([]);
+    }
+  }, [searchTerm, AllChats]);
+
   if (isLoading) return <div>Loading...</div>;
   if (error || !data) return <div>Something went wrong</div>;
+
+  const ChatList = searchResult.length > 0 ? searchResult : AllChats;
 
   return (
     <div className="">
@@ -42,7 +60,7 @@ const MessageSidebar = () => {
           />
         </button>
         <div className=" w-full">
-          <ChatSearch />
+          <ChatSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
       </div>
       <div className="mt-4">
@@ -50,8 +68,8 @@ const MessageSidebar = () => {
           All Chats
         </h1>
         <section className="chatScroll MessageContainer mt-2 flex h-[83vh] flex-col gap-2  overflow-y-auto">
-          {AllChats.length > 0 &&
-            AllChats.map((item) => <SingleChatList key={item._id} {...item} />)}
+          {ChatList.length > 0 &&
+            ChatList.map((item) => <SingleChatList key={item._id} {...item} />)}
         </section>
       </div>
     </div>
