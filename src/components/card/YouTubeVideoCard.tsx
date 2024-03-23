@@ -64,55 +64,60 @@ const YouTubeVideoCard: React.FC<YouTubeVideoCardProps> = ({
   };
 
   return (
-    <div
-      onClick={() => handlePlayVideo()}
-      className="group mb-4 flex h-24 w-full px-2 transition-colors duration-300 ease-linear hover:bg-Main-background"
-    >
-      <Avatar className="h-full  w-40 cursor-pointer rounded-md bg-neutral-700 shadow-md ">
-        <AvatarImage
-          src={thumbnail?.url}
-          className="h-full object-cover"
-          alt="@shadcn"
-        />
-        <p className="absolute bottom-0 right-0 rounded-sm bg-neutral-900 px-1 py-px text-xs text-neutral-100">
-          {duration_formatted}
-        </p>
-        <AddQueueButton
-          {...{
-            channel,
-            duration_formatted,
-            id,
-            thumbnail,
-            uploadedAt,
-            title,
-            views,
-            type,
-          }}
-        />
+    <div className="group relative mb-4 h-24">
+      <AddQueueButton
+        {...{
+          channel,
+          duration_formatted,
+          id,
+          thumbnail,
+          uploadedAt,
+          title,
+          views,
+          type,
+        }}
+      />
 
-        <AvatarFallback className="h-full w-full rounded-md ">
-          <div className="h-full w-full bg-neutral-500" />
-        </AvatarFallback>
-      </Avatar>
-      <div className="w-[calc(100%-170px)]  pl-2">
-        <h3 className=" line-clamp-2 overflow-ellipsis break-words text-[13px] text-Header-primary">
-          {title}
-        </h3>
-        <div className="ml-1 mt-2 flex items-center  text-xs text-Paragraph-primary">
-          <Avatar className="h-5 w-5">
-            <AvatarImage src={channel?.icon} alt="@shadcn" />
-            <AvatarFallback>{channel?.name}</AvatarFallback>
-          </Avatar>
-          <p className=" ml-2 line-clamp-1 overflow-hidden">{channel?.name}</p>
-        </div>
-        <div className="ml-1 mt-2 flex items-center">
-          <p className="whitespace-nowrap text-[11px] text-paragraph-secondary ">
-            {ViewsFormat(views)}
+      <div
+        onClick={() => handlePlayVideo()}
+        className="group mb-4 flex h-full w-full px-2 transition-colors duration-300 ease-linear hover:bg-Main-background"
+      >
+        <Avatar className="h-full  w-40 cursor-pointer rounded-md bg-neutral-700 shadow-md ">
+          <AvatarImage
+            src={thumbnail?.url}
+            className="h-full object-cover"
+            alt="@shadcn"
+          />
+          <p className="absolute bottom-0 right-0 rounded-sm bg-neutral-900 px-1 py-px text-xs text-neutral-100">
+            {duration_formatted}
           </p>
-          <span className="mx-2  block h-1 w-1 rounded-full bg-neutral-400"></span>
-          <p className="overflow-ellipsis whitespace-nowrap text-[11px] text-paragraph-secondary ">
-            {uploadedAt}
-          </p>{" "}
+
+          <AvatarFallback className="h-full w-full rounded-md ">
+            <div className="h-full w-full bg-neutral-500" />
+          </AvatarFallback>
+        </Avatar>
+        <div className="w-[calc(100%-170px)]  pl-2">
+          <h3 className=" line-clamp-2 overflow-ellipsis break-words text-[13px] text-Header-primary">
+            {title}
+          </h3>
+          <div className="ml-1 mt-2 flex items-center  text-xs text-Paragraph-primary">
+            <Avatar className="h-5 w-5">
+              <AvatarImage src={channel?.icon} alt="@shadcn" />
+              <AvatarFallback>{channel?.name}</AvatarFallback>
+            </Avatar>
+            <p className=" ml-2 line-clamp-1 overflow-hidden">
+              {channel?.name}
+            </p>
+          </div>
+          <div className="ml-1 mt-2 flex items-center">
+            <p className="whitespace-nowrap text-[11px] text-paragraph-secondary ">
+              {ViewsFormat(views)}
+            </p>
+            <span className="mx-2  block h-1 w-1 rounded-full bg-neutral-400"></span>
+            <p className="overflow-ellipsis whitespace-nowrap text-[11px] text-paragraph-secondary ">
+              {uploadedAt}
+            </p>{" "}
+          </div>
         </div>
       </div>
     </div>

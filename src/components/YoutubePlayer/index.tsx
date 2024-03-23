@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from "react";
-import YouTube, { YouTubeProps } from "react-youtube";
+import YouTube, { YouTubePlayer, YouTubeProps } from "react-youtube";
 import { RoomContext } from "../room/SingleRoom/JoinedSingleRoom";
 import clsx from "clsx";
 import { useUserRoomActivity, useSocket } from "@/hooks";
@@ -119,6 +119,35 @@ const YoutubePlayer = () => {
     }
   };
 
+  const PlayfromPlaylist = (currentVideoId: string) => {
+    if (!YoutubePlayer.current) {
+      return;
+    }
+    const Playlist = localStorage.getItem("YouTubequeue");
+    if (!Playlist) return;
+    const list = JSON.parse(Playlist);
+    const VideoIsInQueue = list.find(
+      (video: any) => video?.id === currentVideoId,
+    );
+
+    if (VideoIsInQueue) {
+      const index = list.findIndex(
+        (video: any) => video?.id === currentVideoId,
+      );
+      const nextVideo = list[index + 1];
+      if (!nextVideo) {
+        return;
+      }
+      YoutubePlayer.current.loadVideoById(nextVideo.id);
+      localStorage.setItem("YouTubeVideoId", nextVideo.id);
+      localStorage.setItem("YouTubeThumbnail", nextVideo.thumbnail.url);
+    } else {
+      YoutubePlayer.current.loadVideoById(list[0].id);
+      localStorage.setItem("YouTubeVideoId", list[0].id);
+      localStorage.setItem("YouTubeThumbnail", list[0].thumbnail.url);
+    }
+  };
+
   return (
     <section className="overflow-hidded relative h-full">
       <YouTube
@@ -127,6 +156,20 @@ const YoutubePlayer = () => {
         iframeClassName={clsx("h-full w-full")}
         opts={opts}
         onReady={onReady}
+        onEnd={(e) => {
+          PlayfromPlaylist(e.target.getVideoData().video_id);
+          if (!!isMySharedActivity && socket) {
+            EmitCustomEvent("Activity-state-server", {
+              activityId: isMySharedActivity?.id,
+              data: {
+                time: 0,
+                VideoId: e?.target?.getVideoData()?.video_id,
+                state: 1,
+                thumbnail: localStorage.getItem("YouTubeThumbnail") || "",
+              },
+            });
+          }
+        }}
       />
     </section>
   );

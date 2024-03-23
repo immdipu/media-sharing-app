@@ -55,7 +55,7 @@ const AddQueueButton: React.FC<any> = ({
   return (
     <button
       onClick={handleAddToQueue}
-      className=" absolute left-1  top-1 z-10 flex h-7 w-7 scale-75 items-center justify-center  rounded-md bg-neutral-500 bg-opacity-30 opacity-0 backdrop-blur-sm transition-all duration-300 ease-linear group-hover:scale-100 group-hover:opacity-100"
+      className=" absolute left-3  top-1 z-10 flex h-7 w-7 scale-75 items-center justify-center  rounded-md bg-neutral-500 bg-opacity-30 opacity-0  backdrop-blur-sm transition-all duration-300 ease-linear group-hover:scale-100 group-hover:opacity-100"
     >
       {isAdded ? (
         <Check size={20} className="AnimateEntry text-green-400" />
