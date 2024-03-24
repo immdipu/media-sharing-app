@@ -46,6 +46,15 @@ const Message = () => {
             {Messages && Messages?.length > 0 && (
               <AllMessages Messages={Messages} />
             )}
+            {Messages && Messages?.length === 0 && (
+              <div className="flex h-full items-center justify-center">
+                <div className="flex flex-col items-center">
+                  <h1 className="text-paragraph-primary mt-4 font-roboto text-xl text-paragraph-secondary">
+                    No messages yet
+                  </h1>
+                </div>
+              </div>
+            )}
             <MessageInput
               receiver={data?.data?.chat?.user}
               MessageType="CHAT"

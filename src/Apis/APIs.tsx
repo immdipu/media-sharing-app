@@ -148,6 +148,16 @@ export const userApis = {
     return res.data;
   },
 
+  getAllFriends: async (): Promise<{
+    data: membersTypes[];
+    success: boolean;
+  }> => {
+    const res = await axiosInstance().get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/user/friends`,
+    );
+    return res.data;
+  },
+
   sendMessage: async (data: { content: string; chatId: string }) => {
     const res = await axiosInstance().post(
       `${process.env.NEXT_PUBLIC_USER_URL}/message`,

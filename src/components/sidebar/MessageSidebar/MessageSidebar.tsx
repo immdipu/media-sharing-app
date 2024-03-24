@@ -1,49 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ChatSearch from "@/components/chat/ChatSearch";
-import SingleChatList from "@/components/chat/SingleChatList";
-import { useQuery } from "@tanstack/react-query";
-import { userApis } from "@/Apis/APIs";
-import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-import { LoadAllChats } from "@/redux/slice/chatSlice";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Tab, TabContainer } from "@/components/Tab/Tab";
+import ChatTab from "./ChatTab";
+import FriendsTab from "./FriendsTab";
+import clsx from "clsx";
 
 const MessageSidebar = () => {
-  const dispatch = useAppDispatch();
-  const { AllChats } = useAppSelector((state) => state.chat);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResult, setSearchResult] = useState<SingleGetAllChatTypes[]>([]);
+  const [activeTab, setActiveTab] = React.useState(0);
   const router = useRouter();
-  const { data, isLoading, error } = useQuery(["getAllChats"], () =>
-    userApis.getUserChatList(),
-  );
-
-  useEffect(() => {
-    if (data) {
-      dispatch(LoadAllChats(data.data));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
-  useEffect(() => {
-    if (searchTerm.length > 0) {
-      const match = AllChats.filter(
-        (chat) =>
-          chat.user.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          chat.user.username.toLowerCase().includes(searchTerm.toLowerCase()),
-      );
-      setSearchResult(match);
-    }
-    if (searchTerm.length === 0) {
-      setSearchResult([]);
-    }
-  }, [searchTerm, AllChats]);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error || !data) return <div>Something went wrong</div>;
-
-  const ChatList = searchResult.length > 0 ? searchResult : AllChats;
-
   return (
     <div className="">
       <div className="  mx-2 mt-3 flex items-center ">
@@ -63,14 +30,37 @@ const MessageSidebar = () => {
           <ChatSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
       </div>
-      <div className="mt-4">
-        <h1 className="ml-5  text-lg font-medium text-Header-primary">
-          All Chats
-        </h1>
-        <section className="chatScroll MessageContainer mt-2 flex h-[83vh] flex-col gap-2  overflow-y-auto">
-          {ChatList.length > 0 &&
-            ChatList.map((item) => <SingleChatList key={item._id} {...item} />)}
-        </section>
+      <TabContainer
+        sliderClassName=" -z-[1] bg-btn-primary rounded-full"
+        activeTab={activeTab}
+        className="z-0 mx-2 mt-4 flex h-7 overflow-hidden rounded-full bg-Third-background"
+      >
+        <Tab
+          onClick={() => {
+            setActiveTab(0);
+          }}
+          className={clsx(
+            "grid w-full place-content-center  text-sm font-medium text-Paragraph-primary duration-300",
+            activeTab === 0 && " text-btn-primary",
+          )}
+        >
+          Chat
+        </Tab>
+        <Tab
+          onClick={() => {
+            setActiveTab(1);
+          }}
+          className={clsx(
+            "grid w-full place-content-center text-sm font-medium text-Paragraph-primary duration-300",
+            activeTab === 1 && " text-btn-primary",
+          )}
+        >
+          Friends
+        </Tab>
+      </TabContainer>
+      <div>
+        {activeTab === 0 && <ChatTab searchTerm={searchTerm} />}
+        {activeTab === 1 && <FriendsTab searchTerm={searchTerm} />}
       </div>
     </div>
   );
