@@ -7,9 +7,10 @@ import FollowerFollowingListSkeleton from "@/components/Skeleton/FollowerFollowi
 
 interface ChatTabProps {
   searchTerm: string;
+  setActiveTab: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const FriendsTab: React.FC<ChatTabProps> = ({ searchTerm }) => {
+const FriendsTab: React.FC<ChatTabProps> = ({ searchTerm, setActiveTab }) => {
   const [searchResult, setSearchResult] = useState<membersTypes[]>([]);
   const { data, isLoading, error } = useQuery(["getAllFriends"], () =>
     userApis.getAllFriends(),
@@ -52,7 +53,9 @@ const FriendsTab: React.FC<ChatTabProps> = ({ searchTerm }) => {
         {Friendlist && FriendList.length > 0 && (
           <Each
             of={Friendlist}
-            render={(item, index) => <FriendList key={index} {...item} />}
+            render={(item, index) => (
+              <FriendList key={index} {...item} setActiveTab={setActiveTab} />
+            )}
           />
         )}
 

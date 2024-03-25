@@ -6,7 +6,13 @@ import { useToast } from "../ui/use-toast";
 import { Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const MessageButton = ({ _id }: { _id: string }) => {
+const MessageButton = ({
+  _id,
+  setActiveTab,
+}: {
+  _id: string;
+  setActiveTab?: React.Dispatch<React.SetStateAction<number>>;
+}) => {
   const { toast } = useToast();
   const router = useRouter();
 
@@ -14,6 +20,7 @@ const MessageButton = ({ _id }: { _id: string }) => {
     (id: string) => userApis.getSingleChatByuserId(id),
     {
       onSuccess: (data) => {
+        setActiveTab && setActiveTab(0);
         router.push(`/chat/${data.chat._id}`, {
           scroll: false,
         });

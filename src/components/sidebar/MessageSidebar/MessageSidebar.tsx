@@ -60,7 +60,9 @@ const MessageSidebar = () => {
       </TabContainer>
       <div>
         {activeTab === 0 && <ChatTab searchTerm={searchTerm} />}
-        {activeTab === 1 && <FriendsTab searchTerm={searchTerm} />}
+        {activeTab === 1 && (
+          <FriendsTab searchTerm={searchTerm} setActiveTab={setActiveTab} />
+        )}
       </div>
     </div>
   );

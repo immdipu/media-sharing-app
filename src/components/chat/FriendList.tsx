@@ -3,7 +3,9 @@ import UserAvatarWithPopOver from "../Resuable/UserAvatarWithPopOver";
 import Link from "next/link";
 import MessageButton from "../profile/MessageButton";
 
-interface FriendListProps extends membersTypes {}
+interface FriendListProps extends membersTypes {
+  setActiveTab?: React.Dispatch<React.SetStateAction<number>>;
+}
 
 const FriendList: React.FC<FriendListProps> = ({
   _id,
@@ -11,6 +13,7 @@ const FriendList: React.FC<FriendListProps> = ({
   profilePic,
   username,
   verified,
+  setActiveTab,
 }) => {
   return (
     <div className=" flex items-center  justify-between rounded-md px-4 py-2 transition-colors duration-200 ease-linear hover:bg-Secondary-background">
@@ -40,7 +43,7 @@ const FriendList: React.FC<FriendListProps> = ({
       </div>
 
       <div className="shrink-0">
-        <MessageButton _id={_id} />
+        <MessageButton _id={_id} setActiveTab={setActiveTab} />
       </div>
     </div>
   );
