@@ -9,6 +9,7 @@ import { AddNewMessage } from "@/redux/slice/chatSlice";
 import { AddNewRoom, StopRoomJoiningLoader } from "@/redux/slice/roomSlice";
 import { useParams, usePathname } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { updateMessage } from "@/types/asConst";
 
 interface SocketContextProps {
   socket: Socket | null;
@@ -96,7 +97,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     socket.on("update-message-in-chat", (data: updateMessageDataTypes) => {
-      if (data.type === updateMessageTypes.UPDATE_SENT_MESSAGE) {
+      if (data.type === updateMessage.UPDATE_SENT_MESSAGE) {
         if (pathanme.includes("chat") && data.message.chatId === URLParams.id) {
           dispatch(AddNewMessage(data.message));
         }

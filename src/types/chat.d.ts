@@ -1,12 +1,12 @@
-declare enum chatContentTypes {
-  text = "text",
-  image = "image",
-  video = "video",
-  audio = "audio",
-  document = "document",
-  location = "location",
-  contact = "contact",
-}
+// declare enum chatContentTypes {
+//   text = "text",
+//   image = "image",
+//   video = "video",
+//   audio = "audio",
+//   document = "document",
+//   location = "location",
+//   contact = "contact",
+// }
 
 interface ChatMessageTextTypes {
   chatId: string;

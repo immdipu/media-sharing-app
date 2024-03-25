@@ -59,13 +59,13 @@ const FriendsTab: React.FC<ChatTabProps> = ({ searchTerm, setActiveTab }) => {
           />
         )}
 
-        {Friendlist && FriendList.length === 0 && (
-          <div className="flex h-[70vh] flex-col items-center justify-center">
+        {Friendlist && Friendlist.length === 0 && (
+          <div className="mx-3 flex h-[70vh] flex-col items-center justify-center">
             <h1 className="mt-4 text-base  text-Header-primary">
               No Friends Found
             </h1>
 
-            <p className="mt-1 text-xs  text-paragraph-secondary">
+            <p className="mt-1 text-center  text-xs text-paragraph-secondary">
               Start following someone or search for existing friends
             </p>
           </div>

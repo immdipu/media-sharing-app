@@ -102,7 +102,7 @@ const ProfileCard: React.FC<getUserDataTypes> = ({
                       setIsFollowing(!isFollowing);
                       handleFollow(_id, "getUser");
                     }}
-                    className=" mr-9 rounded-full border border-third-color px-2 py-1 font-roboto text-xs font-light text-paragraph-secondary duration-200 hover:border-secondary-color hover:bg-secondary-hover"
+                    className="mr-9 rounded-full border border-third-color px-2 py-1 font-roboto text-xs font-light text-paragraph-secondary duration-200 hover:border-secondary-color hover:bg-secondary-hover"
                   >
                     {status}
                   </button>

@@ -65,7 +65,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
       const randomId = Math.floor(Math.random() * 100000000000000);
       let messageData: ChatMessageTypes = {
         chatId: id as unknown as string,
-        type: chatContentTypes.text,
+        type: "TEXT",
         content: message,
         senderId: user.id!,
         to: receiver?._id,
@@ -87,7 +87,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
           },
           reaction: [],
           status: "sending",
-          type: chatContentTypes.text,
+          type: "TEXT",
           tempId: randomId.toString(),
         }),
       );
