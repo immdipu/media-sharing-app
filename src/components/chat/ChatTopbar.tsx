@@ -18,7 +18,7 @@ const ChatTopbar: React.FC<ChatTopBarProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   return (
-    <div className="h-16 bg-Secondary-background">
+    <div className="h-16   bg-Secondary-background">
       <div className="flex h-full items-center justify-between px-6">
         <div className="flex items-center">
           <Avatar className="h-12 w-12">
@@ -26,19 +26,19 @@ const ChatTopbar: React.FC<ChatTopBarProps> = ({
             <AvatarFallback>{username}</AvatarFallback>
           </Avatar>
           <div className="ml-2 flex flex-col">
-            <span className="text-Secondary-text text-base font-medium text-Header-primary">
+            <span className="text-Secondary-text text-base font-medium capitalize text-Header-primary">
               {fullName}
             </span>
-            <span className="text-sm font-normal text-paragraph-secondary">
+            {/* <span className="text-sm font-normal text-paragraph-secondary">
               Online
-            </span>
+            </span> */}
           </div>
         </div>
         <div className="flex-grow">
           <div className="flex justify-end gap-4 ">
-            <button className=" mr-9 grid h-9 w-9 shrink-0 place-content-center rounded-full  duration-300 hover:bg-secondary-hover">
+            {/* <button className=" mr-9 grid h-9 w-9 shrink-0 place-content-center rounded-full  duration-300 hover:bg-secondary-hover">
               <IoSearchOutline className="text-xl text-neutral-300" />
-            </button>
+            </button> */}
             <button
               onClick={() => {
                 dispatch(ToggleRightSidebar());

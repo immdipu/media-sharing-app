@@ -30,6 +30,8 @@ const SingleRoom = () => {
       return;
     }
 
+    dispatch(StopRoomJoiningLoader());
+
     const handleJoinRoomResponse = (data: IjoinedRoomResponse) => {
       if (data.type === "accepted" && data.success) {
         dispatch(JoinRoom(data.room));
@@ -112,8 +114,8 @@ const SingleRoom = () => {
             disabled={isLoading || !socket || !user.isUserAuthenticated}
             isLoading={isLoading}
           />
-          <p className="font-light text-paragraph-secondary">
-            Click the button to join the room.
+          <p className="font-poppins  text-paragraph-secondary">
+            {isLoading ? "Joining room..." : "Click to join the room "}
           </p>
         </section>
       </div>

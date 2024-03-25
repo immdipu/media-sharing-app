@@ -63,17 +63,17 @@ const RoomType = ({
         <TfiInfoAlt className="text-sm text-Header-primary" />
         {activeTab === 0 && (
           <p className="  text-sm text-paragraph-secondary">
-            Anyone can join the room
+            Anyone can join the room.
           </p>
         )}
         {activeTab === 1 && (
           <p className=" text-sm text-paragraph-secondary">
-            Only people you follow can join the room.
+            Only people you follow and who follow you can join the room.
           </p>
         )}
         {activeTab === 2 && (
           <p className=" text-sm text-paragraph-secondary">
-            Only people with the link can join the room
+            People can only join if you accept their join request.
           </p>
         )}
       </div>

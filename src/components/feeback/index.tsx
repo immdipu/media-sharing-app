@@ -51,14 +51,14 @@ const Feedback = () => {
 
           <Input
             id="issue"
-            className="bg-third-background px-3 py-3 text-Paragraph-primary placeholder:text-neutral-400"
+            className="border-transparent bg-Main-background px-3 py-3 text-Paragraph-primary placeholder:text-neutral-400 focus:border-primary-color"
             placeholder="Your name (optional)"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
 
           <Textarea
-            className="resize-none  bg-third-background px-3 py-3 text-Paragraph-primary"
+            className="resize-none bg-Main-background px-3 py-3 text-Paragraph-primary"
             rows={7}
             placeholder="Explain the issue you are facing"
             value={message}
@@ -69,7 +69,7 @@ const Feedback = () => {
           type="submit"
           disabled={loading}
           onSubmit={handleSubmit}
-          className="bg-btn-primary text-btn-primary mt-8"
+          className="mt-8 bg-btn-primary text-btn-primary"
         >
           Submit
         </Button>
