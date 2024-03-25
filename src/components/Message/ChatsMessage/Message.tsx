@@ -61,7 +61,7 @@ const Message = () => {
             />
           </div>
         </section>
-        <RightSidebar />
+        <RightSidebar {...data} />
       </div>
     </>
   );
