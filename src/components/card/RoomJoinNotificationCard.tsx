@@ -21,7 +21,7 @@ const RoomJoinNotificationCard: React.FC<RoomJoinLeaveTypes> = ({
       <UserAvatarWithPopOver
         ImageLink={user?.profilePic}
         fallback={user?.fullName[0]}
-        username={user?.fullName}
+        username={user?.username}
       />
       <div className="relative ml-2 w-full">
         <MessageHeader name={user?.fullName} date={createdAt} />
