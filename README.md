@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MediaSharing Frontend
 
-## Getting Started
+Welcome to the MediaSharing Frontend repository!
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+MediaSharing is a web application that allows users to watch videos and stream music in sync while chatting with each other in real-time. With MediaSharing, users can create rooms, join public or private rooms, and enjoy synchronized media playback with friends, no matter where they are.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Real-Time Media Sharing**: Watch videos and stream music in sync with friends.
+- **Chat Functionality**: Chat with other users in real-time while enjoying media content.
+- **Room Creation**: Create public or private rooms and set limits on the number of participants.
+- **User Interaction**: Follow other users, invite them to rooms, and enjoy media together.
+- **User Profiles**: View user profiles, see their followers, and the rooms they've created.
+- **Queue System**: Add media to the queue and play.
+- **Drawing Board**: Draw on a shared canvas with other users in real-time.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Technologies Used
 
-## Learn More
+- **Typescript**: Typed superset of JavaScript for enhanced code quality and developer productivity.
+- **Next js**: Frontend React framework for building user interfaces.
+- **Tailwind CSS**: Utility-first CSS framework for quickly building custom designs without writing custom CSS.
+- **Redux**: State management library for managing user and room state.
+- **Socket io**: Real-time communication library for enabling chat and media synchronization.
+- **Shadecn**: UI component library for building sleek and responsive user interfaces.
+  **ReactQuery**: Data fetching and caching library for managing server state in React applications.
+- **Framer Motion**: Animation library for creating smooth and interactive animations in React.
 
-To learn more about Next.js, take a look at the following resources:
+## Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To run the frontend locally, follow these steps:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Clone this repository to your local machine.
+2. Navigate to the project directory in your terminal.
+3. Run `npm install` to install dependencies.
+4. Create a `.env` file in the root directory and copy the environment variable data from `.env.example` into it.
+5. Run `npm run dev` to start the development server.
+6. Open your web browser and visit `http://localhost:3000` to view the application.
 
-## Deploy on Vercel
+**Note**: Please note that the backend API is not accessible in the local development environment due to CORS restrictions. You may need to configure a local backend server or use a different backend endpoint for testing purposes.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Contributions are welcome! If you'd like to contribute to MediaSharing, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push your changes to your fork.
+5. Submit a pull request to the main repository.
+
+## Feedback
+
+We welcome any feedback or suggestions you may have! Feel free to open an issue in this repository to report bugs, request features, or provide feedback.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
