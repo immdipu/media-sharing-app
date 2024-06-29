@@ -58,13 +58,7 @@ const Chat = () => {
   };
 
   return (
-    <motion.div
-      initial={tabAnimation.initial}
-      animate={tabAnimation.animate}
-      exit={tabAnimation.exit}
-      transition={tabAnimation.transition}
-      className="flex h-full flex-col justify-end  "
-    >
+    <div className="flex h-full flex-col justify-end  ">
       <section
         ref={parent}
         className="MessageContainer my-4 h-full overflow-y-auto scroll-smooth"
@@ -119,7 +113,7 @@ const Chat = () => {
       <section className="h-fit   ">
         <MessageInput MessageType="ROOM" row={3} />
       </section>
-    </motion.div>
+    </div>
   );
 };
 

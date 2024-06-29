@@ -17,13 +17,7 @@ const RoomTab = () => {
   const JoinedRoom = useAppSelector((state) => state.room.JoinedRoom);
   const currentUser = useAppSelector((state) => state.auth);
   return (
-    <motion.div
-      initial={tabAnimation.initial}
-      animate={tabAnimation.animate}
-      exit={tabAnimation.exit}
-      transition={tabAnimation.transition}
-      className="flex h-full flex-col"
-    >
+    <div className="flex h-full flex-col">
       <section className="  mt-2 flex flex-col items-center  justify-center">
         <RoomIcon color="#ffffff" opacity={0.1} height={90} width={90} />
         <h3 className=" tooltip line-clamp-1 overflow-hidden px-5 text-center text-xl font-medium capitalize text-Header-primary">
@@ -83,7 +77,7 @@ const RoomTab = () => {
           </Button>
         </Link>
       </section>
-    </motion.div>
+    </div>
   );
 };
 

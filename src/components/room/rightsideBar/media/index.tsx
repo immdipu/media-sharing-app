@@ -32,13 +32,7 @@ const Media = () => {
   }
 
   return (
-    <motion.div
-      initial={tabAnimation.initial}
-      animate={tabAnimation.animate}
-      exit={tabAnimation.exit}
-      transition={tabAnimation.transition}
-      className="relative h-full pt-3"
-    >
+    <div className="relative h-full pt-3">
       <MediaClose />
       <p className="py-2 pl-3 text-lg font-medium text-Header-primary">
         Select a media
@@ -81,7 +75,7 @@ const Media = () => {
           }}
         />
       </section>
-    </motion.div>
+    </div>
   );
 };
 

@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { RoomContext } from "../SingleRoom/JoinedSingleRoom";
 import { BsTextRight } from "react-icons/bs";
 import { Tab, TabContainer } from "@/components/Tab/Tab";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 
 const Chat = dynamic(() => import("@/components/room/rightsideBar/chat"));
 const Users = dynamic(() => import("@/components/room/rightsideBar/users"));
@@ -15,11 +15,24 @@ const Index = () => {
   const { showRightSideBar, setShowRightSideBar, MessageCount } =
     useContext(RoomContext);
   const [active, setActive] = React.useState<0 | 1 | 2 | 3 | 4>(0);
+  const [direction, setDirection] = React.useState<1 | -1>(1);
+
+  const animations: Variants = {
+    hidden: (direction: -1 | 1) => ({
+      x: direction === -1 ? "-100%" : "100%",
+    }),
+    visible: {
+      x: 0,
+    },
+    exit: (direction: -1 | 1) => ({
+      x: direction === -1 ? "100%" : "-100%",
+    }),
+  };
 
   return (
     <div
       className={clsx(
-        " w-96 shrink-0 overflow-hidden  bg-Secondary-background  transition-all duration-200 ease-linear max-md:absolute",
+        " borde w-96 shrink-0 overflow-x-hidden  bg-Secondary-background  transition-all duration-200 ease-linear max-md:absolute",
         showRightSideBar ? "max-md:right-0" : "max-md:-right-96",
       )}
     >
@@ -45,7 +58,10 @@ const Index = () => {
       >
         <Tab
           onClick={() => {
-            setActive(0);
+            setActive((prev) => {
+              setDirection(prev < 0 ? 1 : -1);
+              return 0;
+            });
           }}
           className={clsx(
             "grid w-full  text-sm font-medium text-Paragraph-primary duration-300",
@@ -56,7 +72,10 @@ const Index = () => {
         </Tab>
         <Tab
           onClick={() => {
-            setActive(1);
+            setActive((prev) => {
+              setDirection(prev < 1 ? 1 : -1);
+              return 1;
+            });
           }}
           className={clsx(
             "grid w-full text-Paragraph-primary duration-300",
@@ -71,14 +90,20 @@ const Index = () => {
             active === 2 && "text-btn-primary",
           )}
           onClick={() => {
-            setActive(2);
+            setActive((prev) => {
+              setDirection(prev < 2 ? 1 : -1);
+              return 2;
+            });
           }}
         >
           Media
         </Tab>
         <Tab
           onClick={() => {
-            setActive(3);
+            setActive((prev) => {
+              setDirection(prev < 3 ? 1 : -1);
+              return 3;
+            });
           }}
           className={clsx(
             "grid w-full  text-Paragraph-primary duration-300",
@@ -89,12 +114,32 @@ const Index = () => {
         </Tab>
       </TabContainer>
 
-      <section className="h-[calc(100vh-56px)] ">
-        <AnimatePresence mode="sync">
-          {active === 0 && <Chat key={"Chat"} />}
-          {active === 1 && <Users key={"Users"} />}
-          {active === 2 && <Media key={"media"} />}
-          {active === 3 && <Room key={"Room"} />}
+      <section
+        style={{
+          contain: "paint",
+        }}
+        className="overflow-x-hidden"
+      >
+        <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+          <motion.div
+            variants={animations}
+            custom={direction}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{
+              duration: 0.5,
+              type: "spring",
+              bounce: 0,
+            }}
+            key={active}
+            className="h-[calc(100vh-56px)]"
+          >
+            {active === 0 && <Chat key={"Chat"} />}
+            {active === 1 && <Users key={"Users"} />}
+            {active === 2 && <Media key={"media"} />}
+            {active === 3 && <Room key={"Room"} />}
+          </motion.div>
         </AnimatePresence>
       </section>
     </div>

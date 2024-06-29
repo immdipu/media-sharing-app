@@ -10,13 +10,7 @@ const UsersTab = () => {
   const id = useAppSelector((state) => state.auth.id);
 
   return (
-    <motion.div
-      initial={tabAnimation.initial}
-      animate={tabAnimation.animate}
-      exit={tabAnimation.exit}
-      transition={tabAnimation.transition}
-      className="h-full pt-5"
-    >
+    <div className="h-full pt-5">
       <h3 className="light:text-neutral-900  px-5 text-Header-primary  dark:text-neutral-50 ">
         Members
       </h3>
@@ -46,7 +40,7 @@ const UsersTab = () => {
           );
         })}
       </section>
-    </motion.div>
+    </div>
   );
 };
 
