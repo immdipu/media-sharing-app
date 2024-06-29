@@ -34,6 +34,8 @@ const VideoStreamer: React.FC = () => {
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [showSubtitleSearch, setShowSubtitleSearch] = useState<boolean>(false);
   const [subtitleQuery, setSubtitleQuery] = useState<string>("");
+  const [duration, setDuration] = useState<number>(0);
+  const [currentTime, setCurrentTime] = useState<number>(0);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -49,9 +51,10 @@ const VideoStreamer: React.FC = () => {
   }, []);
 
   const togglePlay = () => setPlaying(!playing);
-  const handleProgress = (state: { played: number }) => {
+  const handleProgress = (state: { played: number; playedSeconds: number }) => {
     if (!seeking) {
       setPlayed(state.played);
+      setCurrentTime(state.playedSeconds);
     }
   };
   const handleSeekChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -104,9 +107,28 @@ const VideoStreamer: React.FC = () => {
     // Implement the API call and subtitle download logic here
   };
 
+  const handleDuration = (duration: number) => {
+    console.log("Duration:", duration);
+    setDuration(duration);
+  };
+
+  const formatTime = (time: number): string => {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = Math.floor(time % 60);
+
+    if (hours > 0) {
+      return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds
+        .toString()
+        .padStart(2, "0")}`;
+    } else {
+      return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    }
+  };
+
   return (
     <div className="relative h-full w-full" ref={playerContainerRef}>
-      <div style={{ paddingTop: "56.25%" }} className="relative  ">
+      <div style={{ paddingTop: "56.25%" }} className="relative">
         <ReactPlayer
           ref={VideoStreamer}
           url={StreamingLink || ""}
@@ -118,43 +140,52 @@ const VideoStreamer: React.FC = () => {
           muted={muted}
           playbackRate={playbackRate}
           onProgress={handleProgress}
-          config={{
-            file: {
-              attributes: {
-                crossOrigin: "anonymous",
-              },
-              tracks: subtitle
-                ? [
-                    {
-                      kind: "subtitles",
-                      src: URL.createObjectURL(
-                        new Blob([subtitle], { type: "text/vtt" }),
-                      ),
-                      srcLang: "en",
-                      default: true,
-                    },
-                  ]
-                : [],
-            },
-          }}
+          onDuration={handleDuration}
+          // config={{
+          //   file: {
+          //     attributes: {
+          //       crossOrigin: "anonymous",
+          //     },
+          //     tracks: subtitle
+          //       ? [
+          //           {
+          //             kind: "subtitles",
+          //             src: URL.createObjectURL(
+          //               new Blob([subtitle], { type: "text/vtt" }),
+          //             ),
+          //             srcLang: "en",
+          //             default: true,
+          //           },
+          //         ]
+          //       : [],
+          //   },
+          // }}
         />
         {!isLoading && (
-          <div className="absolute bottom-14 left-0 right-0  bg-black bg-opacity-50 p-2 text-white">
+          <div className="absolute bottom-0 left-0 right-0  bg-black bg-opacity-50 p-2 text-white">
             <div className="flex items-center justify-between">
               <button onClick={togglePlay}>
                 {playing ? <FaPause /> : <FaPlay />}
               </button>
-              <input
-                type="range"
-                min={0}
-                max={1}
-                step="any"
-                value={played}
-                onMouseDown={handleSeekMouseDown}
-                onChange={handleSeekChange}
-                onMouseUp={handleSeekMouseUp}
-                className="mx-2 w-full"
-              />
+              <div className="mx-4 flex flex-grow items-center">
+                <div>
+                  <span>{formatTime(currentTime)}</span>
+                </div>
+                <input
+                  type="range"
+                  min={0}
+                  max={1}
+                  step="any"
+                  value={played}
+                  onMouseDown={handleSeekMouseDown}
+                  onChange={handleSeekChange}
+                  onMouseUp={handleSeekMouseUp}
+                  className="mx-2 w-[calc(100%-100px)]"
+                />
+                <div>
+                  <span>{formatTime(duration)}</span>
+                </div>
+              </div>
               <div className="flex items-center">
                 <button onClick={toggleMute}>
                   {muted ? <BiVolumeMute /> : <BiVolumeFull />}
