@@ -69,7 +69,7 @@ const Media = () => {
           title=" Streaming"
           className="text-neutral-300"
           onClick={() => {
-            setMedia("DRAWING");
+            setMedia("STREAMING");
           }}
         />
       </section>
