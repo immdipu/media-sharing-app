@@ -6,8 +6,6 @@ import dynamic from "next/dynamic";
 import { RoomContext } from "../../SingleRoom/JoinedSingleRoom";
 import MediaButton from "./Media.Button";
 import { useSocket, useUserRoomActivity, useAppSelector } from "@/hooks";
-import { motion } from "framer-motion";
-import { tabAnimation } from "@/lib/constants";
 
 const YouTubeSearch = dynamic(
   () => import("@/components/YoutubePlayer/YouTubeSearch"),

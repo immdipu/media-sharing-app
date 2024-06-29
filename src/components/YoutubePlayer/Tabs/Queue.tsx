@@ -20,12 +20,7 @@ const Queue: React.FC<QueueProps> = ({ hanldlePlay }) => {
   // );
 
   return (
-    <motion.div
-      initial={tabAnimation.initial}
-      animate={tabAnimation.animate}
-      exit={tabAnimation.exit}
-      transition={tabAnimation.transition}
-    >
+    <div>
       <ScrollArea className=" h-[calc(100vh-149px)] w-full  py-2 ">
         {data && data.length > 0 && (
           <Each
@@ -48,7 +43,7 @@ const Queue: React.FC<QueueProps> = ({ hanldlePlay }) => {
           </div>
         )}
       </ScrollArea>
-    </motion.div>
+    </div>
   );
 };
 

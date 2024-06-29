@@ -26,13 +26,7 @@ const Recent: React.FC<RecentProps> = ({ hanldlePlay }) => {
   return (
     <>
       <InLineLoader isLoading={isLoading || isFetching} />
-      <motion.div
-        initial={tabAnimation.initial}
-        animate={tabAnimation.animate}
-        exit={tabAnimation.exit}
-        transition={tabAnimation.transition}
-        className=" relative mt-1"
-      >
+      <div className=" relative mt-1">
         <ScrollArea className=" h-[calc(100vh-149px)] w-full  py-2 ">
           <Each
             of={data || []}
@@ -45,7 +39,7 @@ const Recent: React.FC<RecentProps> = ({ hanldlePlay }) => {
             )}
           />
         </ScrollArea>
-      </motion.div>
+      </div>
     </>
   );
 };

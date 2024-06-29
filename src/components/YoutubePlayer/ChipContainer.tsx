@@ -8,9 +8,14 @@ interface ChipContainerProps {
     React.SetStateAction<0 | 1 | 2 | 3 | 4 | undefined>
   >;
   active: 0 | 1 | 2 | 3 | 4 | undefined;
+  setDirection: React.Dispatch<React.SetStateAction<1 | -1>>;
 }
 
-const ChipContainer: React.FC<ChipContainerProps> = ({ active, setActive }) => {
+const ChipContainer: React.FC<ChipContainerProps> = ({
+  active,
+  setActive,
+  setDirection,
+}) => {
   const queryClient = useQueryClient();
 
   return (
@@ -22,7 +27,11 @@ const ChipContainer: React.FC<ChipContainerProps> = ({ active, setActive }) => {
       >
         <Tab
           onClick={() => {
-            setActive(0);
+            setActive((prev) => {
+              if (typeof prev === "undefined") return 0;
+              setDirection(prev < 0 ? 1 : -1);
+              return 0;
+            });
             if (active === 0) {
               queryClient.invalidateQueries(["YouTubeSuggested"]);
             }
@@ -36,7 +45,12 @@ const ChipContainer: React.FC<ChipContainerProps> = ({ active, setActive }) => {
         </Tab>
         <Tab
           onClick={() => {
-            setActive(1);
+            setActive((prev) => {
+              if (typeof prev === "undefined") return 1;
+              setDirection(prev < 1 ? 1 : -1);
+              return 1;
+            });
+
             if (active === 1) {
               queryClient.invalidateQueries(["YouTubeHomepage"]);
             }
@@ -50,7 +64,11 @@ const ChipContainer: React.FC<ChipContainerProps> = ({ active, setActive }) => {
         </Tab>
         <Tab
           onClick={() => {
-            setActive(2);
+            setActive((prev) => {
+              if (typeof prev === "undefined") return 2;
+              setDirection(prev < 2 ? 1 : -1);
+              return 2;
+            });
             if (active === 2) {
               queryClient.invalidateQueries(["YouTubeTrending"]);
             }
@@ -65,7 +83,11 @@ const ChipContainer: React.FC<ChipContainerProps> = ({ active, setActive }) => {
 
         <Tab
           onClick={() => {
-            setActive(3);
+            setActive((prev) => {
+              if (typeof prev === "undefined") return 3;
+              setDirection(prev < 3 ? 1 : -1);
+              return 3;
+            });
           }}
           className={clsx(
             "grid w-full px-1 py-1 font-roboto text-xs text-Paragraph-primary duration-300",
@@ -76,7 +98,11 @@ const ChipContainer: React.FC<ChipContainerProps> = ({ active, setActive }) => {
         </Tab>
         <Tab
           onClick={() => {
-            setActive(4);
+            setActive((prev) => {
+              if (typeof prev === "undefined") return 4;
+              setDirection(prev < 4 ? 1 : -1);
+              return 4;
+            });
             if (active === 4) {
               queryClient.invalidateQueries(["YouTubeRecent"]);
             }
