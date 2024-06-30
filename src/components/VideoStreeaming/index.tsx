@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { BiVolumeFull, BiVolumeMute } from "react-icons/bi";
 import { MdSubtitles, MdPictureInPicture } from "react-icons/md";
+import { useToast } from "../ui/use-toast";
 
 interface RoomContextType {
   media: any;
@@ -36,6 +37,7 @@ const VideoStreamer: React.FC = () => {
   const [subtitleQuery, setSubtitleQuery] = useState<string>("");
   const [duration, setDuration] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
+  const { toast } = useToast();
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -49,6 +51,10 @@ const VideoStreamer: React.FC = () => {
     document.addEventListener("keydown", handleKeyPress);
     return () => document.removeEventListener("keydown", handleKeyPress);
   }, []);
+
+  useEffect(() => {
+    setPlayed(0);
+  }, [StreamingLink]);
 
   const togglePlay = () => setPlaying(!playing);
   const handleProgress = (state: { played: number; playedSeconds: number }) => {
@@ -149,6 +155,14 @@ const VideoStreamer: React.FC = () => {
           }}
           onPause={() => {
             setPlaying(false);
+          }}
+          onError={(error) => {
+            toast({
+              variant: "destructive",
+              type: "background",
+              title: "Error playing video",
+              description: error,
+            });
           }}
 
           // config={{
