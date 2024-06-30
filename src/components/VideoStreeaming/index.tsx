@@ -134,6 +134,9 @@ const VideoStreamer: React.FC = () => {
               description: error,
             });
           }}
+          onReady={() => {
+            console.log("streaming ready");
+          }}
 
           // config={{
           //   file: {

@@ -22,13 +22,17 @@ const StreamingHomeMenu = () => {
 
   return (
     <div>
-      <section className="mx-1 flex items-center gap-4  p-2">
-        <BackButton
-          onClick={() => {
-            setMedia(null);
-          }}
-        />
-        <h3 className="text-lg font-medium text-Header-secondary">Streaming</h3>
+      <section className="mx-1 flex flex-col p-2">
+        <div className="flex items-center gap-4">
+          <BackButton
+            onClick={() => {
+              setMedia(null);
+            }}
+          />
+          <h3 className="text-lg font-medium text-Header-secondary">
+            Streaming
+          </h3>
+        </div>
       </section>
       <section className="mx-auto mt-11 w-4/5 ">
         <section>
@@ -64,6 +68,19 @@ const StreamingHomeMenu = () => {
               console.log("share button clicked");
             }}
           />
+        </section>
+        <section className="mt-5 ">
+          <p className="font-poppin3 mt-1 text-center text-xs text-neutral-400">
+            Paste the link of the video you want to stream in the room (YouTube,
+            facebook, Vimeo, etc.)
+          </p>
+
+          <p className="mt-6 text-xs font-light  leading-relaxed text-red-400/90 ">
+            <span className="font-poppin3 text-center text-xs text-neutral-100">
+              Note:
+            </span>{" "}
+            Sharing feature is disabled for now and will be available soon.
+          </p>
         </section>
       </section>
     </div>
