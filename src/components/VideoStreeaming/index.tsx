@@ -11,8 +11,9 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import { BiVolumeFull, BiVolumeMute } from "react-icons/bi";
-import { MdSubtitles, MdPictureInPicture } from "react-icons/md";
+import { MdSubtitles } from "react-icons/md";
 import { useToast } from "../ui/use-toast";
+import { formatVideoTime } from "@/lib/utils";
 
 interface RoomContextType {
   media: any;
@@ -57,24 +58,27 @@ const VideoStreamer: React.FC = () => {
   }, [StreamingLink]);
 
   const togglePlay = () => setPlaying(!playing);
+  const toggleMute = () => setMuted(!muted);
+  const handlePlaybackRateChange = (rate: number) => setPlaybackRate(rate);
+  const handleSeekMouseDown = () => setSeeking(true);
+  const handleSeekChange = (e: any) => setPlayed(parseFloat(e.target.value));
+  const handleVolumeChange = (e: any) => setVolume(parseFloat(e.target.value));
+  const handleDuration = (duration: number) => setDuration(duration);
+
   const handleProgress = (state: { played: number; playedSeconds: number }) => {
     if (!seeking) {
       setPlayed(state.played);
       setCurrentTime(state.playedSeconds);
     }
   };
-  const handleSeekChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setPlayed(parseFloat(e.target.value));
-  const handleSeekMouseDown = () => setSeeking(true);
+
   const handleSeekMouseUp = (e: React.MouseEvent<HTMLInputElement>) => {
     setSeeking(false);
     VideoStreamer.current?.seekTo(
       parseFloat((e.target as HTMLInputElement).value),
     );
   };
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setVolume(parseFloat(e.target.value));
-  const toggleMute = () => setMuted(!muted);
+
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       playerContainerRef.current?.requestFullscreen();
@@ -84,20 +88,7 @@ const VideoStreamer: React.FC = () => {
       setFullscreen(false);
     }
   };
-  const handlePlaybackRateChange = (rate: number) => setPlaybackRate(rate);
-  const togglePictureInPicture = async () => {
-    try {
-      if (document.pictureInPictureElement) {
-        await document.exitPictureInPicture();
-      } else if (VideoStreamer.current) {
-        const videoElement =
-          VideoStreamer.current.getInternalPlayer() as HTMLVideoElement;
-        await videoElement.requestPictureInPicture();
-      }
-    } catch (error) {
-      console.error("PiP error:", error);
-    }
-  };
+
   const handleSubtitleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -108,28 +99,7 @@ const VideoStreamer: React.FC = () => {
   };
 
   const searchSubtitles = async () => {
-    // This is a placeholder function. You'll need to implement the actual API call to OpenSubtitles or another service
     console.log("Searching for subtitles:", subtitleQuery);
-    // Implement the API call and subtitle download logic here
-  };
-
-  const handleDuration = (duration: number) => {
-    console.log("Duration:", duration);
-    setDuration(duration);
-  };
-
-  const formatTime = (time: number): string => {
-    const hours = Math.floor(time / 3600);
-    const minutes = Math.floor((time % 3600) / 60);
-    const seconds = Math.floor(time % 60);
-
-    if (hours > 0) {
-      return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds
-        .toString()
-        .padStart(2, "0")}`;
-    } else {
-      return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-    }
   };
 
   return (
@@ -193,7 +163,7 @@ const VideoStreamer: React.FC = () => {
               </button>
               <div className="mx-4 flex flex-grow items-center">
                 <div>
-                  <span>{formatTime(currentTime)}</span>
+                  <span>{formatVideoTime(currentTime)}</span>
                 </div>
                 <input
                   type="range"
@@ -207,7 +177,7 @@ const VideoStreamer: React.FC = () => {
                   className="mx-2 w-[calc(100%-100px)]"
                 />
                 <div>
-                  <span>{formatTime(duration)}</span>
+                  <span>{formatVideoTime(duration)}</span>
                 </div>
               </div>
               <div className="flex items-center">
@@ -225,9 +195,6 @@ const VideoStreamer: React.FC = () => {
                 />
               </div>
               <div className="flex items-center space-x-2">
-                <button onClick={togglePictureInPicture}>
-                  <MdPictureInPicture />
-                </button>
                 <div className="group relative">
                   <button>
                     <FaCog />
