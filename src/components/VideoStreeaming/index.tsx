@@ -22,7 +22,7 @@ const VideoStreamer: React.FC = () => {
   const { VideoStreamer } = useContext(RoomContext) as RoomContextType;
   const { StreamingLink } = useAppSelector((state) => state.room);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [playing, setPlaying] = useState<boolean>(false);
+  const [playing, setPlaying] = useState<boolean>(true);
   const [volume, setVolume] = useState<number>(0.5);
   const [muted, setMuted] = useState<boolean>(false);
   const [played, setPlayed] = useState<number>(0);
@@ -139,8 +139,18 @@ const VideoStreamer: React.FC = () => {
           style={{ position: "absolute", top: 0, left: 0 }}
           muted={muted}
           playbackRate={playbackRate}
+          onStart={() => {
+            setPlaying(true);
+          }}
           onProgress={handleProgress}
           onDuration={handleDuration}
+          onPlay={() => {
+            setPlaying(true);
+          }}
+          onPause={() => {
+            setPlaying(false);
+          }}
+
           // config={{
           //   file: {
           //     attributes: {
