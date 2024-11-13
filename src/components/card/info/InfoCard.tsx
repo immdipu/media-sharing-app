@@ -1,13 +1,13 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-interface CardOnePros {
+interface InfoCardProps {
   header: string;
   content: string;
   classNames?: string;
 }
 
-const CardOne: React.FC<CardOnePros> = ({ content, header, classNames }) => {
+const InfoCard: React.FC<InfoCardProps> = ({ content, header, classNames }) => {
   return (
     <div
       className={cn(
@@ -22,4 +22,4 @@ const CardOne: React.FC<CardOnePros> = ({ content, header, classNames }) => {
   );
 };
 
-export default CardOne;
+export default InfoCard;

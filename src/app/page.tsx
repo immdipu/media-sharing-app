@@ -1,9 +1,9 @@
 import Avatar from "@/components/Avatar/Avatar";
 import Room from "@/components/room/Room";
 import SideBarToggleButton from "@/components/Buttons/SideBarToggleButton";
-import CardOne from "@/components/card/info/CardOne";
 import { APP_NAME } from "@/lib/constants";
 import Logo from "@/components/Icons/Logo";
+import InfoCard from "@/components/card/info/InfoCard";
 
 export default function Home() {
   return (
@@ -26,17 +26,17 @@ export default function Home() {
       <section className="flex w-full overflow-hidden ">
         <Room />
         <section className="cardContainer  mr-5 mt-7 flex h-[calc(100vh-130px)] w-fit shrink-0 flex-col gap-3 overflow-hidden  max-[850px]:hidden">
-          <CardOne
+          <InfoCard
             header="🎉 Create and Share "
             content="Create your own room and start watching YouTube videos with friends."
             classNames=""
           />
-          <CardOne
+          <InfoCard
             header="👁️ Discover Rooms "
             classNames="bg-green-500"
             content="Explore public rooms and join the community in group viewings."
           />
-          <CardOne
+          <InfoCard
             classNames="bg-purple-500"
             header="🚀 Share the Experience "
             content="Invite friends to your room and enjoy videos together in real-time."
