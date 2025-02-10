@@ -3,6 +3,7 @@ import { Label } from "@/components/ui/label";
 import { FcGlobe, FcLock, FcConferenceCall } from "react-icons/fc";
 import { TfiInfoAlt } from "react-icons/tfi";
 import { Tab, TabContainer } from "../Tab/Tab";
+import { motion, AnimatePresence } from "framer-motion";
 
 const RoomType = ({
   setRoomDetails,
@@ -59,23 +60,34 @@ const RoomType = ({
           <p className="text-xs text-paragraph-secondary">Private</p>
         </Tab>
       </TabContainer>
-      <div className="ml-2 mt-5  flex items-center gap-2">
-        <TfiInfoAlt className="text-sm text-Header-primary" />
-        {activeTab === 0 && (
-          <p className="  text-sm text-paragraph-secondary">
-            Anyone can join the room.
-          </p>
-        )}
-        {activeTab === 1 && (
-          <p className=" text-sm text-paragraph-secondary">
-            Only people you follow and who follow you can join the room.
-          </p>
-        )}
-        {activeTab === 2 && (
-          <p className=" text-sm text-paragraph-secondary">
-            People can only join if you accept their join request.
-          </p>
-        )}
+      <div className="pl-2 mt-5 bg-neutral-700 bg-opacity-60 border-neutral-700  border py-2  px-2 flex rounded-md  gap-2">
+        <TfiInfoAlt className="text-[14px] mt-[3px]   block float-left text-Header-primary flex-shrink-0" />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden "
+          >
+            {activeTab === 0 && (
+              <p className="  text-sm font-medium text-paragraph-secondary">
+                Anyone can join the room.
+              </p>
+            )}
+            {activeTab === 1 && (
+              <p className=" text-sm font-medium text-paragraph-secondary">
+                Only people you follow and who follow you can join the room.
+              </p>
+            )}
+            {activeTab === 2 && (
+              <p className="  text-sm font-medium text-paragraph-secondary">
+                People can only join if you accept their join request.
+              </p>
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
