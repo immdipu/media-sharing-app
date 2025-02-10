@@ -62,7 +62,9 @@ const RoomType = ({
       </TabContainer>
       <div className="pl-2 mt-5 bg-neutral-700 bg-opacity-60 border-neutral-700  border py-2  px-2 flex rounded-md  gap-2">
         <TfiInfoAlt className="text-[14px] mt-[3px]   block float-left text-Header-primary flex-shrink-0" />
-        <AnimatePresence mode="wait">
+        <AnimatePresence
+        initial={false}
+        mode="wait">
           <motion.div
             key={activeTab}
             initial={{ height: 0, opacity: 0 }}
@@ -70,6 +72,8 @@ const RoomType = ({
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="overflow-hidden "
+         
+          
           >
             {activeTab === 0 && (
               <p className="  text-sm font-medium text-paragraph-secondary">
